@@ -20,7 +20,7 @@ import entities.User;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	@EJB(lookup="java:global/BooKKing-Server-ear/BooKKing-Server-ejb/UserBean!beans.UserBean")
+	@EJB(lookup="java:global/BooKKinG-Server-ear/BooKKinG-Server-ejb/UserBean!beans.UserBean")
 	private UserBean userBean;
        
     /**

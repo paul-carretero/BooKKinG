@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd" version="7">
+<application xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd" version="7">
   <display-name>BooKKinG-Server-ear</display-name>
+  <module>
+    <web>
+      <web-uri>BooKKinG-Server-web.war</web-uri>
+      <context-root>/BooKKinG-Server-web</context-root>
+    </web>
+  </module>
   <module>
     <ejb>BooKKinG-Server-ejb.jar</ejb>
   </module>

@@ -25,7 +25,8 @@
          data source, this example data source is just for development and testing! -->
       <!-- The datasource is deployed as <EAR>/META-INF/BooKKinG-Server-ds.xml, you
          can find it in the source at ear/src/main/application/META-INF/BooKKinG-Server-ds.xml -->
-      <jta-data-source>java:jboss/datasources/BooKKinG-ServerDS</jta-data-source>
+      <jta-data-source>java:jboss/datasources/MySqlDS</jta-data-source>
+      <class>entities.User</class>
       <properties>
          <!-- Properties for Hibernate -->
          <property name="hibernate.hbm2ddl.auto" value="create-drop" />
