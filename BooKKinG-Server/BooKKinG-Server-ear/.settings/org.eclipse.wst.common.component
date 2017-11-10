@@ -2,9 +2,6 @@
     <wb-module deploy-name="BooKKinG-Server-ear">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
-        <dependent-module archiveName="BooKKinG-Server-web.war" deploy-path="/" handle="module:/resource/BooKKinG-Server-web/BooKKinG-Server-web">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="BooKKinG-Server-ejb.jar" deploy-path="/" handle="module:/resource/BooKKinG-Server-ejb/BooKKinG-Server-ejb">
             <dependency-type>uses</dependency-type>
         </dependent-module>
