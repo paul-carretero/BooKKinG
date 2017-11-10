@@ -20,12 +20,12 @@
    xsi:schemaLocation="
         http://xmlns.jcp.org/xml/ns/persistence
         http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-   <persistence-unit name="primary">
+   <persistence-unit name="com.mysql.jdbc">
       <!-- If you are running in a production environment, add a managed 
          data source, this example data source is just for development and testing! -->
       <!-- The datasource is deployed as <EAR>/META-INF/BooKKinG-Server-ds.xml, you
          can find it in the source at ear/src/main/application/META-INF/BooKKinG-Server-ds.xml -->
-      <jta-data-source>java:jboss/datasources/MySqlDS</jta-data-source>
+      <jta-data-source>java:/MySqlDS</jta-data-source>
       <class>entities.User</class>
       <properties>
          <!-- Properties for Hibernate -->

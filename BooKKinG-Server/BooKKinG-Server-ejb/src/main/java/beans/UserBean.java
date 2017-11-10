@@ -16,7 +16,7 @@ import entities.User;
 @LocalBean
 public class UserBean implements UserBeanLocal {
 
-	@PersistenceContext(unitName="primary")
+	@PersistenceContext()
     private EntityManager manager;
 	
     /**
