@@ -1,0 +1,17 @@
+<h3>
+  Panier 
+</h3>
+
+
+<div>
+<ul>
+  <li *ngFor="let livre of listeLivre;"> {{livre.genre}} / {{livre.titre}} - {{livre.auteur}} : {{livre.prix}} euros</li>
+</ul>
+</div>
+
+
+
+<div>
+  <input type="button" (click)="payerAvecAdresse()" value="Saisir Adresse de livraison">
+  <input type="button" (click)="payerPointCollecte()" value="Choisir un point de retrait">
+</div>

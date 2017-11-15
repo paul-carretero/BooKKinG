@@ -1,0 +1,24 @@
+
+
+<div *ngIf= client.id>
+{{client.identifiant}} est connecté
+</div>
+
+
+<div>
+<form >
+  <div>
+      <span>Identifiant:</span>
+      <span><input type="text" name="identifiant" id="identifiant" [(ngModel)]="client.identifiant"></span>
+  </div>
+  <div>
+    <span>Mot de passe:</span>
+    <span><input type="text" name="mdp" id="mdp" [(ngModel)]="client.mdp"></span>
+  </div>
+  <div>
+      <input type="button" (click)="connection()" value="Se connecter">
+  </div>
+</form>
+</div>
+
+  
