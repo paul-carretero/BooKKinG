@@ -1,8 +1,8 @@
 {
 "/": {
-"target":"http://localhost:8080",
+"target":"http://192.168.43.58:8080/BooKKinG-Server-web",
 "secure": false,
-"pathRewrite": { "^/livres": "/livres" },
+"pathRewrite": {"^/Login" :"/Login"},
 "changeOrigin": true,
 "logLevel": "debug"
 }

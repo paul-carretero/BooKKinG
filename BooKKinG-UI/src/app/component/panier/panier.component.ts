@@ -13,12 +13,12 @@ import { Client } from '../../model/client';
 export class PanierComponent implements OnInit {
 
   listeLivre : Livre[] =[];
-  client : Client = {identifiant:'', mdp:''};
+ // client : Client = {identifiant:'', mdp:''};
   constructor() { }
 
 
   ngOnInit() {
-    console.log("panier du client : "+ this.client.identifiant);
+   // console.log("panier du client : "+ this.client.identifiant);
     this.listeLivre = this.contenuPanier();
     //this.listeLivre = this.service.liste;
   }

@@ -9,11 +9,11 @@
 <form >
   <div>
       <span>Identifiant:</span>
-      <span><input type="text" name="identifiant" id="identifiant" [(ngModel)]="client.identifiant"></span>
+      <span><input type="text" name="identifiant" id="identifiant" [(ngModel)]="client.email"></span>
   </div>
   <div>
     <span>Mot de passe:</span>
-    <span><input type="text" name="mdp" id="mdp" [(ngModel)]="client.mdp"></span>
+    <span><input type="text" name="mdp" id="mdp" [(ngModel)]="client.password"></span>
   </div>
   <div>
       <input type="button" (click)="connection()" value="Se connecter">

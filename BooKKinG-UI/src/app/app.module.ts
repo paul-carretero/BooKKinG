@@ -14,6 +14,7 @@ import { LivreComponent } from './component/livre/livre.component';
 import { LivresListComponent } from './component/livres-list/livres-list.component';
 import { ConnectionComponent } from './composant/connection/connection.component';
 import { CompteClientComponent } from './component/compte-client/compte-client.component';
+import { Http, HttpModule } from '@angular/http';
 
 
 
@@ -49,7 +50,8 @@ export const appRoutes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes, {useHash : true}),
-    FormsModule
+    FormsModule, 
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
