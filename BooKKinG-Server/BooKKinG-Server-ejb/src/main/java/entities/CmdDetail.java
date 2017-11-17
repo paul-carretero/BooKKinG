@@ -18,12 +18,14 @@ public class CmdDetail implements Serializable {
 	private static final long serialVersionUID = 4664536675074750961L;
 
 	@Id
-	@Column(name="idCmd")
-	private Integer idCmd;
-	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idCmd")
+	private Command command;
+
 	@Id
-	@Column(name="idBook")
-	private Integer idBook;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idBook")
+	private Book book;
 	
 	@Column(name="amount")
 	private Integer amount;

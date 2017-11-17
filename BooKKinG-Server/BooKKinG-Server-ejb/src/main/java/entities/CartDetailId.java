@@ -8,18 +8,16 @@ public class CartDetailId implements Serializable{
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = -6908277166100646567L;
-	public Integer idUser;
-	public Integer idBook;
-	
+	public Integer user;
+	public Integer book;
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.idBook == null) ? 0 : this.idBook.hashCode());
-		result = prime * result + ((this.idUser == null) ? 0 : this.idUser.hashCode());
+		result = prime * result + ((book == null) ? 0 : book.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -29,16 +27,20 @@ public class CartDetailId implements Serializable{
 		if (!(obj instanceof CartDetailId))
 			return false;
 		CartDetailId other = (CartDetailId) obj;
-		if (this.idBook == null) {
-			if (other.idBook != null)
+		if (book == null) {
+			if (other.book != null)
 				return false;
-		} else if (!this.idBook.equals(other.idBook))
+		} else if (!book.equals(other.book))
 			return false;
-		if (this.idUser == null) {
-			if (other.idUser != null)
+		if (user == null) {
+			if (other.user != null)
 				return false;
-		} else if (!this.idUser.equals(other.idUser))
+		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}
+	
+	
+	
+
 }

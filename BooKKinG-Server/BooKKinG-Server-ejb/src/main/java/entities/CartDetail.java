@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 /**
@@ -12,22 +13,26 @@ import javax.persistence.*;
 
 public class CartDetail implements Serializable {
 
-	
-	private static final long serialVersionUID = 1L;
-	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 3660254030963323536L;
+
 	@Id
-	@Column(name="idUser")
-	private Integer idUser;
-	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idUser")
+	private User user;
+
 	@Id
-	@Column(name="idBook")
-	private Integer idBook;
-	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idBook")
+	private Book book;
+
 	@Column(name="amount")
 	private Integer amount;
 
 	public CartDetail() {
 		super();
 	}
-   
+
 }

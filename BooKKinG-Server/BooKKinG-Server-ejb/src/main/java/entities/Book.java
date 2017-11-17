@@ -21,7 +21,7 @@ public class Book implements Serializable {
 	@Id
 	@Column(name="idBook")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer idUser;
+	private Integer idBook;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="genre")

@@ -63,6 +63,7 @@ public class Login extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("<1>");
 		String requestBody = request.getReader().lines().collect(Collectors.joining());
 		HttpSession session = request.getSession();
 		UserJson data = (UserJson) AbstractJson.fromJson(requestBody, UserJson.class);
@@ -80,6 +81,7 @@ public class Login extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("<2>");
 		HttpSession session = request.getSession();
 		Gson gson = new GsonBuilder().create();
 		boolean res = false;

@@ -10,7 +10,6 @@ public class Helper {
 	public static String getEncodedPwd(final String password, final String salt)
 	{
 		String toHash = password + salt;
-		System.out.println("hash = " + toHash);
 		MessageDigest messageDigest;
 		try {
 			messageDigest = MessageDigest.getInstance("SHA-256");
