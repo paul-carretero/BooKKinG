@@ -1,9 +1,0 @@
-{
-"/": {
-"target":"http://192.168.43.58:8080/BooKKinG-Server-web",
-"secure": false,
-"pathRewrite": {"^/Login" :"/Login"},
-"changeOrigin": true,
-"logLevel": "debug"
-}
-}
