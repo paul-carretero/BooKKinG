@@ -45,7 +45,7 @@ public class User extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		if(HttpHelper.checkAuth(request, response)) {
 			UserEntItf uItf = this.userBean.getUser(HttpHelper.getIdUser(request));
 			UserJsonItf res = new UserJson(uItf.getName(), uItf.getEmail(), uItf.getAddress());
@@ -58,7 +58,7 @@ public class User extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 		if(this.userBean.createUser(data)) {
@@ -75,7 +75,7 @@ public class User extends HttpServlet {
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
 	@Override
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		if(HttpHelper.checkAuth(request, response)) {
 			UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 			this.userBean.updateUser(HttpHelper.getIdUser(request),data);

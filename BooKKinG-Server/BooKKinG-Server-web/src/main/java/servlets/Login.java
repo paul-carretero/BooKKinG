@@ -66,7 +66,7 @@ public class Login extends HttpServlet {
 		session.removeAttribute("idUser"); // logout
 	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 		if(this.userBean.tryLogin(data)) {
@@ -79,7 +79,7 @@ public class Login extends HttpServlet {
 		}
 	}
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("idUser") != null) {
 			response.getWriter().append(new GenericResponseJson().toString());

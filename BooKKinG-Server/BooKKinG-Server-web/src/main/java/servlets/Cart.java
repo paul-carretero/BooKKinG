@@ -42,7 +42,7 @@ public class Cart extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		if(HttpHelper.checkAuth(request, response)) {
 			CartJsonResponse res = new CartJsonResponse();
 			this.cartBean.getCart(HttpHelper.getIdUser(request), res);
@@ -55,7 +55,7 @@ public class Cart extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		if(HttpHelper.checkAuth(request, response)) {
 			CartJson data = (CartJson) AbstractJson.fromJson(request, CartJson.class);
 			for(CartItemJsonItf entry : data.getItems()) {
@@ -70,7 +70,7 @@ public class Cart extends HttpServlet {
 	 * @see HttpServlet#doPut(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		if(HttpHelper.checkAuth(request, response)) {
 			CartItemJson data = (CartItemJson) AbstractJson.fromJson(request, CartItemJson.class);
 			this.cartBean.setQuantity(HttpHelper.getIdUser(request), data);
@@ -83,7 +83,7 @@ public class Cart extends HttpServlet {
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
 	@Override
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doDelete(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		if(HttpHelper.checkAuth(request, response)) {
 			this.cartBean.clearCart(HttpHelper.getIdUser(request));
 			response.getWriter().append(new GenericResponseJson(true).toString());

@@ -21,7 +21,7 @@ public class HttpHelper {
 	 * @param uri uri requested par le client par exemple "/BooKKinG-Server-web/Login/somedatahere/"
 	 * @return les données éventuelle, par exemple "somedatahere"
 	 */
-	public static String extractDataFromGet(String servletName, String uri) {
+	public static String extractDataFromGet(final String servletName, final String uri) {
 		if(uri.indexOf(servletName) + servletName.length() == uri.length()) {
 			return "";
 		}
@@ -32,7 +32,7 @@ public class HttpHelper {
 		return data.substring(0,data.length()-1);
 	}
 	
-	public static boolean checkAuth(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public static boolean checkAuth(final HttpServletRequest request, final HttpServletResponse response) throws IOException{
 		HttpSession session = request.getSession();
 		if(session.getAttribute("idUser") == null) {
 			response.getWriter().append(new GenericResponseJson(false,"vous n'êtes pas connecté").toString());
@@ -41,7 +41,7 @@ public class HttpHelper {
 		return true;
 	}
 	
-	public static Integer getIdUser(HttpServletRequest request) {
+	public static Integer getIdUser(final HttpServletRequest request) {
 		return (Integer) request.getSession().getAttribute("idUser");
 	}
 

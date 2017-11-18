@@ -41,7 +41,7 @@ public class Command extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		if(HttpHelper.checkAuth(request, response)) {
 			String stringReq = HttpHelper.extractDataFromGet(NAME, request.getRequestURI());
 			if(stringReq.length() == 0) {
@@ -62,7 +62,7 @@ public class Command extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		if(HttpHelper.checkAuth(request, response)) {
 			this.commandBean.proceedCartCheckout(HttpHelper.getIdUser(request));
 			response.getWriter().append(new GenericResponseJson(true).toString());

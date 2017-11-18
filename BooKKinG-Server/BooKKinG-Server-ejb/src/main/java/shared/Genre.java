@@ -1,5 +1,7 @@
 package shared;
 
 public enum Genre {
-	DEFAULT;
+	GENRE1,
+	GENRE2,
+	GENRE3;
 }

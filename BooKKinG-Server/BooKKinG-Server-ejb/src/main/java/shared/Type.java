@@ -1,5 +1,7 @@
 package shared;
 
 public enum Type {
-	DEFAULT;
+	DEFAULT,
+	JCVD,
+	ANY;
 }
