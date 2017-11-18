@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import JsonItf.CartItemJsonItf;
 import JsonItf.CartJsonResponseItf;
 import entities.CartDetailEntity;
+import entities.CartDetailId;
 
 /**
  * Session Bean implementation class CartBean
@@ -23,8 +24,14 @@ public class CartBean implements CartBeanLocal {
 	@PersistenceContext()
 	private EntityManager manager;
 	
+	/**
+	 * Bean User pour gestion des operations metiers sur un utilisateur
+	 */
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/UserBean!beans.UserBeanLocal")
 	UserBeanLocal user;
+	
+	@EJB(lookup="java:app/BooKKinG-Server-ejb/BookBean!beans.BookBeanLocal")
+	BookBeanLocal book;
 	
     /**
      * Default constructor. 
@@ -34,30 +41,26 @@ public class CartBean implements CartBeanLocal {
 	@Override
 	@Asynchronous
 	public void clearCart(final Integer idUser) {
-		this.manager.createQuery("DELETE FROM CartDetail WHERE idUser=:idUser")
-		.setParameter("idUser", idUser)
-		.executeUpdate();
+		List<CartDetailEntity> toDelete = this.user.getUser(idUser).getCart();
+		
+		for(CartDetailEntity entry : toDelete) {
+			this.manager.remove(entry);
+		}
 	}
 
 	@Override
 	@Asynchronous
 	public void setQuantity(final Integer idUser, final CartItemJsonItf data) {
-		if(data.getQuantity() <= 0) {
-			this.manager.createQuery("DELETE FROM CartDetail WHERE idUser=:idUser AND idBook=:idBook")
-			.setParameter("idUser", idUser)
-			.setParameter("amount", data.getQuantity())
-			.setParameter("idBook", data.getIdBook())
-			.executeUpdate();
+		CartDetailEntity toUpdate = this.manager.find(CartDetailEntity.class, new CartDetailId(idUser,data.getIdBook()));
+		if(data.getQuantity() <= 0 && toUpdate != null) {
+			this.manager.remove(toUpdate);
 		}
-		else {
-			this.manager.createQuery(
-					"INSERT INTO CartDetail(idBook, idUser, quantity) VALUES(:idBook, :idUser, :quantity)"
-					+"ON DUPLICATE KEY UPDATE CartDetail SET quantity=:quantity  WHERE idUser=:idUser AND idBook=:idBook"
-					)
-			.setParameter("idUser", idUser)
-			.setParameter("amount", data.getQuantity())
-			.setParameter("idBook", data.getIdBook())
-			.executeUpdate();
+		else if(toUpdate == null && data.getQuantity() > 0) {
+			toUpdate = new CartDetailEntity(this.user.getUser(idUser), this.book.getBook(data.getIdBook()), data.getQuantity());
+			this.manager.persist(toUpdate);
+		}
+		else if(toUpdate != null && data.getQuantity() > 0){
+			toUpdate.setQuantity(data.getQuantity());
 		}
 	}
 

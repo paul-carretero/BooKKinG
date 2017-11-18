@@ -22,7 +22,13 @@ public class HttpHelper {
 	 * @return les données éventuelle, par exemple "somedatahere"
 	 */
 	public static String extractDataFromGet(String servletName, String uri) {
+		if(uri.indexOf(servletName) + servletName.length() == uri.length()) {
+			return "";
+		}
 		String data = uri.substring(uri.indexOf(servletName) + servletName.length()+1);
+		if(data.length() == 0) {
+			return "";
+		}
 		return data.substring(0,data.length()-1);
 	}
 	

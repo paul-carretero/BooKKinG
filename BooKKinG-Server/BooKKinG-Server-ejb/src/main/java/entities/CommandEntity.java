@@ -29,7 +29,7 @@ public class CommandEntity implements Serializable, CommandEntItf {
 	@Column(name="date")
 	private Date date;
 	
-	@OneToMany(mappedBy="command", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="command", fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<CmdDetailEntity> cmdDetails;
 	
 	/**

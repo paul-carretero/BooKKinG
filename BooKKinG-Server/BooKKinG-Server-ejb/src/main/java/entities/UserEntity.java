@@ -37,10 +37,10 @@ public class UserEntity implements UserEntItf {
 	@Column(name="password")
 	private String password;
 	
-	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="user", fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<CartDetailEntity> cart;
 	
-	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="user", fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<CommandEntity> commands;
 	
 	/**

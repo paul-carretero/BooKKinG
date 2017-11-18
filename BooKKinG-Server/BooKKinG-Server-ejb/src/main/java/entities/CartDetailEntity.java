@@ -43,11 +43,11 @@ public class CartDetailEntity implements Serializable, CartDetailEntItf {
 	 * @param book
 	 * @param amount
 	 */
-	public CartDetailEntity(UserEntity user, BookEntity book, Integer amount) {
+	public CartDetailEntity(UserEntity user, BookEntity book, Integer quantity) {
 		super();
 		this.user		= user;
 		this.book		= book;
-		this.quantity	= amount;
+		this.quantity	= quantity;
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class CartDetailEntity implements Serializable, CartDetailEntItf {
 		this.book = book;
 	}
 
-	public void setAmount(Integer amount) {
+	public void setQuantity(Integer amount) {
 		this.quantity = amount;
 	}
 

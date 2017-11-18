@@ -18,6 +18,16 @@ public class CartItemJson  extends AbstractJson implements CartItemJsonItf {
 		super();
 	}
 
+	/**
+	 * @param idBook
+	 * @param quantity
+	 */
+	public CartItemJson(int idBook, int quantity) {
+		super();
+		this.idBook = idBook;
+		this.quantity = quantity;
+	}
+
 	@Override
 	public Integer getIdBook() {
 		return idBook;

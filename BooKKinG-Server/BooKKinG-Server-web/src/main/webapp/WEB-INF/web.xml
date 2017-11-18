@@ -47,7 +47,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Command</servlet-name>
-    <url-pattern>/Command</url-pattern>
+    <url-pattern>/Command/*</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

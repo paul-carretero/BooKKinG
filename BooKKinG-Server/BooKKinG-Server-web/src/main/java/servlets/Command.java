@@ -12,7 +12,6 @@ import beans.CommandBeanLocal;
 import response.CommandJson;
 import response.CommandListJson;
 import response.GenericResponseJson;
-import shared.AbstractJson;
 import shared.HttpHelper;
 
 /**

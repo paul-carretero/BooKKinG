@@ -1,5 +1,7 @@
 package beans;
 
+import java.util.List;
+
 import javax.ejb.Asynchronous;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -28,20 +30,20 @@ public class UserBean implements UserBeanLocal {
 
 	@Override
 	public UserEntItf getUser(final String email){
-		UserEntity user = (UserEntity) this.manager.createQuery(
-				" FROM User u WHERE u.email=:email")
+		List<UserEntity> users = this.manager.createQuery(
+				" FROM UserEntity u WHERE u.email=:email")
 				.setParameter("email", email)
-				.getSingleResult();
-		return user;
+				.setMaxResults(1)
+				.getResultList();
+		if(users.isEmpty()) {
+			return null;
+		}
+		return users.get(0);
 	}
 
 	@Override
 	public UserEntity getUser(final int idUser){
-		UserEntity user = (UserEntity) this.manager.createQuery(
-				" FROM User u WHERE u.idUser=:idUser")
-				.setParameter("idUser", idUser)
-				.getSingleResult();
-		return user;
+		return this.manager.find(UserEntity.class, idUser);
 	}
 
 	@Override
@@ -76,6 +78,5 @@ public class UserBean implements UserBeanLocal {
 		u.setAddress(data.getAddress());
 		u.setName(data.getName());
 		u.setPassword(data.getPassword());
-		this.manager.persist(u);
 	}
 }

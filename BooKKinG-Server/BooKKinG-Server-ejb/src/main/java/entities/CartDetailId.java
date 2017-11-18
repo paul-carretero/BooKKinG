@@ -11,6 +11,20 @@ public class CartDetailId implements Serializable{
 	public Integer user;
 	public Integer book;
 	
+	/**
+	 * @param user
+	 * @param book
+	 */
+	public CartDetailId(Integer user, Integer book) {
+		super();
+		this.user = user;
+		this.book = book;
+	}
+	
+	public CartDetailId() {
+		super();
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -19,7 +33,7 @@ public class CartDetailId implements Serializable{
 		result = prime * result + ((this.user == null) ? 0 : this.user.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

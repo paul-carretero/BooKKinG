@@ -32,6 +32,9 @@ public class Login extends HttpServlet {
 	@EJB(lookup="java:global/BooKKinG-Server-ear/BooKKinG-Server-ejb/UserBean!beans.UserBeanLocal")
 	private UserBeanLocal userBean;
        
+	/**
+	 * Default constructor
+	 */
     public Login() {
         super();
     }

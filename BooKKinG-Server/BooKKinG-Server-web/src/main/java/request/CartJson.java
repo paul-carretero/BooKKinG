@@ -17,6 +17,10 @@ public class CartJson extends AbstractJson implements CartJsonItf {
 		super();
 	}
 	
+	public CartJson(CartItemJson[] items) {
+		this.items = items;
+	}
+
 	@Override
 	public CartItemJsonItf[] getItems() {
 		return this.items;

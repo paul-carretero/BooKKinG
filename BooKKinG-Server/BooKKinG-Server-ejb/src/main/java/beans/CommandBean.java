@@ -60,7 +60,7 @@ public class CommandBean implements CommandBeanLocal {
     @Override
     public void getCommand(final Integer idCmd, final CommandJsonItf response) {
     	CommandEntity command = (CommandEntity) this.manager.createQuery(
-				" FROM Command c WHERE c.idCmd=:idCmd")
+				" FROM CommandEntity c WHERE c.idCmd=:idCmd")
 				.setParameter("idCmd", idCmd)
 				.getSingleResult();
     	response.setDate(command.getDate());
