@@ -29,7 +29,7 @@ export class ConnectionComponent implements OnInit {
     
     //public connection(){
     //let connect = this.http.get(`http://Server-web/Login`);
-    let connect = this.http.get(`http://192.168.43.58:8080/BooKKinG-Server-web/Login`);
+    let connect = this.http.get(`http://192.168.43.58:8080/BooKKinG-Server-web/Login`).subscribe();
     
     //let connect = this.http.post(`http://192.168.43.58:8080/BooKKinG-Server-web/Login`, this.client);
     
