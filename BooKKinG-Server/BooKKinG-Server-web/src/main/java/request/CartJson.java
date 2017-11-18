@@ -1,29 +1,42 @@
 package request;
 
+import JsonItf.CartJsonItf;
 import shared.AbstractJson;
 
-public class CartJson  extends AbstractJson {
+public class CartJson  extends AbstractJson implements CartJsonItf {
 	
 	/**
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 2131990500946912748L;
+
+	private Integer idBook;
 	
-	/**
-	 * Integer[n][2] première colone : id book, seconde quantité
-	 */
-	protected Integer[][] BooksQuantity;
+	private Integer quantity;
 
 	public CartJson() {
 		super();
 	}
 
 	/**
-	 * @param BooksQuantity
+	 * @param idBook
+	 * @param quantity
 	 */
-	public CartJson(Integer[][] BooksQuantity) {
+	public CartJson(Integer idBook, Integer quantity) {
 		super();
-		this.BooksQuantity = BooksQuantity;
+		this.idBook = idBook;
+		this.quantity = quantity;
 	}
+
+	@Override
+	public Integer getIdBook() {
+		return idBook;
+	}
+
+	@Override
+	public Integer getQuantity() {
+		return quantity;
+	}
+
 
 }

@@ -19,6 +19,10 @@ public class BookListJson extends AbstractJson {
 		this.bookList = bookList;
 	}
 
-	
-
+	/**
+	 * @return the bookList
+	 */
+	public BookJson[] getBookList() {
+		return this.bookList;
+	}
 }

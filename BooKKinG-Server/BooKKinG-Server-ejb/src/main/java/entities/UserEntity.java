@@ -2,14 +2,15 @@ package entities;
 
 import javax.persistence.*;
 
-import localItf.UserItf;
+import localItf.UserEntItf;
+import shared.Helper;
 
 /**
  * Entity implementation class for Entity: User
  */
 @Entity @Table(name="user")
 
-public class User implements UserItf {
+public class UserEntity implements UserEntItf {
 
 
 	/**
@@ -37,7 +38,7 @@ public class User implements UserItf {
 	/**
 	 * default constructor
 	 */
-	public User() {}
+	public UserEntity() {}
 
 	/**
 	 * @param name
@@ -45,14 +46,15 @@ public class User implements UserItf {
 	 * @param email
 	 * @param password
 	 */
-	public User(final String name, final String address, final String email, final String password) {
+	public UserEntity(final String name, final String address, final String email, final String password) {
 		super();
-		this.name = name;
-		this.address = address;
-		this.email = email;
-		this.password = password;
+		this.name		= name;
+		this.address 	= address;
+		this.email 		= email;
+		this.password 	= Helper.getEncodedPwd(password, this.email);
 	}
 	
+	@Override
 	public Integer getId() {
 		return this.idUser;
 	}
@@ -78,24 +80,24 @@ public class User implements UserItf {
 		return this.password;
 	}
 
-	public void setIdUser(Integer idUser) {
+	public void setIdUser(final Integer idUser) {
 		this.idUser = idUser;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(final String address) {
 		this.address = address;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
 		this.email = email;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(final String password) {
+		this.password = Helper.getEncodedPwd(password, this.email);
 	}
    
 }

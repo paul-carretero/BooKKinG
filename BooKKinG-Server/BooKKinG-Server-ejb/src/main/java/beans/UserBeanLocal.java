@@ -2,15 +2,18 @@ package beans;
 
 import javax.ejb.Local;
 
-import localItf.UserItf;
+import JsonItf.UserJsonItf;
+import localItf.UserEntItf;
 
 @Local
 public interface UserBeanLocal {
-	public void createUser(UserItf user);
+	public boolean createUser(UserJsonItf user);
 	
-	public boolean tryLogin(UserItf user);
+	public boolean tryLogin(UserJsonItf user);
 	
-	public UserItf getUser(int id);
+	public UserEntItf getUser(int id);
 	
-	public UserItf getUser(String email);
+	public UserEntItf getUser(String email);
+	
+	public void updateUser(Integer attribute, UserJsonItf data);
 }

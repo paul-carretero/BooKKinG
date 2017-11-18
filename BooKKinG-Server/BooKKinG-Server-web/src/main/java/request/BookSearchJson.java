@@ -67,4 +67,29 @@ public class BookSearchJson extends AbstractJson {
 		this.genres = genres;
 		this.types = types;
 	}
+	
+	public String getTitle() {
+		return this.title;
+	}
+
+	public String getAuthor() {
+		return this.author;
+	}
+
+	public Integer getMaxPrice() {
+		return this.maxPrice;
+	}
+
+	public Integer getMinPrice() {
+		return this.minPrice;
+	}
+
+	public Type getTypes() {
+		return this.types;
+	}
+
+	public Genre[] getGenres() {
+		return this.genres;
+	}
+
 }

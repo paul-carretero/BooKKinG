@@ -10,10 +10,15 @@ public class Command extends CartJsonResponse {
 	/**
 	 * Date de la commande
 	 */
+	@SuppressWarnings("unused")
 	private String date;
 
-	public Command(Integer[][] tc, BookListJson books, String date) {
-		super(tc, books);
+	/**
+	 * @param numberOfEntries
+	 * @param books
+	 */
+	public Command(int numberOfEntries, BookListJson books, String date) {
+		super(numberOfEntries, books);
 		this.date = date;
 	}
 }

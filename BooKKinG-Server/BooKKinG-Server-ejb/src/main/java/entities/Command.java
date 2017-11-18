@@ -17,8 +17,9 @@ public class Command implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer idCmd;
 	
-	@Column(name="idUser")
-	private Integer idUser;
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idUser")
+	private UserEntity user;
 	
 	@Column(name="date")
 	private java.sql.Date date;

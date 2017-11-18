@@ -1,9 +1,9 @@
 package request;
 
-import localItf.UserItf;
+import JsonItf.UserJsonItf;
 import shared.AbstractJson;
 
-public class UserJson extends AbstractJson implements UserItf{
+public class UserJson extends AbstractJson implements UserJsonItf{
 
 	/**
 	 * serialVersionUID

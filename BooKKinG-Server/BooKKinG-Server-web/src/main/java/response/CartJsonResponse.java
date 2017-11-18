@@ -1,8 +1,8 @@
 package response;
 
-import request.CartJson;
+import shared.AbstractJson;
 
-public class CartJsonResponse extends CartJson {
+public class CartJsonResponse extends AbstractJson {
 
 	/**
 	 * serialVersionUID
@@ -10,13 +10,19 @@ public class CartJsonResponse extends CartJson {
 	private static final long serialVersionUID = 6039853953724021342L;
 	
 	/**
+	 * Integer[n][2] première colone : id book, seconde quantité
+	 */
+	protected Integer[][] BooksQuantity;
+	
+	/**
 	 * Liste des livres du panier
 	 */
 	protected BookListJson books;
 	
-	public CartJsonResponse(Integer[][] tc, BookListJson books) {
-		super(tc);
-		this.books = books;
+	public CartJsonResponse(int numberOfEntries, BookListJson books) {
+		super();
+		this.books 			= books;
+		this.BooksQuantity 	= new Integer[numberOfEntries][2];
 	}
 
 

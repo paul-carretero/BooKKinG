@@ -21,18 +21,54 @@ public class CartDetail implements Serializable {
 	@Id
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idUser")
-	private User user;
+	private UserEntity user;
 
 	@Id
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idBook")
 	private Book book;
 
-	@Column(name="amount")
-	private Integer amount;
+	@Column(name="quantity")
+	private Integer quantity;
 
 	public CartDetail() {
 		super();
+	}
+	
+	/**
+	 * @param user
+	 * @param book
+	 * @param amount
+	 */
+	public CartDetail(UserEntity user, Book book, Integer amount) {
+		super();
+		this.user = user;
+		this.book = book;
+		this.quantity = amount;
+	}
+
+	public UserEntity getUser() {
+		return this.user;
+	}
+
+	public Book getBook() {
+		return this.book;
+	}
+
+	public Integer getAmount() {
+		return this.quantity;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
+	public void setAmount(Integer amount) {
+		this.quantity = amount;
 	}
 
 }

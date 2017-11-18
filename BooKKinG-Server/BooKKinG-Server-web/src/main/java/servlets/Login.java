@@ -14,9 +14,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import beans.UserBean;
-import entities.User;
-import localItf.UserItf;
+import beans.UserBeanLocal;
+import entities.UserEntity;
+import localItf.UserEntItf;
 import request.UserJson;
+import response.GenericResponseJson;
 import shared.AbstractJson;
 import shared.HttpHelper;
 
@@ -29,7 +31,7 @@ public class Login extends HttpServlet {
 	private static final String NAME = "Login";
 	
 	@EJB(lookup="java:global/BooKKinG-Server-ear/BooKKinG-Server-ejb/UserBean!beans.UserBean")
-	private UserBean userBean;
+	private UserBeanLocal userBean;
        
     public Login() {
         super();
@@ -63,32 +65,26 @@ public class Login extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("<1>");
-		String requestBody = request.getReader().lines().collect(Collectors.joining());
 		HttpSession session = request.getSession();
-		UserJson data = (UserJson) AbstractJson.fromJson(requestBody, UserJson.class);
-		UserJson res;
+		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 		if(this.userBean.tryLogin(data)) {
-			UserItf uItf = this.userBean.getUser(data.getEmail());
-			res = new UserJson(uItf.getName(), uItf.getEmail(), uItf.getAddress());
 			session.setAttribute( "idUser", this.userBean.getUser(data.getEmail()).getId());
+			response.getWriter().append(new GenericResponseJson().toString());
 		}
 		else {
 			session.removeAttribute("idUser");
-			res = new UserJson();
+			response.getWriter().append(new GenericResponseJson(false,"echec de l'authentification").toString());
 		}
-		response.getWriter().append(res.toString());
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("<2>");
 		HttpSession session = request.getSession();
-		Gson gson = new GsonBuilder().create();
-		boolean res = false;
 		if(session.getAttribute("idUser") != null) {
-			res = true;
+			response.getWriter().append(new GenericResponseJson().toString());
 		}
-		response.getWriter().append(gson.toJson(res));
+		else {
+			response.getWriter().append(new GenericResponseJson(false).toString());
+		}
 	}
 
 }

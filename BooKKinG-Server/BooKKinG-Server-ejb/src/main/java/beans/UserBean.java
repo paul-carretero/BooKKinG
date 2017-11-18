@@ -2,13 +2,15 @@ package beans;
 
 import java.util.List;
 
+import javax.ejb.Asynchronous;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import entities.User;
-import localItf.UserItf;
+import JsonItf.UserJsonItf;
+import entities.UserEntity;
+import localItf.UserEntItf;
 import shared.Helper;
 
 /**
@@ -27,8 +29,8 @@ public class UserBean implements UserBeanLocal {
 	public UserBean() {}
 
 	@Override
-	public User getUser(final String email){
-		List<User> users = this.manager.createQuery(
+	public UserEntItf getUser(final String email){
+		List<UserEntity> users = this.manager.createQuery(
 				" FROM User u WHERE u.email=:email")
 				.setParameter("email", email)
 				.setMaxResults(1)
@@ -38,10 +40,10 @@ public class UserBean implements UserBeanLocal {
 		}
 		return users.get(0);
 	}
-	
+
 	@Override
-	public UserItf getUser(final int id){
-		List<User> users = this.manager.createQuery(
+	public UserEntity getUser(final int id){
+		List<UserEntity> users = this.manager.createQuery(
 				" FROM User u WHERE u.idUser=:idUser")
 				.setParameter("idUser", id)
 				.setMaxResults(1)
@@ -53,24 +55,37 @@ public class UserBean implements UserBeanLocal {
 	}
 
 	@Override
-	public boolean tryLogin(final UserItf user) {
-		User userToCheck = getUser(user.getEmail());
+	public boolean tryLogin(final UserJsonItf data) {
+		UserEntItf userToCheck = getUser(data.getEmail());
 		if(userToCheck != null) {
-			String hashedPwd = Helper.getEncodedPwd(user.getPassword(), user.getEmail());
+			String hashedPwd = Helper.getEncodedPwd(data.getPassword(), data.getEmail());
 			return userToCheck.getPassword().equals(hashedPwd);
 		}
 		return false;
 	}
-	
+
 	@Override
-	public void createUser(final UserItf user) {
-		User newUser = new User(
+	public boolean createUser(final UserJsonItf user) {
+		if(getUser(user.getEmail()) != null) {
+			return false;
+		}
+		UserEntity newUser = new UserEntity(
 				user.getName(),
 				user.getAddress(),
 				user.getEmail(),
-				Helper.getEncodedPwd(user.getPassword(), user.getEmail())
-		);
+				user.getPassword()
+				);
 		this.manager.persist(newUser);
+		return true;
 	}
 
+	@Override
+	@Asynchronous
+	public void updateUser(Integer idUser, UserJsonItf data) {
+		UserEntity u = getUser(idUser);
+		u.setAddress(data.getAddress());
+		u.setName(data.getName());
+		u.setPassword(data.getPassword());
+		this.manager.persist(u);
+	}
 }

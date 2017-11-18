@@ -10,31 +10,31 @@ public class BookJson extends AbstractJson {
 	private static final long serialVersionUID = -1558650586696499087L;
 
 	@SuppressWarnings("unused")
-	private String genre;
+	private String genre = "";
 	
 	@SuppressWarnings("unused")
-	private String type;
+	private String type = "";
 	
 	@SuppressWarnings("unused")
-	private String author;
+	private String author = "";
 	
 	@SuppressWarnings("unused")
-	private Integer price;
+	private Integer price = 0;
 	
 	@SuppressWarnings("unused")
-	private String title;
+	private String title = "";
 	
 	@SuppressWarnings("unused")
-	private String picture;
+	private String picture = "";
 	
 	@SuppressWarnings("unused")
-	private String summary;
+	private String summary = "";
 	
 	@SuppressWarnings("unused")
-	private Integer idBook;
+	private Integer idBook = 0;
 	
 	@SuppressWarnings("unused")
-	private Integer stock;
+	private Integer stock = 0;
 
 	/**
 	 * @param price

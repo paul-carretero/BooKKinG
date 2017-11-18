@@ -19,14 +19,14 @@
 		<class>entities.Book</class>
 		<class>entities.CmdDetail</class>
 		<class>entities.Command</class>
-		<class>entities.User</class>
+		<class>entities.UserEntity</class>
 		<properties>
 			<!-- Properties for Hibernate -->
 			<property name="hibernate.show_sql" value="true" /> <!-- false en prod... -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/MySqlDS/" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/MySqlDS?useSSL=false" />
 			<property name="javax.persistence.jdbc.user" value="carretero" />
 			<property name="javax.persistence.jdbc.password" value="123" />
 		</properties>
