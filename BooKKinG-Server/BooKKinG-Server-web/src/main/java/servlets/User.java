@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.stream.Collectors;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -16,11 +15,15 @@ import localItf.UserEntItf;
 import request.UserJson;
 import response.GenericResponseJson;
 import shared.AbstractJson;
+import shared.HttpHelper;
 
 /**
  * Servlet implementation class User
  */
 public class User extends HttpServlet {
+	
+	@SuppressWarnings("unused")
+	private static final String NAME = "User";
        
     /**
 	 * serialVersionUID
@@ -43,13 +46,8 @@ public class User extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		Integer idUser = (Integer) session.getAttribute("idUser");
-		if(idUser == null) {
-			response.getWriter().append(new GenericResponseJson(false,"vous n'êtes pas connecté").toString());
-		}
-		else {
-			UserEntItf uItf = this.userBean.getUser(idUser);
+		if(HttpHelper.checkAuth(request, response)) {
+			UserEntItf uItf = this.userBean.getUser(HttpHelper.getIdUser(request));
 			UserJsonItf res = new UserJson(uItf.getName(), uItf.getEmail(), uItf.getAddress());
 			response.getWriter().append(res.toString());
 		}
@@ -64,7 +62,7 @@ public class User extends HttpServlet {
 		HttpSession session = request.getSession();
 		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 		if(this.userBean.createUser(data)) {
-			session.setAttribute( "idUser", this.userBean.getUser(data.getEmail()).getId());
+			session.setAttribute( "idUser", this.userBean.getUser(data.getEmail()).getIdUser());
 			response.getWriter().append(new GenericResponseJson(true).toString());
 		}
 		else {
@@ -78,15 +76,10 @@ public class User extends HttpServlet {
 	 */
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
-		if(session.getAttribute("idUser") != null) {
-			this.userBean.updateUser((Integer) session.getAttribute("idUser"),data);
+		if(HttpHelper.checkAuth(request, response)) {
+			UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
+			this.userBean.updateUser(HttpHelper.getIdUser(request),data);
 			response.getWriter().append(new GenericResponseJson(true).toString());
 		}
-		else {
-			response.getWriter().append(new GenericResponseJson(false,"vous n'êtes pas connecté").toString());
-		}
 	}
-
 }

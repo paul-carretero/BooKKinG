@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 import localItf.UserEntItf;
@@ -35,6 +37,12 @@ public class UserEntity implements UserEntItf {
 	@Column(name="password")
 	private String password;
 	
+	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+	private List<CartDetailEntity> cart;
+	
+	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+	private List<CommandEntity> commands;
+	
 	/**
 	 * default constructor
 	 */
@@ -55,7 +63,7 @@ public class UserEntity implements UserEntItf {
 	}
 	
 	@Override
-	public Integer getId() {
+	public Integer getIdUser() {
 		return this.idUser;
 	}
 
@@ -80,6 +88,16 @@ public class UserEntity implements UserEntItf {
 		return this.password;
 	}
 
+	@Override
+	public List<CartDetailEntity> getCart() {
+		return this.cart;
+	}
+	
+	@Override
+	public List<CommandEntity> getCommands() {
+		return this.commands;
+	}
+	
 	public void setIdUser(final Integer idUser) {
 		this.idUser = idUser;
 	}
@@ -98,6 +116,5 @@ public class UserEntity implements UserEntItf {
 
 	public void setPassword(final String password) {
 		this.password = Helper.getEncodedPwd(password, this.email);
-	}
-   
+	}   
 }

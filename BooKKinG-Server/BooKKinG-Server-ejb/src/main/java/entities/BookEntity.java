@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import localItf.BookEntItf;
 import shared.Genre;
 import shared.Type;
 
@@ -13,7 +14,7 @@ import shared.Type;
 @Entity
 @Table(name="Book")
 
-public class Book implements Serializable {
+public class BookEntity implements Serializable, BookEntItf {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -45,13 +46,60 @@ public class Book implements Serializable {
     private String picture;
 	
 	@Column(name="price")
-    private Integer price;
+    private Float price;
 	
 	@Column(name="stock")
     private Integer stock;
+	
+	@Column(name="title")
+    private String title;
 
-	public Book() {
+	public BookEntity() {
 		super();
 	}
+
+	@Override
+	public Integer getIdBook() {
+		return this.idBook;
+	}
+
+	@Override
+	public Genre getGenre() {
+		return this.genre;
+	}
+
+	@Override
+	public Type getType() {
+		return this.type;
+	}
+
+	@Override
+	public String getAuthor() {
+		return this.author;
+	}
+
+	@Override
+	public String getSummary() {
+		return this.summary;
+	}
+
+	@Override
+	public String getPicture() {
+		return this.picture;
+	}
+
+	@Override
+	public Float getPrice() {
+		return this.price;
+	}
+
+	@Override
+	public Integer getStock() {
+		return this.stock;
+	}
    
+	@Override
+	public String getTitle() {
+		return this.title;
+	}
 }

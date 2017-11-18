@@ -1,5 +1,6 @@
 package response;
 
+import localItf.BookEntItf;
 import shared.AbstractJson;
 
 public class BookJson extends AbstractJson {
@@ -19,7 +20,7 @@ public class BookJson extends AbstractJson {
 	private String author = "";
 	
 	@SuppressWarnings("unused")
-	private Integer price = 0;
+	private Float price = 0f;
 	
 	@SuppressWarnings("unused")
 	private String title = "";
@@ -37,18 +38,6 @@ public class BookJson extends AbstractJson {
 	private Integer stock = 0;
 
 	/**
-	 * @param price
-	 * @param title
-	 * @param idBook
-	 */
-	public BookJson(Integer price, String title, Integer idBook) {
-		super();
-		this.price		= price;
-		this.title 		= title;
-		this.idBook		= idBook;
-	}
-
-	/**
 	 * @param genre
 	 * @param type
 	 * @param author
@@ -59,7 +48,7 @@ public class BookJson extends AbstractJson {
 	 * @param idBook
 	 * @param stock
 	 */
-	public BookJson(String genre, String type, String author, Integer price, String title, String picture,
+	public BookJson(String genre, String type, String author, Float price, String title, String picture,
 			String summary, Integer idBook, Integer stock) {
 		super();
 		this.genre		= genre;
@@ -73,5 +62,16 @@ public class BookJson extends AbstractJson {
 		this.stock 		= stock;
 	}
 
-
+	public BookJson(BookEntItf bookEnt) {
+		super();
+		this.genre		= bookEnt.getGenre().toString();
+		this.type 		= bookEnt.getType().toString();
+		this.author		= bookEnt.getAuthor();
+		this.price 		= bookEnt.getPrice();
+		this.title 		= bookEnt.getTitle();
+		this.picture 	= bookEnt.getPicture();
+		this.summary 	= bookEnt.getSummary();
+		this.idBook 	= bookEnt.getIdBook();
+		this.stock 		= bookEnt.getStock();
+	}
 }

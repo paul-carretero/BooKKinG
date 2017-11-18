@@ -1,7 +1,5 @@
 package beans;
 
-import java.util.List;
-
 import javax.ejb.Asynchronous;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -30,28 +28,20 @@ public class UserBean implements UserBeanLocal {
 
 	@Override
 	public UserEntItf getUser(final String email){
-		List<UserEntity> users = this.manager.createQuery(
+		UserEntity user = (UserEntity) this.manager.createQuery(
 				" FROM User u WHERE u.email=:email")
 				.setParameter("email", email)
-				.setMaxResults(1)
-				.getResultList();
-		if(users.isEmpty()) {
-			return null;
-		}
-		return users.get(0);
+				.getSingleResult();
+		return user;
 	}
 
 	@Override
-	public UserEntity getUser(final int id){
-		List<UserEntity> users = this.manager.createQuery(
+	public UserEntity getUser(final int idUser){
+		UserEntity user = (UserEntity) this.manager.createQuery(
 				" FROM User u WHERE u.idUser=:idUser")
-				.setParameter("idUser", id)
-				.setMaxResults(1)
-				.getResultList();
-		if(users.isEmpty()) {
-			return null;
-		}
-		return users.get(0);
+				.setParameter("idUser", idUser)
+				.getSingleResult();
+		return user;
 	}
 
 	@Override
@@ -81,7 +71,7 @@ public class UserBean implements UserBeanLocal {
 
 	@Override
 	@Asynchronous
-	public void updateUser(Integer idUser, UserJsonItf data) {
+	public void updateUser(final Integer idUser, final UserJsonItf data) {
 		UserEntity u = getUser(idUser);
 		u.setAddress(data.getAddress());
 		u.setName(data.getName());

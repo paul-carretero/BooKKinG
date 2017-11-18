@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import localItf.CartDetailEntItf;
+import localItf.UserEntItf;
+
 /**
  * Entity implementation class for Entity: CartDetail
  *
@@ -11,7 +14,7 @@ import javax.persistence.*;
 @Entity @IdClass(CartDetailId.class)
 @Table(name="CartDetail")
 
-public class CartDetail implements Serializable {
+public class CartDetailEntity implements Serializable, CartDetailEntItf {
 
 	/**
 	 * serialVersionUID
@@ -26,12 +29,12 @@ public class CartDetail implements Serializable {
 	@Id
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idBook")
-	private Book book;
+	private BookEntity book;
 
 	@Column(name="quantity")
 	private Integer quantity;
 
-	public CartDetail() {
+	public CartDetailEntity() {
 		super();
 	}
 	
@@ -40,22 +43,25 @@ public class CartDetail implements Serializable {
 	 * @param book
 	 * @param amount
 	 */
-	public CartDetail(UserEntity user, Book book, Integer amount) {
+	public CartDetailEntity(UserEntity user, BookEntity book, Integer amount) {
 		super();
-		this.user = user;
-		this.book = book;
-		this.quantity = amount;
+		this.user		= user;
+		this.book		= book;
+		this.quantity	= amount;
 	}
 
-	public UserEntity getUser() {
+	@Override
+	public UserEntItf getUser() {
 		return this.user;
 	}
 
-	public Book getBook() {
+	@Override
+	public BookEntity getBook() {
 		return this.book;
 	}
 
-	public Integer getAmount() {
+	@Override
+	public Integer getQuantity() {
 		return this.quantity;
 	}
 
@@ -63,7 +69,7 @@ public class CartDetail implements Serializable {
 		this.user = user;
 	}
 
-	public void setBook(Book book) {
+	public void setBook(BookEntity book) {
 		this.book = book;
 	}
 

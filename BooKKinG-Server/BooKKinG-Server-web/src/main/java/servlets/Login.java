@@ -10,13 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import beans.UserBean;
 import beans.UserBeanLocal;
-import entities.UserEntity;
-import localItf.UserEntItf;
 import request.UserJson;
 import response.GenericResponseJson;
 import shared.AbstractJson;
@@ -27,10 +21,15 @@ import shared.HttpHelper;
  * test only
  */
 public class Login extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 3080122707245766248L;
+
 	private static final String NAME = "Login";
 	
-	@EJB(lookup="java:global/BooKKinG-Server-ear/BooKKinG-Server-ejb/UserBean!beans.UserBean")
+	@EJB(lookup="java:global/BooKKinG-Server-ear/BooKKinG-Server-ejb/UserBean!beans.UserBeanLocal")
 	private UserBeanLocal userBean;
        
     public Login() {
@@ -68,7 +67,7 @@ public class Login extends HttpServlet {
 		HttpSession session = request.getSession();
 		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 		if(this.userBean.tryLogin(data)) {
-			session.setAttribute( "idUser", this.userBean.getUser(data.getEmail()).getId());
+			session.setAttribute( "idUser", this.userBean.getUser(data.getEmail()).getIdUser());
 			response.getWriter().append(new GenericResponseJson().toString());
 		}
 		else {

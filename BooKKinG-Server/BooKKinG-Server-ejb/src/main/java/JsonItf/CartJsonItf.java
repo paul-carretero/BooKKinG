@@ -2,8 +2,6 @@ package JsonItf;
 
 public interface CartJsonItf {
 
-	public Integer getIdBook();
-
-	public Integer getQuantity();
+	public CartItemJsonItf[] getItems();
 
 }

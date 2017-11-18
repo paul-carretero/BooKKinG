@@ -1,6 +1,10 @@
 package localItf;
 
 import java.io.Serializable;
+import java.util.List;
+
+import entities.CartDetailEntity;
+import entities.CommandEntity;
 
 public interface UserEntItf extends Serializable{
 
@@ -12,5 +16,9 @@ public interface UserEntItf extends Serializable{
 
 	public String getAddress();
 
-	public Integer getId();
+	public Integer getIdUser();
+
+	public List<CommandEntity> getCommands();
+
+	public List<CartDetailEntity> getCart();
 }

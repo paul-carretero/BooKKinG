@@ -1,10 +1,21 @@
 package servlets;
 
 import java.io.IOException;
+
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import JsonItf.CartItemJsonItf;
+import beans.CartBeanLocal;
+import request.CartItemJson;
+import request.CartJson;
+import response.CartJsonResponse;
+import response.GenericResponseJson;
+import shared.AbstractJson;
+import shared.HttpHelper;
 
 /**
  * Servlet implementation class Cart
@@ -16,12 +27,14 @@ public class Cart extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 2680655063588941058L;
 
+	@EJB(lookup="java:global/BooKKinG-Server-ear/BooKKinG-Server-ejb/CartBean!beans.CartBeanLocal")
+	private CartBeanLocal cartBean;
+	
 	/**
      * @see HttpServlet#HttpServlet()
      */
     public Cart() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -30,18 +43,39 @@ public class Cart extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		if(HttpHelper.checkAuth(request, response)) {
+			CartJsonResponse res = new CartJsonResponse();
+			this.cartBean.getCart(HttpHelper.getIdUser(request), res);
+			response.getWriter().append(res.toString());
+		}
 	}
 
 	/**
-	 * Objectif = mettre à jour une entrée du panier (si quantité=0 => del)
+	 * Objectif = initialiser un panier (utilisateur nouvellement connecté)
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		if(HttpHelper.checkAuth(request, response)) {
+			CartJson data = (CartJson) AbstractJson.fromJson(request, CartJson.class);
+			for(CartItemJsonItf entry : data.getItems()) {
+				this.cartBean.setQuantity(HttpHelper.getIdUser(request), entry);
+			}
+			response.getWriter().append(new GenericResponseJson(true).toString());
+		}
+	}
+	
+	/**
+	 * Objectif = mettre à jour une entrée du panier (si quantité=0 => del)
+	 * @see HttpServlet#doPut(HttpServletRequest request, HttpServletResponse response)
+	 */
+	@Override
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(HttpHelper.checkAuth(request, response)) {
+			CartItemJson data = (CartItemJson) AbstractJson.fromJson(request, CartItemJson.class);
+			this.cartBean.setQuantity(HttpHelper.getIdUser(request), data);
+			response.getWriter().append(new GenericResponseJson(true).toString());
+		}
 	}
 
 	/**
@@ -50,7 +84,9 @@ public class Cart extends HttpServlet {
 	 */
 	@Override
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		if(HttpHelper.checkAuth(request, response)) {
+			this.cartBean.clearCart(HttpHelper.getIdUser(request));
+			response.getWriter().append(new GenericResponseJson(true).toString());
+		}
 	}
-
 }

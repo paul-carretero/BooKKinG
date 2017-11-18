@@ -2,14 +2,15 @@ package beans;
 
 import javax.ejb.Local;
 
-import JsonItf.CartJsonItf;
+import JsonItf.CartItemJsonItf;
+import JsonItf.CartJsonResponseItf;
 
 @Local
 public interface CartBeanLocal {
 
 	public void clearCart(Integer idUser);
 		
-	public void getCart(Integer idUser);
+	public void setQuantity(Integer idUser, CartItemJsonItf data);
 
-	public void setQuantity(Integer idUser, CartJsonItf data);
+	public void getCart(Integer idUser, CartJsonResponseItf response);
 }
