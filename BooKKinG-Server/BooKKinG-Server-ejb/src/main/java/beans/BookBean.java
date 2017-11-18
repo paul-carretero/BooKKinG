@@ -11,7 +11,6 @@ import JsonItf.BookJsonItf;
 import JsonItf.BookListJsonItf;
 import JsonItf.BookSearchJsonItf;
 import entities.BookEntity;
-import entities.UserEntity;
 import shared.Genre;
 
 /**

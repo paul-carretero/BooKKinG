@@ -9,15 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import JsonItf.BookListJsonItf;
-import JsonItf.BookSearchJsonItf;
 import beans.BookBeanLocal;
 import localItf.BookEntItf;
 import request.BookSearchJson;
-import request.UserJson;
 import response.BookJson;
 import response.BookListJson;
-import response.CartJsonResponse;
-import response.GenericResponseJson;
 import shared.AbstractJson;
 import shared.HttpHelper;
 
