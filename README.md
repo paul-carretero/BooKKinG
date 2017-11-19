@@ -19,7 +19,7 @@ API Back-End
 
 ----------
 
-##Json Request
+## Json Request
 Liste des Json acceptés par l'API en entrée (client -> server):
 
 > **BookSearchJson:** <a id="BookSearchJson"></a>
