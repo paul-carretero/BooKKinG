@@ -48,17 +48,17 @@ public class Login extends HttpServlet {
 	}
 	
 	/**
-	 * objectif = se connecter
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * objectif = se connecter (idempotent donc put)
+	 * @see HttpServlet#doPut(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 		if(HttpHelper.checkAndValidData(data, response)) {
 			if(this.userBean.tryLogin(data)) {
 				session.setAttribute( "idUser", this.userBean.getUser(data.getEmail()).getIdUser());
-				response.getWriter().append(new GenericResponseJson().toString());
+				response.getWriter().append(new GenericResponseJson(true).toString());
 			}
 			else {
 				session.removeAttribute("idUser");
@@ -86,11 +86,11 @@ public class Login extends HttpServlet {
 	}
 	
 	/**
-	 * objectif = reset password
-	 * @see HttpServlet#doPut(HttpServletRequest request, HttpServletResponse response)
+	 * objectif = reset password (pas idempotent)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 		if(HttpHelper.checkAndValidData(data, response)) {
 			if(data.checkEmail() && this.userBean.resetPassword(data.getEmail())) {

@@ -50,6 +50,7 @@ public class Command extends HttpServlet {
 				response.getWriter().append(res.toString());
 			}
 			else {
+				//TODO vérifier que c'est bien la commande de l'utilisateur
 				CommandJson res = new CommandJson();
 				this.commandBean.getCommand(Integer.valueOf(stringReq), res);
 				response.getWriter().append(res.toString());
@@ -64,6 +65,7 @@ public class Command extends HttpServlet {
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		if(HttpHelper.checkAuth(request, response)) {
+			//TODO vérifier que le panier n'est pas vide
 			this.commandBean.proceedCartCheckout(HttpHelper.getIdUser(request));
 			response.getWriter().append(new GenericResponseJson(true).toString());
 		}

@@ -7,16 +7,16 @@ import shared.Type;
 
 public interface BookSearchJsonItf {
 
-	String getTitle();
+	public String getTitle();
 
-	String getAuthor();
+	public String getAuthor();
 
-	Integer getMaxPrice();
+	public Integer getMaxPrice();
 
-	Integer getMinPrice();
+	public Integer getMinPrice();
 
-	Type getTypes();
+	public Type getType();
 
-	List<Genre> getGenres();
+	public List<Genre> getGenres();
 
 }

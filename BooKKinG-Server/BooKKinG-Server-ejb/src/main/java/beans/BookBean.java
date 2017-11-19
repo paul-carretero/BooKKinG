@@ -41,10 +41,10 @@ public class BookBean implements BookBeanLocal {
 				+ " AND (b.price >= :minprice OR :minprice <= 0)"
 				+ " AND (b.price <= :maxprice OR :maxprice <= 0)"
 				+ " AND (b.title LIKE :title OR b.author LIKE :author)")
-				.setParameter("type", searchData.getTypes())
+				.setParameter("type", searchData.getType())
 				.setParameter("minprice", Float.valueOf(searchData.getMinPrice()))
 				.setParameter("maxprice", Float.valueOf(searchData.getMaxPrice()))
-				.setParameter("type", searchData.getTypes())
+				.setParameter("type", searchData.getType())
 				.setParameter("title", "%"+searchData.getTitle()+"%")
 				.setParameter("author", "%"+searchData.getAuthor()+"%")
 				.getResultList();

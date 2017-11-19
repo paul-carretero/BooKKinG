@@ -42,7 +42,7 @@ public class BookSearchJson extends AbstractJson implements BookSearchJsonItf, V
 	/**
 	 * Ensemble des types de la recherche
 	 */
-	private Type types;
+	private Type type;
 
 	/**
 	 * Ensemble des genre sur la recherche
@@ -62,14 +62,14 @@ public class BookSearchJson extends AbstractJson implements BookSearchJsonItf, V
 	 * @param genres
 	 * @param types
 	 */
-	public BookSearchJson(String title, String author, int maxPrice, int minPrice, List<Genre> genres, Type types) {
+	public BookSearchJson(String title, String author, int maxPrice, int minPrice, List<Genre> genres, Type type) {
 		super();
 		this.title = title;
 		this.author = author;
 		this.maxPrice = maxPrice;
 		this.minPrice = minPrice;
 		this.genres = genres;
-		this.types = types;
+		this.type = type;
 	}
 
 	@Override
@@ -93,8 +93,8 @@ public class BookSearchJson extends AbstractJson implements BookSearchJsonItf, V
 	}
 
 	@Override
-	public Type getTypes() {
-		return this.types;
+	public Type getType() {
+		return this.type;
 	}
 
 	@Override
@@ -104,8 +104,8 @@ public class BookSearchJson extends AbstractJson implements BookSearchJsonItf, V
 	
 	@Override
 	public void validify() {
-		if(this.types == null) {
-			this.types = Type.ANY;
+		if(this.type == null) {
+			this.type = Type.ANY;
 		}
 		if(this.genres == null) {
 			this.genres = new ArrayList<>();
