@@ -2,7 +2,6 @@ package beans;
 
 import java.security.SecureRandom;
 import java.util.List;
-import java.util.Random;
 
 import javax.ejb.Asynchronous;
 import javax.ejb.EJB;

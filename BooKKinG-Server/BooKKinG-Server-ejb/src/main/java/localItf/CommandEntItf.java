@@ -15,4 +15,6 @@ public interface CommandEntItf {
 
 	public List<CmdDetailEntity> getCmdDetails();
 
+	public float getTotal();
+
 }

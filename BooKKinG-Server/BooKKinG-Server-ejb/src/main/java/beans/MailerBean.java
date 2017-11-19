@@ -14,7 +14,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import entities.UserEntity;
+import localItf.CmdDetailEntItf;
+import localItf.CommandEntItf;
 import localItf.UserEntItf;
 
 /**
@@ -110,5 +111,36 @@ public class MailerBean implements MailerBeanLocal {
 		actualMessage.append("\r\n\r\n");
 		actualMessage.append("L'équipe BooKKinG");
 		actualSender(aUser.getEmail(), "BooKKinG : votre nouveau mot de passe", actualMessage.toString());
+	}
+
+	@Asynchronous
+	@Override
+	public void sendConfirmationCommand(final UserEntItf aUser, final CommandEntItf cmd) {
+		StringBuffer actualMessage = new StringBuffer();
+		actualMessage.append("Bonjour ");
+		actualMessage.append(aUser.getName());
+		actualMessage.append("\r\n\r\n");
+		actualMessage.append("Nous avons bien pris en compte votre commande (numéro ");
+		actualMessage.append(cmd.getIdCmd());
+		actualMessage.append(") du ");
+		actualMessage.append(cmd.getDate());
+		actualMessage.append(" et nous vous en remercions");
+		actualMessage.append("\r\n");
+		actualMessage.append("Pour rappel, voici sa composition: \r\n\r\n");
+		actualMessage.append("----------------------------------\r\n");
+		for(CmdDetailEntItf cmdEntry : cmd.getCmdDetails()) {
+			actualMessage.append(cmdEntry.toString());
+			actualMessage.append("\r\n");
+		}
+		actualMessage.append("----------------------------------\r\n");
+		actualMessage.append("TOTAL : ");
+		actualMessage.append(cmd.getTotal());
+		
+		actualMessage.append("\r\n\r\n");
+		actualMessage.append("N'hésitez pas à nous contacter pour toutes autres questions");
+		actualMessage.append("\r\n\r\n");
+		actualMessage.append("L'équipe BooKKinG");
+		
+		actualSender(aUser.getEmail(), "BooKKinG : Confirmation de votre commande", actualMessage.toString());
 	}
 }

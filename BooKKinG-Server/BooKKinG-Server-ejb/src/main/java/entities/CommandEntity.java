@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -29,7 +30,7 @@ public class CommandEntity implements Serializable, CommandEntItf {
 	@Column(name="date")
 	private Date date;
 	
-	@OneToMany(mappedBy="command", fetch=FetchType.LAZY, orphanRemoval=true)
+	@OneToMany(mappedBy="command", fetch=FetchType.LAZY, orphanRemoval=true, cascade=CascadeType.ALL)
 	private List<CmdDetailEntity> cmdDetails;
 	
 	/**
@@ -39,6 +40,7 @@ public class CommandEntity implements Serializable, CommandEntItf {
 
 	public CommandEntity() {
 		super();
+		this.cmdDetails = new ArrayList<>();
 	}
 
 	@Override
@@ -75,6 +77,19 @@ public class CommandEntity implements Serializable, CommandEntItf {
 
 	public void setCmdDetails(List<CmdDetailEntity> cmdDetails) {
 		this.cmdDetails = cmdDetails;
+	}
+
+	@Override
+	public float getTotal() {
+		float res = 0f;
+		for(CmdDetailEntity cmdEntry : this.cmdDetails) {
+			res += cmdEntry.getPrice() * cmdEntry.getQuantity();
+		}
+		return res;
+	}
+
+	public void addEntry(CmdDetailEntity cmdDetail) {
+		this.cmdDetails.add(cmdDetail);
 	}
    
 }

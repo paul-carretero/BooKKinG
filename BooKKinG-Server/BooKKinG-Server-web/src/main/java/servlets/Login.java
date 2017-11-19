@@ -47,6 +47,10 @@ public class Login extends HttpServlet {
 		response.getWriter().append(new GenericResponseJson(true).toString());
 	}
 	
+	/**
+	 * objectif = se connecter
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -66,6 +70,10 @@ public class Login extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * objectif = vérifier si l'on est connecté
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -77,6 +85,10 @@ public class Login extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * objectif = reset password
+	 * @see HttpServlet#doPut(HttpServletRequest request, HttpServletResponse response)
+	 */
 	@Override
 	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);

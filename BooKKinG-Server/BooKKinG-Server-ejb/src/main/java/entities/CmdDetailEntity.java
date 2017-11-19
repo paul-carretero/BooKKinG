@@ -90,5 +90,17 @@ public class CmdDetailEntity implements Serializable, CmdDetailEntItf {
 	public void setPrice(Float price) {
 		this.price = price;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuffer res = new StringBuffer();
+		res.append(this.quantity);
+		res.append(" * [");
+		res.append(this.book.getTitle());
+		res.append("]  (");
+		res.append((this.quantity * this.price));
+		res.append("€)");
+		return res.toString();
+	}
    
 }

@@ -29,6 +29,9 @@ public class CommandBean implements CommandBeanLocal {
 	
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/UserBean!beans.UserBeanLocal")
 	UserBeanLocal user;
+	
+	@EJB(lookup="java:app/BooKKinG-Server-ejb/MailerBean!beans.MailerBeanLocal")
+	private MailerBeanLocal mailer;
 
     /**
      * Default constructor. 
@@ -44,8 +47,6 @@ public class CommandBean implements CommandBeanLocal {
     	cmd.setDate();
     	cmd.setUser(u);
     	this.manager.persist(cmd);
-    	this.manager.flush();
-    	
     	for(CartDetailEntity cartEntry : currentCart) {
     		CmdDetailEntity cmdDetail = new CmdDetailEntity(
     				cmd, 
@@ -54,7 +55,10 @@ public class CommandBean implements CommandBeanLocal {
     				cartEntry.getBook().getPrice()
     				);
     		this.manager.persist(cmdDetail);
+    		cmd.addEntry(cmdDetail);
     	}
+    	this.manager.flush();
+    	this.mailer.sendConfirmationCommand(u, cmd);
     }
 
     @Override
