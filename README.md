@@ -172,14 +172,14 @@ Liste des Json retourné par l'API en sortie (server -> client):
 > - **retourne** : [GenericResponseJson](#GenericResponseJson)
 
 ---------
-> **POST:**
+> **PUT:**
 > Connexion d'un utilisateur
 > 
 > - **paramètre** : [UserJson](#UserJson) (seulement email et mot de passe requis)
 > - **retourne** : [GenericResponseJson](#GenericResponseJson)
 
 ---------
-> **PUT:**
+> **POST:**
 > réinitialise le mot de passe de l'utilisateur associé à un email. Envoi un email à cet utilisateur pour l'informer de son nouveau mot de passe.
 > 
 > - **paramètre** : [UserJson](#UserJson) (seulement email requis)
