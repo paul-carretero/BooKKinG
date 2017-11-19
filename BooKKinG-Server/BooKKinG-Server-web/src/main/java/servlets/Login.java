@@ -76,5 +76,18 @@ public class Login extends HttpServlet {
 			response.getWriter().append(new GenericResponseJson(false).toString());
 		}
 	}
+	
+	@Override
+	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
+		if(HttpHelper.checkAndValidData(data, response)) {
+			if(data.checkEmail() && this.userBean.resetPassword(data.getEmail())) {
+				response.getWriter().append(new GenericResponseJson(true).toString());
+			}
+			else {
+				response.getWriter().append(new GenericResponseJson(false,"email invalide").toString());
+			}
+		}
+	}
 
 }

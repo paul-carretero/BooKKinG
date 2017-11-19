@@ -21,4 +21,6 @@ public interface UserEntItf extends Serializable{
 	public List<CommandEntity> getCommands();
 
 	public List<CartDetailEntity> getCart();
+
+	public void setPassword(String newPwd);
 }

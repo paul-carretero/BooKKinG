@@ -114,6 +114,7 @@ public class UserEntity implements UserEntItf {
 		this.email = email;
 	}
 
+	@Override
 	public void setPassword(final String password) {
 		this.password = Helper.getEncodedPwd(password, this.email);
 	}   

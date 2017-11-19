@@ -75,6 +75,10 @@ public class UserJson extends AbstractJson implements UserJsonItf, Validifyable{
 		}
 	}
 
+	public boolean checkEmail() {
+		return HttpHelper.isEmailValid(this.email);
+	}
+	
 	public boolean checkContent() {
 		return (this.name.length() > 0) 
 				&& (this.address.length() > 0) 

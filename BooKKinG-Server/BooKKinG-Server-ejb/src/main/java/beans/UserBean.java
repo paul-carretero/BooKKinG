@@ -1,8 +1,11 @@
 package beans;
 
+import java.security.SecureRandom;
 import java.util.List;
+import java.util.Random;
 
 import javax.ejb.Asynchronous;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -22,6 +25,11 @@ public class UserBean implements UserBeanLocal {
 
 	@PersistenceContext()
 	private EntityManager manager;
+
+	@EJB(lookup="java:app/BooKKinG-Server-ejb/MailerBean!beans.MailerBeanLocal")
+	private MailerBeanLocal mailer;
+	
+	private static final SecureRandom random = new SecureRandom();
 
 	/**
 	 * Default constructor. 
@@ -68,6 +76,7 @@ public class UserBean implements UserBeanLocal {
 				user.getPassword()
 				);
 		this.manager.persist(newUser);
+		this.mailer.sendWelcomeEmail(newUser);
 		return true;
 	}
 
@@ -78,5 +87,28 @@ public class UserBean implements UserBeanLocal {
 		u.setAddress(data.getAddress());
 		u.setName(data.getName());
 		u.setPassword(data.getPassword());
+	}
+
+	private static String randomPassword() {
+		final int pwdSize = 8;
+		char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+		StringBuilder pwd = new StringBuilder();
+		for (int i = 0; i < pwdSize; i++) {
+			char c = chars[random.nextInt(chars.length)];
+			pwd.append(c);
+		}
+		return pwd.toString();
+	}
+
+	@Override
+	public boolean resetPassword(final String email) {
+		UserEntItf u = getUser(email);
+		if(u != null) {
+			String newPwd = randomPassword();
+			u.setPassword(newPwd);
+			this.mailer.sendResetPassword(u,newPwd);
+			return true;
+		}
+		return false;
 	}
 }
