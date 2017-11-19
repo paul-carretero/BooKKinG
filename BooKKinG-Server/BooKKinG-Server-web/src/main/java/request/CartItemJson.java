@@ -3,7 +3,7 @@ package request;
 import JsonItf.CartItemJsonItf;
 import shared.AbstractJson;
 
-public class CartItemJson  extends AbstractJson implements CartItemJsonItf {
+public class CartItemJson  extends AbstractJson implements CartItemJsonItf, Validifyable {
 	
 	/**
 	 * serialVersionUID
@@ -30,13 +30,21 @@ public class CartItemJson  extends AbstractJson implements CartItemJsonItf {
 
 	@Override
 	public Integer getIdBook() {
-		return idBook;
+		return this.idBook;
 	}
 
 	@Override
 	public Integer getQuantity() {
-		return quantity;
+		return this.quantity;
 	}
 
-
+	@Override
+	public void validify() {
+		if (this.idBook == null) {
+			this.idBook = 0;
+		}
+		if (this.quantity == null) {
+			this.quantity = 0;
+		}
+	}
 }

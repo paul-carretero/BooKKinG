@@ -4,7 +4,7 @@ import JsonItf.CartItemJsonItf;
 import JsonItf.CartJsonItf;
 import shared.AbstractJson;
 
-public class CartJson extends AbstractJson implements CartJsonItf {
+public class CartJson extends AbstractJson implements CartJsonItf, Validifyable {
 	
 	/**
 	 * serialVersionUID
@@ -24,6 +24,13 @@ public class CartJson extends AbstractJson implements CartJsonItf {
 	@Override
 	public CartItemJsonItf[] getItems() {
 		return this.items;
+}
+
+	@Override
+	public void validify() {
+		if (this.items == null) {
+			this.items = new CartItemJson[0];
+		}
 	}
 
 }

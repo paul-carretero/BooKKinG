@@ -18,6 +18,7 @@
   <servlet-mapping>
     <servlet-name>Login</servlet-name>
     <url-pattern>/Login/*</url-pattern>
+    <url-pattern>/Login</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -28,6 +29,7 @@
   <servlet-mapping>
     <servlet-name>User</servlet-name>
     <url-pattern>/User</url-pattern>
+    <url-pattern>/User/*</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -37,6 +39,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Book</servlet-name>
+    <url-pattern>/Book</url-pattern>
     <url-pattern>/Book/*</url-pattern>
   </servlet-mapping>
   <servlet>
@@ -48,6 +51,7 @@
   <servlet-mapping>
     <servlet-name>Command</servlet-name>
     <url-pattern>/Command/*</url-pattern>
+    <url-pattern>/Command</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -57,6 +61,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Cart</servlet-name>
+    <url-pattern>/Cart/*</url-pattern>
     <url-pattern>/Cart</url-pattern>
   </servlet-mapping>
 </web-app>

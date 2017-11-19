@@ -2,9 +2,8 @@ package response;
 
 import JsonItf.BookJsonItf;
 import localItf.BookEntItf;
-import shared.AbstractJson;
 
-public class BookJson extends AbstractJson implements BookJsonItf {
+public class BookJson extends GenericResponseJson implements BookJsonItf {
 
 	/**
 	 * serialVersionUID

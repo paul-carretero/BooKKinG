@@ -13,6 +13,7 @@ import beans.UserBeanLocal;
 import request.UserJson;
 import response.GenericResponseJson;
 import shared.AbstractJson;
+import shared.HttpHelper;
 
 /**
  * Servlet implementation class Login
@@ -50,13 +51,18 @@ public class Login extends HttpServlet {
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
-		if(this.userBean.tryLogin(data)) {
-			session.setAttribute( "idUser", this.userBean.getUser(data.getEmail()).getIdUser());
-			response.getWriter().append(new GenericResponseJson().toString());
+		if(HttpHelper.checkAndValidData(data, response)) {
+			if(this.userBean.tryLogin(data)) {
+				session.setAttribute( "idUser", this.userBean.getUser(data.getEmail()).getIdUser());
+				response.getWriter().append(new GenericResponseJson().toString());
+			}
+			else {
+				session.removeAttribute("idUser");
+				response.getWriter().append(new GenericResponseJson(false,"email ou mot de passe invalide").toString());
+			}
 		}
 		else {
 			session.removeAttribute("idUser");
-			response.getWriter().append(new GenericResponseJson(false,"echec de l'authentification").toString());
 		}
 	}
 	

@@ -5,9 +5,8 @@ import java.util.Map;
 
 import JsonItf.CartJsonResponseItf;
 import localItf.BookEntItf;
-import shared.AbstractJson;
 
-public class CartJsonResponse extends AbstractJson implements CartJsonResponseItf {
+public class CartJsonResponse extends GenericResponseJson implements CartJsonResponseItf {
 
 	/**
 	 * serialVersionUID

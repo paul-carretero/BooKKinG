@@ -5,9 +5,8 @@ import java.util.List;
 
 import JsonItf.CommandJsonItf;
 import JsonItf.CommandListJsonItf;
-import shared.AbstractJson;
 
-public class CommandListJson extends AbstractJson implements CommandListJsonItf {
+public class CommandListJson extends GenericResponseJson implements CommandListJsonItf {
 
 	/**
 	 * serialVersionUID

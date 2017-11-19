@@ -2,10 +2,13 @@ package shared;
 
 import java.io.IOException;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import request.Validifyable;
 import response.GenericResponseJson;
 
 /**
@@ -29,9 +32,12 @@ public class HttpHelper {
 		if(data.length() == 0) {
 			return "";
 		}
-		return data.substring(0,data.length()-1);
+		if(data.endsWith("/")) {
+			return data.substring(0,data.length()-1);
+		}
+		return data;
 	}
-	
+
 	public static boolean checkAuth(final HttpServletRequest request, final HttpServletResponse response) throws IOException{
 		HttpSession session = request.getSession();
 		if(session.getAttribute("idUser") == null) {
@@ -40,9 +46,27 @@ public class HttpHelper {
 		}
 		return true;
 	}
-	
+
+	public static boolean checkAndValidData(final Validifyable data, final HttpServletResponse response) throws IOException {
+		if(data == null) {
+			response.getWriter().append(new GenericResponseJson(false,"echec : aucune donnee").toString());
+			return false;
+		}
+		data.validify();
+		return true;
+	}
+
 	public static Integer getIdUser(final HttpServletRequest request) {
 		return (Integer) request.getSession().getAttribute("idUser");
+	}
+
+	public static boolean isEmailValid(String email) {
+		try {
+			new InternetAddress(email).validate();
+			return true;
+		} catch (@SuppressWarnings("unused") AddressException ex) {
+			return false;
+		}
 	}
 
 }

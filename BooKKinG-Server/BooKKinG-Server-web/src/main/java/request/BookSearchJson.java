@@ -1,5 +1,6 @@
 package request;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import JsonItf.BookSearchJsonItf;
@@ -11,7 +12,7 @@ import shared.Type;
  * @author Paul Carretero
  *
  */
-public class BookSearchJson extends AbstractJson implements BookSearchJsonItf {
+public class BookSearchJson extends AbstractJson implements BookSearchJsonItf, Validifyable {
 
 	/**
 	 * serialVersionUID
@@ -31,12 +32,12 @@ public class BookSearchJson extends AbstractJson implements BookSearchJsonItf {
 	/**
 	 * prix maximum
 	 */
-	private Integer maxPrice;
+	private int maxPrice;
 
 	/**
 	 * prix minimum
 	 */
-	private Integer minPrice;
+	private int minPrice;
 
 	/**
 	 * Ensemble des types de la recherche
@@ -100,5 +101,20 @@ public class BookSearchJson extends AbstractJson implements BookSearchJsonItf {
 	public List<Genre> getGenres() {
 		return this.genres;
 	}
-
+	
+	@Override
+	public void validify() {
+		if(this.types == null) {
+			this.types = Type.ANY;
+		}
+		if(this.genres == null) {
+			this.genres = new ArrayList<>();
+		}
+		if(this.author == null) {
+			this.author = "";
+		}
+		if(this.title == null) {
+			this.title = "";
+		}
+	}
 }

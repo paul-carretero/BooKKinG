@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 
 import JsonItf.CartItemJsonItf;
 import JsonItf.CartJsonResponseItf;
+import entities.BookEntity;
 import entities.CartDetailEntity;
 import entities.CartDetailId;
 
@@ -56,8 +57,11 @@ public class CartBean implements CartBeanLocal {
 			this.manager.remove(toUpdate);
 		}
 		else if(toUpdate == null && data.getQuantity() > 0) {
-			toUpdate = new CartDetailEntity(this.user.getUser(idUser), this.book.getBook(data.getIdBook()), data.getQuantity());
-			this.manager.persist(toUpdate);
+			BookEntity bookTry = this.book.getBook(data.getIdBook());
+			if(bookTry != null) {
+				toUpdate = new CartDetailEntity(this.user.getUser(idUser), bookTry, data.getQuantity());
+				this.manager.persist(toUpdate);
+			}
 		}
 		else if(toUpdate != null && data.getQuantity() > 0){
 			toUpdate.setQuantity(data.getQuantity());

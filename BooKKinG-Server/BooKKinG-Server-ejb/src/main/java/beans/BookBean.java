@@ -35,7 +35,6 @@ public class BookBean implements BookBeanLocal {
     
     @Override
 	public void getBooks(final BookSearchJsonItf searchData, final BookListJsonItf response){
-    	System.out.println(searchData.getGenres());
 		List<BookEntity> books = this.manager.createQuery(
 				" FROM BookEntity b WHERE "
 				+ "(b.type = :type OR :type = 'ANY')"
@@ -52,7 +51,7 @@ public class BookBean implements BookBeanLocal {
 		
 		List<Genre> allowedGenre = searchData.getGenres();
 		for(BookEntity book : books) {
-			if(allowedGenre == null || allowedGenre.contains(book.getGenre())) {
+			if(allowedGenre.isEmpty() || allowedGenre.contains(book.getGenre())) {
 				BookJsonItf entry = response.prepareNewEntry();
 				entry.setField(book);
 			}

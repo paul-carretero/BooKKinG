@@ -5,9 +5,8 @@ import java.util.Map;
 
 import JsonItf.CommandJsonItf;
 import localItf.BookEntItf;
-import shared.AbstractJson;
 
-public class CommandJson extends AbstractJson implements CommandJsonItf {
+public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 
 	/**
 	 * serialVersionUID

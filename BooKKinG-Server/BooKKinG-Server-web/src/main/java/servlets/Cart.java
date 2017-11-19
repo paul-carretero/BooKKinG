@@ -21,21 +21,21 @@ import shared.HttpHelper;
  * Servlet implementation class Cart
  */
 public class Cart extends HttpServlet {
-       
-    /**
+
+	/**
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 2680655063588941058L;
 
 	@EJB(lookup="java:global/BooKKinG-Server-ear/BooKKinG-Server-ejb/CartBean!beans.CartBeanLocal")
 	private CartBeanLocal cartBean;
-	
+
 	/**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Cart() {
-        super();
-    }
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public Cart() {
+		super();
+	}
 
 	/**
 	 * Objectif = obtenir un panier enregistré d'un utilisateur
@@ -58,13 +58,16 @@ public class Cart extends HttpServlet {
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		if(HttpHelper.checkAuth(request, response)) {
 			CartJson data = (CartJson) AbstractJson.fromJson(request, CartJson.class);
-			for(CartItemJsonItf entry : data.getItems()) {
-				this.cartBean.setQuantity(HttpHelper.getIdUser(request), entry);
+			if(HttpHelper.checkAndValidData(data, response)) {
+				this.cartBean.clearCart(HttpHelper.getIdUser(request));
+				for(CartItemJsonItf entry : data.getItems()) {
+					this.cartBean.setQuantity(HttpHelper.getIdUser(request), entry);
+				}
+				response.getWriter().append(new GenericResponseJson(true).toString());
 			}
-			response.getWriter().append(new GenericResponseJson(true).toString());
 		}
 	}
-	
+
 	/**
 	 * Objectif = mettre à jour une entrée du panier (si quantité=0 => del)
 	 * @see HttpServlet#doPut(HttpServletRequest request, HttpServletResponse response)
@@ -73,8 +76,10 @@ public class Cart extends HttpServlet {
 	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		if(HttpHelper.checkAuth(request, response)) {
 			CartItemJson data = (CartItemJson) AbstractJson.fromJson(request, CartItemJson.class);
-			this.cartBean.setQuantity(HttpHelper.getIdUser(request), data);
-			response.getWriter().append(new GenericResponseJson(true).toString());
+			if(HttpHelper.checkAndValidData(data, response)) {
+				this.cartBean.setQuantity(HttpHelper.getIdUser(request), data);
+				response.getWriter().append(new GenericResponseJson(true).toString());
+			}
 		}
 	}
 

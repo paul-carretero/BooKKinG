@@ -5,9 +5,8 @@ import java.util.List;
 
 import JsonItf.BookJsonItf;
 import JsonItf.BookListJsonItf;
-import shared.AbstractJson;
 
-public class BookListJson extends AbstractJson implements BookListJsonItf {
+public class BookListJson extends GenericResponseJson implements BookListJsonItf {
 
 	/**
 	 * serialVersionUID
