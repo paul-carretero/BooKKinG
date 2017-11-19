@@ -154,6 +154,8 @@ Liste des Json retourné par l'API en sortie (server -> client):
 > > - `success` true
 > > - `message` unused
 
+---------
+
 ## Detail Servlets
 #### /Login
 > **GET:**
@@ -182,12 +184,92 @@ Liste des Json retourné par l'API en sortie (server -> client):
 > 
 > - **paramètre** : [UserJson](#UserJson) (seulement email requis)
 > - **retourne** : [GenericResponseJson](#GenericResponseJson)
-#### /User
 
-#### /Login
+---------
+#### /User
+> **GET:**
+> Permet de récupérer les données d'un utilisateur connecté
+> 
+> - **paramètre** : -
+> - **retourne** : [UserJsonResponse](#UserJsonResponse)
+
+---------
+> **POST:**
+> Créer un nouvel utilisateur, le connecte et lui envoie un email de bienvenu avec un rappel de ses informations (sauf mot de passe).
+> 
+> - **paramètre** : [UserJson](#UserJson)
+> - **retourne** : [GenericResponseJson](#GenericResponseJson)
+
+---------
+> **PUT:**
+> Met à jour les informations d'un utilisateur connecté
+> 
+> - **paramètre** : [UserJson](#UserJson) (tous les champs sont requis)
+> - **retourne** : [GenericResponseJson](#GenericResponseJson)
+
+---------
 
 #### /Book
+> **GET:**
+> Permet de récupérer les données d'un utilisateur connecté
+> 
+> - **paramètre** : url : `<HOST>/BooKKinG-Server-web/Book/<idBook>/`
+> - **retourne** : [BookJson](#BookJson) correspondant à l'id du livre spécifiée
 
+---------
+> **POST:**
+> Recherche une liste de livre correspondant au type spécifié (si spécifié), aux genres spécifiés (si spécifiés) dans la fourchette de prix spécifiée (si spécifiée) et ayant un titre correspondant au titre spécifié (si spécifié) ou à l'auteur spécifié (si spécifié).
+> 
+> - **paramètre** : [BookSearchJson](#BookSearchJson)
+> - **retourne** : [BookListJson](#BookListJson)
+
+---------
 #### /Cart
 
+> **GET:**
+> Permet de récupérer le panier d'un utilisateur connecté
+> 
+> - **paramètre** : -
+> - **retourne** : [CartJsonResponse](#CartJsonResponse)
+
+---------
+> **POST:**
+> Initialise le panier d'un utilisateur nouvellement connecté avec son panier local.
+> 
+> - **paramètre** : [CartJson](#CartJson)
+> - **retourne** : [GenericResponseJson](#GenericResponseJson)
+
+---------
+> **PUT:**
+> Ajoute, met à jour ou supprime un article du panier d'un utilisateur connecté (si quantité <= 0 alors suppression)
+> 
+> - **paramètre** : [CartItemJson](#CartItemJson)
+> - **retourne** : [GenericResponseJson](#GenericResponseJson)
+
+---------
+
 #### /Command
+
+> **GET:**
+> Permet de récupérer la liste des commandes d'un utilisateur connecté
+> 
+> - **paramètre** : -
+> - **retourne** : [CommandListJson](#CommandListJson)
+
+---------
+
+> **GET:**
+> Permet de récupérer les données d'une commande d'un utilisateur connecté
+> 
+> - **paramètre** : url : `<HOST>/BooKKinG-Server-web/Command/<idCmd>/`
+> - **retourne** : [CommandJson](#CommandJson)
+
+---------
+
+> **POST:**
+> Créer une nouvelle commande avec le contenu du panier d'un utilisateur connecté. Envoie un mail de confirmation à l'utilisateur connecté.
+> 
+> - **paramètre** : -
+> - **retourne** : [GenericResponseJson](#GenericResponseJson)
+
+---------
