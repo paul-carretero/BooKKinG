@@ -1,6 +1,6 @@
 package JsonItf;
 
-public interface BookListJsonItf {
+public interface BookListJsonItf extends GenericResponseJsonItf {
 
 	BookJsonItf prepareNewEntry();
 

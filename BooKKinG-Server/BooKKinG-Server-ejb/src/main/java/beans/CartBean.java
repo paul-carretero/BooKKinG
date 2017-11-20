@@ -75,4 +75,10 @@ public class CartBean implements CartBeanLocal {
 			response.addBook(entry.getBook(), entry.getQuantity());
 		}
 	}
+	
+	@Override
+	public boolean checkNoEmpty(Integer idUser) {
+		List<CartDetailEntity> userCart = this.user.getUser(idUser).getCart();	
+		return !userCart.isEmpty();
+	}
 }

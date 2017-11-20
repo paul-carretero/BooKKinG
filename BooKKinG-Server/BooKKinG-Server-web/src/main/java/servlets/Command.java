@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import beans.CartBeanLocal;
 import beans.CommandBeanLocal;
+import beans.UserBeanLocal;
 import response.CommandJson;
 import response.CommandListJson;
 import response.GenericResponseJson;
@@ -18,23 +20,26 @@ import shared.HttpHelper;
  * Servlet implementation class Command
  */
 public class Command extends HttpServlet {
-	
+
 	private static final String NAME = "Command";
-       
-    /**
+
+	/**
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 5666493273940405667L;
-	
+
 	@EJB(lookup="java:global/BooKKinG-Server-ear/BooKKinG-Server-ejb/CommandBean!beans.CommandBeanLocal")
 	private CommandBeanLocal commandBean;
 
+	@EJB(lookup="java:global/BooKKinG-Server-ear/BooKKinG-Server-ejb/CartBean!beans.CartBeanLocal")
+	private CartBeanLocal cartBean;
+
 	/**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Command() {
-        super();
-    }
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public Command() {
+		super();
+	}
 
 	/**
 	 * Objectif = récupère la liste des commande d'un utilisateur
@@ -50,10 +55,15 @@ public class Command extends HttpServlet {
 				response.getWriter().append(res.toString());
 			}
 			else {
-				//TODO vérifier que c'est bien la commande de l'utilisateur
-				CommandJson res = new CommandJson();
-				this.commandBean.getCommand(Integer.valueOf(stringReq), res);
-				response.getWriter().append(res.toString());
+				Integer idCmd = Integer.valueOf(stringReq);
+				if(this.commandBean.isCmdOfUser(HttpHelper.getIdUser(request),idCmd)) {
+					CommandJson res = new CommandJson();
+					this.commandBean.getCommand(idCmd, res);
+					response.getWriter().append(res.toString());
+				}
+				else {
+					response.getWriter().append(new GenericResponseJson(false,"cette commande ne vous appartient pas").toString());
+				}
 			}
 		}
 	}
@@ -65,9 +75,13 @@ public class Command extends HttpServlet {
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		if(HttpHelper.checkAuth(request, response)) {
-			//TODO vérifier que le panier n'est pas vide
-			this.commandBean.proceedCartCheckout(HttpHelper.getIdUser(request));
-			response.getWriter().append(new GenericResponseJson(true).toString());
+			if(this.cartBean.checkNoEmpty(HttpHelper.getIdUser(request))) {
+				this.commandBean.proceedCartCheckout(HttpHelper.getIdUser(request));
+				response.getWriter().append(new GenericResponseJson(true).toString());
+			}
+			else {
+				response.getWriter().append(new GenericResponseJson(false,"Votre panier est vide").toString());
+			}
 		}
 	}
 

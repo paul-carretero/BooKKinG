@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import beans.UserBeanLocal;
 import request.Validifyable;
 import response.GenericResponseJson;
 
@@ -67,6 +68,14 @@ public class HttpHelper {
 		} catch (@SuppressWarnings("unused") AddressException ex) {
 			return false;
 		}
+	}
+
+	public static boolean checkAdmin(UserBeanLocal userBean, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		if(userBean.isAdmin(getIdUser(request))) {
+			return true;
+		}
+		response.getWriter().append(new GenericResponseJson(false,"echec : vous n'êtes pas administrateur").toString());
+		return false;
 	}
 
 }

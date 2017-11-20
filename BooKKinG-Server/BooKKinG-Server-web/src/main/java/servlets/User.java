@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.UserBean;
+import beans.UserBeanLocal;
 import localItf.UserEntItf;
 import request.UserJson;
 import response.GenericResponseJson;
@@ -30,8 +30,8 @@ public class User extends HttpServlet {
 	 */
 	private static final long serialVersionUID = -9212380023846124020L;
 
-	@EJB(lookup="java:global/BooKKinG-Server-ear/BooKKinG-Server-ejb/UserBean!beans.UserBean")
-	private UserBean userBean;
+	@EJB(lookup="java:global/BooKKinG-Server-ear/BooKKinG-Server-ejb/UserBean!beans.UserBeanLocal")
+	private UserBeanLocal userBean;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

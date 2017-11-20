@@ -1,8 +1,9 @@
 package response;
 
+import JsonItf.GenericResponseJsonItf;
 import shared.AbstractJson;
 
-public class GenericResponseJson extends AbstractJson {
+public class GenericResponseJson extends AbstractJson implements GenericResponseJsonItf {
 
 
 	/**
@@ -12,7 +13,7 @@ public class GenericResponseJson extends AbstractJson {
 	
 	@SuppressWarnings("unused")
 	private boolean success;
-	
+
 	@SuppressWarnings("unused")
 	private String message;
 
@@ -38,6 +39,16 @@ public class GenericResponseJson extends AbstractJson {
 	public GenericResponseJson(boolean success, String message) {
 		super();
 		this.success = success;
+		this.message = message;
+	}
+	
+	@Override
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
+
+	@Override
+	public void setMessage(String message) {
 		this.message = message;
 	}
 }

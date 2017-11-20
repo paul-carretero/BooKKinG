@@ -43,6 +43,9 @@ public class UserEntity implements UserEntItf {
 	@OneToMany(mappedBy="user", fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<CommandEntity> commands;
 	
+	@Column(name="admin")
+	private Boolean admin;
+	
 	/**
 	 * default constructor
 	 */
@@ -60,6 +63,7 @@ public class UserEntity implements UserEntItf {
 		this.address 	= address;
 		this.email 		= email;
 		this.password 	= Helper.getEncodedPwd(password, this.email);
+		this.admin		= false;
 	}
 	
 	@Override
@@ -98,6 +102,11 @@ public class UserEntity implements UserEntItf {
 		return this.commands;
 	}
 	
+	@Override
+	public boolean isAdmin() {
+		return this.admin;
+	} 
+	
 	public void setIdUser(final Integer idUser) {
 		this.idUser = idUser;
 	}
@@ -117,5 +126,5 @@ public class UserEntity implements UserEntItf {
 	@Override
 	public void setPassword(final String password) {
 		this.password = Helper.getEncodedPwd(password, this.email);
-	}   
+	}
 }

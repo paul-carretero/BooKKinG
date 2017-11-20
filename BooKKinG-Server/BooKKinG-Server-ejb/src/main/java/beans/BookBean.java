@@ -2,6 +2,7 @@ package beans;
 
 import java.util.List;
 
+import javax.ejb.Asynchronous;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -9,6 +10,7 @@ import javax.persistence.PersistenceContext;
 
 import JsonItf.BookJsonItf;
 import JsonItf.BookListJsonItf;
+import JsonItf.BookPostJsonItf;
 import JsonItf.BookSearchJsonItf;
 import entities.BookEntity;
 import shared.Genre;
@@ -57,5 +59,21 @@ public class BookBean implements BookBeanLocal {
 			}
 		}
     }
+
+	@Override
+	@Asynchronous
+	public void addBooks(BookPostJsonItf data) {
+		BookEntity newBook = new BookEntity(
+				data.getGenre(), 
+				data.getType(), 
+				data.getAuthor(), 
+				data.getSummary(), 
+				data.getPicture(), 
+				data.getPrice(), 
+				data.getStock(), 
+				data.getTitle()
+				);
+		this.manager.persist(newBook);
+	}
 
 }

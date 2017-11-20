@@ -2,7 +2,7 @@ package JsonItf;
 
 import localItf.BookEntItf;
 
-public interface CommandJsonItf {
+public interface CommandJsonItf extends GenericResponseJsonItf {
 
 	public void addCmdEntry(BookEntItf aBook, Float price, Integer quantity);
 

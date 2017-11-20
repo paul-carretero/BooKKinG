@@ -1,11 +1,11 @@
 package JsonItf;
 
-public interface UserJsonResponseItf {
+public interface UserJsonResponseItf extends GenericResponseJsonItf {
 
-	String getName();
+	public String getName();
 
-	String getEmail();
+	public String getEmail();
 
-	String getAddress();
+	public String getAddress();
 
 }

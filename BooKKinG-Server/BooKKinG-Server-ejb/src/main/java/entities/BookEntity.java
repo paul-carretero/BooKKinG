@@ -57,6 +57,29 @@ public class BookEntity implements Serializable, BookEntItf {
 	public BookEntity() {
 		super();
 	}
+	
+	/**
+	 * @param genre
+	 * @param type
+	 * @param author
+	 * @param summary
+	 * @param picture
+	 * @param price
+	 * @param stock
+	 * @param title
+	 */
+	public BookEntity(Genre genre, Type type, String author, String summary, String picture, Float price, Integer stock,
+			String title) {
+		super();
+		this.genre		= genre;
+		this.type 		= type;
+		this.author 	= author;
+		this.summary 	= summary;
+		this.picture 	= picture;
+		this.price 		= price;
+		this.stock 		= stock;
+		this.title 		= title;
+	}
 
 	@Override
 	public Integer getIdBook() {

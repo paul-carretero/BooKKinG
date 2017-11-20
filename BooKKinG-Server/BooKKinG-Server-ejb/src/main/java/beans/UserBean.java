@@ -110,4 +110,9 @@ public class UserBean implements UserBeanLocal {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean isAdmin(Integer idUser) {
+		return getUser(idUser).isAdmin();
+	}
 }

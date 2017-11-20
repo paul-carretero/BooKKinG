@@ -1,6 +1,6 @@
 package JsonItf;
 
-public interface CommandListJsonItf {
+public interface CommandListJsonItf extends GenericResponseJsonItf {
 
 	public CommandJsonItf prepareNewEntry(String date, Integer idCmd);
 

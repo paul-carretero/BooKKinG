@@ -14,4 +14,6 @@ public interface CommandBeanLocal {
 
 	public void getCommands(Integer idUser, CommandListJsonItf response);
 
+	public boolean isCmdOfUser(Integer idUser, Integer idCmd);
+
 }

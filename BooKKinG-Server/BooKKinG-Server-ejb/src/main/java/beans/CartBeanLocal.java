@@ -13,4 +13,6 @@ public interface CartBeanLocal {
 	public void setQuantity(Integer idUser, CartItemJsonItf data);
 
 	public void getCart(Integer idUser, CartJsonResponseItf response);
+
+	public boolean checkNoEmpty(Integer idUser);
 }
