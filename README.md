@@ -63,6 +63,20 @@ Liste des Json acceptés par l'API en entrée (client -> server):
 > > - `password` mot de passe de l'utilisateur
 > > - `address` address de l'utilisateur
 
+-------
+> **BookPostJson:**<a id="BookPostJson"></a>
+> représentation des données pour l'ajout d'un livre
+> 
+> - **Exemple:** `{"genre":"GENRE1","type":"ANY","author":"JC Van Damme","price":20.0,"title":"JCVD","picture":"base64_encoded_picture","summary":"Réflexion sur la vie de JCVD","stock":42}`
+> - **Paramètres** :
+> > - `genre` genre du livre
+> > - `type` type du livre
+> > - `author` auteur du livre
+> > - `price` prix du livre
+> > - `title` titre du livre
+> > - `picture` image de la couverture du livre encodé en base64
+> > - `summary` résumé du livre
+
 ----------
 
 
@@ -217,11 +231,18 @@ Liste des Json retourné par l'API en sortie (server -> client):
 > - **retourne** : [BookJson](#BookJson) correspondant à l'id du livre spécifiée
 
 ---------
-> **POST:**
+> **PUT:**
 > Recherche une liste de livre correspondant au type spécifié (si spécifié), aux genres spécifiés (si spécifiés) dans la fourchette de prix spécifiée (si spécifiée) et ayant un titre correspondant au titre spécifié (si spécifié) ou à l'auteur spécifié (si spécifié).
 > 
 > - **paramètre** : [BookSearchJson](#BookSearchJson)
 > - **retourne** : [BookListJson](#BookListJson)
+
+---------
+> **POST:**
+> En tant qu'administrateur connecté, permet d'ajouter un livre
+> 
+> - **paramètre** : [BookPostJson](#BookPostJson)
+> - **retourne** : [GenericResponseJson](#GenericResponseJson)
 
 ---------
 #### /Cart
