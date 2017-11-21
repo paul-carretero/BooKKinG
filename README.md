@@ -11,11 +11,11 @@ API Back-End
 
 > **Servlets Disponible:**
 
-> - `HOST/BooKKinG-Server-web/Login` operation sur les connexion utilisateurs
-> - `HOST/BooKKinG-Server-web/User` operation sur les comptes utilisateurs
-> - `HOST/BooKKinG-Server-web/Book` requête sur un ou des livres proposé à la vente
-> - `HOST/BooKKinG-Server-web/Cart` operation (et synchro) sur le contenu du panier utilisateur
-> - `HOST/BooKKinG-Server-web/Command` operation et récupération des commandes utilisateur
+> - `http://bookking.ovh/BooKKinG-Server-web/Login` operation sur les connexion utilisateurs
+> - `http://bookking.ovh/BooKKinG-Server-web/User` operation sur les comptes utilisateurs
+> - `http://bookking.ovh/BooKKinG-Server-web/Book` requête sur un ou des livres proposé à la vente
+> - `http://bookking.ovh/BooKKinG-Server-web/Cart` operation (et synchro) sur le contenu du panier utilisateur
+> - `http://bookking.ovh/BooKKinG-Server-web/Command` operation et récupération des commandes utilisateur
 
 ----------
 
