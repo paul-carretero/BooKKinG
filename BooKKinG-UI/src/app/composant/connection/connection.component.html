@@ -1,15 +1,44 @@
 
-
-<div *ngIf= client.id>
-{{client.identifiant}} est connecté
+<!-- Balise permettant de faire un retour à l'utilisateur pour lui indiquer qu'il est connecté -->
+<!-- ne s'active que si le client est connecté -->
+<div [hidden]="!clientConnecte">
+{{client.name}} est connecté
 </div>
 
 
+<!-- Formulaire pour récupérer les données saisies lors de la connection  -->
+<!-- Formulaire : avec passage des données dans l'objet ngForm -->
+<!-- A la soumission, la méthode analyse l’objet form qui contient les valeurs -->
 <div>
-<form >
+<form (ngSubmit)="connection(loginForm)" #loginForm="ngForm">
+  <div>
+    <label for="email">Email:</label>
+    <input type="text" class="form-control" name="email" ngModel>
+    <!-- Balise ne s'activant que si l'email renseigné n'est pas valid après soumission -->
+    <span [hidden]="validEmail" class="text-danger">Vous devez entrer un email !</span>
+  </div>
+  <div>
+    <label for="password">Mot de passe:</label>
+    <input type="text" class="form-control" name="password" ngModel >
+    <!-- Balise ne s'activant que si le mot de passe renseigné n'est pas valid après soumission -->
+    <span [hidden]="validPassword" class="text-danger">Vous devez entrer un mot de passe !</span>
+  </div>  
+    <button type="submit">Se connecter</button>
+</form>
+</div>
+
+  
+
+<!-- Formulaire pour récupérer les données saisies lors de la connection  -->
+<!-- Formulaire : TWO WAY BINDING -->
+<!-- Le template fait le lien avec le modèle accessible depuis les champs de la classe -->
+<!-- Les modifications sont dynamiques -->
+<!--
+<div>
+<form>
   <div>
       <span>Identifiant:</span>
-      <span><input type="text" name="identifiant" id="identifiant" [(ngModel)]="client.email"></span>
+      <span><input type="text" name="email" id="email" [(ngModel)]="client.email"></span>
   </div>
   <div>
     <span>Mot de passe:</span>
@@ -20,5 +49,4 @@
   </div>
 </form>
 </div>
-
-  
+-->

@@ -1,3 +1,4 @@
+import { ConnectionService } from './service/connection.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -34,6 +35,7 @@ export const appRoutes: Routes = [
 
 
 @NgModule({
+  // composants que va utiliser l'application
   declarations: [
     AppComponent,
     PanierComponent,
@@ -53,7 +55,10 @@ export const appRoutes: Routes = [
     FormsModule, 
     HttpModule
   ],
-  providers: [],
+  // fournisseur de services dans l'application
+  providers: [
+    ConnectionService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

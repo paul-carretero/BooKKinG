@@ -4,6 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { Client } from '../../model/client'
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map'
+import { Observable } from 'rxjs/Observable';
+import { ConnectionService } from '../../service/connection.service';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 
@@ -12,36 +15,95 @@ import 'rxjs/add/operator/map'
   templateUrl: './connection.component.html',
   styleUrls: ['./connection.component.css']
 })
+
+
+/**
+ * Composant correspondant à la page de connection d'un utilisateur (la page contient un formulaire)
+ */
 export class ConnectionComponent implements OnInit {
+  /**
+   * Attribut correspondant au client connecté
+   */
   client : Client = {name:'', address:'', email : '', password:''};
 
-  constructor(private http : Http, private routeur : Router) { }
+  /**
+   * Attribut correspondant à la validité de l'email renseigné
+   * Tant que l'utilisateur ne soumet aucune information, l'email est considéré comme valide
+   */
+  validEmail : boolean = true;
+ 
+  /**
+   * Attribut correspondant à la validité du mot de passe renseigné
+   * Tant que l'utilisateur ne soumet aucune information, le mot de passe est considéré comme valide
+   */
+  validPassword : boolean = true;
 
+  /**
+   * Attribut correspondant au fait que l'utilisateur est connecté
+   * A false tant que la connection n'a pas été réalisée.
+   */
+  clientConnecte : boolean = false;
+
+/**
+ * Constructeur du composant connection
+ * @param routeur permet de gérer le routage
+ * @param service permet d'accéder aux services du composant ConnectionService
+ */
+ constructor(private routeur : Router, private service : ConnectionService) { }
+
+/**
+ * Méthode appelée lors de l'initialisation de la page html liée au composant
+ */
   ngOnInit() {
     console.log("dans connection");
     
   }
 
+/**
+ * Fonction appelée lors de la demande de connection par l'utilisateur, par le biai du formulaire de connection
+ * @param form le formulaire contenant les données saisies pour la connection
+ */
+  public connection(form: NgForm){
+    console.log("dans envoi connection");   
 
-  public connection(){
-    console.log("dans envoi connection");    
-    this.client = {name:'', address:'', email : 'paul@carretero.ovh', password:'123456'};
+    console.log("contenu du formulaire {" + form.value.email + "," + form.value.password + "}");
     
-    //public connection(){
-    //let connect = this.http.get(`http://Server-web/Login`);
-    let connect = this.http.get(`http://192.168.43.58:8080/BooKKinG-Server-web/Login`).subscribe();
+    // l'utilisateur n'est pas encore connecté
+    this.clientConnecte = false;
+
+    // vérification de l'email renseigné par l'utilisateur, si il est valide alors validEmail est mis à true
+    if(form.value.email == '') this.validEmail = false;
+    else this.validEmail = true;
     
-    //let connect = this.http.post(`http://192.168.43.58:8080/BooKKinG-Server-web/Login`, this.client);
+
+    // vérification du passeword renseigné par l'utilisateur, si il est valide alors validPassword est mis à true
+    if(form.value.password == '') this.validPassword = false;
+    else this.validPassword = true;
+   
+    // si l'email et le password sont valid, alors on peut procéder à la demande de connections
+    if(this.validEmail && this.validPassword){
+      // récupération du contenu du formulaire
+      this.client.email = form.value.email;
+      this.client.password = form.value.password;   
+  
+      // partie fonctionnelle avec le serveur
+      // test en dur mais réaliser un prochain test avec envoi de données récupérées du formulaire
+      this.client = {name:'', address:'', email : 'paul@carretero.ovh', password:'123456'};
+
+      // on fait appel au service de connection, auquel on s'inscrit afin d'être réveillé lorsque la connection aura été effectuée
+      // on affiche les données du client connecté dans la console (pour le moment)
+      this.service.connection(this.client).subscribe(client => {
+        console.log('loading result ' + JSON.stringify(client))}) ;
     
-    //.map(res => res.json()._embedded);
-    if (connect) console.log("connecté" + connect);
-    else console.log("pas connecté");
-    
+
+      console.log("utilisateur : " + this.client.email + " connecté");
+      // l'utilisateur est maintenant connecté
+      this.clientConnecte = true; 
+    }    
 /*
-    this.client.id=1;
-    console.log("utilisateur : " + this.client.identifiant + " connecté");
-    //this.routeur.navigate(['/panier']);
-    */
+    // route permettant de retourner automatiquement vers la page du panier. 
+    this.routeur.navigate(['/panier']);
+*/
   }
 
 }
