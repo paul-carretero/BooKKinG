@@ -8,12 +8,12 @@ import { Client } from '../model/client';
  */
 @Injectable()
 export class ConnectionService {
-//  urlConnection = `http://bookking.ovh/BooKKinG-Server-web/Login` ;
-  urlConnection = `http://192.168.1.39:8080/BooKKinG-Server-web/Login` ;
+   urlConnection = `http://bookking.ovh/BooKKinG-Server-web/Login` ;
+  // urlConnection = `http://192.168.1.39:8080/BooKKinG-Server-web/Login` ;
   
 
-//  urlUser = `http://bookking.ovh/BooKKinG-Server-web/User` ;
-  urlUser = `http://192.168.1.39:8080/BooKKinG-Server-web/User` ;
+  urlUser = `http://bookking.ovh/BooKKinG-Server-web/User` ;
+  //urlUser = `http://192.168.1.39:8080/BooKKinG-Server-web/User` ;
   
 
   /**
@@ -48,7 +48,7 @@ export class ConnectionService {
 //    let connect = this.http.get(this.urlConnection)
 
 
-    let connect = this.http.put(this.urlConnection, client)
+    let connect = this.http.put(this.urlConnection, client, {withCredentials: true})
     .map(res => res.json()); 
 
     // on retourne le client récupéré (Format JSON)
@@ -59,7 +59,7 @@ export class ConnectionService {
   public recuperationInformationsClient() : Observable<Client>{
     console.log("dans envoi récupération d'informations sur un client service");    
     
-        let client = this.http.get(this.urlUser)
+        let client = this.http.get(this.urlUser, {withCredentials: true})
         .map(res => res.json()); 
     
         // on retourne le client récupéré (Format JSON)
@@ -71,7 +71,7 @@ export class ConnectionService {
 
   public creationUser(client : Client) :  Observable<any> {
     console.log("dans création d'un client service");    
-    let connect = this.http.post(this.urlUser, client)
+    let connect = this.http.post(this.urlUser, client, {withCredentials: true})
     .map(res => res.json());
 
     return connect;
