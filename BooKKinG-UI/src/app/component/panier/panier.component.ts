@@ -14,7 +14,7 @@ export class PanierComponent implements OnInit {
 
   listeLivre : Livre[] =[];
  // client : Client = {identifiant:'', mdp:''};
-  constructor() { }
+  constructor(private servicePanier : PanierService) { }
 
 
   ngOnInit() {
@@ -28,6 +28,7 @@ export class PanierComponent implements OnInit {
      /* return this.http.get(`http://localhost:8080/livres`)
       .map(res => res.json()._embedded.livres); 
       */
+
       let liste : Livre[];
       liste = [{id:1, titre:'Chien errant', auteur:'Kate Koja', genre:'roman', prix:9},
       {id:1, titre:'CupCake & co', auteur:'Marabout', genre : 'cuisine', prix:11}

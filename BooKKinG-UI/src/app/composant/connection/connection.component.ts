@@ -20,7 +20,7 @@ import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 /**
  * Composant correspondant à la page de connection d'un utilisateur (la page contient un formulaire)
  */
-export class ConnectionComponent implements OnInit {
+export class ConnectionComponent implements OnInit { 
   /**
    * Attribut correspondant au client connecté
    */
@@ -85,20 +85,48 @@ export class ConnectionComponent implements OnInit {
       // récupération du contenu du formulaire
       this.client.email = form.value.email;
       this.client.password = form.value.password;   
-  
+   //   this.client.name = "myriamProjet";
+   //   this.client.address = "12 allée des cerisiers";
+      
       // partie fonctionnelle avec le serveur
       // test en dur mais réaliser un prochain test avec envoi de données récupérées du formulaire
-      this.client = {name:'', address:'', email : 'paul@carretero.ovh', password:'123456'};
+     // this.client = {name:'', address:'', email : 'paul@carretero.ovh', password:'123456'};
 
       // on fait appel au service de connection, auquel on s'inscrit afin d'être réveillé lorsque la connection aura été effectuée
       // on affiche les données du client connecté dans la console (pour le moment)
-      this.service.connection(this.client).subscribe(client => {
-        console.log('loading result ' + JSON.stringify(client))}) ;
+  //    this.service.creationUser(this.client).subscribe( cree => {
+
+  //      console.log('connection result ' + JSON.stringify(cree));
+  //      if(cree.success) console.log("user crée");
+
+      this.service.connection(this.client).subscribe(
+        connected => {
+          console.log('connection result ' + JSON.stringify(connected));
+          // si la connection a réussie
+          if(connected.success){
+            // on récupère les données liées au compte client
+            this.service.recuperationInformationsClient().subscribe(
+              client => {
+                console.log('loading result ' + JSON.stringify(client));
+                // on met à jour les informations du client 
+                this.client.name = client.name;
+                this.client.email = client.email; 
+                console.log("utilisateur : " + this.client.email + " connecté");
+                // l'utilisateur est maintenant connecté
+                this.clientConnecte = true;
+              }
+            );
+          }
+        }
+      );
+   // }
+   // );
+    
     
 
-      console.log("utilisateur : " + this.client.email + " connecté");
-      // l'utilisateur est maintenant connecté
-      this.clientConnecte = true; 
+      
+
+      
     }    
 /*
     // route permettant de retourner automatiquement vers la page du panier. 

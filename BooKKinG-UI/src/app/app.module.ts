@@ -1,3 +1,4 @@
+import { RechercheService } from './service/recherche.service';
 import { ConnectionService } from './service/connection.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
@@ -57,7 +58,8 @@ export const appRoutes: Routes = [
   ],
   // fournisseur de services dans l'application
   providers: [
-    ConnectionService
+    ConnectionService,
+    RechercheService
   ],
   bootstrap: [AppComponent]
 })

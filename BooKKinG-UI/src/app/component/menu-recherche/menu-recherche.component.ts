@@ -1,5 +1,5 @@
+import { Livre } from './../../model/livre';
 import { Component, OnInit } from '@angular/core';
-import { Livre } from '../../model/livre';
 import { Router } from '@angular/router';
 
 @Component({
@@ -44,5 +44,11 @@ export class MenuRechercheComponent implements OnInit {
     {id:21, titre:'Wok en folie', auteur:'asiaCooking', genre:'cuisine', prix:19}
   
     ];
+   }
+
+
+
+   public ajouterAuPanier(livre : Livre){
+    console.log("livre : " + livre.titre + " à ajouter au panier");
    }
 }
