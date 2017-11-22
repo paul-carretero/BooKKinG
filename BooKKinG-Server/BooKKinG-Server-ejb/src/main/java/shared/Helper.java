@@ -20,4 +20,25 @@ public class Helper {
 			return null;
 		}
 	}
+	
+	private static String getMissingSpace(int size) {
+		StringBuilder res = new StringBuilder();
+		for(int i = 0; i < size; i++) {
+			res.append(' ');
+		}
+		return res.toString();
+	}
+	
+	public static String beautifyString(final String str, final int length) {
+		if(str.length() == length) {
+			return str;
+		}
+		else if(str.length() > length) {
+			return str.substring(0, length-3) + "...";
+		}
+		else {
+			return str + getMissingSpace(length - str.length());
+		}
+		
+	}
 }

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import beans.CartBeanLocal;
 import beans.CommandBeanLocal;
-import beans.UserBeanLocal;
 import response.CommandJson;
 import response.CommandListJson;
 import response.GenericResponseJson;

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import localItf.BookEntItf;
 import localItf.CmdDetailEntItf;
 import localItf.CommandEntItf;
+import shared.Helper;
 
 /**
  * Entity implementation class for Entity: CmdDetails
@@ -94,12 +95,13 @@ public class CmdDetailEntity implements Serializable, CmdDetailEntItf {
 	@Override
 	public String toString() {
 		StringBuffer res = new StringBuffer();
-		res.append(this.quantity);
-		res.append(" * [");
-		res.append(this.book.getTitle());
-		res.append("]  (");
-		res.append((this.quantity * this.price));
-		res.append("€)");
+		res.append("|   ");
+		res.append(Helper.beautifyString(this.quantity.toString(), 2));
+		res.append("   | ");
+		res.append(Helper.beautifyString(this.book.getTitle(), 15));
+		res.append(" | ");
+		res.append(Helper.beautifyString(String.valueOf(this.quantity * this.price),4));
+		res.append("€ |");
 		return res.toString();
 	}
    

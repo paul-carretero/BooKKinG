@@ -77,5 +77,5 @@ public class HttpHelper {
 		response.getWriter().append(new GenericResponseJson(false,"echec : vous n'êtes pas administrateur").toString());
 		return false;
 	}
-
+	
 }

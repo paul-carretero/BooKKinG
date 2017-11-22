@@ -25,6 +25,7 @@ import localItf.UserEntItf;
 @LocalBean
 public class MailerBean implements MailerBeanLocal {
 
+	private static final boolean ACTUALLY_SEND_MAIL = false;
 	private static final String SMTP_HOST_NAME = "SSL0.OVH.NET";
 	private static final String SMTP_AUTH_USER = "contact@bookking.ovh";
 	private static final String SMTP_HOST_PORT = "587";
@@ -43,7 +44,7 @@ public class MailerBean implements MailerBeanLocal {
 			return new PasswordAuthentication(SMTP_AUTH_USER, getJCVD());
 		}
 	}
-	
+
 	/**
 	 * juste pour que ce soit un peu moins obvious...
 	 * @return jcvd
@@ -55,7 +56,7 @@ public class MailerBean implements MailerBeanLocal {
 		jcvd /= 2;
 		return String.valueOf(jcvd)+"?";
 	}
-	
+
 	private void actualSender(final String toEmail, final String subject, final String textMessage) {
 		Properties properties = System.getProperties();
 		properties.setProperty("mail.smtp.host", SMTP_HOST_NAME);
@@ -64,14 +65,15 @@ public class MailerBean implements MailerBeanLocal {
 		properties.setProperty("mail.smtp.auth", "true");
 		Authenticator auth = new SMTPAuthenticator();
 		Session session = Session.getDefaultInstance(properties, auth);
-		
 		try {
 			MimeMessage mail = new MimeMessage(session);
 			mail.setFrom(new InternetAddress(SMTP_AUTH_USER));
 			mail.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 			mail.setSubject(subject);
 			mail.setText(textMessage);
-			Transport.send(mail);
+			if(ACTUALLY_SEND_MAIL) {
+				Transport.send(mail);
+			}
 		} catch (MessagingException e) {
 			System.err.println(e.getMessage());
 		}
@@ -127,20 +129,22 @@ public class MailerBean implements MailerBeanLocal {
 		actualMessage.append(" et nous vous en remercions");
 		actualMessage.append("\r\n");
 		actualMessage.append("Pour rappel, voici sa composition: \r\n\r\n");
-		actualMessage.append("----------------------------------\r\n");
+		actualMessage.append("--------------------------------------\r\n");
+		actualMessage.append("|quantité|      titre      |  prix   |\r\n");
+		actualMessage.append("--------------------------------------\r\n");
 		for(CmdDetailEntItf cmdEntry : cmd.getCmdDetails()) {
 			actualMessage.append(cmdEntry.toString());
-			actualMessage.append("\r\n");
+			actualMessage.append("\r\n--------------------------------------\r\n");
 		}
-		actualMessage.append("----------------------------------\r\n");
-		actualMessage.append("TOTAL : ");
+		actualMessage.append("|               TOTAL      |  ");
 		actualMessage.append(cmd.getTotal());
-		
+		actualMessage.append("€  |\r\n");
+		actualMessage.append("--------------------------------------\r\n");
 		actualMessage.append("\r\n\r\n");
 		actualMessage.append("N'hésitez pas à nous contacter pour toutes autres questions");
 		actualMessage.append("\r\n\r\n");
 		actualMessage.append("L'équipe BooKKinG");
-		
+
 		actualSender(aUser.getEmail(), "BooKKinG : Confirmation de votre commande", actualMessage.toString());
 	}
 }
