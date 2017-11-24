@@ -32,11 +32,17 @@ export class Recherche {
   minPrice : number;
   type : string;
   genres : string[];
+
+  /*
+  constructor(){
+    this.title = "";  
+  }
+  */
 }
 
 
 export class ReponseRecherche {
-  livres : Livre[];
+  books : Livre[];
   success : boolean;
   message : string;
 }

@@ -14,39 +14,40 @@ export class PanierComponent implements OnInit {
 //  static list : ListLivre;
   static tabLivre : Livre[] =[];
   listeLivre : Livre[] =[];
-
+  montantTotal : number;
 
   constructor() { }
 
 
-  ngOnInit() {
+  ngOnInit() { 
     this.listeLivre = PanierComponent.tabLivre; 
+    this.montantTotal = this.total();
   }
 
 
-    public payer(){
+    public total(){
       let montant = 0;
       for(let livre of this.listeLivre){
-        montant = montant + livre.prix;
+        montant = montant + livre.price;
       }
-       console.log("payer contenu du panier : " + montant); 
+       console.log("total du panier : " + montant); 
       return montant;
     }
 
     public payerAvecAdresse(){
-      let montant = this.payer();
+      let montant = this.total();
 
 
     }
 
     public payerPointCollecte(){
-      let montant = this.payer();
+      let montant = this.total();
       
     }
 
     public static ajouterLivrePanier(livre : Livre){
         console.log("dans ajouter Livre au panier");
-        console.log("livre a ajouter : " + livre.titre);
+        console.log("livre a ajouter : " + livre.title);
         this.tabLivre[this.tabLivre.length] = livre;
         if (this.tabLivre[this.tabLivre.length-1] == livre)console.log("livre bien ajouté");
    }
