@@ -1,0 +1,20 @@
+<!--
+<div>
+  Client : {{client.name}}
+</div>
+-->
+
+
+  <h3>
+    Total à payer : {{total}} euros
+  </h3>
+  <p>
+    Choisir mode de paiement :
+  </p>
+  <div>
+    par PayPal <input type ="button" (click)="paiementPayPal()" value="Choisir">
+  </div>
+  <div>
+    par Carte Bancaire <input type ="button" (click)="paiementCB()" value="Choisir">
+  </div>
+

@@ -17,6 +17,9 @@ import { LivresListComponent } from './component/livres-list/livres-list.compone
 import { ConnectionComponent } from './composant/connection/connection.component';
 import { CompteClientComponent } from './component/compte-client/compte-client.component';
 import { Http, HttpModule } from '@angular/http';
+import { PayerComponent } from './component/payer/payer.component';
+import { LivraisonComponent } from './component/livraison/livraison.component';
+import { FinPaiementComponent } from './component/fin-paiement/fin-paiement.component';
 
 
 
@@ -28,7 +31,11 @@ export const appRoutes: Routes = [
   { path: 'menu-recherche', component: MenuRechercheComponent },
   { path: 'barre-recherche', component: BarreRechercheComponent },
   { path: 'listeLivre', component: LivresListComponent }, 
-  { path: 'connection', component: ConnectionComponent }  
+  { path: 'connection', component: ConnectionComponent },
+  { path: 'payer', component: PayerComponent },
+  { path: 'livraison', component: LivraisonComponent },
+  { path: 'finPaiement', component: FinPaiementComponent } 
+     
 ];
 
 
@@ -45,7 +52,10 @@ export const appRoutes: Routes = [
     LivreComponent,
     LivresListComponent,
     ConnectionComponent,
-    CompteClientComponent
+    CompteClientComponent,
+    PayerComponent,
+    LivraisonComponent,
+    FinPaiementComponent
   ],
   // modules que l'application va utiliser 
   // ! penser à y mettre aussi les modules pour les formulaires
