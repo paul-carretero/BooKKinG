@@ -11,30 +11,17 @@ import { Client } from '../../model/client';
 
 
 export class PanierComponent implements OnInit {
-
+//  static list : ListLivre;
+  static tabLivre : Livre[] =[];
   listeLivre : Livre[] =[];
- // client : Client = {identifiant:'', mdp:''};
-  constructor(private servicePanier : PanierService) { }
+
+
+  constructor() { }
 
 
   ngOnInit() {
-   // console.log("panier du client : "+ this.client.identifiant);
-    this.listeLivre = this.contenuPanier();
-    //this.listeLivre = this.service.liste;
+    this.listeLivre = PanierComponent.tabLivre; 
   }
-
-  public contenuPanier(): Livre[] {
-    //public contenuPanier(): Observable<Livre[]> { 
-     /* return this.http.get(`http://localhost:8080/livres`)
-      .map(res => res.json()._embedded.livres); 
-      */
-
-      let liste : Livre[];
-      liste = [{id:1, titre:'Chien errant', auteur:'Kate Koja', genre:'roman', prix:9},
-      {id:1, titre:'CupCake & co', auteur:'Marabout', genre : 'cuisine', prix:11}
-      ];
-      return liste;
-    }
 
 
     public payer(){
@@ -56,4 +43,15 @@ export class PanierComponent implements OnInit {
       let montant = this.payer();
       
     }
+
+    public static ajouterLivrePanier(livre : Livre){
+        console.log("dans ajouter Livre au panier");
+        console.log("livre a ajouter : " + livre.titre);
+        this.tabLivre[this.tabLivre.length] = livre;
+        if (this.tabLivre[this.tabLivre.length-1] == livre)console.log("livre bien ajouté");
+   }
+  
+    
+
 }
+

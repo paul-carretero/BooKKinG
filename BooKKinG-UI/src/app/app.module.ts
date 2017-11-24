@@ -21,7 +21,6 @@ import { Http, HttpModule } from '@angular/http';
 
 
 
-
 // constante regroupant les routes vers les différents pages liées aux composants
 // ! le nom du path est celui utilisé dans les liens dans app.component.html
 export const appRoutes: Routes = [
@@ -64,7 +63,5 @@ export const appRoutes: Routes = [
   bootstrap: [AppComponent]
 })
 export class AppModule { 
-
-
 
 }

@@ -1,3 +1,5 @@
+import { PanierComponent } from './../panier/panier.component';
+import { RechercheService, Recherche } from './../../service/recherche.service';
 import { Livre } from './../../model/livre';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -9,7 +11,10 @@ import { Router } from '@angular/router';
 })
 export class MenuRechercheComponent implements OnInit {
   listeLivres : Livre[];
-  constructor(private router : Router) { }
+  recherche : Recherche;
+
+
+  constructor(private router : Router, private service : RechercheService) { }
 
   ngOnInit() {
     console.log("dans menu");
@@ -18,18 +23,29 @@ export class MenuRechercheComponent implements OnInit {
 
 
   public romans(){
-    //public contenuPanier(): Observable<Livre[]> { 
-    /* return this.http.get(`http://localhost:8080/livres`)
-     .map(res => res.json()._embedded.livres); 
-     */
+    
     console.log("dans menu romans");
-     this.listeLivres = [
-    {id:10, titre:'Etiquette et espionnage', auteur:'Gail Carriger', genre : 'roman', prix:7},
-    {id:11, titre:'D\'un monde à l\'autre' , auteur:'Pierre Boterro', genre : 'roman', prix:15},
-    {id:12, titre:'Le livre des étoiles', auteur:'Eric l\'homme', genre : 'roman', prix:10},
+    
+    this.listeLivres = [
+    {id:10, titre:'Etiquette et espionnage', auteur:'Gail Carriger', genre : 'policier',type :"roman", prix:7},
+    {id:11, titre:'D\'un monde à l\'autre' , auteur:'Pierre Boterro', genre : 'fantasy',type :"roman", prix:15},
+    {id:12, titre:'Le livre des étoiles', auteur:'Eric l\'homme', genre : 'fantasy',type :"roman", prix:10},
     
     ];
-    
+/*    
+    this.recherche.type = "roman";
+    this.service.rechercherEnsembleLivre(this.recherche).subscribe(
+      reponse => {
+        console.log('resultat de la recherche de romans ' + JSON.stringify(reponse));
+        // si la recherche a réussie
+        if(reponse.success){
+          this.listeLivres = reponse.livres;          
+        }
+      }
+    );
+*/
+
+
      //this.router.navigate(['/menu-recherche']);
    }
 
@@ -40,8 +56,8 @@ export class MenuRechercheComponent implements OnInit {
      .map(res => res.json()._embedded.livres); 
      */
     this.listeLivres = [
-    {id:20, titre:'Recettes pour étudiant', auteur:'marmiton', genre:'cuisine', prix:10},
-    {id:21, titre:'Wok en folie', auteur:'asiaCooking', genre:'cuisine', prix:19}
+    {id:20, titre:'Recettes pour étudiant', auteur:'marmiton', genre:'cuisine',type :"oeuvre", prix:10},
+    {id:21, titre:'Wok en folie', auteur:'asiaCooking', genre:'cuisine', type :"oeuvre", prix:19}
   
     ];
    }
@@ -50,5 +66,8 @@ export class MenuRechercheComponent implements OnInit {
 
    public ajouterAuPanier(livre : Livre){
     console.log("livre : " + livre.titre + " à ajouter au panier");
+
+    PanierComponent.ajouterLivrePanier(livre);
+
    }
 }
