@@ -11,6 +11,7 @@ export class ResearchComponent implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit() {
+    
   }
 
 }

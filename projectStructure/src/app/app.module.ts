@@ -3,52 +3,52 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {
-  BookService,
-  CartDetailService,
-  CmdDetailService,
-  CommandService,
-  GenreService,
-  TypeService,
-  UserService,
-  SharedModule,
-  HeaderComponent
-} from './shared';
+  SharedModule
+} from './shared/shared.module';
 
 import { RouterModule, Routes } from '@angular/router';
-import { ResearchComponent } from './research/research.component';
-import { ResearchModule } from './research/research.module';
-import { HomeComponent } from './home/home.component';
-import { HomeModule } from './home/home.module';
+//import { ResearchComponent } from './research/research.component';
+//import { HomeComponent } from './home/home.component';
+import {PagesComponentsModule} from './pages-components/pages-components.module'
+import { ResearchComponent } from './pages-components/research/research.component';
+import { HomeComponent } from './pages-components/home/home.component';
+import { CategoryGenreComponent } from './category-genre/category-genre.component';
+import { CategoryGenreModule } from './category-genre/category-genre.module';
+import { HeaderComponent } from './shared/header/header.component';
+import { TemplateComponent } from './shared/template/template.component';
 
 export const appRoutes: Routes = [
-  /* 
+  /*
   {
     path :'',
       children : [
+        {path : '' , component : TemplateComponent},
         {path : 'research', component : ResearchComponent}
+        
       ],
-      component : AppComponent
+      component : TemplateComponent
   },
   {path : 'home', component : HomeComponent}
   */
   {path : 'home', component : HomeComponent},
   {path : 'research', component : ResearchComponent}
+  
 ]
 
   
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent
+    AppComponent
   ],
   imports: [
+    CategoryGenreModule,
+    PagesComponentsModule,
     BrowserModule,
     SharedModule,
-    ResearchModule,
-    HomeModule,
     RouterModule.forRoot(appRoutes, {useHash : true})
   ],
   providers: [
+/*    
     BookService,
     CartDetailService,
     CmdDetailService,
@@ -56,6 +56,7 @@ export const appRoutes: Routes = [
     GenreService,
     TypeService,
     UserService
+*/  
   ],
   bootstrap: [AppComponent]
 })
