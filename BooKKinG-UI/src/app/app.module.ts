@@ -19,6 +19,9 @@ import { ConnectionComponent } from './composant/connection/connection.component
 import { CompteClientComponent } from './component/compte-client/compte-client.component';
 import { Http, HttpModule } from '@angular/http';
 import { InscriptionComponent } from './component/inscription/inscription.component';
+import { PayerComponent } from './component/payer/payer.component';
+import { LivraisonComponent } from './component/livraison/livraison.component';
+import { FinPaiementComponent } from './component/fin-paiement/fin-paiement.component';
 
 
 
@@ -29,9 +32,13 @@ export const appRoutes: Routes = [
   { path: 'panier',component: PanierComponent },
   { path: 'menu-recherche', component: MenuRechercheComponent },
   { path: 'barre-recherche', component: BarreRechercheComponent },
-  { path: 'listeLivre', component: LivresListComponent },
+  { path: 'inscription', component: InscriptionComponent },
+  { path: 'listeLivre', component: LivresListComponent }, 
   { path: 'connection', component: ConnectionComponent },
-  { path: 'inscription', component: InscriptionComponent }
+  { path: 'payer', component: PayerComponent },
+  { path: 'livraison', component: LivraisonComponent },
+  { path: 'finPaiement', component: FinPaiementComponent } 
+     
 ];
 
 
@@ -49,7 +56,10 @@ export const appRoutes: Routes = [
     LivresListComponent,
     ConnectionComponent,
     CompteClientComponent,
-    InscriptionComponent
+    InscriptionComponent,
+    PayerComponent,
+    LivraisonComponent,
+    FinPaiementComponent
   ],
   // modules que l'application va utiliser 
   // ! penser à y mettre aussi les modules pour les formulaires
