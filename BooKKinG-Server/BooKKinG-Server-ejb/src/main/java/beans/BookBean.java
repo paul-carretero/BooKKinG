@@ -39,7 +39,7 @@ public class BookBean implements BookBeanLocal {
 	public void getBooks(final BookSearchJsonItf searchData, final BookListJsonItf response){
 		List<BookEntity> books = this.manager.createQuery(
 				" FROM BookEntity b WHERE "
-				+ "(b.type = :type OR :type = 'ANY')"
+				+ "(b.type = :type XOR :type = 'ANY')"
 				+ " AND (b.price >= :minprice OR :minprice <= 0)"
 				+ " AND (b.price <= :maxprice OR :maxprice <= 0)"
 				+ " AND (b.title LIKE :title OR b.author LIKE :author)")

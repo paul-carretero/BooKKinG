@@ -116,6 +116,8 @@ export class ConnectionComponent implements OnInit {
                 this.clientConnecte = true;
               }
             );
+          }else{
+            alert(connected.message);
           }
         }
       );

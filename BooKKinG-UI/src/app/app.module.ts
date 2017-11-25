@@ -1,3 +1,4 @@
+import { Globals } from './globals';
 import { RechercheService } from './service/recherche.service';
 import { ConnectionService } from './service/connection.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,6 +18,7 @@ import { LivresListComponent } from './component/livres-list/livres-list.compone
 import { ConnectionComponent } from './composant/connection/connection.component';
 import { CompteClientComponent } from './component/compte-client/compte-client.component';
 import { Http, HttpModule } from '@angular/http';
+import { InscriptionComponent } from './component/inscription/inscription.component';
 
 
 
@@ -27,8 +29,9 @@ export const appRoutes: Routes = [
   { path: 'panier',component: PanierComponent },
   { path: 'menu-recherche', component: MenuRechercheComponent },
   { path: 'barre-recherche', component: BarreRechercheComponent },
-  { path: 'listeLivre', component: LivresListComponent }, 
-  { path: 'connection', component: ConnectionComponent }  
+  { path: 'listeLivre', component: LivresListComponent },
+  { path: 'connection', component: ConnectionComponent },
+  { path: 'inscription', component: InscriptionComponent }
 ];
 
 
@@ -45,7 +48,8 @@ export const appRoutes: Routes = [
     LivreComponent,
     LivresListComponent,
     ConnectionComponent,
-    CompteClientComponent
+    CompteClientComponent,
+    InscriptionComponent
   ],
   // modules que l'application va utiliser 
   // ! penser à y mettre aussi les modules pour les formulaires
@@ -57,6 +61,7 @@ export const appRoutes: Routes = [
   ],
   // fournisseur de services dans l'application
   providers: [
+    Globals,
     ConnectionService,
     RechercheService
   ],

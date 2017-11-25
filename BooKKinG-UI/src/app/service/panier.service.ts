@@ -4,12 +4,15 @@ import { Http } from '@angular/http';
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
+import { Globals } from '../globals';
 
 
 @Injectable()
 export class PanierService {
 
   liste : Livre[];
+
+  urlCart = `http://`+Globals.host+`/BooKKinG-Server-web/Cart` ;
 
   constructor(private http: Http) { }
   
