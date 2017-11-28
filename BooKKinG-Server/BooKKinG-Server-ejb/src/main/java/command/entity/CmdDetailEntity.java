@@ -1,0 +1,107 @@
+package command.entity;
+
+import java.io.Serializable;
+import javax.persistence.*;
+
+import book.entity.BookEntItf;
+import book.entity.BookEntity;
+import shared.Helper;
+
+/**
+ * Entity implementation class for Entity: CmdDetails
+ *
+ */
+@Entity @IdClass(CmdDetailId.class)
+@Table(name="CmdDetail")
+
+public class CmdDetailEntity implements Serializable, CmdDetailEntItf {
+
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 4664536675074750961L;
+
+	@Id
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idCmd")
+	private CommandEntity command;
+
+	@Id
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idBook")
+	private BookEntity book;
+	
+	@Column(name="quantity")
+	private Integer quantity;
+	
+	@Column(name="price")
+	private Float price;
+
+	public CmdDetailEntity() {
+		super();
+	}
+
+	/**
+	 * @param command
+	 * @param book
+	 * @param amount
+	 * @param price
+	 */
+	public CmdDetailEntity(CommandEntity command, BookEntity book, Integer amount, Float price) {
+		super();
+		this.command = command;
+		this.book = book;
+		this.quantity = amount;
+		this.price = price;
+	}
+
+	@Override
+	public CommandEntItf getCommand() {
+		return this.command;
+	}
+
+	@Override
+	public BookEntItf getBook() {
+		return this.book;
+	}
+
+	@Override
+	public Integer getQuantity() {
+		return this.quantity;
+	}
+
+	@Override
+	public Float getPrice() {
+		return this.price;
+	}
+
+	public void setCommand(CommandEntity command) {
+		this.command = command;
+	}
+
+	public void setBook(BookEntity book) {
+		this.book = book;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuffer res = new StringBuffer();
+		res.append("|   ");
+		res.append(Helper.beautifyString(this.quantity.toString(), 2));
+		res.append("   | ");
+		res.append(Helper.beautifyString(this.book.getTitle(), 15));
+		res.append(" | ");
+		res.append(Helper.beautifyString(String.valueOf(this.quantity * this.price),4));
+		res.append("€ |");
+		return res.toString();
+	}
+   
+}

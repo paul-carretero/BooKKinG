@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import JsonItf.UserJsonItf;
-import request.BookSearchJson;
-import request.CartItemJson;
-import request.CartJson;
-import request.UserJson;
+import book.request.BookSearchJson;
+import cart.request.CartItemJson;
+import cart.request.CartJson;
+import user.dataItf.UserJsonItf;
+import user.request.UserJson;
 
 public abstract class AbstractJson implements Serializable {
 
@@ -48,7 +48,7 @@ public abstract class AbstractJson implements Serializable {
 
 	/**
 	 * génère et affiche des JSON exemple
-	 * @param args
+	 * @param args unused
 	 */
 	public static void main (String[] args){
 		System.out.println("user JSON:");

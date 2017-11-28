@@ -13,7 +13,7 @@
     <description></description>
     <display-name>Login</display-name>
     <servlet-name>Login</servlet-name>
-    <servlet-class>servlets.Login</servlet-class>
+    <servlet-class>user.Login</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Login</servlet-name>
@@ -24,7 +24,7 @@
     <description></description>
     <display-name>User</display-name>
     <servlet-name>User</servlet-name>
-    <servlet-class>servlets.User</servlet-class>
+    <servlet-class>user.User</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>User</servlet-name>
@@ -35,7 +35,7 @@
     <description></description>
     <display-name>Book</display-name>
     <servlet-name>Book</servlet-name>
-    <servlet-class>servlets.Book</servlet-class>
+    <servlet-class>book.Book</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Book</servlet-name>
@@ -46,7 +46,7 @@
     <description></description>
     <display-name>Command</display-name>
     <servlet-name>Command</servlet-name>
-    <servlet-class>servlets.Command</servlet-class>
+    <servlet-class>command.Command</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Command</servlet-name>
@@ -57,7 +57,7 @@
     <description></description>
     <display-name>Cart</display-name>
     <servlet-name>Cart</servlet-name>
-    <servlet-class>servlets.Cart</servlet-class>
+    <servlet-class>cart.Cart</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Cart</servlet-name>
