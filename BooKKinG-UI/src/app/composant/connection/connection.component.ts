@@ -25,11 +25,18 @@ export class ConnectionComponent implements OnInit {
   /**
    * Attribut correspondant au client connecté
    */
-  client : Client = {name:'', address:'', email : '', password:''};
+  client : Client = new Client();
 
 
   static client : Client;
 
+
+  /**
+   * Attribut correspondant au fait que l'utilisateur est connecté
+   * A false tant que la connection n'a pas été réalisée.
+   */
+  static clientConnecte : boolean = false;
+  
   /**
    * Attribut correspondant à la validité de l'email renseigné
    * Tant que l'utilisateur ne soumet aucune information, l'email est considéré comme valide
@@ -42,38 +49,43 @@ export class ConnectionComponent implements OnInit {
    */
   validPassword : boolean = true;
 
+
+
   /**
-   * Attribut correspondant au fait que l'utilisateur est connecté
-   * A false tant que la connection n'a pas été réalisée.
+   * Attribut correspondant à l'affichage dynamique de la connection du client
    */
   clientConnecte : boolean = false;
 
-/**
- * Constructeur du composant connection
- * @param routeur permet de gérer le routage
- * @param service permet d'accéder aux services du composant ConnectionService
- */
- constructor(private routeur : Router, private service : ConnectionService) { }
+  /**
+  * Constructeur du composant connection
+  * @param routeur permet de gérer le routage
+  * @param service permet d'accéder aux services du composant ConnectionService
+  */
+  constructor(private routeur : Router, private service : ConnectionService) { }
 
-/**
- * Méthode appelée lors de l'initialisation de la page html liée au composant
- */
+  /**
+  * Méthode appelée lors de l'initialisation de la page html liée au composant
+  */
   ngOnInit() {
     console.log("dans connection");
+    this.validEmail = true;
+    this.validPassword = true;
+    this.clientConnecte = ConnectionComponent.clientConnecte;
+    if(ConnectionComponent.client) this.client = ConnectionComponent.client;
     
   }
 
-/**
- * Fonction appelée lors de la demande de connection par l'utilisateur, par le biai du formulaire de connection
- * @param form le formulaire contenant les données saisies pour la connection
- */
+  /**
+  * Fonction appelée lors de la demande de connection par l'utilisateur, par le biai du formulaire de connection
+  * @param form le formulaire contenant les données saisies pour la connection
+  */
   public connection(form: NgForm){
     console.log("dans envoi connection");   
 
     console.log("contenu du formulaire {" + form.value.email + "," + form.value.password + "}");
     
     // l'utilisateur n'est pas encore connecté
-    this.clientConnecte = false;
+    ConnectionComponent.clientConnecte = false;
 
     // vérification de l'email renseigné par l'utilisateur, si il est valide alors validEmail est mis à true
     if(form.value.email == '') this.validEmail = false;
@@ -89,20 +101,20 @@ export class ConnectionComponent implements OnInit {
       // récupération du contenu du formulaire
       this.client.email = form.value.email;
       this.client.password = form.value.password;   
-   //   this.client.name = "myriamProjet";
-   //   this.client.address = "12 allée des cerisiers";
-      
+
+/*
+      // code en dur pour des tests sans serveur
+      console.log("test en dur");
+      this.client.name = "myriamProjet";
+      this.client.address = "12 allée des cerisiers";
+      ConnectionComponent.client = this.client;
+      console.log("utilisateur : " + this.client.email + " connecté");
+      // l'utilisateur est maintenant connecté
+      ConnectionComponent.clientConnecte = true;
+*/      
+
+
       // partie fonctionnelle avec le serveur
-      // test en dur mais réaliser un prochain test avec envoi de données récupérées du formulaire
-     // this.client = {name:'', address:'', email : 'paul@carretero.ovh', password:'123456'};
-
-      // on fait appel au service de connection, auquel on s'inscrit afin d'être réveillé lorsque la connection aura été effectuée
-      // on affiche les données du client connecté dans la console (pour le moment)
-  //    this.service.creationUser(this.client).subscribe( cree => {
-
-  //      console.log('connection result ' + JSON.stringify(cree));
-  //      if(cree.success) console.log("user crée");
-
       this.service.connection(this.client).subscribe(
         connected => {
           console.log('connection result ' + JSON.stringify(connected));
@@ -120,7 +132,7 @@ export class ConnectionComponent implements OnInit {
                 ConnectionComponent.client = this.client;
                 console.log("utilisateur : " + this.client.email + " connecté");
                 // l'utilisateur est maintenant connecté
-                this.clientConnecte = true;
+                ConnectionComponent.clientConnecte = true;
               }
             );
           }else{
@@ -128,19 +140,28 @@ export class ConnectionComponent implements OnInit {
           }
         }
       );
-   // }
-   // );
-    
-    
 
-      
-
-      
+      this.clientConnecte = ConnectionComponent.clientConnecte;
     }    
-/*
-    // route permettant de retourner automatiquement vers la page du panier. 
-    this.routeur.navigate(['/panier']);
-*/
   }
 
+  /**
+   * Méthode permettant la déconnexion d'un client
+   */
+  public deconnexion(){
+    this.client = ConnectionComponent.client = new Client();
+    this.clientConnecte = ConnectionComponent.clientConnecte = false;
+    
+/*    
+    // partie fonctionnant avec le serveur
+    // PAS ENCORE TESTEE MAIS DEVRAI FONCTIONNER
+    this.service.deconnexion().subscribe(
+      deconnected => {
+        if(deconnected.success){
+          console.log("déconnexion du client");
+        }
+      }
+    );
+*/
+  }
 }

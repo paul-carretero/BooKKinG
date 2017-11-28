@@ -1,3 +1,4 @@
+import { AdministrationService } from './service/administration.service';
 import { Globals } from './globals';
 import { RechercheService } from './service/recherche.service';
 import { ConnectionService } from './service/connection.service';
@@ -22,6 +23,7 @@ import { InscriptionComponent } from './component/inscription/inscription.compon
 import { PayerComponent } from './component/payer/payer.component';
 import { LivraisonComponent } from './component/livraison/livraison.component';
 import { FinPaiementComponent } from './component/fin-paiement/fin-paiement.component';
+import { AdministrationComponent } from './component/administration/administration.component';
 
 
 
@@ -37,7 +39,8 @@ export const appRoutes: Routes = [
   { path: 'connection', component: ConnectionComponent },
   { path: 'payer', component: PayerComponent },
   { path: 'livraison', component: LivraisonComponent },
-  { path: 'finPaiement', component: FinPaiementComponent } 
+  { path: 'finPaiement', component: FinPaiementComponent }, 
+  { path: 'admin', component: AdministrationComponent}
      
 ];
 
@@ -59,7 +62,8 @@ export const appRoutes: Routes = [
     InscriptionComponent,
     PayerComponent,
     LivraisonComponent,
-    FinPaiementComponent
+    FinPaiementComponent,
+    AdministrationComponent
   ],
   // modules que l'application va utiliser 
   // ! penser à y mettre aussi les modules pour les formulaires
@@ -73,7 +77,8 @@ export const appRoutes: Routes = [
   providers: [
     Globals,
     ConnectionService,
-    RechercheService
+    RechercheService, 
+    AdministrationService
   ],
   bootstrap: [AppComponent]
 })

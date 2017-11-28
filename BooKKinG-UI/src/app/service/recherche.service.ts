@@ -2,12 +2,13 @@ import { Livre } from './../model/livre';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Globals } from '../globals';
 
 
 @Injectable()
 export class RechercheService {
 
-  urlLivre = `http://bookking.ovh/BooKKinG-Server-web/Book` ;
+  urlLivre = `http://`+Globals.host+`/BooKKinG-Server-web/Book` ;
   
 
 
@@ -23,6 +24,7 @@ export class RechercheService {
     return reponse;
   }
 
+
 }
 
 export class Recherche {
@@ -32,12 +34,6 @@ export class Recherche {
   minPrice : number;
   type : string;
   genres : string[];
-
-  /*
-  constructor(){
-    this.title = "";  
-  }
-  */
 }
 
 

@@ -8,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './livraison.component.html',
   styleUrls: ['./livraison.component.css']
 })
+
+/**
+ * Composant correspondant à la livraison
+ */
 export class LivraisonComponent implements OnInit {
   static prixLivraison : number;
 
