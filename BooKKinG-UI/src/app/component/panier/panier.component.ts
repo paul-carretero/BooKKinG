@@ -1,7 +1,10 @@
+import { ConnectionComponent } from './../../composant/connection/connection.component';
+import { Livre } from './../../model/livre';
 import { PanierService } from './../../service/panier.service';
 import { Component, OnInit } from '@angular/core';
-import { Livre } from '../../model/livre';
 import { Client } from '../../model/client';
+import { Router } from '@angular/router';
+import { PayerComponent } from '../payer/payer.component';
 
 @Component({
   selector: 'app-panier',
@@ -11,49 +14,70 @@ import { Client } from '../../model/client';
 
 
 export class PanierComponent implements OnInit {
-
+//  static list : ListLivre;
+  static tabLivre : Livre[] =[];
+  static montantTotal : number;
   listeLivre : Livre[] =[];
- // client : Client = {identifiant:'', mdp:''};
-  constructor(private servicePanier : PanierService) { }
+  montantTotal : number;
+
+  constructor(private router : Router) { }
 
 
-  ngOnInit() {
-   // console.log("panier du client : "+ this.client.identifiant);
-    this.listeLivre = this.contenuPanier();
-    //this.listeLivre = this.service.liste;
+  ngOnInit() { 
+    this.listeLivre = PanierComponent.tabLivre; 
+    this.montantTotal = PanierComponent.montantTotal;
   }
 
-  public contenuPanier(): Livre[] {
-    //public contenuPanier(): Observable<Livre[]> { 
-     /* return this.http.get(`http://localhost:8080/livres`)
-      .map(res => res.json()._embedded.livres); 
-      */
 
-      let liste : Livre[];
-      liste = [{id:1, titre:'Chien errant', auteur:'Kate Koja', genre:'roman', prix:9},
-      {id:1, titre:'CupCake & co', auteur:'Marabout', genre : 'cuisine', prix:11}
-      ];
-      return liste;
-    }
-
-
-    public payer(){
-      let montant = 0;
-      for(let livre of this.listeLivre){
-        montant = montant + livre.prix;
-      }
-       console.log("payer contenu du panier : " + montant); 
-      return montant;
-    }
-
+    
+/*
     public payerAvecAdresse(){
-      let montant = this.payer();
+      let montant = this.total();
 
 
     }
 
     public payerPointCollecte(){
-      let montant = this.payer();
+      let montant = this.total();
       
     }
+*/
+
+
+    public static ajouterLivrePanier(livre : Livre){
+        console.log("dans ajouter Livre au panier");
+        console.log("livre a ajouter : " + livre.title);
+        this.tabLivre[this.tabLivre.length] = livre;
+        if (this.tabLivre[this.tabLivre.length-1] == livre)console.log("livre bien ajouté");
+        this.montantTotal = this.total() ;
+   
+      }
+
+      public static total(){
+        let montant = 0;
+        for(let livre of this.tabLivre){
+          montant = montant + livre.price;
+        }
+         console.log("total du panier : " + montant); 
+         return montant;
+      }
+
+
+   public payer(){
+    console.log("dans payer du panier");   
+    if(ConnectionComponent.client){
+      PayerComponent.enCoursDePaiement = true; 
+      this.router.navigate(['livraison']);
+      //this.router.navigate(['payer']);      
+    } 
+    else{
+      PayerComponent.enCoursDePaiement = true; 
+      this.router.navigate(['/connection']);
+    }
+    //this.router.navigate(['/menu-recherche']);
+
+  }
+
+
 }
+

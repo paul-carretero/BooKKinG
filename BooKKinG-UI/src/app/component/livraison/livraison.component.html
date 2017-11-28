@@ -1,0 +1,48 @@
+<p>
+  Choisir un point de retrait pour votre colis :
+</p>
+<div>
+    <ul>
+      <li *ngFor="let pointLivraison of listePointLivraison;"> {{pointLivraison.nom}} / {{pointLivraison.datesLivraison}} - {{pointLivraison.adresse}} : {{pointLivraison.prix}} euros <input type="button" (click)="ChoixPointLivraison(pointLivraison)" value="Choisir"></li>    
+    </ul>
+</div>
+
+<p>
+    Choisir chez vous ou saisir une adresse :
+</p>
+<p>
+  Chez vous : {{adresseClient}} : {{prixAdresseClient}} euros <input type="button" (click)="ChoixAdressePersonnelle()" value="Choisir">
+</p>
+
+
+<div>
+    <p>Saisir une adresse : {{prixAdresseSaisie}} euros</p>
+    <form (ngSubmit)="saisirAdresse(form)" #form="ngForm">
+    <div>
+        <label for="numero">Numéro :</label>
+        <input type="text" class="form-control" name="numero" ngModel >
+        <!-- Balise ne s'activant que si le mot de passe renseigné n'est pas valid après soumission -->
+        <!-- <span [hidden]="validPassword" class="text-danger">Vous devez entrer un mot de passe !</span> -->
+      </div>
+      <div>
+        <label for="rue">Rue :</label>
+        <input type="text" class="form-control" name="rue" ngModel>
+        <!-- Balise ne s'activant que si l'email renseigné n'est pas valid après soumission -->
+        <!-- <span [hidden]="validEmail" class="text-danger">Vous devez entrer un email !</span> -->
+      </div>
+      <div>
+          <label for="codePostal">Code Postal :</label>
+          <input type="text" class="form-control" name="codePostal" ngModel >
+          <!-- Balise ne s'activant que si le mot de passe renseigné n'est pas valid après soumission -->
+          <!-- <span [hidden]="validPassword" class="text-danger">Vous devez entrer un mot de passe !</span> -->
+      </div>  
+      <div>
+          <label for="ville">Ville :</label>
+          <input type="text" class="form-control" name="ville" ngModel >
+          <!-- Balise ne s'activant que si le mot de passe renseigné n'est pas valid après soumission -->
+          <!-- <span [hidden]="validPassword" class="text-danger">Vous devez entrer un mot de passe !</span> -->
+      </div>
+      <button type="submit">Choisir</button>
+    </form>
+    </div>
+    

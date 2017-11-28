@@ -1,12 +1,13 @@
 import { PanierComponent } from './../../component/panier/panier.component';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Client } from '../../model/client'
+import { Client } from '../../model/client';
 import { Http } from '@angular/http';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { ConnectionService } from '../../service/connection.service';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
+
 
 
 
@@ -25,6 +26,9 @@ export class ConnectionComponent implements OnInit {
    * Attribut correspondant au client connecté
    */
   client : Client = {name:'', address:'', email : '', password:''};
+
+
+  static client : Client;
 
   /**
    * Attribut correspondant à la validité de l'email renseigné
@@ -111,11 +115,16 @@ export class ConnectionComponent implements OnInit {
                 // on met à jour les informations du client 
                 this.client.name = client.name;
                 this.client.email = client.email; 
+                this.client.address = client.address;
+                this.client.password = client.password;
+                ConnectionComponent.client = this.client;
                 console.log("utilisateur : " + this.client.email + " connecté");
                 // l'utilisateur est maintenant connecté
                 this.clientConnecte = true;
               }
             );
+          }else{
+            alert(connected.message);
           }
         }
       );
