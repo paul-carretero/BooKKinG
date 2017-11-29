@@ -1,3 +1,4 @@
+import { AdministrationService } from './service/administration.service';
 import { Globals } from './globals';
 import { RechercheService } from './service/recherche.service';
 import { ConnectionService } from './service/connection.service';
@@ -10,11 +11,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { PanierComponent } from './component/panier/panier.component';
-import { BarreRechercheComponent } from './component/barre-recherche/barre-recherche.component';
 import { MenuRechercheComponent } from './component/menu-recherche/menu-recherche.component';
-import { RechercheAvanceeComponent } from './component/recherche-avancee/recherche-avancee.component';
-import { LivreComponent } from './component/livre/livre.component';
-import { LivresListComponent } from './component/livres-list/livres-list.component';
 import { ConnectionComponent } from './composant/connection/connection.component';
 import { CompteClientComponent } from './component/compte-client/compte-client.component';
 import { Http, HttpModule } from '@angular/http';
@@ -22,6 +19,7 @@ import { InscriptionComponent } from './component/inscription/inscription.compon
 import { PayerComponent } from './component/payer/payer.component';
 import { LivraisonComponent } from './component/livraison/livraison.component';
 import { FinPaiementComponent } from './component/fin-paiement/fin-paiement.component';
+import { AdministrationComponent } from './component/administration/administration.component';
 
 
 
@@ -31,13 +29,12 @@ import { FinPaiementComponent } from './component/fin-paiement/fin-paiement.comp
 export const appRoutes: Routes = [
   { path: 'panier',component: PanierComponent },
   { path: 'menu-recherche', component: MenuRechercheComponent },
-  { path: 'barre-recherche', component: BarreRechercheComponent },
   { path: 'inscription', component: InscriptionComponent },
-  { path: 'listeLivre', component: LivresListComponent }, 
   { path: 'connection', component: ConnectionComponent },
   { path: 'payer', component: PayerComponent },
   { path: 'livraison', component: LivraisonComponent },
-  { path: 'finPaiement', component: FinPaiementComponent } 
+  { path: 'finPaiement', component: FinPaiementComponent }, 
+  { path: 'admin', component: AdministrationComponent}
      
 ];
 
@@ -49,17 +46,14 @@ export const appRoutes: Routes = [
   declarations: [
     AppComponent,
     PanierComponent,
-    BarreRechercheComponent,
     MenuRechercheComponent,
-    RechercheAvanceeComponent,
-    LivreComponent,
-    LivresListComponent,
     ConnectionComponent,
     CompteClientComponent,
     InscriptionComponent,
     PayerComponent,
     LivraisonComponent,
-    FinPaiementComponent
+    FinPaiementComponent,
+    AdministrationComponent
   ],
   // modules que l'application va utiliser 
   // ! penser à y mettre aussi les modules pour les formulaires
@@ -73,7 +67,8 @@ export const appRoutes: Routes = [
   providers: [
     Globals,
     ConnectionService,
-    RechercheService
+    RechercheService, 
+    AdministrationService
   ],
   bootstrap: [AppComponent]
 })

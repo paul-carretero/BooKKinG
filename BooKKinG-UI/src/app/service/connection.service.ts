@@ -9,12 +9,9 @@ import { Globals } from '../globals';
  */
 @Injectable()
 export class ConnectionService {
-   urlConnection = `http://`+Globals.host+`/BooKKinG-Server-web/Login` ;
-  // urlConnection = `http://192.168.1.39:8080/BooKKinG-Server-web/Login` ;
-  
-
+  urlConnection = `http://`+Globals.host+`/BooKKinG-Server-web/Login` ;
+   
   urlUser = `http://`+Globals.host+`/BooKKinG-Server-web/User` ;
-  //urlUser = `http://192.168.1.39:8080/BooKKinG-Server-web/User` ;
   
 
   /**

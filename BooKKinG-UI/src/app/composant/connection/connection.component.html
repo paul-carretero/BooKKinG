@@ -3,13 +3,14 @@
 <!-- ne s'active que si le client est connecté -->
 <div [hidden]="!clientConnecte">
 {{client.name}} est connecté
+<input type="button" (click)="deconnexion()" value="Déconnexion">
 </div>
 
 
 <!-- Formulaire pour récupérer les données saisies lors de la connection  -->
 <!-- Formulaire : avec passage des données dans l'objet ngForm -->
 <!-- A la soumission, la méthode analyse l’objet form qui contient les valeurs -->
-<div>
+<div [hidden]="clientConnecte">
 <form (ngSubmit)="connection(loginForm)" #loginForm="ngForm">
   <div>
     <label for="email">Email:</label>
