@@ -45,12 +45,12 @@ export class MenuRechercheComponent implements OnInit {
 /*
     // code pour du test en dur
     this.listeLivres = [
-    { title:'Etiquette et espionnage', author:'Gail Carriger', genre : 'policier',type :"roman", price:6.10, stock:2, summary:""},
+    { title:'Etiquette et espionnage', author:'Gail Carriger', genre : 'policier',type :"roman", price:6.1, stock:2, summary:""},
     {title:'D\'un monde à l\'autre' , author:'Pierre Boterro', genre : 'fantasy',type :"roman", price:15, stock:2, summary:""},
     {title:'Le livre des étoiles', author:'Eric l\'homme', genre : 'fantasy',type :"roman", price:10.9, stock:2, summary:""}
     ];
-*/
 
+*/
 
     // partie communiquant avec le serveur
     this.recherche.type = "roman";

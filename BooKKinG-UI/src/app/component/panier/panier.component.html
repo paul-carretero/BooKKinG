@@ -5,9 +5,18 @@
 
 <div>
   <ul>
-    <li *ngFor="let livre of listeLivre;"> {{livre.genre}} / {{livre.title}} - {{livre.author}} : {{livre.price}} euros  <input type="button" (click)="retirer(livre)" value="Retirer du panier"> </li>
+    <li *ngFor="let article of contenuPanier;"> {{article.livre.genre}} / {{article.livre.title}} - {{article.livre.author}} : {{article.livre.price}} euros / quantite : {{article.quatite}}  <input type="button" (click)="retirer(article.livre)" value="Retirer un exemplaire"> </li>
   </ul>
 </div>
+
+
+<!--
+<div>
+  <ul>
+    <li *ngFor="let livre of listeLivre;"> {{livre.genre}} / {{livre.title}} - {{livre.author}} : {{livre.price}} euros <input type="button" (click)="retirer(livre)" value="Retirer du panier"> </li>
+  </ul>
+</div>
+-->
 
 
 <div>
