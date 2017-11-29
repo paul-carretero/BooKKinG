@@ -4,8 +4,8 @@ BooKKinG-Server
 Configuration Server
 -----------------------------
 > - Système : Raspberry Pi 3
-> - 2 * Serveur d'applications Java EE: WildFly 11
-> - 2 * Base de donnée MySql 5.7 (MASTER-MASTER replication)
+> - 2 * Serveurs d'applications Java EE: WildFly 11
+> - 2 * Bases de données MySql 5.7 (MASTER-MASTER replication)
 > - LoadBalancer Nginx
 > - Distribution : Docker 17.10
 
