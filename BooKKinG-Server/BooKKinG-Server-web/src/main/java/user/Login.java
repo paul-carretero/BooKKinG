@@ -78,10 +78,14 @@ public class Login extends HttpServlet {
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("idUser") != null) {
-			response.getWriter().append(new GenericResponseJson(true).toString());
+			GenericResponseJson res = new GenericResponseJson(true);
+			res.setSessionID(request.getSession().getId());
+			response.getWriter().append(res.toString());
 		}
 		else {
-			response.getWriter().append(new GenericResponseJson(false).toString());
+			GenericResponseJson res = new GenericResponseJson(false);
+			res.setSessionID(request.getSession().getId());
+			response.getWriter().append(res.toString());
 		}
 	}
 	

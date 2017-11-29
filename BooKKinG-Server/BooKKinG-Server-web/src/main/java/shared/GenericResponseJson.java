@@ -1,5 +1,8 @@
 package shared;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import shared.GenericResponseJsonItf;
 
 public class GenericResponseJson extends AbstractJson implements GenericResponseJsonItf {
@@ -15,11 +18,20 @@ public class GenericResponseJson extends AbstractJson implements GenericResponse
 
 	@SuppressWarnings("unused")
 	private String message;
+	
+	@SuppressWarnings("unused")
+	private String serveururl = "undefined";
+
+	@SuppressWarnings("unused")
+	private String sessionID = "undefined";
 
 	public GenericResponseJson() {
 		super();
 		this.success = true;
 		this.message = "";
+		try {
+			this.serveururl = InetAddress.getLocalHost().getHostAddress();
+		} catch (@SuppressWarnings("unused") UnknownHostException e) {}
 	}
 	
 	/**
@@ -29,6 +41,9 @@ public class GenericResponseJson extends AbstractJson implements GenericResponse
 		super();
 		this.success = success;
 		this.message = "";
+		try {
+			this.serveururl = InetAddress.getLocalHost().getHostAddress();
+		} catch (@SuppressWarnings("unused") UnknownHostException e) {}
 	}
 
 	/**
@@ -39,6 +54,9 @@ public class GenericResponseJson extends AbstractJson implements GenericResponse
 		super();
 		this.success = success;
 		this.message = message;
+		try {
+			this.serveururl = InetAddress.getLocalHost().getCanonicalHostName();
+		} catch (@SuppressWarnings("unused") UnknownHostException e) {}
 	}
 	
 	@Override
@@ -49,5 +67,9 @@ public class GenericResponseJson extends AbstractJson implements GenericResponse
 	@Override
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	
+	public void setSessionID(String str) {
+		this.sessionID = str;
 	}
 }
