@@ -49,8 +49,8 @@ export class MenuRechercheComponent implements OnInit {
     {title:'D\'un monde à l\'autre' , author:'Pierre Boterro', genre : 'fantasy',type :"roman", price:15, stock:2, summary:""},
     {title:'Le livre des étoiles', author:'Eric l\'homme', genre : 'fantasy',type :"roman", price:10.9, stock:2, summary:""}
     ];
-
 */
+
 
     // partie communiquant avec le serveur
     this.recherche.type = "roman";
@@ -72,6 +72,7 @@ export class MenuRechercheComponent implements OnInit {
       }
     );
 
+    
    }
 
 

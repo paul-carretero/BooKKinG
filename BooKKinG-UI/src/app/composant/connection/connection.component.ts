@@ -140,6 +140,7 @@ export class ConnectionComponent implements OnInit {
           }
         }
       );
+      // fin partie fonctionnelle avec le serveur
 
       this.clientConnecte = ConnectionComponent.clientConnecte;
     }    

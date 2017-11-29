@@ -1,6 +1,5 @@
 import { ConnectionComponent } from './../../composant/connection/connection.component';
 import { Livre } from './../../model/livre';
-import { PanierService } from './../../service/panier.service';
 import { Component, OnInit } from '@angular/core';
 import { Client } from '../../model/client';
 import { Router } from '@angular/router';
