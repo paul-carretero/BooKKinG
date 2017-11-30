@@ -77,7 +77,7 @@ public class BookPostJson extends AbstractJson implements BookCreateDataItf, Val
 	@Override
 	public void validify() {
 		if(this.genre == null) {
-			this.genre = Genre.DEFAULT;
+			this.genre = Genre.ANY;
 		}
 		if(this.stock == null) {
 			this.stock = 0;

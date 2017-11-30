@@ -1,18 +1,11 @@
 package book.request;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import book.dataItf.BookSearchItf;
 import shared.AbstractJson;
 import shared.Genre;
 import shared.Type;
 import shared.Validifyable;
 
-/**
- * @author Paul Carretero
- *
- */
 public class BookSearchJson extends AbstractJson implements BookSearchItf, Validifyable {
 
 	/**
@@ -48,29 +41,16 @@ public class BookSearchJson extends AbstractJson implements BookSearchItf, Valid
 	/**
 	 * Ensemble des genre sur la recherche
 	 */
-	private List<Genre> genres;
+	private Genre genres;
+	
+	/**
+	 * Recherche sur l'autheur, le titre ou le résumé. Mots dans le désordre OK
+	 */
+	private String anySearch;
 
 
 	public BookSearchJson() {
 		super();
-	}
-
-	/**
-	 * @param title
-	 * @param author
-	 * @param maxPrice
-	 * @param minPrice
-	 * @param genres
-	 * @param types
-	 */
-	public BookSearchJson(String title, String author, int maxPrice, int minPrice, List<Genre> genres, Type type) {
-		super();
-		this.title = title;
-		this.author = author;
-		this.maxPrice = maxPrice;
-		this.minPrice = minPrice;
-		this.genres = genres;
-		this.type = type;
 	}
 
 	@Override
@@ -99,8 +79,13 @@ public class BookSearchJson extends AbstractJson implements BookSearchItf, Valid
 	}
 
 	@Override
-	public List<Genre> getGenres() {
+	public Genre getGenre() {
 		return this.genres;
+	}
+
+	@Override
+	public String getAnySearch() {
+		return this.anySearch;
 	}
 	
 	@Override
@@ -109,13 +94,16 @@ public class BookSearchJson extends AbstractJson implements BookSearchItf, Valid
 			this.type = Type.ANY;
 		}
 		if(this.genres == null) {
-			this.genres = new ArrayList<>();
+			this.genres = Genre.ANY;
 		}
 		if(this.author == null) {
 			this.author = "";
 		}
 		if(this.title == null) {
 			this.title = "";
+		}
+		if(this.anySearch == null) {
+			this.anySearch = "";
 		}
 	}
 }

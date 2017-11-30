@@ -1,7 +1,5 @@
 package book.dataItf;
 
-import java.util.List;
-
 import shared.Genre;
 import shared.Type;
 
@@ -17,6 +15,8 @@ public interface BookSearchItf {
 
 	public Type getType();
 
-	public List<Genre> getGenres();
+	public Genre getGenre();
+	
+	public String getAnySearch();
 
 }

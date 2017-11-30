@@ -13,5 +13,5 @@ public enum Genre {
 	ART,
 	PHOTOGRAPHIE,
 	HISTOIRE,
-	DEFAULT;
+	ANY;
 }
