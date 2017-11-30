@@ -28,14 +28,14 @@ Liste des Json acceptés par l'API en entrée (client -> server):
 > **BookSearchJson:** <a id="BookSearchJson"></a>
 > Précise des critère de recherche pour un ou des livres
 > 
-> - **Exemple:** `{"title":"","author":"","maxPrice":0,"minPrice":0,"type":"ANY","genres":"ANY","anySearch":"mots dans le désordre"}`
+> - **Exemple:** `{"title":"","author":"","maxPrice":0,"minPrice":0,"type":"ANY","genre":"ANY","anySearch":"mots dans le désordre"}`
 > - **Paramètres** :
 > > - `title` titre ou partie du titre du/des livres recherchés
 > > - `author` nom de l'auteur ou partie du nom de l'auteur des livres recherchés
 > > - `maxPrice` prix maximum (inclu) des livres recherchés
 > > - `minPrice` prix minimum (inclu) des livres recherchés
-> > - `type` type du livre recherché, doit correspondre à un type existant ou vide
-> > - `genres` tableau des genres acceptés pour la recherche des livre, ou vide
+> > - `type` type du livre recherché, doit correspondre à un type existant ou vide ou ANY
+> > - `genres` genre du livre recherché, doit correspondre à un genre existant ou vide ou ANY
 > > - `anySearch` mots appartenant au résumé, au nom de l'auteur ou du titre d'un livre, l'ordre n'a pas d'importance. La règle de recherche est "au moins 1 présent", les mots de moins de 3 lettres sont ignorés. Les conditions précédente restent vérifiées.
 
 -------
