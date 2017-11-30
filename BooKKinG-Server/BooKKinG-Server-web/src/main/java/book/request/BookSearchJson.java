@@ -41,7 +41,7 @@ public class BookSearchJson extends AbstractJson implements BookSearchItf, Valid
 	/**
 	 * Ensemble des genre sur la recherche
 	 */
-	private Genre genres;
+	private Genre genre;
 	
 	/**
 	 * Recherche sur l'autheur, le titre ou le résumé. Mots dans le désordre OK
@@ -80,7 +80,7 @@ public class BookSearchJson extends AbstractJson implements BookSearchItf, Valid
 
 	@Override
 	public Genre getGenre() {
-		return this.genres;
+		return this.genre;
 	}
 
 	@Override
@@ -93,8 +93,8 @@ public class BookSearchJson extends AbstractJson implements BookSearchItf, Valid
 		if(this.type == null) {
 			this.type = Type.ANY;
 		}
-		if(this.genres == null) {
-			this.genres = Genre.ANY;
+		if(this.genre == null) {
+			this.genre = Genre.ANY;
 		}
 		if(this.author == null) {
 			this.author = "";
