@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
 
@@ -35,7 +36,6 @@ export const appRoutes: Routes = [
   { path: 'livraison', component: LivraisonComponent },
   { path: 'finPaiement', component: FinPaiementComponent }, 
   { path: 'admin', component: AdministrationComponent}
-     
 ];
 
 
@@ -60,8 +60,9 @@ export const appRoutes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes, {useHash : true}),
-    FormsModule, 
-    HttpModule
+    FormsModule,
+    HttpModule,
+    AngularFontAwesomeModule
   ],
   // fournisseur de services dans l'application
   providers: [
