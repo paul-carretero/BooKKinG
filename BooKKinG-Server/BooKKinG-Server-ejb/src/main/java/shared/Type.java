@@ -1,7 +1,12 @@
 package shared;
 
 public enum Type {
-	DEFAULT,
-	JCVD,
+	ROMAN,
+	MAGAZINE,
+	MANGA,
+	BD,
+	MANUEL,
+	DOCUMENTATION,
+	COMICS,
 	ANY;
 }
