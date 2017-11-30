@@ -35,7 +35,7 @@ Liste des Json acceptés par l'API en entrée (client -> server):
 > > - `maxPrice` prix maximum (inclu) des livres recherchés
 > > - `minPrice` prix minimum (inclu) des livres recherchés
 > > - `type` type du livre recherché, doit correspondre à un type existant ou vide ou ANY
-> > - `genres` genre du livre recherché, doit correspondre à un genre existant ou vide ou ANY
+> > - `genre` genre du livre recherché, doit correspondre à un genre existant ou vide ou ANY
 > > - `anySearch` mots appartenant au résumé, au nom de l'auteur ou du titre d'un livre, l'ordre n'a pas d'importance. La règle de recherche est "au moins 1 présent", les mots de moins de 3 lettres sont ignorés. Les conditions précédente restent vérifiées.
 
 -------
