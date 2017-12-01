@@ -1,3 +1,4 @@
+import { PanierService } from './service/panier.service';
 import { AdministrationService } from './service/administration.service';
 import { Globals } from './globals';
 import { RechercheService } from './service/recherche.service';
@@ -77,8 +78,9 @@ export const appRoutes: Routes = [
   providers: [
     Globals,
     ConnectionService,
-    RechercheService,
-    AdministrationService
+    RechercheService, 
+    AdministrationService, 
+    PanierService
   ],
   bootstrap: [AppComponent]
 })
