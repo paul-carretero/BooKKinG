@@ -1,0 +1,118 @@
+#header_wrapper {
+    border-bottom: 1px solid black;
+    height: 180px;
+    background-image: url("/assets/header.jpg");
+}
+
+#header_wrapper #logo_container {
+    float: left;
+    height: 100px;
+}
+
+#header_wrapper #logo_container img {
+    height: 100%;
+    width: auto;
+    margin-top: 25px;
+}
+
+#header_wrapper #menu_wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    width: 830px;
+}
+
+#header_wrapper #menu_wrapper #search_wrapper {
+    height: 20px;
+}
+
+#header_wrapper #menu_wrapper #search_wrapper input {
+    width: 92%;
+    height: 100%;
+}
+
+#header_wrapper #menu_wrapper #search_wrapper fa {
+    background-color: rgba(255, 255, 255, 0.3);
+    display: inline-block;
+    padding: 7px;
+    padding-top: 6px;
+    margin-left: -5px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+ul#nav {
+    color: #232223;
+    display: block;
+    float: right;
+    font: 16px/26px Georgia, "Times New Roman", Times, serif;
+    margin: 0;
+    padding: 0;
+}
+
+ul#nav,
+ul#nav ul {
+    list-style: none;
+}
+
+ul#nav li:hover>* {
+    display: block;
+}
+
+ul#nav li:hover {
+    position: relative;
+}
+
+ul#nav ul {
+    padding: 0 5px 5px;
+}
+
+ul#nav li {
+    display: inline;
+    float: left;
+}
+
+ul#nav a {
+    color: #353435;
+    float: left;
+    font-size: 15px;
+    letter-spacing: 1px;
+    line-height: 14px;
+    min-width: 60px;
+    padding: 60px 20px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 #B4C6C6;
+    text-transform: uppercase;
+}
+
+ul#nav>li:hover>a {
+    border-top: 5px solid #887963;
+    color: #1e1e1e;
+    padding-top: 55px;
+}
+
+ul#nav li a.current,
+ul#nav li a.current:hover {
+    background: url("/assets/nav_current.png") no-repeat scroll center top transparent;
+    border: medium none;
+    color: #fff;
+    padding-top: 60px;
+    text-shadow: none;
+}
+
+ul#nav ul a {
+    color: #000;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px;
+    text-shadow: #fff 0 0 0;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+}
+
+ul#nav ul li:hover>a {
+    letter-spacing: 2px;
+}
+
+

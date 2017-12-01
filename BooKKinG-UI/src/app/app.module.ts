@@ -22,6 +22,9 @@ import { LivraisonComponent } from './component/livraison/livraison.component';
 import { FinPaiementComponent } from './component/fin-paiement/fin-paiement.component';
 import { AdministrationComponent } from './component/administration/administration.component';
 import { LivreComponent } from './component/livre/livre.component';
+import { ContentComponent } from './component/content/content.component';
+import { HeaderComponent } from './component/header/header.component';
+import { FiltreComponent } from './component/filtre/filtre.component';
 
 
 
@@ -55,7 +58,10 @@ export const appRoutes: Routes = [
     LivraisonComponent,
     FinPaiementComponent,
     AdministrationComponent,
-    LivreComponent
+    LivreComponent,
+    HeaderComponent,
+    ContentComponent,
+    FiltreComponent
   ],
   // modules que l'application va utiliser
   // ! penser à y mettre aussi les modules pour les formulaires
