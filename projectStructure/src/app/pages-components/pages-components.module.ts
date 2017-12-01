@@ -1,20 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {HomeComponent} from './home/home.component'
-import { ResearchComponent } from './research/research.component';
 import { SharedModule } from '../shared/shared.module';
-import { CategoryGenreModule } from '../category-genre/category-genre.module';
+import { ConnectionPageComponent } from './connection-page/connection-page.component'
+import { ConnectionModule } from '../connection/connection.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    CategoryGenreModule
+    ConnectionModule
   ],
   declarations: [
-    HomeComponent,
-    ResearchComponent
+    ConnectionPageComponent
+  ],
+  exports : [
+    ConnectionPageComponent
   ]
 })
 export class PagesComponentsModule { }

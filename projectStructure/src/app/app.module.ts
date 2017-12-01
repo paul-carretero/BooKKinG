@@ -9,13 +9,16 @@ import {
 import { RouterModule, Routes } from '@angular/router';
 //import { ResearchComponent } from './research/research.component';
 //import { HomeComponent } from './home/home.component';
-import {PagesComponentsModule} from './pages-components/pages-components.module'
-import { ResearchComponent } from './pages-components/research/research.component';
-import { HomeComponent } from './pages-components/home/home.component';
-import { CategoryGenreComponent } from './category-genre/category-genre.component';
-import { CategoryGenreModule } from './category-genre/category-genre.module';
+import {
+  PagesComponentsModule,
+  
+} from './pages-components/pages-components.module'
 import { HeaderComponent } from './shared/header/header.component';
 import { TemplateComponent } from './shared/template/template.component';
+import { ConnectionPageComponent } from './pages-components/connection-page/connection-page.component';
+import { FormsModule } from '@angular/forms';
+
+
 
 export const appRoutes: Routes = [
   /*
@@ -29,9 +32,11 @@ export const appRoutes: Routes = [
       component : TemplateComponent
   },
   {path : 'home', component : HomeComponent}
-  */
+  
   {path : 'home', component : HomeComponent},
   {path : 'research', component : ResearchComponent}
+  */
+  {path : 'connection', component : ConnectionPageComponent}
   
 ]
 
@@ -40,14 +45,14 @@ export const appRoutes: Routes = [
   declarations: [
     AppComponent
   ],
-  imports: [
-    CategoryGenreModule,
+  imports: [    
     PagesComponentsModule,
     BrowserModule,
     SharedModule,
     RouterModule.forRoot(appRoutes, {useHash : true})
   ],
   providers: [
+    
 /*    
     BookService,
     CartDetailService,

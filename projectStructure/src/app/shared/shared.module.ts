@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { TemplateComponent } from './template/template.component';
 import { RouterModule } from '@angular/router';
+import { UrlService } from './url.service';
+
 
 @NgModule({
   imports: [
@@ -16,17 +18,11 @@ import { RouterModule } from '@angular/router';
   exports:[
     HeaderComponent,
     TemplateComponent
-  ]
-  /*
+  ],
+
   providers: [
-    UserService, 
-    CartDetailService, 
-    CommandService, 
-    BookService, 
-    CmdDetailService, 
-    GenreService, 
-    TypeService
+    UrlService
   ]
-  */
+ 
 })
 export class SharedModule { }
