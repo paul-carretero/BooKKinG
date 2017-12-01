@@ -21,6 +21,8 @@ import { PayerComponent } from './component/payer/payer.component';
 import { LivraisonComponent } from './component/livraison/livraison.component';
 import { FinPaiementComponent } from './component/fin-paiement/fin-paiement.component';
 import { AdministrationComponent } from './component/administration/administration.component';
+import { ContentComponent } from './component/content/content.component';
+import { HeaderComponent } from './component/header/header.component';
 
 
 
@@ -53,7 +55,9 @@ export const appRoutes: Routes = [
     PayerComponent,
     LivraisonComponent,
     FinPaiementComponent,
-    AdministrationComponent
+    AdministrationComponent,
+    HeaderComponent,
+    ContentComponent
   ],
   // modules que l'application va utiliser 
   // ! penser à y mettre aussi les modules pour les formulaires
