@@ -149,20 +149,18 @@ export class ConnectionComponent implements OnInit {
   /**
    * Méthode permettant la déconnexion d'un client
    */
-  public deconnexion(){
-    this.client = ConnectionComponent.client = new Client();
-    this.clientConnecte = ConnectionComponent.clientConnecte = false;
+  public deconnexion(){    
     
-/*    
     // partie fonctionnant avec le serveur
-    // PAS ENCORE TESTEE MAIS DEVRAI FONCTIONNER
     this.service.deconnexion().subscribe(
       deconnected => {
         if(deconnected.success){
           console.log("déconnexion du client");
+          this.client = ConnectionComponent.client = new Client();
+          this.clientConnecte = ConnectionComponent.clientConnecte = false;
         }
       }
     );
-*/
+
   }
 }
