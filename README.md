@@ -1,3 +1,18 @@
+BooKKinG-UI
+==============
+Installation JQuery
+-----------------------------
+npm install jquery --save
+npm install --save-dev @types/jquery
+ng build
+
+Installation bootstrap
+-----------------------------
+npm install --save bootstrap
+
+Installation font-awesome
+-----------------------------
+npm install font-awesome --save
 
 BooKKinG-Server
 ==============
