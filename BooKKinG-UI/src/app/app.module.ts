@@ -21,6 +21,7 @@ import { PayerComponent } from './component/payer/payer.component';
 import { LivraisonComponent } from './component/livraison/livraison.component';
 import { FinPaiementComponent } from './component/fin-paiement/fin-paiement.component';
 import { AdministrationComponent } from './component/administration/administration.component';
+import { LivreComponent } from './component/livre/livre.component';
 
 
 
@@ -28,13 +29,13 @@ import { AdministrationComponent } from './component/administration/administrati
 // constante regroupant les routes vers les différents pages liées aux composants
 // ! le nom du path est celui utilisé dans les liens dans app.component.html
 export const appRoutes: Routes = [
-  { path: 'panier',component: PanierComponent },
+  { path: 'panier', component: PanierComponent },
   { path: 'menu-recherche', component: MenuRechercheComponent },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'connection', component: ConnectionComponent },
   { path: 'payer', component: PayerComponent },
   { path: 'livraison', component: LivraisonComponent },
-  { path: 'finPaiement', component: FinPaiementComponent }, 
+  { path: 'finPaiement', component: FinPaiementComponent },
   { path: 'admin', component: AdministrationComponent}
 ];
 
@@ -53,9 +54,10 @@ export const appRoutes: Routes = [
     PayerComponent,
     LivraisonComponent,
     FinPaiementComponent,
-    AdministrationComponent
+    AdministrationComponent,
+    LivreComponent
   ],
-  // modules que l'application va utiliser 
+  // modules que l'application va utiliser
   // ! penser à y mettre aussi les modules pour les formulaires
   imports: [
     BrowserModule,
@@ -68,11 +70,11 @@ export const appRoutes: Routes = [
   providers: [
     Globals,
     ConnectionService,
-    RechercheService, 
+    RechercheService,
     AdministrationService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
+export class AppModule {
 
 }
