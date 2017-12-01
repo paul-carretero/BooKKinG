@@ -111,9 +111,8 @@ export class ConnectionComponent implements OnInit {
       console.log("utilisateur : " + this.client.email + " connecté");
       // l'utilisateur est maintenant connecté
       ConnectionComponent.clientConnecte = true;
-*/      
-
-
+*/
+      
       // partie fonctionnelle avec le serveur
       this.service.connection(this.client).subscribe(
         connected => {
@@ -143,6 +142,7 @@ export class ConnectionComponent implements OnInit {
       // fin partie fonctionnelle avec le serveur
 
       this.clientConnecte = ConnectionComponent.clientConnecte;
+      
     }    
   }
 
