@@ -3,6 +3,10 @@ import { RechercheService, Recherche } from './../../service/recherche.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Livre } from '../../model/livre';
+import { LivreComponent } from '../livre/livre.component';
+import { rootRoute } from '@angular/router/src/router_module';
+import { RouterOutlet } from '@angular/router/src/directives/router_outlet';
+import { RouterLink } from '@angular/router/src/directives/router_link';
 
 @Component({
   selector: 'app-menu-recherche',
@@ -26,7 +30,7 @@ export class MenuRechercheComponent implements OnInit {
 
 
 
-  constructor(private router : Router, private service : RechercheService) { }
+  constructor(private router: Router, private service: RechercheService) { }
 
 
 
@@ -115,6 +119,12 @@ export class MenuRechercheComponent implements OnInit {
    public ajouterAuPanier(livre : Livre){
     console.log("livre : " + livre.title + " à ajouter au panier");
     PanierComponent.ajouterLivrePanier(livre);
+
+   }
+
+   public voirDetailLivre(livre: Livre) {
+     LivreComponent.ajouterAuLivreDetaille(livre);
+     this.router.navigate(['/livre']);
 
    }
 }
