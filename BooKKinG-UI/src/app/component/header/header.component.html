@@ -15,15 +15,38 @@
       <fa name="search"></fa>
   </form>
 </nav-->
-<div class="col-xs-2">
-    <a routerLink="/panier">Acceder au panier</a>    
-</div>
-<div class="col-xs-2">
-    <a routerLink="/menu-recherche">Menus de recherche</a>
-  </div>
-<div class="col-xs-2">
-    <a routerLink="/connection">Se connecter</a>
-</div>
-<div class="col-xs-2">
-    <a routerLink="/inscription">S'inscrire</a>
+<div class="container"></div>
+<div class="col-md-2">
+        logo du site        
+ </div>
+
+<div class="container" id="menu_wrapper">
+    <div class="row">
+         
+         <div class="col-md-6">
+                <form id="search_wrapper">
+                        <input type="text" />
+                        <fa name="search"></fa>
+                </form>
+        </div>   
+       
+        <div class="col-xs-2">
+                <a routerLink="/connection">Se connecter</a>
+                /
+                <a routerLink="/inscription">S'inscrire</a>     
+        </div>
+
+         <div class="col-xs-2">
+                 <a routerLink="/panier">Acceder au panier</a>    
+         </div>
+         
+    </div>
+
+
+    <div class="row">
+            <div class="col-md-offset-2 col-md-4">  
+                    <app-menu-recherche></app-menu-recherche>
+            </div>       
+    </div>
+
 </div>

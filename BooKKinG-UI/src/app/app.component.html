@@ -27,26 +27,26 @@
         </form>
     </nav>
 </header-->
+<div class="container">
     <div class="row">
             <app-header></app-header> 
     </div>
 
     <div class="row">
-        <app-content></app-content>
+        <app-filtre class="col-md-4">filtre</app-filtre>
+        <!--app-content class="col-lg-8">content</app-content-->
+        <router-outlet class="col-md-8"></router-outlet>        
     </div>
+</div>
 
-    <div class="row">
-        <app-content></app-content>
-    </div>
 <!--  Les liens (routes) vers les différentes pages liées aux composants -->
-<a routerLink="/panier">Acceder au panier</a>
+<!--a routerLink="/panier">Acceder au panier</a>
 <a routerLink="/menu-recherche">Menus de recherche</a>
 <a routerLink="/connection">Se connecter</a>
-<a routerLink="/inscription">S'inscrire</a>
+<a routerLink="/inscription">S'inscrire</a-->
 <!--<a routerLink="/barre-recherche">Barre de recherche</a> -->
 
 <!--  balise permettant l'activation des routes -->
-<router-outlet></router-outlet>
 
 
 
