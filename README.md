@@ -2,9 +2,9 @@ BooKKinG-UI
 ==============
 Installation JQuery
 -----------------------------
-> npm install jquery --save
-> npm install --save-dev @types/jquery
-> ng build
+> - npm install jquery --save
+> - npm install --save-dev @types/jquery
+> - ng build
 
 Installation bootstrap
 -----------------------------
