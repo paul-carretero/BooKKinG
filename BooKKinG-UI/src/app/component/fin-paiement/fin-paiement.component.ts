@@ -16,7 +16,7 @@ export class FinPaiementComponent implements OnInit {
 
   ngOnInit() {
     // on vide le panier
-    PanierComponent.tabLivre =[];
+    PanierComponent.contenuPanier =[];
     PanierComponent.montantTotal = 0;
 
     // A faire => enregistrer la commande du client

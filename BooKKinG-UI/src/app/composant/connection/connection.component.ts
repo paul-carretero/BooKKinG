@@ -1,3 +1,4 @@
+import { PanierService } from './../../service/panier.service';
 import { PanierComponent } from './../../component/panier/panier.component';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -61,7 +62,7 @@ export class ConnectionComponent implements OnInit {
   * @param routeur permet de gérer le routage
   * @param service permet d'accéder aux services du composant ConnectionService
   */
-  constructor(private routeur : Router, private service : ConnectionService) { }
+  constructor(private routeur : Router, private service : ConnectionService, private servicePanier : PanierService) { }
 
   /**
   * Méthode appelée lors de l'initialisation de la page html liée au composant
@@ -111,6 +112,8 @@ export class ConnectionComponent implements OnInit {
       console.log("utilisateur : " + this.client.email + " connecté");
       // l'utilisateur est maintenant connecté
       ConnectionComponent.clientConnecte = true;
+       this.clientConnecte = ConnectionComponent.clientConnecte;
+      
 */
       
       // partie fonctionnelle avec le serveur
@@ -132,6 +135,16 @@ export class ConnectionComponent implements OnInit {
                 console.log("utilisateur : " + this.client.email + " connecté");
                 // l'utilisateur est maintenant connecté
                 ConnectionComponent.clientConnecte = true;
+                this.clientConnecte = ConnectionComponent.clientConnecte;
+                /*if(PanierComponent.tabLivre.length == 0){
+                  this.servicePanier.recupererPanier().subscribe(
+                    panier =>{
+                      
+                    }
+                  );
+                }
+                */
+                
               }
             );
           }else{
@@ -140,9 +153,6 @@ export class ConnectionComponent implements OnInit {
         }
       );
       // fin partie fonctionnelle avec le serveur
-
-      this.clientConnecte = ConnectionComponent.clientConnecte;
-      
     }    
   }
 
@@ -152,13 +162,13 @@ export class ConnectionComponent implements OnInit {
   public deconnexion(){    
 
 
-    this.client = ConnectionComponent.client = new Client();
-    this.clientConnecte = ConnectionComponent.clientConnecte = false;
     // partie fonctionnant avec le serveur
     this.service.deconnexion().subscribe(
       deconnected => {
         if(deconnected.success){
           console.log("déconnexion du client");
+          this.client = ConnectionComponent.client = new Client();
+          this.clientConnecte = ConnectionComponent.clientConnecte = false;
         }
       }
     );

@@ -49,12 +49,13 @@ export class ConnectionService {
   }
 
   public deconnexion(): Observable<any> {
-    let connect = this.http.delete(this.urlConnection, {withCredentials: true});
+    console.log("dans déconnexion");
+    let connect = this.http.delete(this.urlConnection, {withCredentials: true}).map(res => res.json());
     return connect;
   }
 
   public reinitialiserMotDePasse(client: Client): Observable<any> {
-    let connect = this.http.post(this.urlConnection, client, {withCredentials: true});
+    let connect = this.http.post(this.urlConnection, client, {withCredentials: true}).map(res => res.json());
     return connect;
   }
 
