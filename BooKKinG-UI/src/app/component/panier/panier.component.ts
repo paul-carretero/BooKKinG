@@ -46,6 +46,19 @@ export class PanierComponent implements OnInit {
   }
 
 
+  public supprimer(idBook : number){
+    let trouve = false;
+    let i = 0;
+    while(!trouve && i < PanierComponent.contenuPanier.length){
+      if(idBook == PanierComponent.contenuPanier[i].idBook){
+        PanierComponent.contenuPanier.splice(i,1);
+        trouve = true;
+      }
+      i++;
+    }
+    this.contenuPanier = PanierComponent.contenuPanier;
+  }
+
 
   /**
    * Méthode permettant d'ajouter un livre au panier
