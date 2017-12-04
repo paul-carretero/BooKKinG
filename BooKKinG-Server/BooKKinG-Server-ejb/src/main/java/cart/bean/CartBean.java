@@ -24,8 +24,11 @@ import user.bean.UserBeanLocal;
 @LocalBean
 public class CartBean implements CartBeanLocal {
 
-	@PersistenceContext()
-	private EntityManager manager;
+	@PersistenceContext(unitName="slave")
+	private EntityManager readEM;
+	
+	@PersistenceContext(unitName="master")
+	private EntityManager writeEM;
 	
 	/**
 	 * Bean User pour gestion des operations metiers sur un utilisateur
@@ -47,22 +50,22 @@ public class CartBean implements CartBeanLocal {
 		List<CartDetailEntity> toDelete = this.user.getUser(idUser).getCart();
 		
 		for(CartDetailEntity entry : toDelete) {
-			this.manager.remove(entry);
+			this.writeEM.remove(entry);
 		}
 	}
 
 	@Override
 	@Asynchronous
 	public void setQuantity(final Integer idUser, final CartItemJsonItf data) {
-		CartDetailEntity toUpdate = this.manager.find(CartDetailEntity.class, new CartDetailId(idUser,data.getIdBook()));
+		CartDetailEntity toUpdate = this.readEM.find(CartDetailEntity.class, new CartDetailId(idUser,data.getIdBook()));
 		if(data.getQuantity() <= 0 && toUpdate != null) {
-			this.manager.remove(toUpdate);
+			this.writeEM.remove(toUpdate);
 		}
 		else if(toUpdate == null && data.getQuantity() > 0) {
 			BookEntity bookTry = this.book.getBook(data.getIdBook());
 			if(bookTry != null) {
 				toUpdate = new CartDetailEntity(this.user.getUser(idUser), bookTry, data.getQuantity());
-				this.manager.persist(toUpdate);
+				this.writeEM.persist(toUpdate);
 			}
 		}
 		else if(toUpdate != null && data.getQuantity() > 0){

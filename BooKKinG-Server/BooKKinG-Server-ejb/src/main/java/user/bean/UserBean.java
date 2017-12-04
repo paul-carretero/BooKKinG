@@ -23,8 +23,11 @@ import user.entity.UserEntity;
 @LocalBean
 public class UserBean implements UserBeanLocal {
 
-	@PersistenceContext()
-	private EntityManager manager;
+	@PersistenceContext(unitName="slave")
+	private EntityManager readEM;
+	
+	@PersistenceContext(unitName="master")
+	private EntityManager writeEM;
 
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/MailerBean!mailer.MailerBeanLocal")
 	private MailerBeanLocal mailer;
@@ -38,7 +41,7 @@ public class UserBean implements UserBeanLocal {
 
 	@Override
 	public UserEntItf getUser(final String email){
-		List<UserEntity> users = this.manager.createQuery(
+		List<UserEntity> users = this.readEM.createQuery(
 				" FROM UserEntity u WHERE u.email=:email")
 				.setParameter("email", email)
 				.setMaxResults(1)
@@ -51,7 +54,7 @@ public class UserBean implements UserBeanLocal {
 
 	@Override
 	public UserEntity getUser(final int idUser){
-		return this.manager.find(UserEntity.class, idUser);
+		return this.readEM.find(UserEntity.class, idUser);
 	}
 
 	@Override
@@ -75,7 +78,7 @@ public class UserBean implements UserBeanLocal {
 				user.getEmail(),
 				user.getPassword()
 				);
-		this.manager.persist(newUser);
+		this.writeEM.persist(newUser);
 		this.mailer.sendWelcomeEmail(newUser);
 		return true;
 	}

@@ -8,6 +8,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import cart.entity.CartDetailEntity;
 import command.dataItf.CommandJsonItf;
@@ -25,9 +26,12 @@ import user.entity.UserEntity;
 @Stateless
 @LocalBean
 public class CommandBean implements CommandBeanLocal {
-
-	@PersistenceContext()
-	private EntityManager manager;
+	
+	@PersistenceContext(unitName="slave")
+	private EntityManager readEM;
+	
+	@PersistenceContext(unitName="master")
+	private EntityManager writeEM;
 
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/UserBean!user.bean.UserBeanLocal")
 	UserBeanLocal user;
@@ -42,13 +46,14 @@ public class CommandBean implements CommandBeanLocal {
 
 	@Asynchronous
 	@Override
+	@Transactional(rollbackOn={Exception.class})
 	public void proceedCartCheckout(final Integer idUser) {
 		UserEntity u = this.user.getUser(idUser);
 		List<CartDetailEntity> currentCart = u.getCart();
 		CommandEntity cmd = new CommandEntity();
 		cmd.setDate();
 		cmd.setUser(u);
-		this.manager.persist(cmd);
+		this.writeEM.persist(cmd);
 		for(CartDetailEntity cartEntry : currentCart) {
 			CmdDetailEntity cmdDetail = new CmdDetailEntity(
 					cmd, 
@@ -56,15 +61,15 @@ public class CommandBean implements CommandBeanLocal {
 					cartEntry.getQuantity(), 
 					cartEntry.getBook().getPrice()
 					);
-			this.manager.persist(cmdDetail);
+			this.writeEM.persist(cmdDetail);
 			cmd.addEntry(cmdDetail);
 		}
-		this.manager.flush();
+		this.writeEM.flush();
 		this.mailer.sendConfirmationCommand(u, cmd);
 	}
 	
 	private CommandEntity getCommand(Integer idCmd) {
-		return this.manager.find(CommandEntity.class, idCmd);
+		return this.readEM.find(CommandEntity.class, idCmd);
 	}
 
 	@Override
