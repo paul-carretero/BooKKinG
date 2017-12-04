@@ -45,12 +45,33 @@ export class MenuRechercheComponent implements OnInit {
 /*
     // code pour du test en dur
     this.listeLivres = [
-    { title:'Etiquette et espionnage', author:'Gail Carriger', genre : 'policier',type :"roman", price:6.1, stock:2, summary:""},
-    {title:'D\'un monde à l\'autre' , author:'Pierre Boterro', genre : 'fantasy',type :"roman", price:15, stock:2, summary:""},
-    {title:'Le livre des étoiles', author:'Eric l\'homme', genre : 'fantasy',type :"roman", price:10.9, stock:2, summary:""}
-    ];
-
+      { idBook:0,
+        title:'Etiquette et espionnage', 
+       author:'Gail Carriger', 
+       genre : 'POLICIER',
+       type :"roman", 
+       price:7, stock:10, 
+       summary:"Angleterre, début du XIXe siècle. Sophronia, 14 ans, est un défi permanent pour sa mère : elle préfère démonter les horloges et grimper aux arbres plutôt qu'apprendre les bonnes manières ! Mme Temminnick désespère que sa fille devienne jamais une parfaite lady, aussi l'inscrit-elle au Pensionnat de Mlle Géraldine qui s'attache au perfectionnement des jeunes dames de qualité. Très vite, Sophronia comprend que cette école ne correspond pas exactement à l'idée que sa mère s'en faisait. Certes, les jeunes filles y apprennent l'étiquette, mais aussi celui de la diversion, de l'espionnage et de l'acte de donner la mort - tout cela de la manière la plus civilisée possible, bien sûr. C'est une chose d'apprendre à faire une révérence comme il faut, c'en est une autre d'apprendre à la faire en lançant un couteau... "},
+      
+      {idBook:1,
+      title:'D\'un monde à l\'autre', 
+      author:'Pierre Bottero', 
+      genre : 'FANTASY',
+      type :"roman", 
+      price:7.5, stock:10, 
+      summary:"Quand Camille vit le poids lourd qui fonçait droit sur elle, elle se figea au milieu de la chaussée..."},
+      
+      {idBook:2,
+       title:'Le livre des étoiles', 
+       author:'Eric l\'homme', 
+       genre : 'FANTASY',
+       type :"roman", 
+       price:10, stock:10, 
+       summary:"Guillemot est un garçon du Pays d'Ys, situé à mi-chemin entre le monde réel et le Monde Incertain. Mais d'où lui viennent ses dons pour la sorcellerie que lui enseigne Maître Qadehar ? Et qu'est devenu Le Livre des Etoiles, qui referme le secret de puissants sortilèges ? Dans sa quête de vérité, Guillemot franchira la Porte qui conduit dans le Monde Incertain, peuplé de monstre et d'étranges tribus..."}
+      ];
+  
 */
+
 
     // partie communiquant avec le serveur
     this.recherche.type = "roman";
