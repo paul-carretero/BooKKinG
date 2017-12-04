@@ -2,4 +2,27 @@
   Page d'administration
 </h3>
 
-<input type="button" (click)="ajouterRomans()" value="Ajouter des romans à la base de donnée" >
+<div [hidden] = "clientConnecte">
+  Vous devez vous être connecté en tant qu'administrateur !
+</div>
+
+
+
+
+<div [hidden]="!clientConnecte">
+  <div> 
+    <label> Ajouter des romans prédéfinis à la base de donnée</label>
+    <input type="button" (click)="ajouterRomans()" value="Ajouter" >
+  </div>
+
+
+  <div> 
+    <label> Ajouter des mangas prédéfinis à la base de donnée</label>
+    <input type="button" (click)="ajouterMangas()" value="Ajouter" >
+  </div>
+
+  <div> 
+    <label> Ajouter des manuels prédéfinis à la base de donnée</label>
+    <input type="button" (click)="ajouterManuels()" value="Ajouter" >
+  </div>
+</div>

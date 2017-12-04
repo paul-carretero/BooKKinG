@@ -1,3 +1,4 @@
+import { PanierService } from './service/panier.service';
 import { AdministrationService } from './service/administration.service';
 import { Globals } from './globals';
 import { RechercheService } from './service/recherche.service';
@@ -21,6 +22,10 @@ import { PayerComponent } from './component/payer/payer.component';
 import { LivraisonComponent } from './component/livraison/livraison.component';
 import { FinPaiementComponent } from './component/fin-paiement/fin-paiement.component';
 import { AdministrationComponent } from './component/administration/administration.component';
+import { LivreComponent } from './component/livre/livre.component';
+import { HeaderComponent } from './component/header/header.component';
+import { FiltreComponent } from './component/filtre/filtre.component';
+import { IdentificationInscriptionComponent } from './component/identification-inscription/identification-inscription.component';
 
 
 
@@ -28,13 +33,14 @@ import { AdministrationComponent } from './component/administration/administrati
 // constante regroupant les routes vers les différents pages liées aux composants
 // ! le nom du path est celui utilisé dans les liens dans app.component.html
 export const appRoutes: Routes = [
-  { path: 'panier',component: PanierComponent },
+  { path: 'panier', component: PanierComponent },
   { path: 'menu-recherche', component: MenuRechercheComponent },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'connection', component: ConnectionComponent },
+  { path: 'identification-inscription', component: IdentificationInscriptionComponent},
   { path: 'payer', component: PayerComponent },
   { path: 'livraison', component: LivraisonComponent },
-  { path: 'finPaiement', component: FinPaiementComponent }, 
+  { path: 'finPaiement', component: FinPaiementComponent },
   { path: 'admin', component: AdministrationComponent}
 ];
 
@@ -53,9 +59,13 @@ export const appRoutes: Routes = [
     PayerComponent,
     LivraisonComponent,
     FinPaiementComponent,
-    AdministrationComponent
+    AdministrationComponent,
+    LivreComponent,
+    HeaderComponent,
+    FiltreComponent,
+    IdentificationInscriptionComponent
   ],
-  // modules que l'application va utiliser 
+  // modules que l'application va utiliser
   // ! penser à y mettre aussi les modules pour les formulaires
   imports: [
     BrowserModule,
@@ -69,10 +79,11 @@ export const appRoutes: Routes = [
     Globals,
     ConnectionService,
     RechercheService, 
-    AdministrationService
+    AdministrationService, 
+    PanierService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
+export class AppModule {
 
 }

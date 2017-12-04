@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { LivraisonComponent } from './../livraison/livraison.component';
 import { ConnectionComponent } from './../../composant/connection/connection.component';
-import { PanierComponent } from './../panier/panier.component';
+import { PanierComponent, article } from './../panier/panier.component';
 import { Component, OnInit } from '@angular/core';
 import { Client } from '../../model/client';
 import { Livre } from '../../model/livre';
@@ -16,7 +16,7 @@ export class PayerComponent implements OnInit {
 
   client : Client;
 
-  listeLivre : Livre[];
+  listeLivre : article[];
   total : number;
 
   constructor(private router : Router) { }
@@ -24,7 +24,7 @@ export class PayerComponent implements OnInit {
   ngOnInit() {
     PayerComponent.enCoursDePaiement = true; 
     console.log("init de payer");
-    this.listeLivre = PanierComponent.tabLivre;
+    this.listeLivre = PanierComponent.contenuPanier;
     this.total = PanierComponent.montantTotal + LivraisonComponent.prixLivraison;
     this.client = ConnectionComponent.client;
   }
