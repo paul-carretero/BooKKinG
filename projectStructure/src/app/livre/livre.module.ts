@@ -5,11 +5,15 @@ import { MenuRechercheComponent } from './menu-recherche/menu-recherche.componen
 import { LivreService } from './livre.service';
 import { ListeLivreComponent } from './liste-livre/liste-livre.component';
 import { MenuAdministrateurComponent } from './menu-administrateur/menu-administrateur.component'
+import { HttpModule } from '@angular/http';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule,
+    HttpModule
   ],
   declarations: [
     MenuRechercheComponent,

@@ -12,7 +12,7 @@ import { FormInscriptionComponent } from './form-inscription/form-inscription.co
     CommonModule,
     SharedModule,
     HttpModule,
-    FormsModule,    
+    FormsModule    
   ],
   declarations: [
     ConnectionFormComponent,
