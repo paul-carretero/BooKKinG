@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import book.entity.BookEntity;
-import user.entity.UserEntItf;
+import user.entity.UserEntROItf;
 import user.entity.UserEntity;
 
 /**
@@ -52,7 +52,7 @@ public class CartDetailEntity implements Serializable, CartDetailEntItf {
 	}
 
 	@Override
-	public UserEntItf getUser() {
+	public UserEntROItf getUser() {
 		return this.user;
 	}
 

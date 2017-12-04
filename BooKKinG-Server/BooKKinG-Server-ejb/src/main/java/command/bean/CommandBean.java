@@ -6,8 +6,6 @@ import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import cart.entity.CartDetailEntity;
@@ -16,8 +14,9 @@ import command.dataItf.CommandListJsonItf;
 import command.entity.CmdDetailEntity;
 import command.entity.CommandEntity;
 import mailer.MailerBeanLocal;
+import shared.AbstractBean;
 import user.bean.UserBeanLocal;
-import user.entity.UserEntItf;
+import user.entity.UserEntROItf;
 import user.entity.UserEntity;
 
 /**
@@ -25,14 +24,8 @@ import user.entity.UserEntity;
  */
 @Stateless
 @LocalBean
-public class CommandBean implements CommandBeanLocal {
+public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	
-	@PersistenceContext(unitName="slave")
-	private EntityManager readEM;
-	
-	@PersistenceContext(unitName="master")
-	private EntityManager writeEM;
-
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/UserBean!user.bean.UserBeanLocal")
 	UserBeanLocal user;
 
@@ -48,7 +41,7 @@ public class CommandBean implements CommandBeanLocal {
 	@Override
 	@Transactional(rollbackOn={Exception.class})
 	public void proceedCartCheckout(final Integer idUser) {
-		UserEntity u = this.user.getUser(idUser);
+		UserEntity u = this.user.getUserForUpdate(idUser);
 		List<CartDetailEntity> currentCart = u.getCart();
 		CommandEntity cmd = new CommandEntity();
 		cmd.setDate();
@@ -90,7 +83,7 @@ public class CommandBean implements CommandBeanLocal {
 
 	@Override
 	public void getCommands(final Integer idUser, final CommandListJsonItf response) {
-		UserEntItf u = this.user.getUser(idUser);
+		UserEntROItf u = this.user.getUser(idUser);
 		for(CommandEntity command : u.getCommands()) {
 			CommandJsonItf cmdJson = response.prepareNewEntry(command.getDate(),command.getIdCmd());
 			for(CmdDetailEntity cmdDetail : command.getCmdDetails()) {

@@ -6,8 +6,6 @@ import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import book.bean.BookBeanLocal;
 import book.entity.BookEntity;
@@ -15,6 +13,7 @@ import cart.dataItf.CartItemJsonItf;
 import cart.dataItf.CartJsonResponseItf;
 import cart.entity.CartDetailEntity;
 import cart.entity.CartDetailId;
+import shared.AbstractBean;
 import user.bean.UserBeanLocal;
 
 /**
@@ -22,13 +21,7 @@ import user.bean.UserBeanLocal;
  */
 @Stateless
 @LocalBean
-public class CartBean implements CartBeanLocal {
-
-	@PersistenceContext(unitName="slave")
-	private EntityManager readEM;
-	
-	@PersistenceContext(unitName="master")
-	private EntityManager writeEM;
+public class CartBean extends AbstractBean implements CartBeanLocal {
 	
 	/**
 	 * Bean User pour gestion des operations metiers sur un utilisateur
@@ -64,11 +57,12 @@ public class CartBean implements CartBeanLocal {
 		else if(toUpdate == null && data.getQuantity() > 0) {
 			BookEntity bookTry = this.book.getBook(data.getIdBook());
 			if(bookTry != null) {
-				toUpdate = new CartDetailEntity(this.user.getUser(idUser), bookTry, data.getQuantity());
+				toUpdate = new CartDetailEntity(this.user.getUserForUpdate(idUser), bookTry, data.getQuantity());
 				this.writeEM.persist(toUpdate);
 			}
 		}
 		else if(toUpdate != null && data.getQuantity() > 0){
+			toUpdate = this.writeEM.find(CartDetailEntity.class, new CartDetailId(idUser,data.getIdBook()));
 			toUpdate.setQuantity(data.getQuantity());
 		}
 	}
