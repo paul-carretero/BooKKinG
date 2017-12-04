@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -34,8 +35,16 @@ public class EMManager implements EMManagerLocal {
 	@PersistenceUnit(unitName = "slave")
 	private EntityManagerFactory slaveFactory;
 
+	/**
+	 * file représentant les slave pour round-robin sur eux
+	 */
 	private final Queue<EntityManagerFactory> slaveFactories;
 
+	/**
+	 * file représentant l'ordre des slave dans la configuration tel que par exemple <br/>
+	 * SLAVE1->SLAVE2->SLAVE3 </br>
+	 * SLAVE1 est le master de SLAVE2, qui est le master de SLAVE3
+	 */
 	private final Queue<EntityManagerFactory> physicalSlaveFactories;
 	
 	private final Set<AbstractBean> subscribers;
@@ -47,7 +56,7 @@ public class EMManager implements EMManagerLocal {
 	 */
 	public EMManager() {
 		this.subscribers			= new HashSet<>();
-		this.slaveFactories			= new LinkedList<>();
+		this.slaveFactories			= new ConcurrentLinkedQueue<>();
 		this.physicalSlaveFactories = new LinkedList<>();
 		this.lock 					= new ReentrantReadWriteLock();
 	}
@@ -86,21 +95,31 @@ public class EMManager implements EMManagerLocal {
 				this.masterFactory.createEntityManager().createNativeQuery("SELECT 1").getSingleResult();
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
-				System.err.println("remove master");
-				this.masterFactory = this.slaveFactories.poll();
+				System.err.println("===> remove master");
+				this.masterFactory = this.physicalSlaveFactories.poll();
+				this.slaveFactories.remove(this.masterFactory);
 				publish = true;
 			}
 
-			Iterator<EntityManagerFactory> iter = this.slaveFactories.iterator();
+			Iterator<EntityManagerFactory> iter = this.physicalSlaveFactories.iterator();
+			boolean cascadeDelete = false;
 			while (iter.hasNext()) {
 				EntityManagerFactory current = iter.next();
 				try {
-					current.createEntityManager().createNativeQuery("SELECT 1").getSingleResult();
+					if(cascadeDelete) {
+						this.slaveFactories.remove(current);
+						iter.remove();
+					}
+					else {
+						current.createEntityManager().createNativeQuery("SELECT 1").getSingleResult();
+					}
 				} catch (Exception e) {
 					System.err.println(e.getMessage());
-					System.err.println("remove slave");
+					System.err.println("===> remove slave");
+					this.slaveFactories.remove(current);
 					iter.remove();
 					publish = true;
+					cascadeDelete = true;
 				}
 			}
 		} finally {
