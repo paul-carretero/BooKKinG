@@ -57,6 +57,8 @@ export class PanierComponent implements OnInit {
       i++;
     }
     this.contenuPanier = PanierComponent.contenuPanier;
+    PanierComponent.montantTotal=PanierComponent.total();
+    this.montantTotal= PanierComponent.montantTotal;
   }
 
 

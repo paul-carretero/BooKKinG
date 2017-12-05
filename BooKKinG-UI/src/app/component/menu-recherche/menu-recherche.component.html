@@ -1,10 +1,15 @@
 <div>
-  
+
+<!--
 <input type="button" (click)="cuisine()" value="cuisine">
 <input type="button" (click)="romans()" value="romans">
 </div>
-  
+-->  
 
+
+<input *ngFor="let type of typeLivres;" type="button" (click)="rechercher(type)" value="{{type}}s">
+
+  
 
 <ul>
   <li *ngFor="let livre of listeLivres;"> {{livre.genre}} / {{livre.title}} - {{livre.author}} : {{livre.price}} euros <input type="button" (click)="ajouterAuPanier(livre)" value="Ajouter au panier"></li>

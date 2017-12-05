@@ -88,21 +88,21 @@ export class AdministrationComponent implements OnInit {
     let livreBase = [
     {title:'Fruits Basket, tome 1', 
      author:'Natsuki Takaya', 
-     genre : 'romance',
+     genre : 'ROMANCE',
      type :"manga", 
      price:6.99, stock:10, 
      summary:"Tohru, mignonne et courageuse lycéenne, vivait sous une tente, dans les bois. Recueillie pour ses talents en matière de travaux ménagers par la famille de Yuki Soma, un de ses camarades de classe, Tohru vit maintenant entrourée de garçons dans une grande maison. Mais ce qu'elle ignore, c'est que la famille Soma est victime d'une malédiction cachée. Certains de ses membres se tranforment, dans des circonstances particulières, en un des douze animaux du zodiaque chinois ! Avec d'aussi étranges personnages, la nouvelle vie de Tohru va lui réserver de nombreuses surprises."},
     
     {title:'Tsubasa Reservoir Chronicle, tome 1', 
     author:'CLAMP', 
-    genre : 'fantasy',
+    genre : 'FANTASY',
     type :"manga", 
     price:7.5, stock:10, 
     summary:"Dans le pays de Clow, vivent Shaolan et Sakura, qui s'aiment secrètement malgré leurs différences sociales. Un jour, survient la catastrophe, lors d'une attaque ennemie sur le pays : Sakura perd sa mémoire pour des raisons mystérieuses ! "},
     
     {title:'City Hunter, tome 12', 
      author:'Tsukasa Hojo', 
-     genre : 'policier',
+     genre : 'POLICIER',
      type :"manga", 
      price:8.5, stock:10, 
      summary:""}
