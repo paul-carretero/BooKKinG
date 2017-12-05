@@ -31,6 +31,15 @@ export class PanierService {
 
   }
 
+  public miseAJourQuantiteLivre(article : SimpleArticle) : Observable<ResponsePanier>{
+    console.log("dans mise a jour d'une quantité d'un livre du panier");
+    let enregistrementPanier : Item = new Item();
+    enregistrementPanier.item = [article];
+    let panier = this.http.put(this.urlPanier, enregistrementPanier, {withCredentials: true})
+    .map(res => res.json()); 
+    return panier;
+  }
+
 
   public simplePanier(contenuPanier : article[]) : Item {
     let panier : Item = new Item();
