@@ -16,15 +16,16 @@ import { Livre } from '../../model/livre';
 export class MenuRechercheComponent implements OnInit {
   /**
    * Liste des livres qui correspondent au menu séléctionné
-   */
+    static genre: any;
+ */
   listeLivres : Livre[];
 
   /**
    * Attribut contenant les informations concernant la recherche de livre
    */
   recherche : Recherche = new Recherche();
-
-
+  static genre: any;  
+  genre:string ="";
 
   constructor(private router : Router, private service : RechercheService) { }
 
@@ -71,7 +72,8 @@ export class MenuRechercheComponent implements OnInit {
         }
       }
     );
-
+    this.genre = "romans";
+    console.log('appeler la methode romans :' +this.genre);
     
    }
 
@@ -104,7 +106,9 @@ export class MenuRechercheComponent implements OnInit {
       }
     );
 
-
+    this.genre = "cuisine";
+    console.log('appeler la methode cuisine :' +this.genre);
+    
    }
 
 

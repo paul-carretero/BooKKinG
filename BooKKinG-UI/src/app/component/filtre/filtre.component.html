@@ -3,14 +3,19 @@
 </p>
 
 <div class="row" id="table">
-Prix 
-Prix
-Prix
-Prix
-Prix
-Prix
-Prix
-Prix
+
+<div class="col-md-12" style="text-align: center">
+    Prix
+</div>
+<div class="col-md-12">
+
+    <div class="list-group">
+				<a href="#" class="list-group-item list-group-item-blue"> Prix > </a>
+				<a href="#" class="list-group-item list-group-item-blue"> Prix < </a>
+				<a href="#" class="list-group-item list-group-item-blue"> Entre ... et ...</a>
+		</div>
+</div>
+
 </div>
 
 <div class="container">
@@ -18,5 +23,34 @@ Prix
 </div>
 
 <div class="row" id="table">
-Genre
+
+    <div class="col-md-12" >
+        Genre
+    </div>
+    <div *ngIf="this.type ;then romans else cuisine">    </div>
+    
+    <ng-template #romans>
+            <div class="col-md-12">
+            
+                <div class="list-group">            
+                    <a  class="list-group-item list-group-item-blue" 
+                    routerLink="/panier">Panier</a>
+                    <a href="#" class="list-group-item list-group-item-blue">Dramatique</a>
+                    <a href="#" class="list-group-item list-group-item-blue">Science Fiction</a>
+                    <a href="#" class="list-group-item list-group-item-blue">Fantasy</a>
+                </div>
+            </div>
+    </ng-template>
+    
+    <ng-template #cuisine>
+            <div class="col-md-12">
+            
+                <div class="list-group">            
+                    <a href="#" class="list-group-item list-group-item-blue">europeen</a>
+                    <a href="#" class="list-group-item list-group-item-blue">Science Fiction</a>
+                </div>
+            </div>
+    </ng-template>
+      
+    
 </div>
