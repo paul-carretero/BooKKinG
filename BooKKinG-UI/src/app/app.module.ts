@@ -33,6 +33,7 @@ import { IdentificationInscriptionComponent } from './component/identification-i
 // constante regroupant les routes vers les différents pages liées aux composants
 // ! le nom du path est celui utilisé dans les liens dans app.component.html
 export const appRoutes: Routes = [
+  { path: 'livre', component: LivreComponent },  
   { path: 'panier', component: PanierComponent },
   { path: 'menu-recherche', component: MenuRechercheComponent },
   { path: 'inscription', component: InscriptionComponent },

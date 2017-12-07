@@ -1,4 +1,10 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
+import { ConnectionService } from '../../service/connection.service';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Recherche } from '../../service/recherche.service';
 import { MenuRechercheComponent } from '../menu-recherche/menu-recherche.component';
 
@@ -7,23 +13,25 @@ import { MenuRechercheComponent } from '../menu-recherche/menu-recherche.compone
   templateUrl: './filtre.component.html',
   styleUrls: ['./filtre.component.css']
 })
-
 export class FiltreComponent implements OnInit {
-  ngOnInit(): void {
-    throw new Error("Method not implemented.");
-  }
-  genre_recherche :String = MenuRechercheComponent.genre;
-  type:boolean;
+  static type: any;    
+   type:boolean = false;
   constructor() { }
-
-  ngAfterViewInit() {
-    console.log("ca marche");
-    if(this.genre_recherche=='romans'){
+  
+  ngOnInit() {
+  
+  }
+  
+  /* static test(){
+    FiltreComponent.genre_recherche = MenuRechercheComponent.genre;
+      if(FiltreComponent.genre_recherche=='romans'){
       this.type = true;
       console.log('true');
     }else{
       this.type = false;
       console.log('false');      
     }
-  }
+    
+  }*/
+
 }

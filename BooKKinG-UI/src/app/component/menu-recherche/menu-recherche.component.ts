@@ -3,6 +3,7 @@ import { RechercheService, Recherche } from './../../service/recherche.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Livre } from '../../model/livre';
+import { FiltreComponent } from '../filtre/filtre.component';
 
 @Component({
   selector: 'app-menu-recherche',
@@ -24,8 +25,7 @@ export class MenuRechercheComponent implements OnInit {
    * Attribut contenant les informations concernant la recherche de livre
    */
   recherche : Recherche = new Recherche();
-  static genre: any;  
-  genre:string ="";
+
 
   constructor(private router : Router, private service : RechercheService) { }
 
@@ -72,8 +72,9 @@ export class MenuRechercheComponent implements OnInit {
         }
       }
     );
-    this.genre = "romans";
-    console.log('appeler la methode romans :' +this.genre);
+    
+    FiltreComponent.type = false;
+    console.log('type:'+FiltreComponent.type);
     
    }
 
@@ -106,8 +107,8 @@ export class MenuRechercheComponent implements OnInit {
       }
     );
 
-    this.genre = "cuisine";
-    console.log('appeler la methode cuisine :' +this.genre);
+    FiltreComponent.type = true;
+    console.log('type:'+FiltreComponent.type);
     
    }
 

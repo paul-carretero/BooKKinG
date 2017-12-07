@@ -4,17 +4,17 @@
 
 <div class="row" id="table">
 
-<div class="col-md-12" style="text-align: center">
-    Prix
-</div>
-<div class="col-md-12">
+    <div class="col-md-12" style="text-align: center">
+        Prix
+    </div>
+    <div class="col-md-12">
 
-    <div class="list-group">
-				<a href="#" class="list-group-item list-group-item-blue"> Prix > </a>
-				<a href="#" class="list-group-item list-group-item-blue"> Prix < </a>
-				<a href="#" class="list-group-item list-group-item-blue"> Entre ... et ...</a>
-		</div>
-</div>
+        <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-blue"> Prix > </a>
+                    <a href="#" class="list-group-item list-group-item-blue"> Prix < </a>
+                    <a href="#" class="list-group-item list-group-item-blue"> Entre ... et ...</a>
+            </div>
+    </div>
 
 </div>
 
@@ -24,10 +24,10 @@
 
 <div class="row" id="table">
 
-    <div class="col-md-12" >
+    <div class="col-md-12" style="text-align: center" >
         Genre
     </div>
-    <div *ngIf="this.type ;then romans else cuisine">    </div>
+    <div *ngIf="this.type==true ;then cuisine else romans">    </div>
     
     <ng-template #romans>
             <div class="col-md-12">
@@ -38,6 +38,7 @@
                     <a href="#" class="list-group-item list-group-item-blue">Dramatique</a>
                     <a href="#" class="list-group-item list-group-item-blue">Science Fiction</a>
                     <a href="#" class="list-group-item list-group-item-blue">Fantasy</a>
+                    <a href="#" class="list-group-item list-group-item-blue" routerLink="/livre"> livres </a>
                 </div>
             </div>
     </ng-template>
