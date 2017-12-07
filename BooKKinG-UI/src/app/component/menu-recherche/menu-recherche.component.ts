@@ -1,8 +1,10 @@
+import { ConnectionComponent } from './../../composant/connection/connection.component';
 import { PanierComponent } from './../panier/panier.component';
 import { RechercheService, Recherche } from './../../service/recherche.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Livre } from '../../model/livre';
+import { PanierService, SimpleArticle } from '../../service/panier.service';
 
 @Component({
   selector: 'app-menu-recherche',
@@ -34,7 +36,7 @@ export class MenuRechercheComponent implements OnInit {
 
 
 
-  constructor(private router : Router, private service : RechercheService) { }
+  constructor(private router : Router, private service : RechercheService, private servicePanier : PanierService) { }
 
 
 
@@ -54,6 +56,16 @@ export class MenuRechercheComponent implements OnInit {
    public ajouterAuPanier(livre : Livre){
     console.log("livre : " + livre.title + " à ajouter au panier");
     PanierComponent.ajouterLivrePanier(livre);
+    if(ConnectionComponent.clientConnecte){
+      let articleSimple : SimpleArticle = new SimpleArticle();
+      articleSimple.idBook = livre.idBook;
+      articleSimple.quantity = 1;
+      this.servicePanier.miseAJourQuantiteLivre(articleSimple).subscribe(
+        reponse =>{
+          console.log("résultat de la mise à jour du panier : " + reponse.success);
+        }
+      );
+    }
 
    }
 

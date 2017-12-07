@@ -42,14 +42,19 @@ export class PanierComponent implements OnInit {
   ngOnInit() { 
     this.contenuPanier = PanierComponent.contenuPanier;
     this.montantTotal = PanierComponent.montantTotal;
-/* A TESTER !!
+// A TESTER !!
     // partie communiquant avec le serveur
     // si l'utilisateur est connecté, on met à jour son panier
-    if(ConnectionComponent.clientConnecte) this.miseAJourPanier();
-*/    
+  //  if(ConnectionComponent.clientConnecte) this.miseAJourPanier();
+    
   }
 
 
+  get montantGlobal(){
+    return PanierComponent.montantTotal;
+  };
+
+/*
   public miseAJourPanier(){
     this.contenuPanier.forEach(
       article =>{
@@ -64,7 +69,7 @@ export class PanierComponent implements OnInit {
       }
     );
   }
-
+*/
 
 
 
@@ -89,7 +94,7 @@ export class PanierComponent implements OnInit {
 
 
 
-/* A TESTER !!
+// A TESTER !!
     // Partie communiquant avec le serveur 
     // si l'utilisateur est connecté
     if(ConnectionComponent.clientConnecte){
@@ -103,7 +108,7 @@ export class PanierComponent implements OnInit {
         }
       );
     }
-*/
+
 }
 
 
@@ -179,6 +184,11 @@ export class PanierComponent implements OnInit {
    // this.listeLivre = PanierComponent.tabLivre = [];
     this.montantTotal =  PanierComponent.montantTotal = 0;
     this.contenuPanier = PanierComponent.contenuPanier = [];
+    this.service.viderPanier().subscribe(
+      reponse => {
+        console.log("vider panier " + JSON.stringify(reponse));
+      }
+    );
   }
 
  
@@ -189,13 +199,14 @@ export class PanierComponent implements OnInit {
     
     let i : number = 0;
     let set : boolean = false;
+    let quantiteLivre = Number( quantity.target.value)
 
     // on recherche le livre dans le panier
     while(!set && i < PanierComponent.contenuPanier.length){
       // quand on l'a trouvé
       if(livre.idBook == PanierComponent.contenuPanier[i].idBook){
         // on met à jour la quantité du livre
-        PanierComponent.contenuPanier[i].quantity = quantity.target.value;
+        PanierComponent.contenuPanier[i].quantity = quantiteLivre;
         set = true;
         
         // si le livre se retrouve avec une quantité égale à 0
@@ -213,21 +224,21 @@ export class PanierComponent implements OnInit {
     PanierComponent.montantTotal = PanierComponent.total() ;
     this.montantTotal = PanierComponent.montantTotal;
     
-/* A TESTER !!
+// A TESTER !!
     // Partie communiquant avec le serveur   
     // si l'utilisateur est connecté
     if(ConnectionComponent.clientConnecte){
       // on met à jour le panier gardé dans la base de donnée 
       let articleSimple : SimpleArticle = new SimpleArticle();
       articleSimple.idBook = livre.idBook;
-      articleSimple.quantity = quantity;
+      articleSimple.quantity = quantiteLivre ;
       this.service.miseAJourQuantiteLivre(articleSimple).subscribe(
         reponse =>{
           if(reponse.success) console.log("la mise à jour de l'article dans la panier est réussie");
         }
       );  
     }
-*/
+
   }
 
 

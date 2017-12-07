@@ -33,22 +33,30 @@ export class PanierService {
 
   public miseAJourQuantiteLivre(article : SimpleArticle) : Observable<ResponsePanier>{
     console.log("dans mise a jour d'une quantité d'un livre du panier");
-    let enregistrementPanier : Item = new Item();
-    enregistrementPanier.item = [article];
-    let panier = this.http.put(this.urlPanier, enregistrementPanier, {withCredentials: true})
+    let panier = this.http.put(this.urlPanier, article, {withCredentials: true})
     .map(res => res.json()); 
     return panier;
   }
 
 
+  public viderPanier() : Observable<ResponsePanier>{
+    console.log("dans vider panier");
+    let panier = this.http.delete(this.urlPanier, {withCredentials: true})
+    .map(res => res.json()); 
+    return panier;
+  }
+
   public simplePanier(contenuPanier : article[]) : Item {
     let panier : Item = new Item();
+    console.log("dans la mise en forme du contenu du panier");
     let i = 0;
     contenuPanier.forEach(
       article =>{
-        panier.item[i] = new SimpleArticle();
-        panier.item[i].idBook = article.idBook;
-        panier.item[i].quantity = article.quantity;
+        panier.items[i] = new SimpleArticle();
+        panier.items[i].idBook = article.idBook;
+        panier.items[i].quantity = article.quantity;
+        console.log("id ajouté  : " + panier.items[i].idBook);
+        console.log("qte ajouté  : " + panier.items[i].quantity);     
         i++;
       }
     );
@@ -65,15 +73,15 @@ export class SimpleArticle{
 }
 
 export class Item{
-  item : SimpleArticle[];
+  items : SimpleArticle[];
 
   constructor(){
-    this.item = [];
+    this.items = [];
   }
 }
 
 export class ResponsePanier {
-  contenuPanier : article[];
+  items : article[];
   success : boolean;
   message : string;
 }

@@ -1,5 +1,5 @@
 import { PanierService } from './../../service/panier.service';
-import { PanierComponent } from './../../component/panier/panier.component';
+import { PanierComponent, article } from './../../component/panier/panier.component';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Client } from '../../model/client';
@@ -144,25 +144,26 @@ export class ConnectionComponent implements OnInit {
                     panier =>{
                       if(panier.success){
                         console.log("récupération panier réussie");
-                        console.log("contenu panier"+ JSON.stringify(panier));
-  
+                        console.log("contenu reponse"+ JSON.stringify(panier));
+                        PanierComponent.contenuPanier = panier.items;
+                        PanierComponent.montantTotal = PanierComponent.total();
                       }
                     }
                   );
                 }
                 // si le panier courant contient des articles
-                
+                else{
+                  console.log("taille panier : " + PanierComponent.contenuPanier.length );
                   // récupération du panier précédent du client 
                   this.servicePanier.enregistrerPanierEntier(PanierComponent.contenuPanier).subscribe(
                     panier =>{
                       if(panier.success){
                         console.log("enregistrement panier réussie");
                         console.log("contenu panier"+ JSON.stringify(panier));
-  
                       }
                     }
                   );
-                
+                }
               }
             );
           }else{
