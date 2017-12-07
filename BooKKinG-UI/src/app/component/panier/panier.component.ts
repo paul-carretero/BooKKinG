@@ -87,6 +87,8 @@ export class PanierComponent implements OnInit {
     PanierComponent.montantTotal=PanierComponent.total();
     this.montantTotal= PanierComponent.montantTotal;
 
+
+
 /* A TESTER !!
     // Partie communiquant avec le serveur 
     // si l'utilisateur est connecté
