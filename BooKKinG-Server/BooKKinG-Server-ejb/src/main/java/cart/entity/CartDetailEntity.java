@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import book.entity.BookEntity;
-import user.entity.UserEntItf;
+import user.entity.UserEntROItf;
 import user.entity.UserEntity;
 
 /**
@@ -23,7 +23,7 @@ public class CartDetailEntity implements Serializable, CartDetailEntItf {
 	private static final long serialVersionUID = 3660254030963323536L;
 
 	@Id
-	@OneToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idUser")
 	private UserEntity user;
 
@@ -52,7 +52,7 @@ public class CartDetailEntity implements Serializable, CartDetailEntItf {
 	}
 
 	@Override
-	public UserEntItf getUser() {
+	public UserEntROItf getUser() {
 		return this.user;
 	}
 

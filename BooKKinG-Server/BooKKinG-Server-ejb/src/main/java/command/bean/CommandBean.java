@@ -6,8 +6,7 @@ import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import cart.entity.CartDetailEntity;
 import command.dataItf.CommandJsonItf;
@@ -15,8 +14,9 @@ import command.dataItf.CommandListJsonItf;
 import command.entity.CmdDetailEntity;
 import command.entity.CommandEntity;
 import mailer.MailerBeanLocal;
+import shared.AbstractBean;
 import user.bean.UserBeanLocal;
-import user.entity.UserEntItf;
+import user.entity.UserEntROItf;
 import user.entity.UserEntity;
 
 /**
@@ -24,11 +24,8 @@ import user.entity.UserEntity;
  */
 @Stateless
 @LocalBean
-public class CommandBean implements CommandBeanLocal {
-
-	@PersistenceContext()
-	private EntityManager manager;
-
+public class CommandBean extends AbstractBean implements CommandBeanLocal {
+	
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/UserBean!user.bean.UserBeanLocal")
 	UserBeanLocal user;
 
@@ -42,13 +39,14 @@ public class CommandBean implements CommandBeanLocal {
 
 	@Asynchronous
 	@Override
+	@Transactional(rollbackOn={Exception.class})
 	public void proceedCartCheckout(final Integer idUser) {
-		UserEntity u = this.user.getUser(idUser);
+		UserEntity u = this.user.getUserForUpdate(idUser);
 		List<CartDetailEntity> currentCart = u.getCart();
 		CommandEntity cmd = new CommandEntity();
 		cmd.setDate();
 		cmd.setUser(u);
-		this.manager.persist(cmd);
+		this.writeEM.persist(cmd);
 		for(CartDetailEntity cartEntry : currentCart) {
 			CmdDetailEntity cmdDetail = new CmdDetailEntity(
 					cmd, 
@@ -56,15 +54,15 @@ public class CommandBean implements CommandBeanLocal {
 					cartEntry.getQuantity(), 
 					cartEntry.getBook().getPrice()
 					);
-			this.manager.persist(cmdDetail);
+			this.writeEM.persist(cmdDetail);
 			cmd.addEntry(cmdDetail);
 		}
-		this.manager.flush();
+		this.writeEM.flush();
 		this.mailer.sendConfirmationCommand(u, cmd);
 	}
 	
 	private CommandEntity getCommand(Integer idCmd) {
-		return this.manager.find(CommandEntity.class, idCmd);
+		return this.readEM.find(CommandEntity.class, idCmd);
 	}
 
 	@Override
@@ -85,7 +83,7 @@ public class CommandBean implements CommandBeanLocal {
 
 	@Override
 	public void getCommands(final Integer idUser, final CommandListJsonItf response) {
-		UserEntItf u = this.user.getUser(idUser);
+		UserEntROItf u = this.user.getUser(idUser);
 		for(CommandEntity command : u.getCommands()) {
 			CommandJsonItf cmdJson = response.prepareNewEntry(command.getDate(),command.getIdCmd());
 			for(CmdDetailEntity cmdDetail : command.getCmdDetails()) {

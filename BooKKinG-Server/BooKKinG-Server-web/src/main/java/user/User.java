@@ -13,7 +13,7 @@ import shared.AbstractJson;
 import shared.GenericResponseJson;
 import shared.HttpHelper;
 import user.bean.UserBeanLocal;
-import user.entity.UserEntItf;
+import user.entity.UserEntROItf;
 import user.request.UserJson;
 import user.response.UserJsonResponse;
 
@@ -47,7 +47,7 @@ public class User extends HttpServlet {
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		if(HttpHelper.checkAuth(request, response)) {
-			UserEntItf uItf = this.userBean.getUser(HttpHelper.getIdUser(request));
+			UserEntROItf uItf = this.userBean.getUser(HttpHelper.getIdUser(request));
 			UserJsonResponse res = new UserJsonResponse(uItf.getName(), uItf.getEmail(), uItf.getAddress());
 			response.getWriter().append(res.toString());
 		}

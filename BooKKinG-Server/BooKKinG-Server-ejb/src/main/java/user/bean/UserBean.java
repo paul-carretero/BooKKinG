@@ -7,13 +7,13 @@ import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import mailer.MailerBeanLocal;
+import shared.AbstractBean;
 import shared.Helper;
 import user.dataItf.UserJsonItf;
-import user.entity.UserEntItf;
+import user.entity.UserEntROItf;
+import user.entity.UserEntRWItf;
 import user.entity.UserEntity;
 
 /**
@@ -21,10 +21,7 @@ import user.entity.UserEntity;
  */
 @Stateless
 @LocalBean
-public class UserBean implements UserBeanLocal {
-
-	@PersistenceContext()
-	private EntityManager manager;
+public class UserBean extends AbstractBean implements UserBeanLocal {
 
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/MailerBean!mailer.MailerBeanLocal")
 	private MailerBeanLocal mailer;
@@ -37,8 +34,8 @@ public class UserBean implements UserBeanLocal {
 	public UserBean() {}
 
 	@Override
-	public UserEntItf getUser(final String email){
-		List<UserEntity> users = this.manager.createQuery(
+	public UserEntROItf getUser(final String email){
+		List<UserEntity> users = this.readEM.createQuery(
 				" FROM UserEntity u WHERE u.email=:email")
 				.setParameter("email", email)
 				.setMaxResults(1)
@@ -50,13 +47,31 @@ public class UserBean implements UserBeanLocal {
 	}
 
 	@Override
-	public UserEntity getUser(final int idUser){
-		return this.manager.find(UserEntity.class, idUser);
+	public UserEntROItf getUser(final int idUser){
+		return this.readEM.find(UserEntity.class, idUser);
+	}
+	
+	@Override
+	public UserEntRWItf getUserForUpdate(final String email){
+		List<UserEntity> users = this.writeEM.createQuery(
+				" FROM UserEntity u WHERE u.email=:email")
+				.setParameter("email", email)
+				.setMaxResults(1)
+				.getResultList();
+		if(users.isEmpty()) {
+			return null;
+		}
+		return users.get(0);
+	}
+
+	@Override
+	public UserEntity getUserForUpdate(final int idUser){
+		return this.writeEM.find(UserEntity.class, idUser);
 	}
 
 	@Override
 	public boolean tryLogin(final UserJsonItf data) {
-		UserEntItf userToCheck = getUser(data.getEmail());
+		UserEntROItf userToCheck = getUser(data.getEmail());
 		if(userToCheck != null) {
 			String hashedPwd = Helper.getEncodedPwd(data.getPassword(), data.getEmail());
 			return userToCheck.getPassword().equals(hashedPwd);
@@ -75,7 +90,7 @@ public class UserBean implements UserBeanLocal {
 				user.getEmail(),
 				user.getPassword()
 				);
-		this.manager.persist(newUser);
+		this.writeEM.persist(newUser);
 		this.mailer.sendWelcomeEmail(newUser);
 		return true;
 	}
@@ -83,7 +98,7 @@ public class UserBean implements UserBeanLocal {
 	@Override
 	@Asynchronous
 	public void updateUser(final Integer idUser, final UserJsonItf data) {
-		UserEntity u = getUser(idUser);
+		UserEntRWItf u = getUserForUpdate(idUser);
 		u.setAddress(data.getAddress());
 		u.setName(data.getName());
 		u.setPassword(data.getPassword());
@@ -102,7 +117,7 @@ public class UserBean implements UserBeanLocal {
 
 	@Override
 	public boolean resetPassword(final String email) {
-		UserEntItf u = getUser(email);
+		UserEntRWItf u = getUserForUpdate(email);
 		if(u != null) {
 			String newPwd = randomPassword();
 			u.setPassword(newPwd);

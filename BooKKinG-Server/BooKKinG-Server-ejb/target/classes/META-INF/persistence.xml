@@ -14,7 +14,7 @@
 	xsi:schemaLocation="
         http://xmlns.jcp.org/xml/ns/persistence
         http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="primary"> <!-- à vérifier... -->
+	<persistence-unit name="master">
 		<jta-data-source>java:/bookkingDS</jta-data-source>
 		<class>book.entity.BookEntity</class>
 		<class>cart.entity.CartDetailEntity</class>
@@ -23,9 +23,20 @@
 		<class>user.entity.UserEntity</class>
 		<properties>
 			<!-- Properties for Hibernate -->
-			<property name="hibernate.show_sql" value="false" /> <!-- false en prod... -->
+			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.dialect" value="shared.RegexpMySQLDialect" />
+			<property name="persistenceUnitName" value="master" />
+		</properties>
+	</persistence-unit>
+	<persistence-unit name="slave">
+		<jta-data-source>java:/bookkingSlaveDS</jta-data-source>
+		<properties>
+			<!-- Properties for Hibernate -->
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.dialect" value="shared.RegexpMySQLDialect" />
+			<property name="persistenceUnitName" value="slave" />
 		</properties>
 	</persistence-unit>
 </persistence>

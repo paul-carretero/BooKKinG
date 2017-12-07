@@ -136,14 +136,32 @@ export class ConnectionComponent implements OnInit {
                 // l'utilisateur est maintenant connecté
                 ConnectionComponent.clientConnecte = true;
                 this.clientConnecte = ConnectionComponent.clientConnecte;
-                /*if(PanierComponent.tabLivre.length == 0){
+
+                // si le panier courant est vide
+                if(PanierComponent.contenuPanier.length == 0){
+                  // récupération du panier précédent du client 
                   this.servicePanier.recupererPanier().subscribe(
                     panier =>{
-                      
+                      if(panier.success){
+                        console.log("récupération panier réussie");
+                        console.log("contenu panier"+ JSON.stringify(panier));
+  
+                      }
                     }
                   );
                 }
-                */
+                // si le panier courant contient des articles
+                
+                  // récupération du panier précédent du client 
+                  this.servicePanier.enregistrerPanierEntier(PanierComponent.contenuPanier).subscribe(
+                    panier =>{
+                      if(panier.success){
+                        console.log("enregistrement panier réussie");
+                        console.log("contenu panier"+ JSON.stringify(panier));
+  
+                      }
+                    }
+                  );
                 
               }
             );

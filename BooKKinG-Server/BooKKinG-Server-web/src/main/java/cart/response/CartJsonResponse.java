@@ -1,7 +1,7 @@
 package cart.response;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 import book.entity.BookEntItf;
 import book.response.BookJson;
@@ -18,28 +18,16 @@ public class CartJsonResponse extends GenericResponseJson implements CartJsonRes
 	/**
 	 * idBook=>quantity
 	 */
-	private Map<Integer,Integer> quantities;
-
-	/**
-	 * idBook => JsonBook
-	 */
-	private Map<Integer,BookJson> books;
+	private Set<Article> articles;
 
 	public CartJsonResponse() {
 		super();
-		this.books 		= new HashMap<>();
-		this.quantities = new HashMap<>();
+		this.articles = new HashSet<>();
 	}
 
 	@Override
 	public void addBook(BookEntItf aBook, Integer quantity) {
-		if(!this.quantities.containsKey(aBook.getIdBook())) {
-			this.quantities.put(aBook.getIdBook(), quantity);
-			this.books.put(aBook.getIdBook(), new BookJson(aBook));
-		}
-		else {
-			this.quantities.put(aBook.getIdBook(), quantity);
-		}
+		this.articles.add(new Article(new BookJson(aBook), quantity, aBook.getIdBook()));
 	}
 
 }

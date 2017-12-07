@@ -28,7 +28,7 @@ public class GenericResponseJson extends AbstractJson implements GenericResponse
 		this.message = "";
 		try {
 			this.serveurUrl = InetAddress.getLocalHost().getHostAddress();
-		} catch (@SuppressWarnings("unused") UnknownHostException e) {}
+		} catch (UnknownHostException e) {System.err.println(e.getMessage());}
 	}
 	
 	/**
@@ -40,7 +40,7 @@ public class GenericResponseJson extends AbstractJson implements GenericResponse
 		this.message = "";
 		try {
 			this.serveurUrl = InetAddress.getLocalHost().getHostAddress();
-		} catch (@SuppressWarnings("unused") UnknownHostException e) {}
+		} catch (UnknownHostException e) {System.err.println(e.getMessage());}
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class GenericResponseJson extends AbstractJson implements GenericResponse
 		this.message = message;
 		try {
 			this.serveurUrl = InetAddress.getLocalHost().getCanonicalHostName();
-		} catch (@SuppressWarnings("unused") UnknownHostException e) {}
+		} catch (UnknownHostException e) {System.err.println(e.getMessage());}
 	}
 	
 	@Override
