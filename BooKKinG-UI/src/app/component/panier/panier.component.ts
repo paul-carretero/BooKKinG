@@ -1,3 +1,4 @@
+import { MenuRechercheComponent } from './../menu-recherche/menu-recherche.component';
 import { PanierService, SimpleArticle } from './../../service/panier.service';
 import { ConnectionComponent } from './../../composant/connection/connection.component';
 import { Livre } from './../../model/livre';
