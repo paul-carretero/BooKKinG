@@ -16,7 +16,7 @@ import command.entity.CommandEntity;
 import mailer.MailerBeanLocal;
 import shared.AbstractBean;
 import user.bean.UserBeanLocal;
-import user.entity.UserEntROItf;
+import user.entity.UserEntItf;
 import user.entity.UserEntity;
 
 /**
@@ -27,7 +27,7 @@ import user.entity.UserEntity;
 public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/UserBean!user.bean.UserBeanLocal")
-	UserBeanLocal user;
+	private UserBeanLocal user;
 
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/MailerBean!mailer.MailerBeanLocal")
 	private MailerBeanLocal mailer;
@@ -41,12 +41,12 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	@Override
 	@Transactional(rollbackOn={Exception.class})
 	public void proceedCartCheckout(final Integer idUser) {
-		UserEntity u = this.user.getUserForUpdate(idUser);
+		UserEntity u = this.user.getUser(idUser);
 		List<CartDetailEntity> currentCart = u.getCart();
 		CommandEntity cmd = new CommandEntity();
 		cmd.setDate();
 		cmd.setUser(u);
-		this.writeEM.persist(cmd);
+		this.manager.persist(cmd);
 		for(CartDetailEntity cartEntry : currentCart) {
 			CmdDetailEntity cmdDetail = new CmdDetailEntity(
 					cmd, 
@@ -54,15 +54,15 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 					cartEntry.getQuantity(), 
 					cartEntry.getBook().getPrice()
 					);
-			this.writeEM.persist(cmdDetail);
+			this.manager.persist(cmdDetail);
 			cmd.addEntry(cmdDetail);
 		}
-		this.writeEM.flush();
+		this.manager.flush();
 		this.mailer.sendConfirmationCommand(u, cmd);
 	}
 	
 	private CommandEntity getCommand(Integer idCmd) {
-		return this.readEM.find(CommandEntity.class, idCmd);
+		return this.manager.find(CommandEntity.class, idCmd);
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 
 	@Override
 	public void getCommands(final Integer idUser, final CommandListJsonItf response) {
-		UserEntROItf u = this.user.getUser(idUser);
+		UserEntItf u = this.user.getUser(idUser);
 		for(CommandEntity command : u.getCommands()) {
 			CommandJsonItf cmdJson = response.prepareNewEntry(command.getDate(),command.getIdCmd());
 			for(CmdDetailEntity cmdDetail : command.getCmdDetails()) {

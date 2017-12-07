@@ -3,15 +3,15 @@ package mailer;
 import javax.ejb.Local;
 
 import command.entity.CommandEntItf;
-import user.entity.UserEntROItf;
+import user.entity.UserEntItf;
 
 @Local
 public interface MailerBeanLocal {
 	
-	public void sendWelcomeEmail(UserEntROItf aUser);
+	public void sendWelcomeEmail(UserEntItf aUser);
 
-	public void sendResetPassword(UserEntROItf aUser, String newPwd);
+	public void sendResetPassword(UserEntItf aUser, String newPwd);
 
-	public void sendConfirmationCommand(UserEntROItf aUser, CommandEntItf cmd);
+	public void sendConfirmationCommand(UserEntItf aUser, CommandEntItf cmd);
 	
 }

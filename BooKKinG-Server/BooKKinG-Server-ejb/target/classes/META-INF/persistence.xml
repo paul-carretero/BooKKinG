@@ -22,21 +22,10 @@
 		<class>command.entity.CommandEntity</class>
 		<class>user.entity.UserEntity</class>
 		<properties>
-			<!-- Properties for Hibernate -->
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.dialect" value="shared.RegexpMySQLDialect" />
 			<property name="persistenceUnitName" value="master" />
-		</properties>
-	</persistence-unit>
-	<persistence-unit name="slave">
-		<jta-data-source>java:/bookkingSlaveDS</jta-data-source>
-		<properties>
-			<!-- Properties for Hibernate -->
-			<property name="hibernate.show_sql" value="false" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<property name="hibernate.dialect" value="shared.RegexpMySQLDialect" />
-			<property name="persistenceUnitName" value="slave" />
 		</properties>
 	</persistence-unit>
 </persistence>
