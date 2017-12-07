@@ -12,7 +12,7 @@ public class CartJson extends AbstractJson implements CartJsonItf, Validifyable 
 	 */
 	private static final long serialVersionUID = -5439224468396563278L;
 	
-	CartItemJson[] items;
+	private CartItemJson[] items;
 
 	public CartJson() {
 		super();

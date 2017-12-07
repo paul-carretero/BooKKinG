@@ -16,7 +16,7 @@ import javax.mail.internet.MimeMessage;
 
 import command.entity.CmdDetailEntItf;
 import command.entity.CommandEntItf;
-import user.entity.UserEntROItf;
+import user.entity.UserEntItf;
 
 /**
  * Session Bean implementation class Mailer
@@ -81,7 +81,7 @@ public class MailerBean implements MailerBeanLocal {
 
 	@Asynchronous
 	@Override
-	public void sendWelcomeEmail(final UserEntROItf aUser) {
+	public void sendWelcomeEmail(final UserEntItf aUser) {
 		StringBuffer actualMessage = new StringBuffer();
 		actualMessage.append("Bonjour ");
 		actualMessage.append(aUser.getName());
@@ -99,7 +99,7 @@ public class MailerBean implements MailerBeanLocal {
 
 	@Asynchronous
 	@Override
-	public void sendResetPassword(final UserEntROItf aUser, final String newPwd) {
+	public void sendResetPassword(final UserEntItf aUser, final String newPwd) {
 		StringBuffer actualMessage = new StringBuffer();
 		actualMessage.append("Bonjour ");
 		actualMessage.append(aUser.getName());
@@ -117,7 +117,7 @@ public class MailerBean implements MailerBeanLocal {
 
 	@Asynchronous
 	@Override
-	public void sendConfirmationCommand(final UserEntROItf aUser, final CommandEntItf cmd) {
+	public void sendConfirmationCommand(final UserEntItf aUser, final CommandEntItf cmd) {
 		StringBuffer actualMessage = new StringBuffer();
 		actualMessage.append("Bonjour ");
 		actualMessage.append(aUser.getName());

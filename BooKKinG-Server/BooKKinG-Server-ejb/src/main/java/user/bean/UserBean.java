@@ -12,8 +12,7 @@ import mailer.MailerBeanLocal;
 import shared.AbstractBean;
 import shared.Helper;
 import user.dataItf.UserJsonItf;
-import user.entity.UserEntROItf;
-import user.entity.UserEntRWItf;
+import user.entity.UserEntItf;
 import user.entity.UserEntity;
 
 /**
@@ -34,8 +33,8 @@ public class UserBean extends AbstractBean implements UserBeanLocal {
 	public UserBean() {}
 
 	@Override
-	public UserEntROItf getUser(final String email){
-		List<UserEntity> users = this.readEM.createQuery(
+	public UserEntItf getUser(final String email){
+		List<UserEntity> users = this.manager.createQuery(
 				" FROM UserEntity u WHERE u.email=:email")
 				.setParameter("email", email)
 				.setMaxResults(1)
@@ -47,31 +46,13 @@ public class UserBean extends AbstractBean implements UserBeanLocal {
 	}
 
 	@Override
-	public UserEntROItf getUser(final int idUser){
-		return this.readEM.find(UserEntity.class, idUser);
-	}
-	
-	@Override
-	public UserEntRWItf getUserForUpdate(final String email){
-		List<UserEntity> users = this.writeEM.createQuery(
-				" FROM UserEntity u WHERE u.email=:email")
-				.setParameter("email", email)
-				.setMaxResults(1)
-				.getResultList();
-		if(users.isEmpty()) {
-			return null;
-		}
-		return users.get(0);
-	}
-
-	@Override
-	public UserEntity getUserForUpdate(final int idUser){
-		return this.writeEM.find(UserEntity.class, idUser);
+	public UserEntity getUser(final int idUser){
+		return this.manager.find(UserEntity.class, idUser);
 	}
 
 	@Override
 	public boolean tryLogin(final UserJsonItf data) {
-		UserEntROItf userToCheck = getUser(data.getEmail());
+		UserEntItf userToCheck = getUser(data.getEmail());
 		if(userToCheck != null) {
 			String hashedPwd = Helper.getEncodedPwd(data.getPassword(), data.getEmail());
 			return userToCheck.getPassword().equals(hashedPwd);
@@ -90,7 +71,7 @@ public class UserBean extends AbstractBean implements UserBeanLocal {
 				user.getEmail(),
 				user.getPassword()
 				);
-		this.writeEM.persist(newUser);
+		this.manager.persist(newUser);
 		this.mailer.sendWelcomeEmail(newUser);
 		return true;
 	}
@@ -98,7 +79,7 @@ public class UserBean extends AbstractBean implements UserBeanLocal {
 	@Override
 	@Asynchronous
 	public void updateUser(final Integer idUser, final UserJsonItf data) {
-		UserEntRWItf u = getUserForUpdate(idUser);
+		UserEntItf u = getUser(idUser);
 		u.setAddress(data.getAddress());
 		u.setName(data.getName());
 		u.setPassword(data.getPassword());
@@ -117,7 +98,7 @@ public class UserBean extends AbstractBean implements UserBeanLocal {
 
 	@Override
 	public boolean resetPassword(final String email) {
-		UserEntRWItf u = getUserForUpdate(email);
+		UserEntItf u = getUser(email);
 		if(u != null) {
 			String newPwd = randomPassword();
 			u.setPassword(newPwd);

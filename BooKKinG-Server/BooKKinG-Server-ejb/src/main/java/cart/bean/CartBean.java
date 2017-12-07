@@ -27,10 +27,10 @@ public class CartBean extends AbstractBean implements CartBeanLocal {
 	 * Bean User pour gestion des operations metiers sur un utilisateur
 	 */
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/UserBean!user.bean.UserBeanLocal")
-	UserBeanLocal user;
+	private UserBeanLocal user;
 	
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/BookBean!book.bean.BookBean")
-	BookBeanLocal book;
+	private BookBeanLocal book;
 	
     /**
      * Default constructor. 
@@ -43,26 +43,25 @@ public class CartBean extends AbstractBean implements CartBeanLocal {
 		List<CartDetailEntity> toDelete = this.user.getUser(idUser).getCart();
 		
 		for(CartDetailEntity entry : toDelete) {
-			this.writeEM.remove(entry);
+			this.manager.remove(entry);
 		}
 	}
 
 	@Override
 	@Asynchronous
 	public void setQuantity(final Integer idUser, final CartItemJsonItf data) {
-		CartDetailEntity toUpdate = this.readEM.find(CartDetailEntity.class, new CartDetailId(idUser,data.getIdBook()));
+		CartDetailEntity toUpdate = this.manager.find(CartDetailEntity.class, new CartDetailId(idUser,data.getIdBook()));
 		if(data.getQuantity() <= 0 && toUpdate != null) {
-			this.writeEM.remove(toUpdate);
+			this.manager.remove(toUpdate);
 		}
 		else if(toUpdate == null && data.getQuantity() > 0) {
 			BookEntity bookTry = this.book.getBook(data.getIdBook());
 			if(bookTry != null) {
-				toUpdate = new CartDetailEntity(this.user.getUserForUpdate(idUser), bookTry, data.getQuantity());
-				this.writeEM.persist(toUpdate);
+				toUpdate = new CartDetailEntity(this.user.getUser(idUser), bookTry, data.getQuantity());
+				this.manager.persist(toUpdate);
 			}
 		}
 		else if(toUpdate != null && data.getQuantity() > 0){
-			toUpdate = this.writeEM.find(CartDetailEntity.class, new CartDetailId(idUser,data.getIdBook()));
 			toUpdate.setQuantity(data.getQuantity());
 		}
 	}

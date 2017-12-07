@@ -1,11 +1,11 @@
 package cart.entity;
 
 import book.entity.BookEntItf;
-import user.entity.UserEntROItf;
+import user.entity.UserEntItf;
 
 public interface CartDetailEntItf {
 
-	public UserEntROItf getUser();
+	public UserEntItf getUser();
 
 	public BookEntItf getBook();
 
