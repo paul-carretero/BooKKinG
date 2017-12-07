@@ -32,8 +32,8 @@ public class EMManager implements EMManagerLocal {
 	@PersistenceUnit(unitName = "master")
 	private EntityManagerFactory masterFactory;
 
-	@PersistenceUnit(unitName = "slave")
-	private EntityManagerFactory slaveFactory;
+	//@PersistenceUnit(unitName = "slave")
+	//private EntityManagerFactory slaveFactory;
 
 	/**
 	 * file représentant les slave pour round-robin sur eux
@@ -82,8 +82,8 @@ public class EMManager implements EMManagerLocal {
 	 */
 	@PostConstruct
 	public void init() {
-		this.slaveFactories.add(this.slaveFactory);
-		this.physicalSlaveFactories.add(this.slaveFactory);
+		//this.slaveFactories.add(this.slaveFactory);
+		//this.physicalSlaveFactories.add(this.slaveFactory);
 	}
 
 	@Schedule(hour = "*", minute = "*", second = "*/10", persistent = false)
