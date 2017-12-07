@@ -172,7 +172,7 @@ export class PanierComponent implements OnInit {
     // sinon, l'utilisateur doit se connecter
     else{
       PayerComponent.enCoursDePaiement = true; 
-      this.router.navigate(['/connection']);
+      this.router.navigate(['/identification-inscription']);
     }
   }
 

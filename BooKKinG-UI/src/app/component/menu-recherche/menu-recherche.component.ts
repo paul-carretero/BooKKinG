@@ -190,5 +190,9 @@ export class MenuRechercheComponent implements OnInit {
 
 
 
+   get typeLivre(){
+     return MenuRechercheComponent.typeLivres;
+   }
+
 }
 
