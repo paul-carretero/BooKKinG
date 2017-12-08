@@ -7,6 +7,7 @@ Installation des dépendances
 > - `ng build`
 > - `npm install --save bootstrap`
 > - `npm install font-awesome --save`
+> - `npm install ngx-cookie --save`
 
 BooKKinG-Server
 ==============
