@@ -31,7 +31,7 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 
 	@Override
 	public BookEntity getBook(final Integer idBook){
-		return this.readEM.find(BookEntity.class, idBook);
+		return this.manager.find(BookEntity.class, idBook);
 	}
 
 	private String getSearchRegexp(final String userSearchWords) {
@@ -79,7 +79,7 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 	@Override
 	public void getBooks(final BookSearchItf searchData, final BookListJsonItf response){
 		String regExpSearch = generateRegexpSubQuery(getSearchRegexp(searchData.getAnySearch()),"b");
-		List<BookEntity> books = this.readEM.createQuery(
+		List<BookEntity> books = this.manager.createQuery(
 				" FROM BookEntity b WHERE "
 						+ "(b.type = :type OR :type = 'ANY')"
 						+ " AND (b.genre = :genre OR :genre = 'ANY')"
@@ -114,7 +114,7 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 				data.getStock(), 
 				data.getTitle()
 				);
-		this.writeEM.persist(newBook);
+		this.manager.persist(newBook);
 	}
 
 }

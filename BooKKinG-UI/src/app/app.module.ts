@@ -1,3 +1,4 @@
+import { AchatService } from './service/achat.service';
 import { PanierService } from './service/panier.service';
 import { AdministrationService } from './service/administration.service';
 import { Globals } from './globals';
@@ -26,7 +27,8 @@ import { LivreComponent } from './component/livre/livre.component';
 import { HeaderComponent } from './component/header/header.component';
 import { FiltreComponent } from './component/filtre/filtre.component';
 import { IdentificationInscriptionComponent } from './component/identification-inscription/identification-inscription.component';
-
+import { HistoriqueCommandesComponent } from './component/historique-commandes/historique-commandes.component';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -42,7 +44,10 @@ export const appRoutes: Routes = [
   { path: 'payer', component: PayerComponent },
   { path: 'livraison', component: LivraisonComponent },
   { path: 'finPaiement', component: FinPaiementComponent },
-  { path: 'admin', component: AdministrationComponent}
+  { path: 'admin', component: AdministrationComponent},
+  { path: 'compte', component: CompteClientComponent},
+  { path: 'commandes', component: HistoriqueCommandesComponent},
+  { path: 'livre', component: LivreComponent}
 ];
 
 
@@ -64,7 +69,8 @@ export const appRoutes: Routes = [
     LivreComponent,
     HeaderComponent,
     FiltreComponent,
-    IdentificationInscriptionComponent
+    IdentificationInscriptionComponent,
+    HistoriqueCommandesComponent
   ],
   // modules que l'application va utiliser
   // ! penser à y mettre aussi les modules pour les formulaires
@@ -79,9 +85,11 @@ export const appRoutes: Routes = [
   providers: [
     Globals,
     ConnectionService,
-    RechercheService, 
-    AdministrationService, 
-    PanierService
+    RechercheService,
+    AdministrationService,
+    PanierService,
+    AchatService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

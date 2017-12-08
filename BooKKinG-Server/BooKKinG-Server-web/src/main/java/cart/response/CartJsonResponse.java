@@ -15,19 +15,16 @@ public class CartJsonResponse extends GenericResponseJson implements CartJsonRes
 	 */
 	private static final long serialVersionUID = 6039853953724021342L;
 
-	/**
-	 * idBook=>quantity
-	 */
-	private Set<Article> articles;
+	private Set<Article> items;
 
 	public CartJsonResponse() {
 		super();
-		this.articles = new HashSet<>();
+		this.items = new HashSet<>();
 	}
 
 	@Override
 	public void addBook(BookEntItf aBook, Integer quantity) {
-		this.articles.add(new Article(new BookJson(aBook), quantity, aBook.getIdBook()));
+		this.items.add(new Article(new BookJson(aBook), quantity, aBook.getIdBook()));
 	}
 
 }

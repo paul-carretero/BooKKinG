@@ -1,52 +1,41 @@
-<!--div id="logo_container">
-  <img src="assets/logo.gif" alt="logo_site" />
-</div>
-<nav id="menu_wrapper">
-  <ul id="nav">
-      <li><a href="#" class="current">Home</a></li>
-      <li><a href="#">Romans</a></li>
-      <li><a href="#">Magazines</a></li>
-      <li><a href="#">Mangas</a></li>
-      <li><a href="#">Bandes Dessinée</a></li>
-      <li><a href="#">Documentation</a></li>
-  </ul>
-  <form id="search_wrapper">
-      <input type="text" />
-      <fa name="search"></fa>
-  </form>
-</nav-->
-<div class="container"></div>
-<div class="col-md-2">
-        logo du site        
- </div>
-
-<div class="container" id="menu_wrapper">
+<!--div id="header_wrapper" class="container">
     <div class="row">
-         
-        <div class="col-md-6">
-                <form id="search_wrapper">
-                        <input type="text" />
-                        <fa name="search"></fa>
-                </form>
-        </div>   
-       
-        <div class="col-xs-2">
-                <a routerLink="/identification-inscription">S'identification/S'inscription</a>                                     
+        <div routerLink="/" class="col-md-1">
+            <img id="logo_img" src="assets/logo.gif" alt="logo_site" />
+            <span>BooKKinG</span>
         </div>
+        <nav class="col-md-9" id="menu_wrapper">
+            <ul id="nav">
+                <ng-container *ngFor="let type of typeLivres;">
+                    <li *ngIf="isCurrent(type);else defaultheader" (click)="setCurrent(type)"><a class="current" href=" # ">{{displayableType(type)}}</a></li>
+                    <ng-template #defaultheader>
+                        <li (click)="setCurrent(type)"><a href=" # ">{{displayableType(type)}}</a></li>
+                    </ng-template>
+                </ng-container>
+            </ul>
+        </nav>
+        <a routerLink="/panier" class="col-md-1 cart-wrapper">
+            <span>{{getNumberOfCartItem()}}</span><br/>
+            <span>({{getTotalPriceOfCart()}} €)</span>
+        </a>
+        <a routerLink="/identification-inscription" class="col-md-1">
+            <fa name="user "></fa>{{getIdentity()}}
+        </a>
+    </div>
+    <div class="row ">
+        <div class="col-md-3 ">
 
-        <div class="col-xs-2">
-                 
-                 <a routerLink="/panier"> panier </a>    
         </div>
-         
+        <div class="col-md-6 ">
+            <form id="search_wrapper ">
+                <input type="text " id="searchInput " />
+                <fa name="search "></fa>
+            </form>
+        </div>
+        <div class="col-md-3 ">
+        </div>
     </div>
-
-
-    <div class="row">
-            <div class="col-md-offset-2 col-md-4">  
-                    <!--app-menu-recherche></app-menu-recherche-->
-                    <a routerLink="/menu-recherche">Menu recherche </a>
-            </div>       
-    </div>
-
 </div>
+
+<router-outlet></router-outlet-->
+    <div>test</div>

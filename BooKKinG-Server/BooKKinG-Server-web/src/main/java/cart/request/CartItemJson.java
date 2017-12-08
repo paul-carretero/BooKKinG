@@ -47,5 +47,6 @@ public class CartItemJson  extends AbstractJson implements CartItemJsonItf, Vali
 		if (this.quantity == null) {
 			this.quantity = 0;
 		}
+		System.out.println(this.quantity);
 	}
 }

@@ -13,7 +13,7 @@ import shared.Helper;
  */
 @Entity @Table(name="user")
 
-public class UserEntity implements UserEntRWItf {
+public class UserEntity implements UserEntItf {
 
 
 	/**

@@ -3,8 +3,7 @@ package user.bean;
 import javax.ejb.Local;
 
 import user.dataItf.UserJsonItf;
-import user.entity.UserEntROItf;
-import user.entity.UserEntRWItf;
+import user.entity.UserEntItf;
 import user.entity.UserEntity;
 
 @Local
@@ -14,13 +13,9 @@ public interface UserBeanLocal {
 	
 	public boolean tryLogin(UserJsonItf user);
 	
-	public UserEntROItf getUser(int idUser);
+	public UserEntity getUser(int idUser);
 	
-	public UserEntROItf getUser(String email);
-	
-	public UserEntRWItf getUserForUpdate(String email);
-
-	public UserEntity getUserForUpdate(int idUser);
+	public UserEntItf getUser(String email);
 	
 	public void updateUser(Integer attribute, UserJsonItf data);
 

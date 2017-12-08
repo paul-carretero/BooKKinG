@@ -1,18 +1,14 @@
 BooKKinG-UI
 ==============
-Installation JQuery
+Installation des dépendances
 -----------------------------
-> - npm install jquery --save
-> - npm install --save-dev @types/jquery
-> - ng build
-
-Installation bootstrap
------------------------------
-npm install --save bootstrap
-
-Installation font-awesome
------------------------------
-npm install font-awesome --save
+> - `npm install jquery --save`
+> - `npm install --save-dev @types/jquery`
+> - `ng build`
+> - `npm install --save bootstrap`
+> - `npm install font-awesome --save`
+> - `npm install ngx-cookie --save`
+> - `npm install ngx-cookie-service --save`
 
 BooKKinG-Server
 ==============

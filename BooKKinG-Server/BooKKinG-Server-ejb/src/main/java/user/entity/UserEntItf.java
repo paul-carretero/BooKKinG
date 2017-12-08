@@ -6,7 +6,7 @@ import java.util.List;
 import cart.entity.CartDetailEntity;
 import command.entity.CommandEntity;
 
-public interface UserEntROItf extends Serializable{
+public interface UserEntItf extends Serializable{
 
 	public String getName();
 
@@ -23,4 +23,10 @@ public interface UserEntROItf extends Serializable{
 	public List<CartDetailEntity> getCart();
 
 	public boolean isAdmin();
+	
+	public void setPassword(String newPwd);
+
+	public void setAddress(String address);
+
+	public void setName(String name);
 }

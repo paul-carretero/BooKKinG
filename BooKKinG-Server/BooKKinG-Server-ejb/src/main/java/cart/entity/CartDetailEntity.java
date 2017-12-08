@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import book.entity.BookEntity;
-import user.entity.UserEntROItf;
+import user.entity.UserEntItf;
 import user.entity.UserEntity;
 
 /**
@@ -42,7 +42,7 @@ public class CartDetailEntity implements Serializable, CartDetailEntItf {
 	/**
 	 * @param user
 	 * @param book
-	 * @param amount
+	 * @param quantity
 	 */
 	public CartDetailEntity(UserEntity user, BookEntity book, Integer quantity) {
 		super();
@@ -52,7 +52,7 @@ public class CartDetailEntity implements Serializable, CartDetailEntItf {
 	}
 
 	@Override
-	public UserEntROItf getUser() {
+	public UserEntItf getUser() {
 		return this.user;
 	}
 

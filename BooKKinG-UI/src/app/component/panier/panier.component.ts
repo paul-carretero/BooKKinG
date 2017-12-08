@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 import { Client } from '../../model/client';
 import { Router } from '@angular/router';
 import { PayerComponent } from '../payer/payer.component';
+import { LivreComponent } from '../livre/livre.component';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-panier',
@@ -21,7 +23,7 @@ export class PanierComponent implements OnInit {
   /**
    * Montant total des livres contenus dans le panier
    */
-  static montantTotal : number = 0.0;
+  static montantTotal: number = 0.0;
 
   /**
    * Tableau de livre dynamique permettant l'affichage dans le html
@@ -33,23 +35,49 @@ export class PanierComponent implements OnInit {
   /**
    *  nombre dynamique permettant l'affcichage le montant total
    */
-  montantTotal : number = 0.0;
+  montantTotal: number = 0.0;
+
+  public static getNumberOfItems(): number {
+    let res = 0;
+    for (const item of PanierComponent.contenuPanier){
+      res += item.quantity;
+    }
+    return res;
+  }
+
+  public static getTotalPrice(): number {
+    let res = 0;
+    for (const item of PanierComponent.contenuPanier){
+      res += item.book.price * item.quantity;
+    }
+    return res;
+  }
 
 
-  constructor(private router : Router, private service : PanierService) { }
+  constructor(private router: Router, private service : PanierService) { }
 
 
   ngOnInit() { 
     this.contenuPanier = PanierComponent.contenuPanier;
     this.montantTotal = PanierComponent.montantTotal;
-/* A TESTER !!
+// A TESTER !!
     // partie communiquant avec le serveur
     // si l'utilisateur est connecté, on met à jour son panier
-    if(ConnectionComponent.clientConnecte) this.miseAJourPanier();
-*/    
+  //  if(ConnectionComponent.clientConnecte) this.miseAJourPanier();
+    
+  }
+
+  public detailLivre(livre: Livre) {
+    LivreComponent.ajouterAuLivreDetaille(livre);
+    this.router.navigate(['/livre']);
   }
 
 
+  get montantGlobal(){
+    return PanierComponent.montantTotal;
+  };
+
+/*
   public miseAJourPanier(){
     this.contenuPanier.forEach(
       article =>{
@@ -64,9 +92,7 @@ export class PanierComponent implements OnInit {
       }
     );
   }
-
-
-
+*/
 
   public supprimer(idBook : number){
     let trouve = false;
@@ -87,7 +113,9 @@ export class PanierComponent implements OnInit {
     PanierComponent.montantTotal=PanierComponent.total();
     this.montantTotal= PanierComponent.montantTotal;
 
-/* A TESTER !!
+
+
+// A TESTER !!
     // Partie communiquant avec le serveur 
     // si l'utilisateur est connecté
     if(ConnectionComponent.clientConnecte){
@@ -101,7 +129,7 @@ export class PanierComponent implements OnInit {
         }
       );
     }
-*/
+
 }
 
 
@@ -109,10 +137,10 @@ export class PanierComponent implements OnInit {
    * Méthode permettant d'ajouter un livre au panier
    * @param livre livre à ajouter au panier
    */
-  public static ajouterLivrePanier(livre : Livre){
+  public static ajouterLivrePanier(livre : Livre, quantity : number){
     console.log("dans ajouter Livre au panier");
     console.log("livre a ajouter : " + livre.title);
- 
+    console.log("quantite a ajouter : " + quantity);
 
     let i : number = 0;
     let ajoute : boolean = false;
@@ -121,7 +149,7 @@ export class PanierComponent implements OnInit {
       // si il était déjà présent
       if(livre.idBook == PanierComponent.contenuPanier[i].idBook){
         // on augmente sa quantité
-        PanierComponent.contenuPanier[i].quantity++;
+        PanierComponent.contenuPanier[i].quantity += quantity;
         ajoute = true;
       }
       i++;
@@ -129,7 +157,7 @@ export class PanierComponent implements OnInit {
     // si le livre n'était pas déjà présent dans le panier
     if(!ajoute){
       // on l'ajoute dans le panier, avec une quantité de 1
-      PanierComponent.contenuPanier[i] = { book:livre, quantity:1, idBook: livre.idBook };
+      PanierComponent.contenuPanier[i] = { book:livre, quantity:quantity, idBook: livre.idBook };
     }
 
     // on met à jour le total du panier
@@ -141,7 +169,6 @@ export class PanierComponent implements OnInit {
   * Méthode permettant de calculer le montant total des articles dans le panier
   */
   public static total(){
-    console.log("dans payer");
     let montant : number = 0;   
     PanierComponent.contenuPanier.forEach(
       article => {
@@ -165,7 +192,7 @@ export class PanierComponent implements OnInit {
     // sinon, l'utilisateur doit se connecter
     else{
       PayerComponent.enCoursDePaiement = true; 
-      this.router.navigate(['/connection']);
+      this.router.navigate(['/identification-inscription']);
     }
   }
 
@@ -177,6 +204,11 @@ export class PanierComponent implements OnInit {
    // this.listeLivre = PanierComponent.tabLivre = [];
     this.montantTotal =  PanierComponent.montantTotal = 0;
     this.contenuPanier = PanierComponent.contenuPanier = [];
+    this.service.viderPanier().subscribe(
+      reponse => {
+        console.log("vider panier " + JSON.stringify(reponse));
+      }
+    );
   }
 
  
@@ -187,13 +219,14 @@ export class PanierComponent implements OnInit {
     
     let i : number = 0;
     let set : boolean = false;
+    let quantiteLivre = Number( quantity.target.value)
 
     // on recherche le livre dans le panier
     while(!set && i < PanierComponent.contenuPanier.length){
       // quand on l'a trouvé
       if(livre.idBook == PanierComponent.contenuPanier[i].idBook){
         // on met à jour la quantité du livre
-        PanierComponent.contenuPanier[i].quantity = quantity.target.value;
+        PanierComponent.contenuPanier[i].quantity = quantiteLivre;
         set = true;
         
         // si le livre se retrouve avec une quantité égale à 0
@@ -211,21 +244,21 @@ export class PanierComponent implements OnInit {
     PanierComponent.montantTotal = PanierComponent.total() ;
     this.montantTotal = PanierComponent.montantTotal;
     
-/* A TESTER !!
+// A TESTER !!
     // Partie communiquant avec le serveur   
     // si l'utilisateur est connecté
     if(ConnectionComponent.clientConnecte){
       // on met à jour le panier gardé dans la base de donnée 
       let articleSimple : SimpleArticle = new SimpleArticle();
       articleSimple.idBook = livre.idBook;
-      articleSimple.quantity = quantity;
+      articleSimple.quantity = quantiteLivre ;
       this.service.miseAJourQuantiteLivre(articleSimple).subscribe(
         reponse =>{
           if(reponse.success) console.log("la mise à jour de l'article dans la panier est réussie");
         }
       );  
     }
-*/
+
   }
 
 
