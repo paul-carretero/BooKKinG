@@ -130,7 +130,7 @@ export class AdministrationComponent implements OnInit {
   */  
     {title:'MEGA Poussin', 
      author:'Véronique Babin', 
-     genre : 'EDUCATION',
+     genre : 'EDUCATIF',
      type :"MANUEL", 
      price:11.5, stock:10, 
      summary:"Une encyclopédie pour les 3/6 ans. Découvrir le monde de tous les jours, la nature et le monde plus lointain. Comprendre son corps, le mouvement du temps. S'ouvrir à tout ce qui bouge autour de soi. Un livre pour demain, à lire dès aujourd'hui."},

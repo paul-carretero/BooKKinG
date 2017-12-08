@@ -1,3 +1,4 @@
+import { AchatService } from './service/achat.service';
 import { PanierService } from './service/panier.service';
 import { AdministrationService } from './service/administration.service';
 import { Globals } from './globals';
@@ -41,7 +42,9 @@ export const appRoutes: Routes = [
   { path: 'payer', component: PayerComponent },
   { path: 'livraison', component: LivraisonComponent },
   { path: 'finPaiement', component: FinPaiementComponent },
-  { path: 'admin', component: AdministrationComponent}
+  { path: 'admin', component: AdministrationComponent},
+  { path: 'compte', component: CompteClientComponent},
+  { path: 'livre', component: LivreComponent}
 ];
 
 
@@ -80,7 +83,8 @@ export const appRoutes: Routes = [
     ConnectionService,
     RechercheService, 
     AdministrationService, 
-    PanierService
+    PanierService,
+    AchatService
   ],
   bootstrap: [AppComponent]
 })
