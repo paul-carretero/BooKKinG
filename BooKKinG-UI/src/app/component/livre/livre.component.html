@@ -1,6 +1,7 @@
+<div>Livre</div>
 <div class="row">
     <div class="col-lg-2">
-        <img alt="Embedded Image" src="data:image/png;base64," {{livre.picture}} />
+        <!--<img alt="Embedded Image" src="data:image/png;base64," {{livre.picture}} />-->
     </div>
     <div class="col-lg-5">
         <h2>{{livre.title}}</h2>
@@ -11,7 +12,7 @@
         <div>{{livre.price}} €</div>
         <div>
             <label>Quantité</label>
-            <input type="number" value="1" min="0" max={{livre.stock}} />
+            <input type="number" (input)="setNbLivre($event)" value="nbLivre" min="0" max={{livre.stock}} />
         </div>
         <input type="button" (click)="ajouterAuPanier(livre)" value="Ajouter au panier">
     </div>

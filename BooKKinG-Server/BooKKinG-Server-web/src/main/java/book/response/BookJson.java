@@ -96,4 +96,8 @@ public class BookJson extends GenericResponseJson implements BookJsonItf {
 		this.idBook 	= bookEnt.getIdBook();
 		this.stock 		= bookEnt.getStock();
 	}
+
+	public void setPrice(Float price) {
+		this.price = price;
+	}
 }

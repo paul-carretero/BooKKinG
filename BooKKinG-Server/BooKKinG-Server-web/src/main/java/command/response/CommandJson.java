@@ -1,10 +1,13 @@
 package command.response;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import book.entity.BookEntItf;
 import book.response.BookJson;
+import cart.request.CartItemJson;
 import command.dataItf.CommandJsonItf;
 import shared.GenericResponseJson;
 
@@ -19,43 +22,36 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 	 * Date de la commande
 	 */
 	@SuppressWarnings("unused")
-	private String 					date;
+	private String 				date;
 	
 	@SuppressWarnings("unused")
-	private Integer					idCmd;
+	private Integer				idCmd;
 
 	/**
 	 * idBook=>BookJson
 	 */
-	private Map<Integer,BookJson>	books;
-
-	/**
-	 * idBook=>price(unitaire)
-	 */
-	private Map<Integer,Float> 		prices;
+	private List<BookJson>		books;
 
 	/**
 	 * idBook=>quantity
 	 */
-	private Map<Integer,Integer> 	quantities;
+	private List<CartItemJson> 	items;
 
 	/**
 	 * @param date
 	 */
 	public CommandJson() {
 		super();
-		this.books 		= new HashMap<>();
-		this.prices 	= new HashMap<>();
-		this.quantities = new HashMap<>();
+		this.books 		= new LinkedList<>();
+		this.items 		= new LinkedList<>();
 	}
 
 	public CommandJson(final String date, final Integer idCmd) {
 		super();
 		this.date		= date;
 		this.idCmd		= idCmd;
-		this.books 		= new HashMap<>();
-		this.prices 	= new HashMap<>();
-		this.quantities = new HashMap<>();
+		this.books 		= new LinkedList<>();
+		this.items 		= new LinkedList<>();
 	}
 	
 	@Override
@@ -75,8 +71,9 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 	 */
 	@Override
 	public void addCmdEntry(BookEntItf aBook,Float price, Integer quantity) {
-		this.books.put(aBook.getIdBook(), new BookJson(aBook));
-		this.prices.put(aBook.getIdBook(), price);
-		this.quantities.put(aBook.getIdBook(), quantity);
+		BookJson b = new BookJson(aBook);
+		b.setPrice(price);
+		this.books.add(aBook.getIdBook(), b);
+		this.items.add(new CartItemJson(aBook.getIdBook(), quantity));
 	}
 }

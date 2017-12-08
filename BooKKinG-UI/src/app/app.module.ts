@@ -28,7 +28,7 @@ import { HeaderComponent } from './component/header/header.component';
 import { FiltreComponent } from './component/filtre/filtre.component';
 import { IdentificationInscriptionComponent } from './component/identification-inscription/identification-inscription.component';
 import { HistoriqueCommandesComponent } from './component/historique-commandes/historique-commandes.component';
-
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -84,10 +84,11 @@ export const appRoutes: Routes = [
   providers: [
     Globals,
     ConnectionService,
-    RechercheService, 
-    AdministrationService, 
+    RechercheService,
+    AdministrationService,
     PanierService,
-    AchatService
+    AchatService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

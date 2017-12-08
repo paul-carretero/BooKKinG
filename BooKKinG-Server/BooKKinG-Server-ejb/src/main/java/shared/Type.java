@@ -6,7 +6,6 @@ public enum Type {
 	MANGA,
 	BD,
 	MANUEL,
-	DOCUMENTATION,
-	COMICS,
+	ESSAI,
 	ANY;
 }
