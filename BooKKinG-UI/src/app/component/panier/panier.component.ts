@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { Client } from '../../model/client';
 import { Router } from '@angular/router';
 import { PayerComponent } from '../payer/payer.component';
+import { LivreComponent } from '../livre/livre.component';
 
 @Component({
   selector: 'app-panier',
@@ -21,7 +22,7 @@ export class PanierComponent implements OnInit {
   /**
    * Montant total des livres contenus dans le panier
    */
-  static montantTotal : number = 0.0;
+  static montantTotal: number = 0.0;
 
   /**
    * Tableau de livre dynamique permettant l'affichage dans le html
@@ -47,6 +48,11 @@ export class PanierComponent implements OnInit {
     // si l'utilisateur est connecté, on met à jour son panier
   //  if(ConnectionComponent.clientConnecte) this.miseAJourPanier();
     
+  }
+
+  public detailLivre(livre: Livre) {
+    LivreComponent.ajouterAuLivreDetaille(livre);
+    this.router.navigate(['/livre']);
   }
 
 
