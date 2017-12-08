@@ -4,6 +4,10 @@ import { RechercheService, Recherche } from './../../service/recherche.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Livre } from '../../model/livre';
+import { LivreComponent } from '../livre/livre.component';
+import { rootRoute } from '@angular/router/src/router_module';
+import { RouterOutlet } from '@angular/router/src/directives/router_outlet';
+import { RouterLink } from '@angular/router/src/directives/router_link';
 import { PanierService, SimpleArticle } from '../../service/panier.service';
 
 @Component({
@@ -194,5 +198,11 @@ export class MenuRechercheComponent implements OnInit {
      return MenuRechercheComponent.typeLivres;
    }
 
+
+   public voirDetailLivre(livre: Livre) {
+     LivreComponent.ajouterAuLivreDetaille(livre);
+     this.router.navigate(['/livre']);
+
+   }
 }
 

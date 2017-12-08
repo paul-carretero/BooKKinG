@@ -43,7 +43,8 @@ export const appRoutes: Routes = [
   { path: 'livraison', component: LivraisonComponent },
   { path: 'finPaiement', component: FinPaiementComponent },
   { path: 'admin', component: AdministrationComponent},
-  { path: 'compte', component: CompteClientComponent}
+  { path: 'compte', component: CompteClientComponent},
+  { path: 'livre', component: LivreComponent}
 ];
 
 
