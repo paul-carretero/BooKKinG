@@ -7,6 +7,7 @@ import { Client } from '../../model/client';
 import { Router } from '@angular/router';
 import { PayerComponent } from '../payer/payer.component';
 import { LivreComponent } from '../livre/livre.component';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-panier',
@@ -34,10 +35,26 @@ export class PanierComponent implements OnInit {
   /**
    *  nombre dynamique permettant l'affcichage le montant total
    */
-  montantTotal : number = 0.0;
+  montantTotal: number = 0.0;
+
+  public static getNumberOfItems(): number {
+    let res = 0;
+    for (const item of PanierComponent.contenuPanier){
+      res += item.quantity;
+    }
+    return res;
+  }
+
+  public static getTotalPrice(): number {
+    let res = 0;
+    for (const item of PanierComponent.contenuPanier){
+      res += item.book.price * item.quantity;
+    }
+    return res;
+  }
 
 
-  constructor(private router : Router, private service : PanierService) { }
+  constructor(private router: Router, private service : PanierService) { }
 
 
   ngOnInit() { 
@@ -76,8 +93,6 @@ export class PanierComponent implements OnInit {
     );
   }
 */
-
-
 
   public supprimer(idBook : number){
     let trouve = false;

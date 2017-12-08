@@ -55,7 +55,15 @@ export class ConnectionComponent implements OnInit {
   /**
    * Attribut correspondant à l'affichage dynamique de la connection du client
    */
-  clientConnecte : boolean = false;
+  clientConnecte: boolean = false;
+
+  public static getConnectionStatus(): boolean {
+    return ConnectionComponent.clientConnecte;
+  }
+
+  public static getUser(): Client {
+    return ConnectionComponent.client;
+  }
 
   /**
   * Constructeur du composant connection
