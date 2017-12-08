@@ -20,29 +20,24 @@ import { PanierService, SimpleArticle } from '../../service/panier.service';
  * Composant concernant la recherche par menus (de type)
  */
 export class MenuRechercheComponent implements OnInit {
+
+  static typeLivres: string[] = ['ROMAN', 'MANUEL', 'MANGA'];
+
+  static typeSelected = '';
+
   /**
    * Liste des livres qui correspondent au menu séléctionné
    */
-  listeLivres : Livre[];
+  listeLivres: Livre[];
 
   /**
    * Attribut contenant les informations concernant la recherche de livre
    */
-  recherche : Recherche = new Recherche();
+  recherche: Recherche = new Recherche();
 
+  typeLivres: string[];
 
-  static typeLivres : string[] = ["ROMAN","MANUEL","MANGA"];
-  typeLivres : string[];
-
-
-  static typeSelected : string = "";
-
-
-
-
-  constructor(private router : Router, private service : RechercheService, private servicePanier : PanierService) { }
-
-
+  constructor(private router: Router, private service: RechercheService, private servicePanier: PanierService) { }
 
   ngOnInit() {
     console.log("dans menu de type");
@@ -52,6 +47,14 @@ export class MenuRechercheComponent implements OnInit {
     console.log("type selected : " + MenuRechercheComponent.typeSelected); 
   }
 
+  get staticTypeSelected(): string{
+    return MenuRechercheComponent.typeSelected;
+  }
+
+  set staticTypeSelected(val: string){
+    MenuRechercheComponent.typeSelected = val;
+  }
+
 
    /**
     * Méthode demandant l'ajout d'un livre au panier
@@ -59,7 +62,7 @@ export class MenuRechercheComponent implements OnInit {
     */
    public ajouterAuPanier(livre : Livre){
     console.log("livre : " + livre.title + " à ajouter au panier");
-    PanierComponent.ajouterLivrePanier(livre,1);
+    PanierComponent.ajouterLivrePanier(livre, 1);
     if(ConnectionComponent.clientConnecte){
       let articleSimple : SimpleArticle = new SimpleArticle();
       articleSimple.idBook = livre.idBook;
@@ -167,8 +170,8 @@ export class MenuRechercheComponent implements OnInit {
       default:
         break;
     }
-*/    
-    
+*/
+
     // partie serveur
     this.listeLivres = [];
     this.recherche.type = type;
@@ -179,13 +182,13 @@ export class MenuRechercheComponent implements OnInit {
         // si la recherche a réussie
         if(reponse.success){
           let i = 0;
-          // chaque livre récupéré dans la base de donnée est ajouté à la liste des livres à afficher         
+          // chaque livre récupéré dans la base de donnée est ajouté à la liste des livres à afficher
           reponse.books.forEach(
             livre =>{
               this.listeLivres[i] = livre;
-              i++;     
+              i++;
             }
-          );      
+          );
         }
       }
     );

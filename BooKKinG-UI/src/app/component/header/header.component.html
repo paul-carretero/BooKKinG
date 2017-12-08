@@ -1,7 +1,8 @@
 <div id="header_wrapper" class="container">
     <div class="row">
-        <div class="col-md-1">
+        <div routerLink="/" class="col-md-1">
             <img id="logo_img" src="assets/logo.gif" alt="logo_site" />
+            <span>BooKKinG</span>
         </div>
         <nav class="col-md-9" id="menu_wrapper">
             <ul id="nav">
@@ -13,22 +14,27 @@
                 </ng-container>
             </ul>
         </nav>
-        <div class="col-md-2 ">
-            <a routerLink="/panier ">Acceder au panier</a>
-        </div>
+        <a routerLink="/panier" class="col-md-1 cart-wrapper">
+            <span>{{getNumberOfCartItem()}}</span><br/>
+            <span>({{getTotalPriceOfCart()}} €)</span>
+        </a>
+        <a routerLink="/identification-inscription" class="col-md-1">
+            <fa name="user "></fa>{{getIdentity()}}
+        </a>
     </div>
     <div class="row ">
         <div class="col-md-3 ">
 
         </div>
         <div class="col-md-6 ">
-            <form id="search_wrapper">
-                <input type="text" id="searchInput" />
+            <form id="search_wrapper ">
+                <input type="text " id="searchInput " />
                 <fa name="search "></fa>
             </form>
         </div>
         <div class="col-md-3 ">
-            <a routerLink="/identification-inscription ">S'identification/S'inscription</a>
         </div>
     </div>
 </div>
+
+<router-outlet></router-outlet>
