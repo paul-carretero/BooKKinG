@@ -6,8 +6,7 @@ import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import cart.entity.CartDetailEntity;
 import command.dataItf.CommandJsonItf;
@@ -15,6 +14,7 @@ import command.dataItf.CommandListJsonItf;
 import command.entity.CmdDetailEntity;
 import command.entity.CommandEntity;
 import mailer.MailerBeanLocal;
+import shared.AbstractBean;
 import user.bean.UserBeanLocal;
 import user.entity.UserEntItf;
 import user.entity.UserEntity;
@@ -24,13 +24,10 @@ import user.entity.UserEntity;
  */
 @Stateless
 @LocalBean
-public class CommandBean implements CommandBeanLocal {
-
-	@PersistenceContext()
-	private EntityManager manager;
-
+public class CommandBean extends AbstractBean implements CommandBeanLocal {
+	
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/UserBean!user.bean.UserBeanLocal")
-	UserBeanLocal user;
+	private UserBeanLocal user;
 
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/MailerBean!mailer.MailerBeanLocal")
 	private MailerBeanLocal mailer;
@@ -42,6 +39,7 @@ public class CommandBean implements CommandBeanLocal {
 
 	@Asynchronous
 	@Override
+	@Transactional(rollbackOn={Exception.class})
 	public void proceedCartCheckout(final Integer idUser) {
 		UserEntity u = this.user.getUser(idUser);
 		List<CartDetailEntity> currentCart = u.getCart();

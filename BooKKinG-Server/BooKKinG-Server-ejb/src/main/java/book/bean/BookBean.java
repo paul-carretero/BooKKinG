@@ -9,24 +9,20 @@ import java.util.Set;
 import javax.ejb.Asynchronous;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import book.dataItf.BookJsonItf;
 import book.dataItf.BookListJsonItf;
 import book.dataItf.BookCreateDataItf;
 import book.dataItf.BookSearchItf;
 import book.entity.BookEntity;
+import shared.AbstractBean;
 
 /**
  * Session Bean implementation class BookBean
  */
 @Stateless
 @LocalBean
-public class BookBean implements BookBeanLocal {
-
-	@PersistenceContext()
-	private EntityManager manager;
+public class BookBean extends AbstractBean implements BookBeanLocal {
 
 	/**
 	 * Default constructor. 
@@ -37,30 +33,30 @@ public class BookBean implements BookBeanLocal {
 	public BookEntity getBook(final Integer idBook){
 		return this.manager.find(BookEntity.class, idBook);
 	}
-	
+
 	private String getSearchRegexp(final String userSearchWords) {
 		// nettoyage de la chaine
 		String searchWords = userSearchWords.trim();
 		if(searchWords.isEmpty()) {
 			return ".*";
 		}
-		
+
 		// creation de la liste des mots de la recherche
 		Set<String> wordsList = new HashSet<>(Arrays.asList(searchWords.split(" ")));
-		
+
 		// suppression des mots insignifiants
 		for (Iterator<String> iterator = wordsList.iterator(); iterator.hasNext();) {
-		    String check = iterator.next();
-		    if (check.isEmpty() || check.length() < 3) {
-		        iterator.remove();
-		    }
+			String check = iterator.next();
+			if (check.isEmpty() || check.length() < 3) {
+				iterator.remove();
+			}
 		}
-		
+
 		// return null si aucun mot exploitable
 		if(wordsList.isEmpty()) {
 			return ".*";
 		}
-		
+
 		//creation de la chaine regexp de recherche
 		StringBuilder res = new StringBuilder();
 		for(String searchWord : wordsList) {
@@ -69,9 +65,8 @@ public class BookBean implements BookBeanLocal {
 		}
 		return res.substring(0,res.length()-1);
 	}
-	
+
 	public String generateRegexpSubQuery(final String regExp, final String entityName) {
-		//(b.title IN :searchWords) OR (b.author IN :searchWords) OR (b.summary IN :searchWords);
 		StringBuilder res = new StringBuilder();
 		res.append("( regexp("+entityName+".title, '"+regExp+"') = 1 )");
 		res.append(" OR ");
@@ -100,7 +95,6 @@ public class BookBean implements BookBeanLocal {
 				.setParameter("title", "%"+searchData.getTitle()+"%")
 				.setParameter("author", "%"+searchData.getAuthor()+"%")
 				.getResultList();
-
 		for(BookEntity book : books) {
 			BookJsonItf entry = response.prepareNewEntry();
 			entry.setField(book);

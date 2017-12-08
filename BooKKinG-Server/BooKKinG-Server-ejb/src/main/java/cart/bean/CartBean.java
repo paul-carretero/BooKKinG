@@ -6,8 +6,6 @@ import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import book.bean.BookBeanLocal;
 import book.entity.BookEntity;
@@ -15,6 +13,7 @@ import cart.dataItf.CartItemJsonItf;
 import cart.dataItf.CartJsonResponseItf;
 import cart.entity.CartDetailEntity;
 import cart.entity.CartDetailId;
+import shared.AbstractBean;
 import user.bean.UserBeanLocal;
 
 /**
@@ -22,19 +21,16 @@ import user.bean.UserBeanLocal;
  */
 @Stateless
 @LocalBean
-public class CartBean implements CartBeanLocal {
-
-	@PersistenceContext()
-	private EntityManager manager;
+public class CartBean extends AbstractBean implements CartBeanLocal {
 	
 	/**
 	 * Bean User pour gestion des operations metiers sur un utilisateur
 	 */
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/UserBean!user.bean.UserBeanLocal")
-	UserBeanLocal user;
+	private UserBeanLocal user;
 	
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/BookBean!book.bean.BookBean")
-	BookBeanLocal book;
+	private BookBeanLocal book;
 	
     /**
      * Default constructor. 

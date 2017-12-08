@@ -1,8 +1,12 @@
+<!--
 <div>
-
-    <input type="button" (click)="cuisine()" value="cuisine">
-    <input type="button" (click)="romans()" value="romans">
+<input type="button" (click)="cuisine()" value="cuisine">
+<input type="button" (click)="romans()" value="romans">
 </div>
+-->
+
+
+<input *ngFor="let type of typeLivres;" type="button" (click)="rechercher(type)" value="{{type}}S">
 
 
 

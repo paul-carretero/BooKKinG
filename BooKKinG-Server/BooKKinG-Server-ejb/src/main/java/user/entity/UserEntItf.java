@@ -22,7 +22,11 @@ public interface UserEntItf extends Serializable{
 
 	public List<CartDetailEntity> getCart();
 
+	public boolean isAdmin();
+	
 	public void setPassword(String newPwd);
 
-	public boolean isAdmin();
+	public void setAddress(String address);
+
+	public void setName(String name);
 }

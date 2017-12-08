@@ -7,10 +7,9 @@ import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import mailer.MailerBeanLocal;
+import shared.AbstractBean;
 import shared.Helper;
 import user.dataItf.UserJsonItf;
 import user.entity.UserEntItf;
@@ -21,10 +20,7 @@ import user.entity.UserEntity;
  */
 @Stateless
 @LocalBean
-public class UserBean implements UserBeanLocal {
-
-	@PersistenceContext()
-	private EntityManager manager;
+public class UserBean extends AbstractBean implements UserBeanLocal {
 
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/MailerBean!mailer.MailerBeanLocal")
 	private MailerBeanLocal mailer;
@@ -83,7 +79,7 @@ public class UserBean implements UserBeanLocal {
 	@Override
 	@Asynchronous
 	public void updateUser(final Integer idUser, final UserJsonItf data) {
-		UserEntity u = getUser(idUser);
+		UserEntItf u = getUser(idUser);
 		u.setAddress(data.getAddress());
 		u.setName(data.getName());
 		u.setPassword(data.getPassword());

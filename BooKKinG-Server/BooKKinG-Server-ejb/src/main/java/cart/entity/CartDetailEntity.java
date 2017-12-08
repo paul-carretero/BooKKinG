@@ -23,7 +23,7 @@ public class CartDetailEntity implements Serializable, CartDetailEntItf {
 	private static final long serialVersionUID = 3660254030963323536L;
 
 	@Id
-	@OneToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idUser")
 	private UserEntity user;
 

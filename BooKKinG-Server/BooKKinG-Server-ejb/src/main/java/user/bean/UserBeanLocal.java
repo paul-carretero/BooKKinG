@@ -8,6 +8,7 @@ import user.entity.UserEntity;
 
 @Local
 public interface UserBeanLocal {
+	
 	public boolean createUser(UserJsonItf user);
 	
 	public boolean tryLogin(UserJsonItf user);
