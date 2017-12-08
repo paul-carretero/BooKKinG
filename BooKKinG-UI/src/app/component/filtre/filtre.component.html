@@ -27,8 +27,8 @@
     <div class="col-md-12" style="text-align: center" >
         Genre
     </div>
-    <div *ngIf="this.type==true ;then cuisine else romans">    </div>
-    
+    <!--div *ngIf="type_choisi=='romans' ;then romans else romans">    </div>
+
     <ng-template #romans>
             <div class="col-md-12">
             
@@ -38,7 +38,6 @@
                     <a href="#" class="list-group-item list-group-item-blue">Dramatique</a>
                     <a href="#" class="list-group-item list-group-item-blue">Science Fiction</a>
                     <a href="#" class="list-group-item list-group-item-blue">Fantasy</a>
-                    <a href="#" class="list-group-item list-group-item-blue" routerLink="/livre"> livres </a>
                 </div>
             </div>
     </ng-template>
@@ -51,7 +50,28 @@
                     <a href="#" class="list-group-item list-group-item-blue">Science Fiction</a>
                 </div>
             </div>
-    </ng-template>
-      
-    
+    </ng-template-->
+    <div [ngSwitch]="type_choisi">
+        <ng-template  [ngSwitchCase]= "'romans'">
+                <div class="col-md-12">
+                    <div class="list-group">            
+                        <!--a  class="list-group-item list-group-item-blue" routerLink="/panier">Panier</a-->
+                        <a href="#" class="list-group-item list-group-item-blue">Dramatique</a>
+                        <a href="#" class="list-group-item list-group-item-blue">Science Fiction</a>
+                        <a href="#" class="list-group-item list-group-item-blue">Fantasy</a>
+                    </div>
+                </div>
+        </ng-template>
+        
+        <ng-template  [ngSwitchCase]= "'mangas'">
+                <div class="col-md-12">     
+                    <div class="list-group">            
+                        <a href="#" class="list-group-item list-group-item-blue">mangas 1</a>
+                        <a href="#" class="list-group-item list-group-item-blue">mangas 2</a>
+                    </div>
+                </div>
+        </ng-template>
+
+        <ng-template ngSwitchDefault> No Direction </ng-template>
+    </div>   
 </div>

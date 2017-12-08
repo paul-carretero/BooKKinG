@@ -11,10 +11,42 @@
 
   
 
-<ul>
+<!--ul>
   <li *ngFor="let livre of listeLivres;"> {{livre.genre}} / {{livre.title}} - {{livre.author}} : {{livre.price}} euros <input type="button" (click)="ajouterAuPanier(livre)" value="Ajouter au panier"></li>
-</ul>
+</ul-->
+<div  *ngFor="let livre of listeLivres;"> 
+    <div class="bs-calltoaction bs-calltoaction-success">
+        <div class="row">
+            <div class="col-md-9 cta-contents">
+                    <ul>
+                         <li> {{livre.title}}  </li>
+                    </ul>    
+                              
+            </div>
+            <div class="col-md-3">
+                    <ul >
+                            {{livre.price}} €
+                    </ul>        
+            </div>
+        </div>
+        <div class ="row">
+                <div class="col-md-9 cta-contents" >
+                        <ul class ="test">
+                                  {{livre.summary}}     
+                        </ul>                                   
+                </div>
+                <div class="col-md-3 cta-button">
+                        <ul >
+                                <input type="button" (click)="ajouterAuPanier(livre)" value="Ajouter au panier" class="btn btn-lg btn-block btn-success">
+                        </ul>        
+                </div>
+            
+            </div>
+        </div>
+    </div>
 
+  
+</div>
 <!--
 <form >
   <div>

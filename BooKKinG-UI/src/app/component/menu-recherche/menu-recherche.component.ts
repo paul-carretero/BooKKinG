@@ -31,6 +31,11 @@ export class MenuRechercheComponent implements OnInit {
   typeLivres : string[];
 
 
+  static typeSelected : string = "";
+
+
+
+
   constructor(private router : Router, private service : RechercheService) { }
 
 
@@ -39,7 +44,8 @@ export class MenuRechercheComponent implements OnInit {
     console.log("dans menu de type");
     // réinitialisation de la liste de livre à afficher
     this.listeLivres = [];
-    this.typeLivres = MenuRechercheComponent.typeLivres;  
+    this.typeLivres = MenuRechercheComponent.typeLivres; 
+    console.log("type selected : " + MenuRechercheComponent.typeSelected); 
   }
 
 /**
@@ -152,7 +158,7 @@ export class MenuRechercheComponent implements OnInit {
 
 
    public rechercher(type : string){
-
+    MenuRechercheComponent.typeSelected = type;
     //code en dur
     switch (type) {
       case MenuRechercheComponent.typeLivres[0]:

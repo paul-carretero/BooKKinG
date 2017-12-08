@@ -14,24 +14,12 @@ import { MenuRechercheComponent } from '../menu-recherche/menu-recherche.compone
   styleUrls: ['./filtre.component.css']
 })
 export class FiltreComponent implements OnInit {
-  static type: any;    
-   type:boolean = false;
-  constructor() { }
+  type_choisi : string = "romans";
+ //static type_choisi: string ;
+  constructor() {
+   }
   
   ngOnInit() {
-  
+    console.log("FILTRE!!!!!!!!!!!!");
   }
-  
-  /* static test(){
-    FiltreComponent.genre_recherche = MenuRechercheComponent.genre;
-      if(FiltreComponent.genre_recherche=='romans'){
-      this.type = true;
-      console.log('true');
-    }else{
-      this.type = false;
-      console.log('false');      
-    }
-    
-  }*/
-
 }
