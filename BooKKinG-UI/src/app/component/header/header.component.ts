@@ -34,9 +34,9 @@ export class HeaderComponent implements OnInit {
 
   public getIdentity(): string {
     if (ConnectionComponent.getConnectionStatus()) {
-      return 'Login/Register';
+      return ConnectionComponent.getUser().name;
     } else {
-      return 'fix connection connect static boolean' + ConnectionComponent.getUser.name;
+      return 'Login/Register';
     }
   }
 
