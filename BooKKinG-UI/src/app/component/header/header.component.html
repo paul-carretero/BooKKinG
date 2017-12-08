@@ -5,25 +5,30 @@
         </div>
         <nav class="col-md-9" id="menu_wrapper">
             <ul id="nav">
-                <li *ngFor="let type of typeLivres;" (click)="rechercher(type)" value="{{type}}S"><a href="#">{{type}}</a></li>
+                <ng-container *ngFor="let type of typeLivres;">
+                    <li *ngIf="isCurrent(type);else defaultheader" (click)="setCurrent(type)"><a class="current" href=" # ">{{displayableType(type)}}</a></li>
+                    <ng-template #defaultheader>
+                        <li (click)="setCurrent(type)"><a href=" # ">{{displayableType(type)}}</a></li>
+                    </ng-template>
+                </ng-container>
             </ul>
         </nav>
-        <div class="col-md-2">
-            <a routerLink="/panier">Acceder au panier</a>
+        <div class="col-md-2 ">
+            <a routerLink="/panier ">Acceder au panier</a>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-3">
+    <div class="row ">
+        <div class="col-md-3 ">
 
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 ">
             <form id="search_wrapper">
-                <input type="text" />
-                <fa name="search"></fa>
+                <input type="text" id="searchInput" />
+                <fa name="search "></fa>
             </form>
         </div>
-        <div class="col-md-3">
-            <a routerLink="/identification-inscription">S'identification/S'inscription</a>
+        <div class="col-md-3 ">
+            <a routerLink="/identification-inscription ">S'identification/S'inscription</a>
         </div>
     </div>
 </div>
