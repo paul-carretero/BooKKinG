@@ -42,7 +42,7 @@ public class CartDetailEntity implements Serializable, CartDetailEntItf {
 	/**
 	 * @param user
 	 * @param book
-	 * @param amount
+	 * @param quantity
 	 */
 	public CartDetailEntity(UserEntity user, BookEntity book, Integer quantity) {
 		super();

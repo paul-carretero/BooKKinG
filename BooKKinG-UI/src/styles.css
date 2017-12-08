@@ -1,7 +1,10 @@
 html {
-    background: grey;
+    /*background-image: url("/assets/back.jpg");*/
 }
 
 body {
     margin: 0;
+    padding: 0;
+    background-image: url("/assets/back.gif");
+    background-size: 150px;
 }

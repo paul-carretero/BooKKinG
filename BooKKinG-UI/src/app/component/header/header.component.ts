@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuRechercheComponent } from '../menu-recherche/menu-recherche.component';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  typeLivres: string[];
+
   constructor() { }
 
+  private rechercher(type: string) {
+    // MenuRechercheComponent.call(this).rechercher(type);
+  }
+
   ngOnInit() {
+    this.typeLivres = MenuRechercheComponent.typeLivres;
   }
 
 }
