@@ -9,10 +9,11 @@
 </div>
 
 
-<div [hidden]="!commandSelected">
+<div [hidden]="!commandeSelected">
+  Commande {{commandeAAfficher.idCmd}} du {{commandeAAfficher.date}}
     <ul>
-        <li *ngFor="let livre of articles;"> 
-            {{livre.genre}} / {{livre.title}} - {{livre.author}} : {{livre.price}} euros / quantité : {{livre.quantity}} 
+        <li *ngFor="let article of articles;"> 
+            {{article.book.title}} | {{article.quantity}}  | {{article.book.price}} euros  
         </li>
     </ul>
 
