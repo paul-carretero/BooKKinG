@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuRechercheComponent } from '../menu-recherche/menu-recherche.component';
+import { PanierComponent } from '../panier/panier.component'
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,8 @@ import { MenuRechercheComponent } from '../menu-recherche/menu-recherche.compone
 export class HeaderComponent implements OnInit {
 
   typeLivres: string[];
+  
+  nombreArticles = PanierComponent.contenuPanier.length;
 
   constructor() { }
 

@@ -8,8 +8,12 @@
                 <li *ngFor="let type of typeLivres;" (click)="rechercher(type)" value="{{type}}S"><a href="#">{{type}}</a></li>
             </ul>
         </nav>
-        <div class="col-md-2">
-            <a routerLink="/panier">Acceder au panier</a>
+        <div class="col-md-2">            
+                <img routerLink="/panier" id="panier_img" src="assets/cart.png" alt="cart_site"  height="100" width="100"  />            
+                {{nombreArticles}}
+            
+            <!--button routerLink="/panier" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span></button-->
+            <!--a routerLink ="/panier">Acceder au panier</a-->
         </div>
     </div>
     <div class="row">
@@ -23,7 +27,7 @@
             </form>
         </div>
         <div class="col-md-3">
-            <a routerLink="/identification-inscription">S'identification/S'inscription</a>
+            <a routerLink="/identification-inscription">Identification/Inscription</a>
         </div>
     </div>
 </div>
