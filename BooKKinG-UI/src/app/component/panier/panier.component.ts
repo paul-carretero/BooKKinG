@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { Client } from '../../model/client';
 import { Router } from '@angular/router';
 import { PayerComponent } from '../payer/payer.component';
+import { LivreComponent } from '../livre/livre.component';
 
 @Component({
   selector: 'app-panier',
@@ -21,7 +22,7 @@ export class PanierComponent implements OnInit {
   /**
    * Montant total des livres contenus dans le panier
    */
-  static montantTotal : number = 0.0;
+  static montantTotal: number = 0.0;
 
   /**
    * Tableau de livre dynamique permettant l'affichage dans le html
@@ -47,6 +48,11 @@ export class PanierComponent implements OnInit {
     // si l'utilisateur est connecté, on met à jour son panier
   //  if(ConnectionComponent.clientConnecte) this.miseAJourPanier();
     
+  }
+
+  public detailLivre(livre: Livre) {
+    LivreComponent.ajouterAuLivreDetaille(livre);
+    this.router.navigate(['/livre']);
   }
 
 
@@ -116,10 +122,10 @@ export class PanierComponent implements OnInit {
    * Méthode permettant d'ajouter un livre au panier
    * @param livre livre à ajouter au panier
    */
-  public static ajouterLivrePanier(livre : Livre){
+  public static ajouterLivrePanier(livre : Livre, quantity : number){
     console.log("dans ajouter Livre au panier");
     console.log("livre a ajouter : " + livre.title);
- 
+    console.log("quantite a ajouter : " + quantity);
 
     let i : number = 0;
     let ajoute : boolean = false;
@@ -128,7 +134,7 @@ export class PanierComponent implements OnInit {
       // si il était déjà présent
       if(livre.idBook == PanierComponent.contenuPanier[i].idBook){
         // on augmente sa quantité
-        PanierComponent.contenuPanier[i].quantity++;
+        PanierComponent.contenuPanier[i].quantity += quantity;
         ajoute = true;
       }
       i++;
@@ -136,7 +142,7 @@ export class PanierComponent implements OnInit {
     // si le livre n'était pas déjà présent dans le panier
     if(!ajoute){
       // on l'ajoute dans le panier, avec une quantité de 1
-      PanierComponent.contenuPanier[i] = { book:livre, quantity:1, idBook: livre.idBook };
+      PanierComponent.contenuPanier[i] = { book:livre, quantity:quantity, idBook: livre.idBook };
     }
 
     // on met à jour le total du panier
@@ -148,7 +154,6 @@ export class PanierComponent implements OnInit {
   * Méthode permettant de calculer le montant total des articles dans le panier
   */
   public static total(){
-    console.log("dans payer");
     let montant : number = 0;   
     PanierComponent.contenuPanier.forEach(
       article => {

@@ -85,7 +85,9 @@ export class ConnectionService {
   }
 
   public modifierClient(client: Client): Observable<any> {
-    let connect = this.http.put(this.urlUser, client, {withCredentials: true});
+    let connect = this.http.put(this.urlUser, client, {withCredentials: true})
+    .map(res => res.json());
+    
     return connect;
   }
 

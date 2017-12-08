@@ -59,7 +59,7 @@ export class MenuRechercheComponent implements OnInit {
     */
    public ajouterAuPanier(livre : Livre){
     console.log("livre : " + livre.title + " à ajouter au panier");
-    PanierComponent.ajouterLivrePanier(livre);
+    PanierComponent.ajouterLivrePanier(livre,1);
     if(ConnectionComponent.clientConnecte){
       let articleSimple : SimpleArticle = new SimpleArticle();
       articleSimple.idBook = livre.idBook;

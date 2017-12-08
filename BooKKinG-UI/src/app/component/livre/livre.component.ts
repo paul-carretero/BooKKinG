@@ -21,6 +21,8 @@ export class LivreComponent implements OnInit {
 
   livre: Livre;
 
+  nbLivre: number = 1;
+
   constructor() { }
 
   ngOnInit() {
@@ -35,10 +37,13 @@ export class LivreComponent implements OnInit {
     * Méthode demandant l'ajout d'un livre au panier
     * @param livre livre à ajouter au panier
     */
-   public ajouterAuPanier(livre : Livre){
+   public ajouterAuPanier(livre : Livre) {
     console.log("livre : " + livre.title + " à ajouter au panier");
-    PanierComponent.ajouterLivrePanier(livre);
+    PanierComponent.ajouterLivrePanier(livre, this.nbLivre);
+   }
 
+   public setNbLivre(nb: any) {
+      this.nbLivre = nb.target.value;
    }
 
 }
