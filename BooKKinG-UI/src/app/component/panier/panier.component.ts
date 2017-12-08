@@ -148,7 +148,6 @@ export class PanierComponent implements OnInit {
   * Méthode permettant de calculer le montant total des articles dans le panier
   */
   public static total(){
-    console.log("dans payer");
     let montant : number = 0;   
     PanierComponent.contenuPanier.forEach(
       article => {
