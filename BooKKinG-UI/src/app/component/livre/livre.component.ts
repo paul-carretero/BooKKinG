@@ -39,11 +39,11 @@ export class LivreComponent implements OnInit {
     */
    public ajouterAuPanier(livre : Livre) {
     console.log("livre : " + livre.title + " à ajouter au panier");
-    PanierComponent.ajouterLivrePanier(livre);
+    PanierComponent.ajouterLivrePanier(livre, this.nbLivre);
    }
 
-   public setNbLivre(nb: number) {
-      this.nbLivre = nb;
+   public setNbLivre(nb: any) {
+      this.nbLivre = nb.target.value;
    }
 
 }
