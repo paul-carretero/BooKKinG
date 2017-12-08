@@ -1,3 +1,19 @@
-<p>
-  historique-commandes works!
-</p>
+<div>
+  Mes commandes
+  
+  <ul>
+    <li *ngFor="let commande of historique;"  [ngClass]="{'active': selectedItem == commande}" (click) ="afficherDetailsCommande(commande)"> 
+      Commande {{commande.idCmd}} du {{commande.date}} 
+    </li>
+  </ul>
+</div>
+
+
+<div [hidden]="!commandSelected">
+    <ul>
+        <li *ngFor="let livre of articles;"> 
+            {{livre.genre}} / {{livre.title}} - {{livre.author}} : {{livre.price}} euros / quantité : {{livre.quantity}} 
+        </li>
+    </ul>
+
+</div>
