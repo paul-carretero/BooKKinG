@@ -1,3 +1,18 @@
+.cart-wrapper {
+    background-image: url("/assets/cart.png");
+    background-repeat: no-repeat;
+    background-size: 100px 100px;
+    display: block;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    padding: 20px;
+}
+
+.cart-wrapper span {
+    color: black;
+}
+
 #header_wrapper {
     margin-top: -20px;
     border-bottom: 1px solid black;
@@ -14,7 +29,7 @@
 #header_wrapper #menu_wrapper {
     margin-left: auto;
     margin-right: auto;
-    width: 830px;
+    width: 800px;
 }
 
 #search_wrapper {
