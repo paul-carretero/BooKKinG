@@ -7,4 +7,5 @@ export class Livre {
     price: number; // prix du livre
     stock: number; // nombre de livres en stock
     summary: string; // résumé du livre
+    picture?: string;
 }

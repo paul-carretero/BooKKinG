@@ -1,62 +1,28 @@
-<!--
-<div>
-<input type="button" (click)="cuisine()" value="cuisine">
-<input type="button" (click)="romans()" value="romans">
-</div>
--->
-
-
-<input *ngFor="let type of typeLivres;" type="button" (click)="rechercher(type)" value="{{type}}S">
-
-
-
-<!--ul>
-  <li *ngFor="let livre of listeLivres;"> {{livre.genre}} / {{livre.title}} - {{livre.author}} : {{livre.price}} euros <input type="button" (click)="ajouterAuPanier(livre)" value="Ajouter au panier"></li>
-</ul-->
 <div *ngFor="let livre of listeLivres;">
     <div class="bs-calltoaction bs-calltoaction-success">
         <div class="row">
-            <div class="col-md-9 cta-contents">
-                <ul>
-                    <li> {{livre.title}} </li>
-                </ul>
-
+            <div class="col-md-2">
+                <img class="vignette" alt="{{livre.title}}" src="data:image/png;base64,{{livre.picture}}" />
             </div>
-            <div class="col-md-3">
-                <ul>
-                    <li> {{livre.price}} € </li>
-                </ul>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div>{{livre.title}}</div>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="button" (click)="ajouterAuPanier(livre)" value="Ajouter au panier" class="btn btn-lg btn-block btn-success">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div>{{getSummarizedSummary(livre)}}</div>
+                    </div>
+                    <div class="col-md-4">
+                        <br/>
+                        <input type="button" (click)="TODO" value="Voir les Détails" class="btn btn-lg btn-block btn-success">
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-9 cta-contents">
-                <ul class="test">
-                    <li> {{livre.summary}} </li>
-                </ul>
-            </div>
-            <div class="col-md-3 cta-button">
-                <ul>
-                    <input type="button" (click)="ajouterAuPanier(livre)" value="Ajouter au panier" class="btn btn-lg btn-block btn-success">
-                </ul>
-            </div>
-
         </div>
     </div>
 </div>
-
-<!--
-<form >
-  <div>
-      <span>Nom de la tâche:</span>
-      <span><input type="text" name="name" id="name" [(ngModel)]="todo.name"></span>
-  </div>
-  <div>
-      <span>Terminé:</span>
-      <span><input type="checkbox" name="completed" id="completed" [(ngModel)]="todo.completed"></span>
-  </div>
-  <div>
-      <input type="button" (click)="romans()" value="{{todo.id ? 'Enregistrer' : 'Créer'}}">
-  </div>
-</form>
-
--->

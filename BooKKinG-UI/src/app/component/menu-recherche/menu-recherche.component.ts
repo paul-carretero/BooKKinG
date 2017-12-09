@@ -49,6 +49,14 @@ export class MenuRechercheComponent implements OnInit, Notifiable {
     this.rechercher();
   }
 
+  private getSummarizedSummary(livre: Livre): string {
+    let points = '';
+    if (livre.summary.length > 168) {
+      points = '...';
+    }
+    return livre.summary.substring(0, 168) + points;
+  }
+
 
     /**
     * Méthode demandant l'ajout d'un livre au panier
