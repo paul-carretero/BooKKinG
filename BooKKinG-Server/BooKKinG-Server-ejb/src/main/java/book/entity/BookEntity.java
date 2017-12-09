@@ -124,4 +124,9 @@ public class BookEntity implements Serializable, BookEntItf {
 	public String getTitle() {
 		return this.title;
 	}
+
+	@Override
+	public void removeFromStock(Integer value) {
+		this.stock -= value;
+	}
 }

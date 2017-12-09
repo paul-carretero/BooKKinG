@@ -22,5 +22,7 @@ public interface BookEntItf {
 	public Integer getStock();
 
 	public String getTitle();
+	
+	public void removeFromStock(Integer value);
 
 }

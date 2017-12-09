@@ -93,14 +93,39 @@ public class CmdDetailEntity implements Serializable, CmdDetailEntItf {
 	
 	@Override
 	public String toString() {
+		String stock = (this.getBook().getStock() > 0) ? "oui" : "non"; // le stock a été maj avant l'envoi du mail
 		StringBuffer res = new StringBuffer();
-		res.append("|   ");
-		res.append(Helper.beautifyString(this.quantity.toString(), 2));
-		res.append("   | ");
-		res.append(Helper.beautifyString(this.book.getTitle(), 15));
-		res.append(" | ");
-		res.append(Helper.beautifyString(String.valueOf(this.quantity * this.price),4));
-		res.append("€ |");
+		res.append("<tr>");
+		res.append("<td class=\"item-col item\">");
+		res.append("<table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">");
+		res.append("<tr>");
+		res.append("<td class=\"mobile-hide-img\">");
+		res.append("<a href=\"\"><img width=\"110\" height=\"92\" src=\"data:image/png;base64, ");
+		res.append(this.book.getPicture());
+		res.append("\" alt=\"item2\"></a>");
+		res.append("</td>");
+		res.append("<td class=\"product\">");
+		res.append("<span style=\"color: #4d4d4d; font-weight: bold;\">");
+		res.append(this.book.getTitle());
+		res.append("</span> <br />");
+		res.append(this.book.getType());
+		res.append(" - ");
+		res.append(this.book.getGenre());
+		res.append("</td>");
+		res.append("</tr>");
+		res.append("</table>");
+		res.append("</td>");
+		res.append("<td class=\"item-col quantity\">");
+		res.append(this.quantity.toString());
+		res.append("</td>");
+		res.append("<td class=\"item-col quantity\">");
+		res.append(stock);
+		res.append("</td>");
+		res.append("<td class=\"item-col price\">");
+		res.append(this.price);
+		res.append("€");
+		res.append("</td>");
+		res.append("</tr>");
 		return res.toString();
 	}
    
