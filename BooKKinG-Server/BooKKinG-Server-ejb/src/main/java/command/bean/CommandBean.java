@@ -56,6 +56,7 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 					);
 			this.manager.persist(cmdDetail);
 			cmd.addEntry(cmdDetail);
+			cartEntry.getBook().removeFromStock(cartEntry.getQuantity());
 		}
 		this.manager.flush();
 		this.mailer.sendConfirmationCommand(u, cmd);

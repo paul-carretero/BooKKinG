@@ -1,6 +1,13 @@
 package mailer;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.Properties;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import javax.ejb.Asynchronous;
 import javax.ejb.LocalBean;
@@ -57,7 +64,7 @@ public class MailerBean implements MailerBeanLocal {
 		return String.valueOf(jcvd)+"?";
 	}
 
-	private void actualSender(final String toEmail, final String subject, final String textMessage) {
+	private void actualSender(final String toEmail, final String subject, final String textMessage, final boolean useHTML) {
 		Properties properties = System.getProperties();
 		properties.setProperty("mail.smtp.host", SMTP_HOST_NAME);
 		properties.setProperty("mail.smtp.port", SMTP_HOST_PORT);
@@ -70,7 +77,12 @@ public class MailerBean implements MailerBeanLocal {
 			mail.setFrom(new InternetAddress(SMTP_AUTH_USER));
 			mail.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 			mail.setSubject(subject);
-			mail.setText(textMessage);
+			if(useHTML) {
+				mail.setText(textMessage, "utf-8", "html");
+			}
+			else {
+				mail.setText(textMessage);
+			}
 			if(ACTUALLY_SEND_MAIL) {
 				Transport.send(mail);
 			}
@@ -94,7 +106,7 @@ public class MailerBean implements MailerBeanLocal {
 		actualMessage.append("N'hésitez pas à nous contacter pour toutes autres questions");
 		actualMessage.append("\r\n\r\n");
 		actualMessage.append("L'équipe BooKKinG");
-		actualSender(aUser.getEmail(), "BooKKinG : création de votre compte client", actualMessage.toString());
+		actualSender(aUser.getEmail(), "BooKKinG : création de votre compte client", actualMessage.toString(), false);
 	}
 
 	@Asynchronous
@@ -112,39 +124,43 @@ public class MailerBean implements MailerBeanLocal {
 		actualMessage.append("N'hésitez pas à nous contacter pour toutes autres questions");
 		actualMessage.append("\r\n\r\n");
 		actualMessage.append("L'équipe BooKKinG");
-		actualSender(aUser.getEmail(), "BooKKinG : votre nouveau mot de passe", actualMessage.toString());
+		actualSender(aUser.getEmail(), "BooKKinG : votre nouveau mot de passe", actualMessage.toString(), false);
 	}
 
 	@Asynchronous
 	@Override
 	public void sendConfirmationCommand(final UserEntItf aUser, final CommandEntItf cmd) {
-		StringBuffer actualMessage = new StringBuffer();
-		actualMessage.append("Bonjour ");
-		actualMessage.append(aUser.getName());
-		actualMessage.append("\r\n\r\n");
-		actualMessage.append("Nous avons bien pris en compte votre commande (numéro ");
-		actualMessage.append(cmd.getIdCmd());
-		actualMessage.append(") du ");
-		actualMessage.append(cmd.getDate());
-		actualMessage.append(" et nous vous en remercions");
-		actualMessage.append("\r\n");
-		actualMessage.append("Pour rappel, voici sa composition: \r\n\r\n");
-		actualMessage.append("--------------------------------------\r\n");
-		actualMessage.append("|quantité|      titre      |  prix   |\r\n");
-		actualMessage.append("--------------------------------------\r\n");
+		String template = getTemplate("invoice");
+		String subtotal = String.valueOf(cmd.getTotal());
+		String shipping = "3";
+		String total = String.valueOf(cmd.getTotal() + 3);
+		
+		template = template.replaceFirst(Pattern.quote("{{SHIPPING_NAME}}"), aUser.getName());
+		template = template.replaceFirst(Pattern.quote("{{SHIPPING_ADRESSE}}"), aUser.getAddress());
+		template = template.replaceFirst(Pattern.quote("{{COMMAND_DATE}}"), cmd.getDate());
+		template = template.replaceFirst(Pattern.quote("{{COMMAND_ID}}"), cmd.getIdCmd().toString());
+		template = template.replaceFirst(Pattern.quote("{{SUB_TOTAL}}"), subtotal);
+		template = template.replaceFirst(Pattern.quote("{{SHIPPING_COST}}"), shipping);
+		template = template.replaceFirst(Pattern.quote("{{TOTAL_PRICE}}"), total);
+		
+		StringBuffer details = new StringBuffer();
 		for(CmdDetailEntItf cmdEntry : cmd.getCmdDetails()) {
-			actualMessage.append(cmdEntry.toString());
-			actualMessage.append("\r\n--------------------------------------\r\n");
+			details.append(cmdEntry.toString());
 		}
-		actualMessage.append("|               TOTAL      |  ");
-		actualMessage.append(cmd.getTotal());
-		actualMessage.append("€  |\r\n");
-		actualMessage.append("--------------------------------------\r\n");
-		actualMessage.append("\r\n\r\n");
-		actualMessage.append("N'hésitez pas à nous contacter pour toutes autres questions");
-		actualMessage.append("\r\n\r\n");
-		actualMessage.append("L'équipe BooKKinG");
+		
+		template = template.replaceFirst(Pattern.quote("{{IN_STOCK_BOOK_DETAIL}}"), details.toString());
 
-		actualSender(aUser.getEmail(), "BooKKinG : Confirmation de votre commande", actualMessage.toString());
+		actualSender(aUser.getEmail(), "BooKKinG : Confirmation de votre commande", template, true);
+	}
+	
+	private String getTemplate(String name) {
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(MailerBean.class.getResourceAsStream(name + ".html"), "UTF-8"));
+			return reader.lines().collect(Collectors.joining());
+		} catch (UnsupportedEncodingException e) {
+			System.err.println(e.getMessage());
+			return "";
+		}
+		
 	}
 }

@@ -1,6 +1,10 @@
 package command.entity;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +58,9 @@ public class CommandEntity implements CommandEntItf {
 
 	@Override
 	public String getDate() {
-		return this.date.toString();
+		LocalDate localDate = LocalDate.parse(this.date.toString());
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE d MMMM yyyy");
+		return formatter.format(localDate);
 	}
 
 	@Override

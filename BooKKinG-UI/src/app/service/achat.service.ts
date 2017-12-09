@@ -21,4 +21,12 @@ export class AchatService {
     return reponse;
   }
 
+
+  public recupererCommandes() : Observable<any>{
+    console.log("dans recupérer des commandes");
+    let reponse =  this.http.get(this.urlAchat ,{withCredentials: true})
+    .map(res => res.json());
+    return reponse;
+  }
+
 }

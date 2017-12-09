@@ -27,14 +27,15 @@ import { LivreComponent } from './component/livre/livre.component';
 import { HeaderComponent } from './component/header/header.component';
 import { FiltreComponent } from './component/filtre/filtre.component';
 import { IdentificationInscriptionComponent } from './component/identification-inscription/identification-inscription.component';
+import { HistoriqueCommandesComponent } from './component/historique-commandes/historique-commandes.component';
 import { CookieService } from 'ngx-cookie-service';
-
 
 
 
 // constante regroupant les routes vers les différents pages liées aux composants
 // ! le nom du path est celui utilisé dans les liens dans app.component.html
 export const appRoutes: Routes = [
+  { path: 'livre', component: LivreComponent },  
   { path: 'panier', component: PanierComponent },
   { path: 'menu-recherche', component: MenuRechercheComponent },
   { path: 'inscription', component: InscriptionComponent },
@@ -45,6 +46,7 @@ export const appRoutes: Routes = [
   { path: 'finPaiement', component: FinPaiementComponent },
   { path: 'admin', component: AdministrationComponent},
   { path: 'compte', component: CompteClientComponent},
+  { path: 'commandes', component: HistoriqueCommandesComponent},
   { path: 'livre', component: LivreComponent}
 ];
 
@@ -67,7 +69,8 @@ export const appRoutes: Routes = [
     LivreComponent,
     HeaderComponent,
     FiltreComponent,
-    IdentificationInscriptionComponent
+    IdentificationInscriptionComponent,
+    HistoriqueCommandesComponent
   ],
   // modules que l'application va utiliser
   // ! penser à y mettre aussi les modules pour les formulaires

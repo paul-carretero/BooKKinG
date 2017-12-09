@@ -73,7 +73,7 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 	public void addCmdEntry(BookEntItf aBook,Float price, Integer quantity) {
 		BookJson b = new BookJson(aBook);
 		b.setPrice(price);
-		this.books.add(aBook.getIdBook(), b);
+		this.books.add(b);
 		this.items.add(new CartItemJson(aBook.getIdBook(), quantity));
 	}
 }
