@@ -9,7 +9,7 @@
                 <ng-container *ngFor="let type of typeLivres;">
                     <li *ngIf="isCurrent(type);else defaultheader" (click)="setCurrent(type)"><a class="current" href=" # ">{{displayableType(type)}}</a></li>
                     <ng-template #defaultheader>
-                        <li (click)="setCurrent(type)"><a href=" # ">{{displayableType(type)}}</a></li>
+                        <li (click)="setCurrent(type)"><a href=" # " routerLink="/menu-recherche">{{displayableType(type)}}</a></li>
                     </ng-template>
                 </ng-container>
             </ul>

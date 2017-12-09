@@ -1,14 +1,18 @@
 import { ConnectionComponent } from './../../composant/connection/connection.component';
 import { PanierComponent } from './../panier/panier.component';
-import { RechercheService, Recherche } from './../../service/recherche.service';
+import { RechercheService } from './../../service/recherche.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Livre } from '../../model/livre';
+import { Recherche } from '../../model/recherche';
 import { LivreComponent } from '../livre/livre.component';
 import { rootRoute } from '@angular/router/src/router_module';
 import { RouterOutlet } from '@angular/router/src/directives/router_outlet';
 import { RouterLink } from '@angular/router/src/directives/router_link';
 import { PanierService, SimpleArticle } from '../../service/panier.service';
+import { HeaderComponent } from '../header/header.component';
+import { FiltreComponent } from '../filtre/filtre.component';
+import { Notifiable } from '../../notifiable';
 
 @Component({
   selector: 'app-menu-recherche',
@@ -19,45 +23,34 @@ import { PanierService, SimpleArticle } from '../../service/panier.service';
 /**
  * Composant concernant la recherche par menus (de type)
  */
-export class MenuRechercheComponent implements OnInit {
-
-  static typeLivres: string[] = ['ROMAN', 'MANUEL', 'MANGA'];
-
-  static typeSelected = '';
+export class MenuRechercheComponent implements OnInit, Notifiable {
 
   /**
    * Liste des livres qui correspondent au menu séléctionné
-
    */
-  listeLivres: Livre[];
+  private listeLivres: Livre[];
 
   /**
    * Attribut contenant les informations concernant la recherche de livre
    */
-  recherche: Recherche = new Recherche();
-
-  typeLivres: string[];
+  private recherche: Recherche = new Recherche();
 
   constructor(private router: Router, private service: RechercheService, private servicePanier: PanierService) { }
 
   ngOnInit() {
-    console.log("dans menu de type");
-    // réinitialisation de la liste de livre à afficher
-    this.listeLivres = [];
-    this.typeLivres = MenuRechercheComponent.typeLivres; 
-    console.log("type selected : " + MenuRechercheComponent.typeSelected); 
+    HeaderComponent.rechercheSubscribe(this);
+    FiltreComponent.rechercheSubscribe(this);
+    this.notify();
   }
 
-  get staticTypeSelected(): string{
-    return MenuRechercheComponent.typeSelected;
-  }
-
-  set staticTypeSelected(val: string){
-    MenuRechercheComponent.typeSelected = val;
+  notify(): void {
+    this.recherche.type = HeaderComponent.getCurrentType();
+    this.recherche.genre = FiltreComponent.getCurrentGenre();
+    this.rechercher();
   }
 
 
-   /**
+    /**
     * Méthode demandant l'ajout d'un livre au panier
     * @param livre livre à ajouter au panier
     */
@@ -79,8 +72,7 @@ export class MenuRechercheComponent implements OnInit {
 
 
 
-   public rechercher(type : string){
-    MenuRechercheComponent.typeSelected = type;
+   public rechercher() {
 /*
     //code en dur
     switch (type) {
@@ -175,8 +167,6 @@ export class MenuRechercheComponent implements OnInit {
 
     // partie serveur
     this.listeLivres = [];
-    this.recherche.type = type;
-    console.log("recherche de " + type + "s");
     this.service.rechercherEnsembleLivre(this.recherche).subscribe(
       reponse => {
         console.log('resultat de la recherche ' + JSON.stringify(reponse));
@@ -198,15 +188,14 @@ export class MenuRechercheComponent implements OnInit {
 
 
 
-   get typeLivre(){
+   /*get typeLivre(){
      return MenuRechercheComponent.typeLivres;
-   }
+   }*/
 
 
    public voirDetailLivre(livre: Livre) {
      LivreComponent.ajouterAuLivreDetaille(livre);
      this.router.navigate(['/livre']);
-
    }
 }
 

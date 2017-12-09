@@ -5,6 +5,8 @@ import { Globals } from '../../globals';
 import { RouterLink } from '@angular/router';
 import { PanierComponent } from '../panier/panier.component';
 import { ConnectionComponent } from '../../composant/connection/connection.component';
+import { FiltreComponent } from '../filtre/filtre.component';
+import { Notifiable } from '../../notifiable';
 
 @Component({
   selector: 'app-header',
@@ -13,50 +15,25 @@ import { ConnectionComponent } from '../../composant/connection/connection.compo
 })
 export class HeaderComponent implements OnInit {
 
-  static current = 'ROMAN';
-  displayType = new Map<string, string>();
+  private static current = 'ROMAN';
+  private static filtre: Notifiable = null;
+  private static recherche: Notifiable = null;
+  private displayType = new Map<string, string>();
+  private typeLivres: string[] = Globals.typeLivres;
 
-  typeLivres: string[] = Globals.typeLivres;
-
-  constructor(private cookieService: CookieService) {}
-
-  public displayableType(type: string) {
-    return this.displayType.get(type);
-  }
-
-  private getSavedCurrent(): string {
-    return this.cookieService.get('current');
-  }
-
-  private isCurrent(type: string): boolean {
-    return type === HeaderComponent.current;
-  }
-
-  public getIdentity(): string {
-    if (ConnectionComponent.getConnectionStatus()) {
-      return ConnectionComponent.getUser().name;
-    } else {
-      return 'Login/Register';
-    }
-  }
-
-  get staticCurrent(): string{
+  public static getCurrentType(): string {
     return HeaderComponent.current;
   }
 
-  public getNumberOfCartItem(): number {
-    return PanierComponent.getNumberOfItems();
+  public static rechercheSubscribe(o: Notifiable) {
+    HeaderComponent.recherche = o;
   }
 
-  public getTotalPriceOfCart(): number {
-    return PanierComponent.getTotalPrice();
+  static filtreSubscribe(o: Notifiable): any {
+    HeaderComponent.filtre = o;
   }
 
-  public setCurrent(type: string) {
-    HeaderComponent.current = type;
-    this.cookieService.set('current', HeaderComponent.current);
-  }
-
+  constructor(private cookieService: CookieService) {}
 
   ngOnInit() {
     console.log(this.getSavedCurrent());
@@ -71,4 +48,50 @@ export class HeaderComponent implements OnInit {
     this.displayType.set('ESSAI', 'Essais');
   }
 
+  public displayableType(type: string): string {
+    return this.displayType.get(type);
+  }
+
+  private getSavedCurrent(): string {
+    return this.cookieService.get('current');
+  }
+
+  private isCurrent(type: string): boolean {
+    return type === HeaderComponent.current;
+  }
+
+  get staticCurrent(): string{
+    return HeaderComponent.current;
+  }
+
+  public setCurrent(type: string): void {
+    HeaderComponent.current = type;
+    this.cookieService.set('current', HeaderComponent.current);
+    if (HeaderComponent.filtre != null) {
+      HeaderComponent.filtre.notify();
+    }
+    if (HeaderComponent.recherche != null) {
+      HeaderComponent.recherche.notify();
+    }
+  }
+
+  /**
+   * Delegate methodes
+   */
+
+  public getNumberOfCartItem(): number {
+    return PanierComponent.getNumberOfItems();
+  }
+
+  public getTotalPriceOfCart(): number {
+    return PanierComponent.getTotalPrice();
+  }
+
+  public getIdentity(): string {
+    if (ConnectionComponent.getConnectionStatus()) {
+      return ConnectionComponent.getUser().name;
+    } else {
+      return 'Login/Register';
+    }
+  }
 }
