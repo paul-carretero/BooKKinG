@@ -22,7 +22,7 @@ public class CmdDetailEntity implements Serializable, CmdDetailEntItf {
 	private static final long serialVersionUID = 4664536675074750961L;
 
 	@Id
-	@OneToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idCmd")
 	private CommandEntity command;
 
