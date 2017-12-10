@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuRechercheComponent } from '../menu-recherche/menu-recherche.component';
 import { CookieService } from 'ngx-cookie-service';
 import { Globals } from '../../globals';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { PanierComponent } from '../panier/panier.component';
 import { ConnectionComponent } from '../../composant/connection/connection.component';
 import { FiltreComponent } from '../filtre/filtre.component';
@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit, TypeGiver {
     return this.anySearch;
   }
 
-  constructor(private cookieService: CookieService) {
+  constructor(private router: Router, private cookieService: CookieService) {
     HeaderComponent.myInstance = this;
   }
 
@@ -87,6 +87,7 @@ export class HeaderComponent implements OnInit, TypeGiver {
 
   public setCurrent(type: string, reloadSearch: boolean): void {
     this.resetOnChange = '';
+    this.anySearch = '';
     this.current = type;
     this.cookieService.set('current', this.current);
     this.notifyOther(reloadSearch);
@@ -97,6 +98,9 @@ export class HeaderComponent implements OnInit, TypeGiver {
 
   private search(str: string): void {
     this.resetOnChange = str;
+    if (str.length > 1) {
+      this.router.navigate(['/menu-recherche']);
+    }
     if (str.length > 2) {
       this.current = 'ANY';
       this.anySearch = str;
