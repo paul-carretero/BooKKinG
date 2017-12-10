@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Livre } from '../../model/livre';
 import { PanierComponent } from '../panier/panier.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-livre',
@@ -23,7 +24,7 @@ export class LivreComponent implements OnInit {
 
   nbLivre: number = 1;
 
-  constructor() { }
+  constructor(private router : Router) { }
 
   ngOnInit() {
     this.livre = LivreComponent.staticLivre;
@@ -45,5 +46,10 @@ export class LivreComponent implements OnInit {
    public setNbLivre(nb: any) {
       this.nbLivre = nb.target.value;
    }
+
+
+  public retourPageRecherche() {
+    this.router.navigate(['menu-recherche']);
+  }
 
 }

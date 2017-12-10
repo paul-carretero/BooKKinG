@@ -261,6 +261,10 @@ export class PanierComponent implements OnInit {
 
   }
 
+  public retourPageRecherche() {
+    this.router.navigate(['menu-recherche']);
+  }
+
 
 
  
