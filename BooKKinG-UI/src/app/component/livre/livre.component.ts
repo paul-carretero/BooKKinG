@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Livre } from '../../model/livre';
 import { PanierComponent } from '../panier/panier.component';
+import { ActivatedRoute } from '@angular/router';
+import { LivreService } from './../../service/livre.service';
 
 @Component({
   selector: 'app-livre',
@@ -9,28 +11,36 @@ import { PanierComponent } from '../panier/panier.component';
 })
 export class LivreComponent implements OnInit {
 
-  static staticLivre: Livre = {
-    title:"L'art d'avoir toujours raison",
-    author:"Arthur",
-    genre: "Philo",
-    type: "Roman",
-    price: 20,
-    stock: 5,
-    summary: "blabla bla blabla. chfdohbifdhgiofs .reghuivo suiovhrtuioghigohvbuior \ngiczegfizgeifgufgizgfuie"
-  };
+  private idLivre: number;
+
+  private sub: any;
 
   livre: Livre;
 
-  nbLivre: number = 1;
+  nbLivre = 1;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private service: LivreService) { }
 
   ngOnInit() {
-    this.livre = LivreComponent.staticLivre;
+    this.sub = this.route.params.subscribe(params => {
+      this.idLivre = Number(params['id']);
+      this.service.rechercherLivre(this.idLivre).subscribe(
+        reponse => {
+          if (reponse.success) {
+            this.livre = reponse;
+          }
+        }
+      );
+    });
   }
 
-  public static ajouterAuLivreDetaille(livre: Livre){
-    LivreComponent.staticLivre = livre;
+  private getTotalPrice(): string {
+    return (this.livre.price * this.nbLivre).toFixed(2);
+  }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   /**

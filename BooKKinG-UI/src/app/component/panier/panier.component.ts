@@ -68,7 +68,7 @@ export class PanierComponent implements OnInit {
   }
 
   public detailLivre(livre: Livre) {
-    LivreComponent.ajouterAuLivreDetaille(livre);
+    // LivreComponent.ajouterAuLivreDetaille(livre); -> remplacer avec un id
     this.router.navigate(['/livre']);
   }
 

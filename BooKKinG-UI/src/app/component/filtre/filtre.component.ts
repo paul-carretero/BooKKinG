@@ -7,32 +7,60 @@ import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MenuRechercheComponent } from '../menu-recherche/menu-recherche.component';
 import { HeaderComponent } from '../header/header.component';
 import { Globals } from '../../globals';
-import { Notifiable } from '../../notifiable';
+import { Notifiable } from '../../itf/notifiable';
+import { ElementRef, Renderer2 } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { GenreGiver } from '../../itf/genre-giver';
 
 @Component({
   selector: 'app-filtre',
   templateUrl: './filtre.component.html',
-  styleUrls: ['./filtre.component.css']
+  styleUrls: ['./filtre.component.css'],
 })
-export class FiltreComponent implements OnInit, Notifiable {
 
-  static filtre: Notifiable = null;
+export class FiltreComponent implements OnInit, Notifiable, GenreGiver {
 
-  private static genreSelected = 'ANY';
+  private static myInstance: GenreGiver = null;
+
+  private genreSelected = 'ANY';
 
   private genres: string[];
 
-  public static getCurrentGenre(): string {
-    return FiltreComponent.genreSelected;
+  private maxPrice = 100;
+
+  private minPrice = 0;
+
+  @ViewChild('rangeSlider') el: ElementRef;
+
+  /**
+   * Singleton-like managed instance
+   */
+  public static getInstance(): GenreGiver {
+    return FiltreComponent.myInstance;
   }
 
-  public static rechercheSubscribe(o: Notifiable): void {
-    FiltreComponent.filtre = o;
+  constructor(private rd: Renderer2) {}
+
+  ngOnInit() {
+    FiltreComponent.myInstance = this;
+    this.notify();
+  }
+
+  getMinPrice(): number {
+    return this.minPrice;
+  }
+
+  getMaxPrice(): number {
+    return this.maxPrice;
+  }
+
+  public getCurrentGenre(): string {
+    return this.genreSelected;
   }
 
   public notify(): void {
-    FiltreComponent.genreSelected = 'ANY';
-    switch (HeaderComponent.getCurrentType()) {
+    this.genreSelected = 'ANY';
+    switch (HeaderComponent.getInstance().getCurrentType()) {
       case 'ROMAN':
         this.genres = Globals.genreRoman;
         break;
@@ -51,20 +79,31 @@ export class FiltreComponent implements OnInit, Notifiable {
       case 'ESSAI':
         this.genres = Globals.genreEssais;
         break;
+      default:
+        this.genres = Globals.genreAny;
+        break;
     }
   }
 
-  constructor() {}
+  private notifyOther(): void {
+    if (MenuRechercheComponent.getInstance() != null) {
+      MenuRechercheComponent.getInstance().notify();
+    }
+  }
 
-  ngOnInit() {
-    HeaderComponent.filtreSubscribe(this);
-    this.notify();
+  /**
+   * workaround : aucun event généré sur le second slider.
+   */
+  private onPriceChange(): void {
+    const raw: string = this.el.nativeElement.value;
+    const tab = raw.split(',');
+    this.minPrice = Number(tab[0]);
+    this.maxPrice = Number(tab[1]);
+    this.notifyOther();
   }
 
   private setGenreSelected(genre): void {
-    FiltreComponent.genreSelected = genre;
-    if (FiltreComponent != null) {
-      FiltreComponent.filtre.notify();
-    }
+    this.genreSelected = genre;
+    this.notifyOther();
   }
 }

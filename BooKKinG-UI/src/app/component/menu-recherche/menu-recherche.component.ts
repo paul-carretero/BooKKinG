@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router/src/directives/router_link';
 import { PanierService, SimpleArticle } from '../../service/panier.service';
 import { HeaderComponent } from '../header/header.component';
 import { FiltreComponent } from '../filtre/filtre.component';
-import { Notifiable } from '../../notifiable';
+import { Notifiable } from '../../itf/notifiable';
 
 @Component({
   selector: 'app-menu-recherche',
@@ -25,6 +25,8 @@ import { Notifiable } from '../../notifiable';
  */
 export class MenuRechercheComponent implements OnInit, Notifiable {
 
+  private static myInstance: Notifiable = null;
+
   /**
    * Liste des livres qui correspondent au menu séléctionné
    */
@@ -35,17 +37,22 @@ export class MenuRechercheComponent implements OnInit, Notifiable {
    */
   private recherche: Recherche = new Recherche();
 
+  public static getInstance(): Notifiable {
+    return MenuRechercheComponent.myInstance;
+  }
+
   constructor(private router: Router, private service: RechercheService, private servicePanier: PanierService) { }
 
   ngOnInit() {
-    HeaderComponent.rechercheSubscribe(this);
-    FiltreComponent.rechercheSubscribe(this);
-    this.notify();
+    MenuRechercheComponent.myInstance = this;
   }
 
   notify(): void {
-    this.recherche.type = HeaderComponent.getCurrentType();
-    this.recherche.genre = FiltreComponent.getCurrentGenre();
+    this.recherche.type = HeaderComponent.getInstance().getCurrentType();
+    this.recherche.anySearch = HeaderComponent.getInstance().getAnySearch();
+    this.recherche.genre = FiltreComponent.getInstance().getCurrentGenre();
+    this.recherche.maxPrice = FiltreComponent.getInstance().getMaxPrice();
+    this.recherche.minPrice = FiltreComponent.getInstance().getMinPrice();
     this.rechercher();
   }
 
@@ -56,7 +63,6 @@ export class MenuRechercheComponent implements OnInit, Notifiable {
     }
     return livre.summary.substring(0, 168) + points;
   }
-
 
     /**
     * Méthode demandant l'ajout d'un livre au panier
@@ -191,19 +197,6 @@ export class MenuRechercheComponent implements OnInit, Notifiable {
         }
       }
     );
-
-   }
-
-
-
-   /*get typeLivre(){
-     return MenuRechercheComponent.typeLivres;
-   }*/
-
-
-   public voirDetailLivre(livre: Livre) {
-     LivreComponent.ajouterAuLivreDetaille(livre);
-     this.router.navigate(['/livre']);
-   }
+  }
 }
 

@@ -6,31 +6,40 @@ import { RouterLink } from '@angular/router';
 import { PanierComponent } from '../panier/panier.component';
 import { ConnectionComponent } from '../../composant/connection/connection.component';
 import { FiltreComponent } from '../filtre/filtre.component';
-import { Notifiable } from '../../notifiable';
+import { TypeGiver } from '../../itf/type-giver';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, TypeGiver {
 
-  private static current = 'ROMAN';
-  private static filtre: Notifiable = null;
-  private static recherche: Notifiable = null;
+  private static myInstance: TypeGiver;
+
+  private current = 'ROMAN';
+
   private displayType = new Map<string, string>();
+
   private typeLivres: string[] = Globals.typeLivres;
 
-  public static getCurrentType(): string {
-    return HeaderComponent.current;
+  private resetOnChange = '';
+
+  private anySearch = '';
+
+  /**
+   * Singleton-like managed instance
+   */
+  public static getInstance(): TypeGiver {
+    return HeaderComponent.myInstance;
   }
 
-  public static rechercheSubscribe(o: Notifiable) {
-    HeaderComponent.recherche = o;
+  public getCurrentType(): string {
+    return this.current;
   }
 
-  static filtreSubscribe(o: Notifiable): any {
-    HeaderComponent.filtre = o;
+  public getAnySearch(): string {
+    return this.anySearch;
   }
 
   constructor(private cookieService: CookieService) {}
@@ -38,7 +47,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     console.log(this.getSavedCurrent());
     if ( this.getSavedCurrent() !== '') {
-      HeaderComponent.current = this.getSavedCurrent();
+      this.current = this.getSavedCurrent();
     }
     this.displayType.set('ROMAN', 'Romans');
     this.displayType.set('MAGAZINE', 'Magazines');
@@ -46,9 +55,10 @@ export class HeaderComponent implements OnInit {
     this.displayType.set('BD', 'BDs');
     this.displayType.set('MANUEL', 'Manuels');
     this.displayType.set('ESSAI', 'Essais');
+    HeaderComponent.myInstance = this;
   }
 
-  public displayableType(type: string): string {
+  private displayableType(type: string): string {
     return this.displayType.get(type);
   }
 
@@ -57,21 +67,38 @@ export class HeaderComponent implements OnInit {
   }
 
   private isCurrent(type: string): boolean {
-    return type === HeaderComponent.current;
+    return type === this.current;
   }
 
-  get staticCurrent(): string{
-    return HeaderComponent.current;
-  }
-
-  public setCurrent(type: string): void {
-    HeaderComponent.current = type;
-    this.cookieService.set('current', HeaderComponent.current);
-    if (HeaderComponent.filtre != null) {
-      HeaderComponent.filtre.notify();
+  private notifyOther(): void {
+    if (FiltreComponent.getInstance() != null) {
+      FiltreComponent.getInstance().notify();
     }
-    if (HeaderComponent.recherche != null) {
-      HeaderComponent.recherche.notify();
+
+    if (
+      (this.current !== 'ANY' || (this.current === 'ANY' && this.anySearch !== ''))
+      && this.current !== 'NONE'
+      && MenuRechercheComponent.getInstance() != null
+    ) {
+      MenuRechercheComponent.getInstance().notify();
+    }
+  }
+
+  private setCurrent(type: string): void {
+    this.resetOnChange = '';
+    this.current = type;
+    this.cookieService.set('current', this.current);
+    this.notifyOther();
+  }
+
+  private search(str: string): void {
+    this.resetOnChange = str;
+    if (str.length > 2) {
+      this.current = 'ANY';
+      this.anySearch = str;
+      this.notifyOther();
+    } else {
+      this.anySearch = '';
     }
   }
 

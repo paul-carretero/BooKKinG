@@ -8,4 +8,6 @@ export class Livre {
     stock: number; // nombre de livres en stock
     summary: string; // résumé du livre
     picture?: string;
+    success?: boolean;
+    message?: string;
 }

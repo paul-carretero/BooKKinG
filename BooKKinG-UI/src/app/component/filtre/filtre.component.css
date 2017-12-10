@@ -1,3 +1,28 @@
+#range-slider {
+    width: 180px;
+}
+
+#range-slider-wrapper {}
+
+.menu-container {
+    text-align: center;
+    padding-top: 1em;
+    background-color: rgba(255, 255, 255, 0.5);
+    max-height: 25em;
+    overflow-y: auto;
+}
+
+.menu-header {
+    font-size: 1.5em;
+    text-align: center;
+    background: linear-gradient(to bottom, rgba(226, 226, 226, 1) 0%, rgba(219, 219, 219, 0.9) 50%, rgba(209, 209, 209, 0.8) 51%, rgba(254, 254, 254, 0.7) 100%);
+}
+
+.range-price-display {
+    color: red;
+    font-weight: bold;
+}
+
 #table {
     border: 2px solid green;
 }

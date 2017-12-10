@@ -1,26 +1,25 @@
 <div id="header_wrapper" class="container">
     <div class="row">
-        <div routerLink="/" class="col-md-2">
+        <div (click)="setCurrent('ANY')" routerLink="/" class="col-md-1 home-link">
             <img id="logo_img" src="assets/logo.gif" alt="logo_site" />
             <span>BooKKinG</span>
         </div>
-        <nav class="col-md-9" id="menu_wrapper">
+        <nav class="col-md-8" id="menu_wrapper">
             <ul id="nav">
                 <ng-container *ngFor="let type of typeLivres;">
-                    <li *ngIf="isCurrent(type);else defaultheader" (click)="setCurrent(type)"><a class="current" href=" # ">{{displayableType(type)}}</a></li>
-                    <ng-template #defaultheader>
-                        <li (click)="setCurrent(type)"><a href=" # " routerLink="/menu-recherche">{{displayableType(type)}}</a></li>
-                    </ng-template>
+                    <ng-container *ngIf="type !== 'ANY'">
+                        <li *ngIf="isCurrent(type);else defaultheader" (click)="setCurrent(type)"><a class="current" routerLink="/menu-recherche" href=" # ">{{displayableType(type)}}</a></li>
+                        <ng-template #defaultheader>
+                            <li (click)="setCurrent(type)"><a href=" # " routerLink="/menu-recherche">{{displayableType(type)}}</a></li>
+                        </ng-template>
+                    </ng-container>
                 </ng-container>
             </ul>
         </nav>
-        <a routerLink="/panier" class="col-md-1 cart-wrapper">
-            <span>{{getNumberOfCartItem()}}</span><br/>
-            <span>({{getTotalPriceOfCart()}} €)</span>
-        </a>
-        <a routerLink="/identification-inscription" class="col-md-1">
-            <fa name="user "></fa>{{getIdentity()}}
-        </a>
+        <div class="col-md-3 block-login">
+            <button (click)="setCurrent('NONE')" routerLink="/panier" class="btn btn-block btn-success"><fa name="shopping-cart "></fa> &nbsp;&nbsp; {{getNumberOfCartItem()}} livre<ng-container *ngIf="getNumberOfCartItem() > 1" >s</ng-container> ({{getTotalPriceOfCart().toFixed(2)}} €)</button><br/>
+            <button (click)="setCurrent('NONE')" routerLink="/identification-inscription" class="btn btn-block btn-success"><fa name="user "></fa> &nbsp;&nbsp; {{getIdentity()}}</button>
+        </div>
     </div>
     <div class="row ">
         <div class="col-md-3 ">
@@ -28,7 +27,7 @@
         </div>
         <div class="col-md-6 ">
             <form id="search_wrapper ">
-                <input type="search" id="searchInput" />
+                <input type="search" id="searchInput" value="{{resetOnChange}}" (input)="search($event.target.value)" />
                 <fa name="search "></fa>
             </form>
         </div>
