@@ -28,6 +28,7 @@ import { IdentificationInscriptionComponent } from './component/identification-i
 import { HistoriqueCommandesComponent } from './component/historique-commandes/historique-commandes.component';
 import { CookieService } from 'ngx-cookie-service';
 import { LivreService } from './service/livre.service';
+import { ArianeComponent } from './component/ariane/ariane.component';
 
 
 
@@ -39,14 +40,14 @@ export const appRoutes: Routes = [
   { path: 'menu-recherche', component: MenuRechercheComponent },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'connection', component: ConnectionComponent },
-  { path: 'identification-inscription', component: IdentificationInscriptionComponent},
+  { path: 'identification-inscription', component: IdentificationInscriptionComponent },
   { path: 'payer', component: PayerComponent },
   { path: 'livraison', component: LivraisonComponent },
   { path: 'finPaiement', component: FinPaiementComponent },
-  { path: 'admin', component: AdministrationComponent},
-  { path: 'compte', component: CompteClientComponent},
-  { path: 'commandes', component: HistoriqueCommandesComponent},
-  { path: 'livre/:id', component: LivreComponent}
+  { path: 'admin', component: AdministrationComponent },
+  { path: 'compte', component: CompteClientComponent },
+  { path: 'commandes', component: HistoriqueCommandesComponent },
+  { path: 'livre/:id', component: LivreComponent }
 ];
 
 
@@ -70,16 +71,17 @@ export const appRoutes: Routes = [
     FiltreComponent,
     IdentificationInscriptionComponent,
     HistoriqueCommandesComponent,
+    ArianeComponent,
   ],
   // modules que l'application va utiliser
   // ! penser à y mettre aussi les modules pour les formulaires
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes, {useHash : true}),
+    RouterModule.forRoot(appRoutes, { useHash: true }),
     FormsModule,
     HttpModule,
     AngularFontAwesomeModule,
-    ],
+  ],
   // fournisseur de services dans l'application
   providers: [
     Globals,

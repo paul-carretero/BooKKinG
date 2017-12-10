@@ -3,6 +3,9 @@ import { Livre } from '../../model/livre';
 import { PanierComponent } from '../panier/panier.component';
 import { ActivatedRoute } from '@angular/router';
 import { LivreService } from './../../service/livre.service';
+import { ArianeComponent } from '../ariane/ariane.component';
+import { HeaderComponent } from '../header/header.component';
+import { FiltreComponent } from '../filtre/filtre.component';
 
 @Component({
   selector: 'app-livre',
@@ -15,11 +18,21 @@ export class LivreComponent implements OnInit {
 
   private sub: any;
 
-  livre: Livre;
+  private livre: Livre;
 
-  nbLivre = 1;
+  private nbLivre = 1;
 
-  constructor(private route: ActivatedRoute, private service: LivreService) { }
+  constructor(private route: ActivatedRoute, private service: LivreService) {
+    this.livre = {
+      title: 'loading',
+      author: 'loading',
+      genre: 'loading',
+      type: 'loading',
+      price: 0,
+      stock: 0,
+      summary: 'loading'
+    };
+  }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -28,6 +41,9 @@ export class LivreComponent implements OnInit {
         reponse => {
           if (reponse.success) {
             this.livre = reponse;
+            ArianeComponent.getInstance().setLivre(this.livre);
+            HeaderComponent.getInstance().setCurrent(this.livre.type, false);
+            FiltreComponent.getInstance().setCurrentGenre(this.livre.genre, false);
           }
         }
       );
@@ -47,13 +63,13 @@ export class LivreComponent implements OnInit {
     * Méthode demandant l'ajout d'un livre au panier
     * @param livre livre à ajouter au panier
     */
-   public ajouterAuPanier(livre : Livre) {
+  public ajouterAuPanier(livre: Livre) {
     console.log("livre : " + livre.title + " à ajouter au panier");
     PanierComponent.ajouterLivrePanier(livre, this.nbLivre);
-   }
+  }
 
-   public setNbLivre(nb: any) {
-      this.nbLivre = nb.target.value;
-   }
+  public setNbLivre(nb: any) {
+    this.nbLivre = nb.target.value;
+  }
 
 }

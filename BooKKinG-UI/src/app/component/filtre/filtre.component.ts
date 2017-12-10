@@ -1,4 +1,5 @@
 import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router/src/directives/router_link';
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -7,9 +8,6 @@ import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MenuRechercheComponent } from '../menu-recherche/menu-recherche.component';
 import { HeaderComponent } from '../header/header.component';
 import { Globals } from '../../globals';
-import { Notifiable } from '../../itf/notifiable';
-import { ElementRef, Renderer2 } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { GenreGiver } from '../../itf/genre-giver';
 
 @Component({
@@ -18,7 +16,7 @@ import { GenreGiver } from '../../itf/genre-giver';
   styleUrls: ['./filtre.component.css'],
 })
 
-export class FiltreComponent implements OnInit, Notifiable, GenreGiver {
+export class FiltreComponent implements OnInit, GenreGiver {
 
   private static myInstance: GenreGiver = null;
 
@@ -30,8 +28,6 @@ export class FiltreComponent implements OnInit, Notifiable, GenreGiver {
 
   private minPrice = 0;
 
-  @ViewChild('rangeSlider') el: ElementRef;
-
   /**
    * Singleton-like managed instance
    */
@@ -39,11 +35,19 @@ export class FiltreComponent implements OnInit, Notifiable, GenreGiver {
     return FiltreComponent.myInstance;
   }
 
-  constructor(private rd: Renderer2) {}
+  constructor(private router: Router) {
+    FiltreComponent.myInstance = this;
+  }
 
   ngOnInit() {
-    FiltreComponent.myInstance = this;
     this.notify();
+  }
+
+  public setCurrentGenre(newGenre: string, updateSearch: boolean): void {
+    this.genreSelected = newGenre;
+    if (updateSearch) {
+      this.notifyOther();
+    }
   }
 
   getMinPrice(): number {
@@ -91,15 +95,13 @@ export class FiltreComponent implements OnInit, Notifiable, GenreGiver {
     }
   }
 
-  /**
-   * workaround : aucun event généré sur le second slider.
-   */
-  private onPriceChange(): void {
-    const raw: string = this.el.nativeElement.value;
+  private onPriceChange(raw: string, update: boolean): void {
     const tab = raw.split(',');
     this.minPrice = Number(tab[0]);
     this.maxPrice = Number(tab[1]);
-    this.notifyOther();
+    if (update) {
+      this.notifyOther();
+    }
   }
 
   private setGenreSelected(genre): void {

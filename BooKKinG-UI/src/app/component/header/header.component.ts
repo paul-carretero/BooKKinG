@@ -7,6 +7,7 @@ import { PanierComponent } from '../panier/panier.component';
 import { ConnectionComponent } from '../../composant/connection/connection.component';
 import { FiltreComponent } from '../filtre/filtre.component';
 import { TypeGiver } from '../../itf/type-giver';
+import { ArianeComponent } from '../ariane/ariane.component';
 
 @Component({
   selector: 'app-header',
@@ -42,11 +43,12 @@ export class HeaderComponent implements OnInit, TypeGiver {
     return this.anySearch;
   }
 
-  constructor(private cookieService: CookieService) {}
+  constructor(private cookieService: CookieService) {
+    HeaderComponent.myInstance = this;
+  }
 
   ngOnInit() {
-    console.log(this.getSavedCurrent());
-    if ( this.getSavedCurrent() !== '') {
+    if (this.getSavedCurrent() !== '') {
       this.current = this.getSavedCurrent();
     }
     this.displayType.set('ROMAN', 'Romans');
@@ -55,10 +57,9 @@ export class HeaderComponent implements OnInit, TypeGiver {
     this.displayType.set('BD', 'BDs');
     this.displayType.set('MANUEL', 'Manuels');
     this.displayType.set('ESSAI', 'Essais');
-    HeaderComponent.myInstance = this;
   }
 
-  private displayableType(type: string): string {
+  public displayableType(type: string): string {
     return this.displayType.get(type);
   }
 
@@ -70,13 +71,13 @@ export class HeaderComponent implements OnInit, TypeGiver {
     return type === this.current;
   }
 
-  private notifyOther(): void {
+  private notifyOther(reloadSearch: boolean): void {
     if (FiltreComponent.getInstance() != null) {
       FiltreComponent.getInstance().notify();
     }
 
-    if (
-      (this.current !== 'ANY' || (this.current === 'ANY' && this.anySearch !== ''))
+    if (reloadSearch
+      && (this.current !== 'ANY' || (this.current === 'ANY' && this.anySearch !== ''))
       && this.current !== 'NONE'
       && MenuRechercheComponent.getInstance() != null
     ) {
@@ -84,11 +85,14 @@ export class HeaderComponent implements OnInit, TypeGiver {
     }
   }
 
-  private setCurrent(type: string): void {
+  public setCurrent(type: string, reloadSearch: boolean): void {
     this.resetOnChange = '';
     this.current = type;
     this.cookieService.set('current', this.current);
-    this.notifyOther();
+    this.notifyOther(reloadSearch);
+    if (!Globals.typeLivres.includes(this.current) || this.current === 'ANY') {
+      ArianeComponent.getInstance().setTypeName(this.current);
+    }
   }
 
   private search(str: string): void {
@@ -96,7 +100,7 @@ export class HeaderComponent implements OnInit, TypeGiver {
     if (str.length > 2) {
       this.current = 'ANY';
       this.anySearch = str;
-      this.notifyOther();
+      this.notifyOther(true);
     } else {
       this.anySearch = '';
     }
