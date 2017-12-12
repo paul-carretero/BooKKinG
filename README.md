@@ -211,7 +211,7 @@ Liste des Json retourné par l'API en sortie (server -> client):
 
 ## Detail Servlets
 
-#### /Login
+#### /Init
 
 > **GET:**
 > Information sur l’authentification de l'utilisateur
