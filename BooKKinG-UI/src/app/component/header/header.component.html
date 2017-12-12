@@ -18,8 +18,8 @@
         </nav>
         <div class="col-md-3 block-login">
             <button (click)="setCurrent('panier')" routerLink="/panier" class="btn btn-block btn-success btn-sm">
-                <fa name="shopping-cart "></fa> &nbsp;&nbsp; {{getNumberOfCartItem()}} livre
-                <ng-container *ngIf="getNumberOfCartItem() > 1" >s</ng-container> ({{getTotalPriceOfCart().toFixed(2)}} €)
+                <fa name="shopping-cart "></fa> &nbsp;&nbsp; {{getNumberOfCartItem()}}
+                livre<ng-container *ngIf="getNumberOfCartItem() > 1" >s</ng-container> ({{getTotalPriceOfCart().toFixed(2)}} €)
             </button>
             <ng-container *ngIf="getIdentity() == null ">
                 <button (click)="setCurrent('LOGIN')" routerLink="/identification-inscription" class="btn btn-block btn-success btn-sm"><fa name="user "></fa> &nbsp;&nbsp; Login - Enregistrement</button>
