@@ -6,6 +6,8 @@ import { LivreService } from './../../service/livre.service';
 import { ArianeComponent } from '../ariane/ariane.component';
 import { HeaderComponent } from '../header/header.component';
 import { FiltreComponent } from '../filtre/filtre.component';
+import { PanierService } from '../../service/panier.service';
+import { NavigationService } from '../../service/navigation.service';
 
 @Component({
   selector: 'app-livre',
@@ -22,7 +24,8 @@ export class LivreComponent implements OnInit {
 
   private nbLivre = 1;
 
-  constructor(private route: ActivatedRoute, private service: LivreService) {
+  constructor(private route: ActivatedRoute, private service: LivreService, private servicePanier: PanierService,
+    private navigationService: NavigationService) {
     this.livre = {
       title: 'loading',
       author: 'loading',
@@ -41,9 +44,7 @@ export class LivreComponent implements OnInit {
         reponse => {
           if (reponse.success) {
             this.livre = reponse;
-            ArianeComponent.getInstance().setLivre(this.livre);
-            HeaderComponent.getInstance().setCurrent(this.livre.type, false);
-            FiltreComponent.getInstance().setCurrentGenre(this.livre.genre, false);
+            this.navigationService.setFromLivre(this.livre);
           }
         }
       );
@@ -65,7 +66,7 @@ export class LivreComponent implements OnInit {
     */
   public ajouterAuPanier(livre: Livre) {
     console.log('livre : ' + livre.title + ' à ajouter au panier');
-    PanierComponent.ajouterLivrePanier(livre, this.nbLivre);
+    this.servicePanier.ajouterLivrePanier(livre, this.nbLivre);
   }
 
   public setNbLivre(nb: any) {

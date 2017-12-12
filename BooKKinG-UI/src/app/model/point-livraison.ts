@@ -1,6 +1,6 @@
 export class PointLivraison {
-  nom : string;
-  datesLivraison : string;
-  adresse : string;
-  prix : number;
- }
+  nom: string;
+  datesLivraison: string;
+  adresse: string;
+  prix: number;
+}

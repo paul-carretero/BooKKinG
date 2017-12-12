@@ -1,11 +1,11 @@
 import { Router } from '@angular/router';
 import { LivraisonComponent } from './../livraison/livraison.component';
-import { ConnectionComponent } from './../../composant/connection/connection.component';
-import { PanierComponent } from './../panier/panier.component';
+import { ConnectionComponent } from './../../component/connection/connection.component';
 import { Component, OnInit } from '@angular/core';
 import { Client } from '../../model/client';
 import { Livre } from '../../model/livre';
 import { Article } from '../../model/article';
+import { PanierService } from '../../service/panier.service';
 
 @Component({
   selector: 'app-payer',
@@ -23,14 +23,13 @@ export class PayerComponent implements OnInit {
     PayerComponent.enCoursDePaiement = b;
   }
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private panierService: PanierService) { }
 
   ngOnInit() {
     PayerComponent.enCoursDePaiement = true;
     console.log('init de payer');
-    this.listeLivre = PanierComponent.contenuPanier;
-    this.total = PanierComponent.getTotalPrice() + LivraisonComponent.prixLivraison;
-    this.client = ConnectionComponent.client;
+    this.listeLivre = this.panierService.getContenuPanier();
+    this.total = this.panierService.getTotalPrice() + LivraisonComponent.prixLivraison;
   }
 
   public paiementPayPal() {

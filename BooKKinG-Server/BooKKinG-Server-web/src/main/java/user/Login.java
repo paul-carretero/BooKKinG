@@ -42,6 +42,7 @@ public class Login extends HttpServlet {
 	 */
 	@Override
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/plain;charset=UTF-8");
 		HttpSession session = request.getSession();
 		session.removeAttribute("idUser");
 		response.getWriter().append(new GenericResponseJson(true).toString());
@@ -53,6 +54,7 @@ public class Login extends HttpServlet {
 	 */
 	@Override
 	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/plain;charset=UTF-8");
 		HttpSession session = request.getSession();
 		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 		if(HttpHelper.checkAndValidData(data, response)) {
@@ -76,6 +78,7 @@ public class Login extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/plain;charset=UTF-8");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("idUser") != null) {
 			response.getWriter().append(new GenericResponseJson(true).toString());
@@ -91,6 +94,7 @@ public class Login extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/plain;charset=UTF-8");
 		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 		if(HttpHelper.checkAndValidData(data, response)) {
 			if(data.checkEmail() && this.userBean.resetPassword(data.getEmail())) {

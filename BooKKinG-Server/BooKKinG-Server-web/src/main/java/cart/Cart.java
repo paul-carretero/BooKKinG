@@ -61,7 +61,7 @@ public class Cart extends HttpServlet {
 		if(HttpHelper.checkAuth(request, response)) {
 			CartJson data = (CartJson) AbstractJson.fromJson(request, CartJson.class);
 			if(HttpHelper.checkAndValidData(data, response)) {
-				this.cartBean.clearCart(HttpHelper.getIdUser(request));
+				this.cartBean.synchClearCart(HttpHelper.getIdUser(request));
 				for(CartItemJsonItf entry : data.getItems()) {
 					this.cartBean.setQuantity(HttpHelper.getIdUser(request), entry);
 				}

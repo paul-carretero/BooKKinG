@@ -1,6 +1,6 @@
 <div id="header_wrapper" class="container">
     <div class="row">
-        <div (click)="setCurrent('HOME')" routerLink="/" class="col-md-1 home-link">
+        <div (click)="setCurrentOther('HOME')" routerLink="/" class="col-md-1 home-link">
             <img id="logo_img" src="assets/logo.gif" alt="logo_site" />
             <span>BooKKinG</span>
         </div>
@@ -8,25 +8,25 @@
             <ul id="nav">
                 <ng-container *ngFor="let type of typeLivres;">
                     <ng-container *ngIf="type !== 'ANY'">
-                        <li *ngIf="isCurrent(type);else defaultheader" (click)="setCurrent(type, true)"><a class="current" routerLink="/menu-recherche" href=" # ">{{displayableType(type)}}</a></li>
+                        <li *ngIf="type === currentType;else defaultheader" (click)="setCurrentType(type, true)"><a class="current" routerLink="/menu-recherche" href=" # ">{{displayableType(type)}}</a></li>
                         <ng-template #defaultheader>
-                            <li (click)="setCurrent(type, true)"><a href=" # " routerLink="/menu-recherche">{{displayableType(type)}}</a></li>
+                            <li (click)="setCurrentType(type, true)"><a href=" # " routerLink="/menu-recherche">{{displayableType(type)}}</a></li>
                         </ng-template>
                     </ng-container>
                 </ng-container>
             </ul>
         </nav>
         <div class="col-md-3 block-login">
-            <button (click)="setCurrent('panier')" routerLink="/panier" class="btn btn-block btn-success btn-sm">
-                <fa name="shopping-cart "></fa> &nbsp;&nbsp; {{getNumberOfCartItem()}}
-                livre<ng-container *ngIf="getNumberOfCartItem() > 1" >s</ng-container> ({{getTotalPriceOfCart().toFixed(2)}} €)
+            <button (click)="setCurrentOther('PANIER')" routerLink="/panier" class="btn btn-block btn-success btn-sm">
+                <fa name="shopping-cart "></fa> &nbsp;&nbsp; {{numberOfCartItem}}
+                livre<ng-container *ngIf="numberOfCartItem > 1" >s</ng-container> ({{totalPriceOfCart.toFixed(2)}} €)
             </button>
-            <ng-container *ngIf="getIdentity() == null ">
-                <button (click)="setCurrent('LOGIN')" routerLink="/identification-inscription" class="btn btn-block btn-success btn-sm"><fa name="user "></fa> &nbsp;&nbsp; Login - Enregistrement</button>
+            <ng-container *ngIf="identity == null ">
+                <button (click)="setCurrentOther('LOGIN')" routerLink="/identification-inscription" class="btn btn-block btn-success btn-sm"><fa name="user "></fa> &nbsp;&nbsp; Login - Enregistrement</button>
             </ng-container>
-            <ng-container *ngIf="getIdentity() != null ">
-                <button (click)="setCurrent('COMPTE')" routerLink="/compte" class="btn btn-block btn-success btn-sm"><fa name="user "></fa> &nbsp;&nbsp; {{getIdentity()}}</button>
-                <button (click)="setCurrent('HOME'); deconnexion()" routerLink="/" class="btn btn-block btn-outline-secondary btn-sm">Se déconnecter</button>
+            <ng-container *ngIf="identity != null ">
+                <button (click)="setCurrentOther('COMPTE')" routerLink="/compte" class="btn btn-block btn-success btn-sm"><fa name="user "></fa> &nbsp;&nbsp; {{getIdentity()}}</button>
+                <button (click)="setCurrentOther('HOME'); deconnexion()" routerLink="/" class="btn btn-block btn-outline-secondary btn-sm">Se déconnecter</button>
             </ng-container>
         </div>
     </div>
@@ -36,8 +36,10 @@
         </div>
         <div class="col-md-6 ">
             <form id="search_wrapper ">
-                <input type="search" id="searchInput" value="{{resetOnChange}}" (input)="search($event.target.value)" />
-                <fa name="search "></fa>
+                <div class="input-group">
+                    <span class="input-group-addon" id="search-addon"><fa name="search "></fa></span>
+                    <input type="search" value="{{resetOnChange}}" (input)="search($event.target.value)" class="form-control" placeholder="Rechercher un livre, un autheur..." aria-describedby="search-addon" />
+                </div>
             </form>
         </div>
         <div class="col-md-3 ">

@@ -1,7 +1,8 @@
-import { ConnectionComponent } from './../../composant/connection/connection.component';
+import { ConnectionComponent } from './../../component/connection/connection.component';
 import { Router } from '@angular/router';
 import { PointLivraison } from './../../model/point-livraison';
 import { Component, OnInit } from '@angular/core';
+import { ConnectionService } from '../../service/connection.service';
 
 @Component({
   selector: 'app-livraison',
@@ -20,12 +21,12 @@ export class LivraisonComponent implements OnInit {
   prixAdresseClient = 10;
   prixAdresseSaisie = 20;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private connectionService: ConnectionService) { }
 
   ngOnInit() {
     console.log('dans Livraison');
     this.generatePointLivraison();
-    this.adresseClient = ConnectionComponent.client.address;
+    this.adresseClient = this.connectionService.getCurrentUser().address;
   }
 
 
@@ -36,7 +37,7 @@ export class LivraisonComponent implements OnInit {
 
       { nom: 'Alessi Cerame', datesLivraison: 'Livré entre le 26.12 et le 31.12', adresse: '11 rue des Glairons - 38400 ST MARTIN D HERES ', prix: 3 }
 
-    ]
+    ];
 
   }
 

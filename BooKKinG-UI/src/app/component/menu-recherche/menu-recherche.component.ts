@@ -1,20 +1,17 @@
-import { ConnectionComponent } from './../../composant/connection/connection.component';
-import { PanierComponent } from './../panier/panier.component';
 import { RechercheService } from './../../service/recherche.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Livre } from '../../model/livre';
 import { Recherche } from '../../model/recherche';
-import { LivreComponent } from '../livre/livre.component';
 import { rootRoute } from '@angular/router/src/router_module';
 import { RouterOutlet } from '@angular/router/src/directives/router_outlet';
 import { RouterLink } from '@angular/router/src/directives/router_link';
 import { PanierService } from '../../service/panier.service';
-import { HeaderComponent } from '../header/header.component';
-import { FiltreComponent } from '../filtre/filtre.component';
 import { Notifiable } from '../../itf/notifiable';
-import { ArianeComponent } from '../ariane/ariane.component';
 import { SimpleArticle } from '../../model/simple-article';
+import { NavigationService } from '../../service/navigation.service';
+import { Globals } from '../../globals';
+import { OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-menu-recherche',
@@ -25,11 +22,7 @@ import { SimpleArticle } from '../../model/simple-article';
 /**
  * Composant concernant la recherche par menus (de type)
  */
-export class MenuRechercheComponent implements OnInit, Notifiable {
-
-  private static myInstance: Notifiable = null;
-
-  private static shouldUpdateOnInit = false;
+export class MenuRechercheComponent implements OnInit, OnDestroy, Notifiable {
 
   /**
    * Liste des livres qui correspondent au menu séléctionné
@@ -39,37 +32,32 @@ export class MenuRechercheComponent implements OnInit, Notifiable {
   /**
    * Attribut contenant les informations concernant la recherche de livre
    */
-  private recherche: Recherche = new Recherche();
+  private recherche: Recherche;
 
-  public static getInstance(): Notifiable {
-    if (MenuRechercheComponent.myInstance != null) {
-      MenuRechercheComponent.shouldUpdateOnInit = false;
-      return MenuRechercheComponent.myInstance;
-    } else {
-      MenuRechercheComponent.shouldUpdateOnInit = true;
-    }
-  }
-
-  constructor(private router: Router, private service: RechercheService, private servicePanier: PanierService) { }
+  constructor(private router: Router, private service: RechercheService, private servicePanier: PanierService,
+    private navigationService: NavigationService) { }
 
   ngOnInit() {
-    MenuRechercheComponent.myInstance = this;
-    if (MenuRechercheComponent.shouldUpdateOnInit) {
-      MenuRechercheComponent.shouldUpdateOnInit = false;
-      this.notify();
-    }
+    this.navigationService.subscribeForNotify(this);
+    this.service.subscribeForNotify(this);
+  }
+
+  ngOnDestroy() {
+    this.navigationService.unSubscribe(this);
+    this.service.unSubscribe(this);
   }
 
   notify(): void {
-    console.log('notified');
-    this.recherche.type = HeaderComponent.getInstance().getCurrentType();
-    this.recherche.anySearch = HeaderComponent.getInstance().getAnySearch();
-    this.recherche.genre = FiltreComponent.getInstance().getCurrentGenre();
-    this.recherche.maxPrice = FiltreComponent.getInstance().getMaxPrice();
-    this.recherche.minPrice = FiltreComponent.getInstance().getMinPrice();
+    this.recherche = new Recherche();
+
+    this.recherche.type = this.navigationService.getCurrentType();
+    this.recherche.genre = this.navigationService.getCurrentGenre();
+
+    this.recherche.anySearch = this.service.getCurrentSearch();
+    this.recherche.maxPrice = this.service.getMaxPrice();
+    this.recherche.minPrice = this.service.getMinPrice();
+
     this.rechercher();
-    ArianeComponent.getInstance().setTypeName(this.recherche.type);
-    ArianeComponent.getInstance().setGenreName(this.recherche.genre);
   }
 
   private getSummarizedSummary(livre: Livre): string {
@@ -85,24 +73,10 @@ export class MenuRechercheComponent implements OnInit, Notifiable {
   * @param livre livre à ajouter au panier
   */
   public ajouterAuPanier(livre: Livre) {
-    console.log('livre : ' + livre.title + ' à ajouter au panier');
-    PanierComponent.ajouterLivrePanier(livre, 1);
-    if (ConnectionComponent.clientConnecte) {
-      const articleSimple: SimpleArticle = new SimpleArticle();
-      articleSimple.idBook = livre.idBook;
-      articleSimple.quantity = 1;
-      this.servicePanier.miseAJourQuantiteLivre(articleSimple).subscribe(
-        reponse => {
-          console.log('résultat de la mise à jour du panier : ' + reponse.success);
-        }
-      );
-    }
-
+    this.servicePanier.ajouterLivrePanier(livre, 1);
   }
 
   public rechercher() {
-    console.log('header' + HeaderComponent.getInstance().getCurrentType());
-    console.log(this.recherche.type);
     this.listeLivres = [];
     this.service.rechercherEnsembleLivre(this.recherche).subscribe(
       reponse => {
@@ -117,6 +91,8 @@ export class MenuRechercheComponent implements OnInit, Notifiable {
               i++;
             }
           );
+        } else {
+          alert(reponse.message);
         }
       }
     );

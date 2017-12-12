@@ -7,13 +7,13 @@ import { ConnectionService } from './service/connection.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AppComponent } from './app.component';
 import { PanierComponent } from './component/panier/panier.component';
 import { MenuRechercheComponent } from './component/menu-recherche/menu-recherche.component';
-import { ConnectionComponent } from './composant/connection/connection.component';
+import { ConnectionComponent } from './component/connection/connection.component';
 import { CompteClientComponent } from './component/compte-client/compte-client.component';
 import { Http, HttpModule } from '@angular/http';
 import { InscriptionComponent } from './component/inscription/inscription.component';
@@ -29,6 +29,7 @@ import { HistoriqueCommandesComponent } from './component/historique-commandes/h
 import { CookieService } from 'ngx-cookie-service';
 import { LivreService } from './service/livre.service';
 import { ArianeComponent } from './component/ariane/ariane.component';
+import { NavigationService } from './service/navigation.service';
 
 
 
@@ -81,17 +82,20 @@ export const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     AngularFontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   // fournisseur de services dans l'application
   providers: [
     Globals,
+    PanierService,
     ConnectionService,
     RechercheService,
     AdministrationService,
-    PanierService,
     AchatService,
     CookieService,
-    LivreService
+    LivreService,
+    NavigationService
   ],
   bootstrap: [AppComponent]
 })

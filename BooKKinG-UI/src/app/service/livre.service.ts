@@ -19,6 +19,14 @@ export class LivreService {
   }
 
   public initConstantes(): Observable<Init> {
-    return this.http.get(this.urlInit, { withCredentials: true }).map(res => res.json());
+    const conn = this.http.get(this.urlInit, { withCredentials: true }).map(res => res.json());
+    conn.subscribe(
+      reponse => {
+        if (reponse.success) {
+          Globals.initData = reponse;
+        }
+      }
+    );
+    return conn;
   }
 }

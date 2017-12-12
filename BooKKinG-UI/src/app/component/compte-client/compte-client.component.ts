@@ -1,7 +1,7 @@
 import { ConnectionService } from './../../service/connection.service';
 import { Component, OnInit } from '@angular/core';
 import { Client } from '../../model/client';
-import { ConnectionComponent } from '../../composant/connection/connection.component';
+import { ConnectionComponent } from '../../component/connection/connection.component';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -27,7 +27,7 @@ export class CompteClientComponent implements OnInit {
 
   ngOnInit() {
     console.log('dans compte client');
-    this.client = ConnectionComponent.client;
+    this.client = this.serviceConnection.getCurrentUser();
     this.validName = true;
     this.validAddress = true;
     this.validPassword = true;
@@ -35,9 +35,9 @@ export class CompteClientComponent implements OnInit {
 
   public modifierInformations() {
     this.modifiaction = true;
-    this.clientModifie.name = ConnectionComponent.client.name;
-    this.clientModifie.address = ConnectionComponent.client.address;
-    this.clientModifie.name = ConnectionComponent.client.name;
+    this.clientModifie.name = this.serviceConnection.getCurrentUser().name;
+    this.clientModifie.address = this.serviceConnection.getCurrentUser().address;
+    this.clientModifie.name = this.serviceConnection.getCurrentUser().name;
   }
 
   public modifier() {
@@ -83,10 +83,8 @@ export class CompteClientComponent implements OnInit {
         this.serviceConnection.modifierClient(this.client).subscribe(
           reponse => {
             console.log('modification des données du client : ' + reponse.success);
-            if (reponse.success) {
-              ConnectionComponent.client = this.client;
-            } else {
-              console.log(reponse.message);
+            if (!reponse.success) {
+              // TODO retour visuel
             }
           }
         );

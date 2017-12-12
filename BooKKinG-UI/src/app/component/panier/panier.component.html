@@ -1,5 +1,5 @@
 <h3>
-    Panier - total : {{staticGetTotalPrice()}} euros <input type="button" (click)="viderPanier()" value="Vider Panier">
+    Panier - total : {{montantGlobal}} euros <input type="button" (click)="viderPanier()" value="Vider Panier">
 </h3>
 
 <div>
@@ -9,6 +9,6 @@
 </div>
 
 <div>
-    total : {{staticGetTotalPrice()}} euros
+    total : {{montantGlobal}} euros
     <input type="button" (click)="payer()" value="Payer">
 </div>
