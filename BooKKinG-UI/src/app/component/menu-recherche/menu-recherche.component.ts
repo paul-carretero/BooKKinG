@@ -24,6 +24,8 @@ import { OnDestroy } from '@angular/core';
  */
 export class MenuRechercheComponent implements OnInit, OnDestroy, Notifiable {
 
+  private static updateOnStartUp = true;
+
   /**
    * Liste des livres qui correspondent au menu séléctionné
    */
@@ -40,6 +42,10 @@ export class MenuRechercheComponent implements OnInit, OnDestroy, Notifiable {
   ngOnInit() {
     this.navigationService.subscribeForNotify(this);
     this.service.subscribeForNotify(this);
+    if (MenuRechercheComponent.updateOnStartUp) {
+      MenuRechercheComponent.updateOnStartUp = false;
+      this.notify();
+    }
   }
 
   ngOnDestroy() {

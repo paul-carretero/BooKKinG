@@ -56,10 +56,12 @@ export class RechercheService implements Subscribable {
 
   public setMaxPrice(val: number): void {
     this.max = val;
+    this.notify();
   }
 
   public setMinPrice(val: number): void {
     this.min = val;
+    this.notify();
   }
 
   public getCurrentSearch(): string {

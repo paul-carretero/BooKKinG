@@ -15,6 +15,7 @@ export class NavigationService implements Subscribable {
 
   constructor(private cookieService: CookieService) {
     this.toNotify = [];
+    this.initFromCookie();
   }
 
   // Notification Management
@@ -45,7 +46,9 @@ export class NavigationService implements Subscribable {
   }
 
   private initFromCookie(): void {
-    this.current = JSON.parse(this.cookieService.get('nav-data'));
+    if (this.cookieService.get('nav-data') != null && this.cookieService.get('nav-data') !== '') {
+      this.current = JSON.parse(this.cookieService.get('nav-data'));
+    }
   }
 
   private reset(): void {
@@ -76,6 +79,7 @@ export class NavigationService implements Subscribable {
     if (newType !== 'ANY') {
       this.notify();
     }
+    this.backUpNavData();
   }
 
   public setCurrentGenre(newGenre: string): void {
@@ -84,11 +88,13 @@ export class NavigationService implements Subscribable {
     this.current.other = null;
     this.current.genre = newGenre;
     this.notify();
+    this.backUpNavData();
   }
 
   public setCurrentOther(newOther: string): void {
     this.reset();
     this.current.other = newOther;
+    this.backUpNavData();
   }
 
   public setFromLivre(newLivre: Livre): void {
@@ -96,5 +102,6 @@ export class NavigationService implements Subscribable {
     this.current.type = newLivre.type;
     this.current.genre = newLivre.genre;
     this.current.other = newLivre.title;
+    this.backUpNavData();
   }
 }
