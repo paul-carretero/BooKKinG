@@ -14,7 +14,7 @@
             </fa><a routerLink="/menu-recherche">{{genreName}}</a>
         </span>
     </ng-container>
-    <ng-container *ngIf="currentEnd != null">
-        <fa name="caret-right "></fa>{{currentEnd}}
+    <ng-container *ngIf="currentEnd != null && currentEnd != 'HOME' ">
+        <fa name=" caret-right "></fa>{{currentEnd}}
     </ng-container>
 </div>

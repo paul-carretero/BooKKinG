@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { ConnectionService } from '../../service/connection.service';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
+import { ConnectionProvider } from '../../itf/connection-provider';
 
 @Component({
   selector: 'app-connection',
@@ -18,7 +19,9 @@ import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 /**
  * Composant correspondant à la page de connection d'un utilisateur (la page contient un formulaire)
  */
-export class ConnectionComponent implements OnInit {
+export class ConnectionComponent implements OnInit, ConnectionProvider {
+
+  static myInstance: ConnectionProvider;
 
   static client: Client;
 
@@ -58,6 +61,10 @@ export class ConnectionComponent implements OnInit {
     return ConnectionComponent.client;
   }
 
+  public static getInstance(): ConnectionProvider {
+    return ConnectionComponent.myInstance;
+  }
+
   /**
   * Constructeur du composant connection
   * @param routeur permet de gérer le routage
@@ -65,6 +72,7 @@ export class ConnectionComponent implements OnInit {
   */
   constructor(private routeur: Router, private service: ConnectionService, private servicePanier: PanierService) {
     this.client = new Client();
+    ConnectionComponent.myInstance = this;
   }
 
   /**

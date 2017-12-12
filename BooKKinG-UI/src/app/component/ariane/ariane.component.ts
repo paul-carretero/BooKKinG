@@ -54,7 +54,7 @@ export class ArianeComponent implements OnInit {
     this.typeName = null;
     this.genreName = null;
     this.currentEnd = null;
-    HeaderComponent.getInstance().setCurrent('NONE', false);
+    HeaderComponent.getInstance().setCurrent('HOME', false);
   }
 
   public setTypeName(newType: string): void {

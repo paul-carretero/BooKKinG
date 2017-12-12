@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit, TypeGiver {
 
   private static myInstance: TypeGiver;
 
-  private current = 'ROMAN';
+  private current = 'HOME';
 
   private displayType = new Map<string, string>();
 
@@ -118,19 +118,23 @@ export class HeaderComponent implements OnInit, TypeGiver {
    * Delegate methodes
    */
 
-  public getNumberOfCartItem(): number {
+  private deconnexion(): void {
+    ConnectionComponent.getInstance().deconnexion();
+  }
+
+  private getNumberOfCartItem(): number {
     return PanierComponent.getNumberOfItems();
   }
 
-  public getTotalPriceOfCart(): number {
+  private getTotalPriceOfCart(): number {
     return PanierComponent.getTotalPrice();
   }
 
-  public getIdentity(): string {
+  private getIdentity(): string {
     if (ConnectionComponent.getConnectionStatus()) {
       return ConnectionComponent.getUser().name;
     } else {
-      return 'Login/Register';
+      return null;
     }
   }
 }
