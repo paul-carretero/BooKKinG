@@ -4,7 +4,7 @@
 
 <div>
     <ul>
-        <li *ngFor="let article of contenuPanier;"> {{article.book.genre}} / {{article.book.title}} - {{article.book.author}} : {{article.book.price}} euros / quantite : {{article.quantity}} <input type="number" (input)="set(article.book, $event)" value="{{article.quantity}}" min="0" max="{{article.book.stock}}">            <input type="button" (click)="supprimer(article.idBook)" value="Retirer du panier"><input type="button" (click)="detailLivre(article.book)" value="Détail"></li>
+        <li *ngFor="let article of contenuPanier;"> {{article.book.genre}} / {{article.book.title}} - {{article.book.author}} : {{article.book.price}} euros / quantite : {{article.quantity}} <input type="number" (input)="setQuantity(article.book, $event)" value="{{article.quantity}}" min="0" max="{{article.book.stock}}">            <input type="button" (click)="supprimer(article.idBook)" value="Retirer du panier"><input type="button" (click)="detailLivre(article.book)" value="Détail"></li>
     </ul>
 </div>
 

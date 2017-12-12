@@ -69,7 +69,7 @@ export class LivreComponent implements OnInit {
   }
 
   public setNbLivre(nb: any) {
-    this.nbLivre = nb.target.value;
+    this.nbLivre = Number(nb.target.value);
   }
 
 }
