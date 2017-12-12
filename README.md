@@ -30,6 +30,7 @@ API Back-End
 > - `http://bookking.ovh/BooKKinG-Server-web/Book` requête sur un ou des livres proposé à la vente
 > - `http://bookking.ovh/BooKKinG-Server-web/Cart` operation (et synchro) sur le contenu du panier utilisateur
 > - `http://bookking.ovh/BooKKinG-Server-web/Command` operation et récupération des commandes utilisateur
+> - `http://bookking.ovh/BooKKinG-Server-web/Init` récupère un package avec des informations d'initialisation
 
 ----------
 
@@ -57,6 +58,7 @@ Liste des Json acceptés par l'API en entrée (client -> server):
 > - **Paramètres** :
 > > - `idBook` id du livre du panier
 > > - `quantity` quantité du livre ayant l'id spécifié dans le panier
+> > - `isInStock` true si l'article est en stock, faux sinon.
 
 -------
 > **CartJson:** <a id="CartJson"></a>
@@ -91,6 +93,15 @@ Liste des Json acceptés par l'API en entrée (client -> server):
 > > - `title` titre du livre
 > > - `picture` image de la couverture du livre encodé en base64
 > > - `summary` résumé du livre
+
+-------
+> **CommandReqJson:** <a id="CommandReqJson"></a>
+> Précise le panier utilisateur
+> 
+> - **Exemple:** `{"address":"adresse de livraison"}`
+> - **Paramètres** :
+> > - `address` une adresse de livraison, éventuellement vide ou null
+
 
 ----------
 
@@ -166,9 +177,8 @@ Liste des Json retourné par l'API en sortie (server -> client):
 > - **Paramètres** :
 > > - `date` date de la commande
 > > - `idCmd` id de la commande
-> > - `books` tableau associatif associant l'id d'un livre de la commande à son [BookJson](#BookJson)
-> > - `prices` tableau associatif associant l'id d'un livre à son prix unitaire lors de l'achat
-> > - `quantities` tableau associatif associant l'id d'un livre de la commande à sa quantité
+> > - `books` tableau de [BookJson](#BookJson)
+> > - `item` tableau de [CartItemJson](#CartItemJson)
 > > - `success` true
 > > - `message` unused
 
@@ -183,9 +193,34 @@ Liste des Json retourné par l'API en sortie (server -> client):
 > > - `success` true
 > > - `message` unused
 
+-------
+> **InitResponseJson:**<a id="InitResponseJson"></a>
+> Réponse représentant des données statiques pour l'initialisation de l'application
+> 
+> - **Exemple:** `{"mostBuyBook":{"genre":"POLICIER","type":"ROMAN","author":"Gail Carriger","price":7.0,"title":"Etiquette et espionnage","picture":"base64 png picture","summary":"summary","idBook":2,"stock":2,"success":true,"message":"","serveurUrl":"127.0.0.1"},"randomBook":{"genre":"POLICIER","type":"MANGA","author":"Tsukasa Hojo","price":8.5,"title":"City Hunter, tome 12","picture":"base64 png picture","summary":"summary","idBook":7,"stock":2,"success":true,"message":"","serveurUrl":"127.0.0.1"},"newestBook":{"genre":"INFORMATIQUE","type":"MANUEL","author":"Richard Lassaigne, Michel de Rougemont","price":21.9,"title":"Logique et fondements de l\u0027informatique","picture":"base64 png picture","summary":"summary","idBook":9,"stock":2,"success":true,"message":"","serveurUrl":"127.0.0.1"},"min":6,"max":23,"success":true,"message":"","serveurUrl":"127.0.0.1"}`
+> - **Paramètres** :
+> > - `mostBuyBook` livre le plus acheté
+> > - `randomBook` livre aléatoire
+> > - `newestBook` dernier livre ajouté
+> > - `min` prix minimum des livres
+> > - `max` prix maximum des livres
+> > - `success` true
+> > - `message` unused
+
 ---------
 
 ## Detail Servlets
+
+#### /Init
+
+> **GET:**
+> Information sur l’authentification de l'utilisateur
+> 
+> - **paramètre** : -
+> - **retourne** : [InitResponseJson](#InitResponseJson)
+
+---------
+
 #### /Login
 > **GET:**
 > Information sur l’authentification de l'utilisateur

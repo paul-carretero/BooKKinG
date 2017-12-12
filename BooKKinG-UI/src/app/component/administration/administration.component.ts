@@ -164,4 +164,112 @@ export class AdministrationComponent implements OnInit {
 
     this.ajouterLivresDansBase(livreBase, 'MANUEL');
   }
+
+
+
+  public ajouterBD(){
+    console.log("dans ajouter BD");  
+    // ensemble des livres que l'on veut ajouter
+    let livreBase = [
+    {title:'Astérix - Tome 37 : Astérix et la Transitalique', 
+     author:'Didier Conrad (Dessinateur), Jean-Yves Ferri (Scénario) ', 
+     genre : 'ANY',
+     type :"BD", 
+     price:9.95, stock:10, 
+     summary:"Les personnages créés par les deux génies du 9e art Albert Uderzo et René Goscinny sont de retour ! Après Astérix chez les Pictes et Le Papyrus de César, Astérix et Obélix reviennent dans Astérix et la Transitalique, le nouvel album signé par les talentueux Jean-Yves Ferri et Didier Conrad. N'en déplaise à Obélix, les Italiques, les habitants de l'Italie, ne sont pas tous des Romains, au contraire ! Les Italiques tiennent à préserver leur autonomie et voient d'un mauvais oeil les velléités de domination de Jules César et ses légions. Dans Astérix et la Transitalique, nos héros favoris s'engagent dans une aventure palpitante à la découverte de cette surprenante Italie antique !"},
+    
+    {title:'Les Légendaires - World Without : Le Royaume des larmes Tome 20 : Les Légendaires ', 
+    author:'Patrick Sobral (Scénario), Patrick Sobral (Dessinateur)', 
+    genre : 'ANY',
+    type :"BD", 
+    price:10.95, stock:10, 
+    summary:"C'est un grand jour à Orchidia ! Des quatre coins d'Alysia, les grands de ce monde sont venus assister à l'épreuve du bâtonaigle de Jadilyna qui désignera la princesse Shun-Day comme reine du royaume à la place de sa tante, l'impitoyable Invidia. Mais dans l'ombre de cet événement se trame une sombre machination qui pourrait bien finir en tragédie. Mais qui est visé par cet infâme complot ?"},
+    
+    {title:'Lanfeust Odyssey - Tome 9 : Le stratège ingénu ', 
+     author:'Christophe Arleston (Scénario), Didier Tarquin (Dessinateur)', 
+     genre : 'ANY',
+     type :"BD", 
+     price:8.5, stock:10, 
+     summary:"Au Castel Or-Azur la fête bat son plein mais Lanfeust n'est pas d'humeur à fêter quoique ce soit. Si ses armées sont en déroute, Lilth court toujours et il ne faut pas lui laisser le temps de reprendre des forces sinon tout serait à refaire. Il souhaite rassembler ses fidèles compagnons et partir à sa recherche au plus vite. Mais la déesse, dont la duplicité n'est plus à prouver, n'est pas si loin..."}
+    ];
+
+
+    this.ajouterLivresDansBase(livreBase, "BD");
+  }
+
+
+
+  public ajouterEssais(){
+    console.log("dans ajouter essais");  
+    // ensemble des livres que l'on veut ajouter
+    let livreBase = [
+    {title:'La guerre des intelligences ', 
+     author:'Laurent Alexandre', 
+     genre : 'PHYLOSOPHIE',
+     type :"ESSAI", 
+     price:20.90, stock:10, 
+     summary:"L’intelligence artificielle peut elle dépasser les humains, et comment l’éducation doit faire sa révolution. \nDepuis la parution en 2011 de son premier essai La mort de la mort, comment la technomédecine va bouleverser l’humanité, Laurent Alexandre s’est révélé comme l’un des plus visionnaires analystes des révolutions technologiques.\n Il s’attaque aujourd’hui à l’Intelligence artificielle (IA) et aux vertigineuses mutations qu’elle va déclencher dans nos modes de vie, et en particulier dans notre conception de l’éducation. \n D’un côté, l’IA progresse bien plus vite que tous les pronostics avancés  : la rapidité d’apprentissage de l’IA est multipliée par 100 chaque année. Il faut trente ans pour former un ingénieur ou un radiologue, quelques heures pour éduquer une IA !\n De l’autre, une école qui n’a pas évolué depuis 250 ans qui forme aux métiers d’hier et qui n’a pas intégré le bouleversement inévitable que l’IA va provoquer sur le marché du travail. Comment faire pour que nos cerveaux biologiques résistent à l’IA et restent complémentaires  ? Comment nos enfants pourront-ils rester compétitifs face à l’IA  ? Comment l’éducation, non totalement darwinienne, trouvera-t-elle sa place à côté des cerveaux de silicium boostés par les moyens presque infinis des GAFA et autres géants américains et chinois  ?\n Quels scénarios l’Humanité devra-t-elle choisir  ? Faut-il accepter le vertige transhumaniste qui nous «  upgrade  » biologiquement mais nous maintient Homme  ? Fusionner avec l’IA en devenant des cyborgs  ? Interdire ou limiter puissamment l’IA ? \nC’est à cette réflexion fondamentale et passionnante que Laurent Alexandre nous invite."},
+    
+    {title:'La Fontaine Une école buissonnière', 
+    author:'Erik Orsenna', 
+    genre : 'BIOGRAPHIE',
+    type :"ESSAI", 
+    price:10.95, stock:10, 
+    summary:"Depuis l’enfance, il est notre ami. Et les animaux de ses Fables, notre famille. Agneau, corbeau, loup, mouche, grenouille, écrevisse ne nous ont plus jamais quittés.Malicieuse et sage compagnie !Mais que savons-nous de La Fontaine, sans doute le plus grand poète de notre langue française ?Voici une promenade au pays vrai d’un certain tout petit Jean, né le 8 juillet 1621, dans la bonne ville de Château-Thierry, juste à l’entrée de la Champagne. Bientôt voici Paris, joyeux Quartier latin et bons camarades : Boileau, Molière, Racine.Voici un protecteur, un trop brillant surintendant des Finances, bientôt emprisonné. On ne fait pas sans risque de l’ombre au Roi Soleil.Voici un très cohérent mari : vite cocu et tranquille de l’être, pourvu qu’on le laisse courir à sa guise.Voici la pauvreté, malgré l’immense succès des Fables.Et, peut-être pour le meilleur, voici des Contes. L’Éducation nationale, qui n’aime pas rougir, interdisait de nous les apprendre. On y rencontre trop de dames « gentilles de corsage ».Vous allez voir comme La Fontaine ressemble à la vie : mi-fable, mi-conte.Gravement coquine."},
+    
+    {title:' Mon dernier rêve sera pour vous', 
+     author:'Jean d\'Ormesson', 
+     genre : 'BIOGRAPHIE',
+     type :"ESSAI", 
+     price:19.89, stock:10, 
+     summary:"La gloire plaît aux femmes et les fascine comme le pouvoir. Chateaubriand - sans doute le plus grand écrivain français - lia plus que personne sa vie sentimentale à sa vie politique et littéraire. L'indifférence et la passion qui flottaient autour de lui faisaient se lever sur ses pas des bataillons de jeunes femmes, armées et casquées pour les combats de l'amour. A chacune il fut tenté de murmurer Mon dernier rêve sera pour vous. A une seule, avant sa mort, il dira ces quelques mots qui unissent aux yeux de l'histoire deux destins d'exception.La première biographie de jean d'Ormesson : le portrait d'un séducteur par un écrivain - et peut-être aussi l'inverse.Ce gros livre tient du mémoire, du feuilleton, de la chronique historique la plus sérieuse et du roman le plus brillant.Annie Coppermann"}
+    ];
+
+
+    this.ajouterLivresDansBase(livreBase, "ESSAI");
+  }
+
+
+
+  public ajouterMagazines(){
+    console.log("dans ajouter magazine");  
+    // ensemble des livres que l'on veut ajouter
+    let livreBase = [
+    {title:'Paris au temps des grands rois', 
+     author:'Collectif', 
+     genre : 'HISTOIRE',
+     type :"MAGAZINE", 
+     price:5.9, stock:10, 
+     summary:"La vie de la population parisienne, l'organisation de la ville, les transports ou encore les métiers qui y étaient exercés. L'histoire de la cité retracée à travers les bâtiments toujours présents : places, fastueux hôtels particuliers du centre et habitats insalubres et surpeuplés des faubourgs."},
+    
+    {title:'André Derain, la décennie radicale', 
+    author:'Collectif', 
+    genre : 'ART',
+    type :"MAGAZINE", 
+    price:9.5, stock:10, 
+    summary:""},
+
+    {title:'Walking Dead Comics - Tome 20 : Walking Dead magazine', 
+    author:'Collectif', 
+    genre : 'LOISIR',
+    type :"MAGAZINE", 
+    price:6.95, stock:10, 
+    summary:"Retrouvez toutes les informations sur l'univers de \"Walking Dead\" dans un magazine qui vous fera découvrir les coulisses de la série comics comme ceux de la série télévisée."},
+    
+    {title:'L\'art du pastel de Degas à Redon ', 
+     author:'Collectif', 
+     genre : 'ART',
+     type :"MAGAZINE", 
+     price:9, stock:10, 
+     summary:"A l'occasion de l'exposition consacrée à la collection de pastels du Petit Palais, l'ouvrage offre un panorama des principaux courants artistiques de la seconde moitié du XIXe siècle, de l'impressionnisme au symbolisme, dont les fleurons sont constitués par les oeuvres de Berthe Morisot, Auguste Renoir, Paul Gauguin, Odilon Redon. Avec un point sur la technique et la conservation des pastels."}
+    ];
+
+
+    this.ajouterLivresDansBase(livreBase, "MAGAZINE");
+  }
+
+
+
+
+
 }
