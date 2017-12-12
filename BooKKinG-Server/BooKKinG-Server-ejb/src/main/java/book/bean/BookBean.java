@@ -147,4 +147,11 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 		response.setRange(min, max);
 	}
 
+	@Override
+	public int getMinForTest() {
+		Integer min = Math.round(((Float) this.manager.createNativeQuery("SELECT MIN(price) FROM Book").getSingleResult())-1);
+		min = Math.max(0, min);
+		return min;
+	}
+
 }

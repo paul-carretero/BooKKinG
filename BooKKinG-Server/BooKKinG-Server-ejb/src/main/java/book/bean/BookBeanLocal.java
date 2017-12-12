@@ -25,4 +25,6 @@ public interface BookBeanLocal {
 
 	public void getRange(InitResponseJsonItf response);
 
+	int getMinForTest();
+
 }
