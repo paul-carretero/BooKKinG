@@ -40,31 +40,9 @@ public class BookJson extends GenericResponseJson implements BookJsonItf {
 	@SuppressWarnings("unused")
 	private Integer stock;
 	
-
-
-	/**
-	 * @param genre
-	 * @param type
-	 * @param author
-	 * @param price
-	 * @param title
-	 * @param picture
-	 * @param summary
-	 * @param idBook
-	 * @param stock
-	 */
-	public BookJson(Genre genre, Type type, String author, Float price, String title, String picture, String summary,
-			Integer idBook, Integer stock) {
+	
+	public BookJson() {
 		super();
-		this.genre = genre;
-		this.type = type;
-		this.author = author;
-		this.price = price;
-		this.title = title;
-		this.picture = picture;
-		this.summary = summary;
-		this.idBook = idBook;
-		this.stock = stock;
 	}
 
 	public BookJson(final BookEntItf bookEnt) {
@@ -78,10 +56,6 @@ public class BookJson extends GenericResponseJson implements BookJsonItf {
 		this.summary 	= bookEnt.getSummary();
 		this.idBook 	= bookEnt.getIdBook();
 		this.stock 		= bookEnt.getStock();
-	}
-	
-	public BookJson() {
-		super();
 	}
 	
 	@Override

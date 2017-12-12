@@ -64,7 +64,7 @@ export class LivreComponent implements OnInit {
     * @param livre livre à ajouter au panier
     */
   public ajouterAuPanier(livre: Livre) {
-    console.log("livre : " + livre.title + " à ajouter au panier");
+    console.log('livre : ' + livre.title + ' à ajouter au panier');
     PanierComponent.ajouterLivrePanier(livre, this.nbLivre);
   }
 

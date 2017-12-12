@@ -15,9 +15,6 @@ export class RechercheService {
   constructor(private http: Http) { }
 
   public rechercherEnsembleLivre(recherche: Recherche): Observable<ReponseRecherche> {
-    console.log("dans rechercher un ensemble de livre");
-    const reponse = this.http.put(this.urlLivre, recherche, { withCredentials: true }).map(res => res.json());
-    // on retourne le client récupéré (Format JSON)
-    return reponse;
+    return this.http.put(this.urlLivre, recherche, { withCredentials: true }).map(res => res.json());
   }
 }

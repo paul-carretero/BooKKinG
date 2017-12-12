@@ -48,15 +48,18 @@ export class HeaderComponent implements OnInit, TypeGiver {
   }
 
   ngOnInit() {
-    if (this.getSavedCurrent() !== '') {
-      this.current = this.getSavedCurrent();
-    }
     this.displayType.set('ROMAN', 'Romans');
     this.displayType.set('MAGAZINE', 'Magazines');
     this.displayType.set('MANGA', 'Mangas');
     this.displayType.set('BD', 'BDs');
     this.displayType.set('MANUEL', 'Manuels');
     this.displayType.set('ESSAI', 'Essais');
+    if (this.getSavedCurrent() !== '') {
+      this.current = this.getSavedCurrent();
+      if (MenuRechercheComponent.getInstance() != null) {
+        MenuRechercheComponent.getInstance().notify();
+      }
+    }
   }
 
   public displayableType(type: string): string {
@@ -64,7 +67,7 @@ export class HeaderComponent implements OnInit, TypeGiver {
   }
 
   private getSavedCurrent(): string {
-    return this.cookieService.get('current');
+    return this.cookieService.get('currentType');
   }
 
   private isCurrent(type: string): boolean {
@@ -78,9 +81,10 @@ export class HeaderComponent implements OnInit, TypeGiver {
 
     if (reloadSearch
       && (this.current !== 'ANY' || (this.current === 'ANY' && this.anySearch !== ''))
-      && this.current !== 'NONE'
+      && Globals.typeLivres.includes(this.current)
       && MenuRechercheComponent.getInstance() != null
     ) {
+      Globals.typeLivres.includes('header before notify' + this.current);
       MenuRechercheComponent.getInstance().notify();
     }
   }
@@ -89,10 +93,10 @@ export class HeaderComponent implements OnInit, TypeGiver {
     this.resetOnChange = '';
     this.anySearch = '';
     this.current = type;
-    this.cookieService.set('current', this.current);
+    this.cookieService.set('currentType', this.current);
     this.notifyOther(reloadSearch);
-    if (!Globals.typeLivres.includes(this.current) || this.current === 'ANY') {
-      ArianeComponent.getInstance().setTypeName(this.current);
+    if (!Globals.typeLivres.includes(this.current)) {
+      ArianeComponent.getInstance().setOther(this.current);
     }
   }
 

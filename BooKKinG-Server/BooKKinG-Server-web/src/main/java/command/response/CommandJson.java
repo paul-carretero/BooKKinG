@@ -1,9 +1,7 @@
 package command.response;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import book.entity.BookEntItf;
 import book.response.BookJson;
@@ -27,19 +25,10 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 	@SuppressWarnings("unused")
 	private Integer				idCmd;
 
-	/**
-	 * idBook=>BookJson
-	 */
 	private List<BookJson>		books;
 
-	/**
-	 * idBook=>quantity
-	 */
 	private List<CartItemJson> 	items;
 
-	/**
-	 * @param date
-	 */
 	public CommandJson() {
 		super();
 		this.books 		= new LinkedList<>();
@@ -75,5 +64,18 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 		b.setPrice(price);
 		this.books.add(b);
 		this.items.add(new CartItemJson(aBook.getIdBook(), quantity));
+	}
+	
+	/**
+	 * @param aBook
+	 * @param price
+	 * @param quantity
+	 */
+	@Override
+	public void addCmdEntry(BookEntItf aBook,Float price, Integer quantity, boolean isInStock) {
+		BookJson b = new BookJson(aBook);
+		b.setPrice(price);
+		this.books.add(b);
+		this.items.add(new CartItemJson(aBook.getIdBook(), quantity, isInStock));
 	}
 }

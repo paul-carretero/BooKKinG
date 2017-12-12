@@ -9,6 +9,8 @@ import { MenuRechercheComponent } from '../menu-recherche/menu-recherche.compone
 import { HeaderComponent } from '../header/header.component';
 import { Globals } from '../../globals';
 import { GenreGiver } from '../../itf/genre-giver';
+import { CookieService } from 'ngx-cookie-service';
+import { LivreService } from '../../service/livre.service';
 
 @Component({
   selector: 'app-filtre',
@@ -24,9 +26,13 @@ export class FiltreComponent implements OnInit, GenreGiver {
 
   private genres: string[];
 
+  private minPrice = 0;
+
   private maxPrice = 100;
 
-  private minPrice = 0;
+  private minMinPrice = 0;
+
+  private maxMaxPrice = 100;
 
   /**
    * Singleton-like managed instance
@@ -35,12 +41,31 @@ export class FiltreComponent implements OnInit, GenreGiver {
     return FiltreComponent.myInstance;
   }
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private cookieService: CookieService, private service: LivreService) {
     FiltreComponent.myInstance = this;
   }
 
   ngOnInit() {
     this.notify();
+    if (this.getSavedCurrent() !== '') {
+      this.genreSelected = this.getSavedCurrent();
+    }
+
+    this.service.initConstantes().subscribe(
+      reponse => {
+        if (reponse.success) {
+          Globals.initData = reponse;
+          this.maxMaxPrice = Globals.initData.max;
+          this.maxPrice = Globals.initData.max;
+          this.minPrice = Globals.initData.min;
+          this.minMinPrice = Globals.initData.min;
+        }
+      }
+    );
+  }
+
+  private getSavedCurrent(): string {
+    return this.cookieService.get('currentGenre');
   }
 
   public setCurrentGenre(newGenre: string, updateSearch: boolean): void {
@@ -48,6 +73,7 @@ export class FiltreComponent implements OnInit, GenreGiver {
     if (updateSearch) {
       this.notifyOther();
     }
+    this.cookieService.set('currentGenre', this.genreSelected);
   }
 
   getMinPrice(): number {
@@ -106,6 +132,7 @@ export class FiltreComponent implements OnInit, GenreGiver {
 
   private setGenreSelected(genre): void {
     this.genreSelected = genre;
+    this.cookieService.set('currentGenre', this.genreSelected);
     this.notifyOther();
   }
 }

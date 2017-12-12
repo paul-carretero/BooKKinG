@@ -17,4 +17,6 @@ public interface CommandEntItf extends Serializable {
 
 	public float getTotal();
 
+	public String getAddress();
+
 }

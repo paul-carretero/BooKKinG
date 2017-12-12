@@ -7,7 +7,7 @@
     <div class="col-md-12 menu-container">
         <div class="range-price-wrapper" (mouseup)="onPriceChange(rangeSlider.value,true)" (mousemove)="onPriceChange(rangeSlider.value,false)">
             <span class="range-price-display">{{minPrice}} €</span>
-            <input #rangeSlider id="range-slider" type="range" multiple min="0" max="100" value="0,100" />
+            <input #rangeSlider id="range-slider" type="range" multiple min="{{minMinPrice}}" max="{{maxMaxPrice}}" value="{{minMinPrice}},{{maxMaxPrice}}" />
             <span class="range-price-display">{{maxPrice}} €</span>
         </div>
     </div>
@@ -26,11 +26,11 @@
         <div class="list-group">
             <ng-container *ngFor="let genre of genres;">
                 <span (click)="setGenreSelected(genre)">
-                    <a *ngIf="genre === genreSelected;else defaultTemplate" routerLink="/menu-recherche" class="list-group-item list-group-item-blue active">{{genre}}</a>
-                    <ng-template #defaultTemplate>
-                        <a routerLink="/menu-recherche" class="list-group-item list-group-item-blue">{{genre}}</a>
-                    </ng-template>
-                </span>
+          <a *ngIf="genre === genreSelected;else defaultTemplate" routerLink="/menu-recherche" class="list-group-item list-group-item-blue active">{{genre}}</a>
+          <ng-template #defaultTemplate>
+            <a routerLink="/menu-recherche" class="list-group-item list-group-item-blue">{{genre}}</a>
+          </ng-template>
+        </span>
             </ng-container>
         </div>
     </div>

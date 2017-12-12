@@ -309,11 +309,13 @@
         <table cellspacing="0" cellpadding="0" width="600" class="w320">
           <tr>
             <td class="header-lg">
-              Merci, votre commande est validée
+              Merci {{USER_NAME}}, votre commande est validée
             </td>
           </tr>
           <tr>
             <td class="free-text">
+            Votre commande numéro {{COMMAND_ID}} du {{COMMAND_DATE}} est validé et sera préparé rapidement par nos services.
+            	<br/>
               Vous devriez recevoir vos articles marqués "en stock" sous 48h
             </td>
           </tr>
@@ -340,7 +342,7 @@
                             <tr>
                               <td class="mini-block">
                                 <span class="header-sm">Adresse de livraison</span><br />
-                                {{SHIPPING_NAME}}<br /> {{SHIPPING_ADRESSE}}<br /><br />
+                                <br /> {{SHIPPING_ADRESSE}}<br /><br />
                               </td>
                             </tr>
                           </table>
@@ -352,17 +354,20 @@
                     <table cellpadding="0" cellspacing="0" width="100%">
                       <tr>
                         <td class="mini-block-padding">
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td class="mini-block-padding">
                           <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse:separate !important;">
                             <tr>
                               <td class="mini-block">
-                                <span class="header-sm">Date de la commande</span><br />
-                                {{COMMAND_DATE}} <br />
-                                <br />
-                                <span class="header-sm">Numéro de commande</span> <br />
-                                {{COMMAND_ID}}
+                                <span class="header-sm">Adresse de Facturation</span><br />
+                                {{INVOICE_NAME}}<br /> {{INVOICE_ADRESSE}}<br /><br />
                               </td>
                             </tr>
                           </table>
+                        </td>
+                      </tr>
+                    </table>
                         </td>
                       </tr>
                     </table>

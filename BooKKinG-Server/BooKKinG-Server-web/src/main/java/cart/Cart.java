@@ -43,6 +43,7 @@ public class Cart extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/plain;charset=UTF-8");
 		if(HttpHelper.checkAuth(request, response)) {
 			CartJsonResponse res = new CartJsonResponse();
 			this.cartBean.getCart(HttpHelper.getIdUser(request), res);
@@ -56,6 +57,7 @@ public class Cart extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/plain;charset=UTF-8");
 		if(HttpHelper.checkAuth(request, response)) {
 			CartJson data = (CartJson) AbstractJson.fromJson(request, CartJson.class);
 			if(HttpHelper.checkAndValidData(data, response)) {
@@ -74,6 +76,7 @@ public class Cart extends HttpServlet {
 	 */
 	@Override
 	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/plain;charset=UTF-8");
 		if(HttpHelper.checkAuth(request, response)) {
 			CartItemJson data = (CartItemJson) AbstractJson.fromJson(request, CartItemJson.class);
 			if(HttpHelper.checkAndValidData(data, response)) {
@@ -89,6 +92,7 @@ public class Cart extends HttpServlet {
 	 */
 	@Override
 	protected void doDelete(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/plain;charset=UTF-8");
 		if(HttpHelper.checkAuth(request, response)) {
 			this.cartBean.clearCart(HttpHelper.getIdUser(request));
 			response.getWriter().append(new GenericResponseJson(true).toString());

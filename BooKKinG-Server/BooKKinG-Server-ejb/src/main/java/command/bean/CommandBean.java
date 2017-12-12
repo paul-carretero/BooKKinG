@@ -2,7 +2,6 @@ package command.bean;
 
 import java.util.List;
 
-import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -11,7 +10,9 @@ import javax.transaction.Transactional;
 import cart.entity.CartDetailEntity;
 import command.dataItf.CommandJsonItf;
 import command.dataItf.CommandListJsonItf;
+import command.dataItf.CommandReqJsonItf;
 import command.entity.CmdDetailEntity;
+import command.entity.CommandEntItf;
 import command.entity.CommandEntity;
 import mailer.MailerBeanLocal;
 import shared.AbstractBean;
@@ -36,15 +37,37 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	 * Default constructor. 
 	 */
 	public CommandBean() {}
+	
+	private CommandEntity getCommand(final Integer idCmd) {
+		return this.manager.find(CommandEntity.class, idCmd);
+	}
+	
+	/**
+	 * @param command
+	 * @param response
+	 * @param showStock
+	 */
+	private static void populateResponse(final CommandEntItf command, final CommandJsonItf response, final boolean showStock) {
+		response.setDate(command.getDate());
+		response.setIdCmd(command.getIdCmd());
+		for(CmdDetailEntity cmdDetail : command.getCmdDetails()) {
+			if(showStock) {
+				// On a déjà retiré le stock pour la commande, on vérifie si on a plus que 0 en rajoutant le stock retiré...
+				boolean isInStock = (cmdDetail.getBook().getStock() + cmdDetail.getQuantity() >= 0);
+				response.addCmdEntry(cmdDetail.getBook(), cmdDetail.getPrice(), cmdDetail.getQuantity(), isInStock);
+			}
+			else {
+				response.addCmdEntry(cmdDetail.getBook(), cmdDetail.getPrice(), cmdDetail.getQuantity());
+			}
+		}
+	}
 
-	@Asynchronous
 	@Override
 	@Transactional(rollbackOn={Exception.class})
-	public void proceedCartCheckout(final Integer idUser) {
+	public void proceedCartCheckout(final Integer idUser, final CommandReqJsonItf data, final CommandJsonItf response) {
 		UserEntity u = this.user.getUser(idUser);
 		List<CartDetailEntity> currentCart = u.getCart();
-		CommandEntity cmd = new CommandEntity();
-		cmd.setDate();
+		CommandEntity cmd = new CommandEntity(data.getAddress());
 		cmd.setUser(u);
 		this.manager.persist(cmd);
 		for(CartDetailEntity cartEntry : currentCart) {
@@ -60,21 +83,14 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 		}
 		this.manager.flush();
 		this.mailer.sendConfirmationCommand(u, cmd);
-	}
-	
-	private CommandEntity getCommand(Integer idCmd) {
-		return this.manager.find(CommandEntity.class, idCmd);
+		populateResponse(cmd, response, true);
 	}
 
 	@Override
 	public void getCommand(final Integer idCmd, final CommandJsonItf response) {
 		CommandEntity command = getCommand(idCmd);
 		if(command != null) {
-			response.setDate(command.getDate());
-			response.setIdCmd(idCmd);
-			for(CmdDetailEntity cmdDetail : command.getCmdDetails()) {
-				response.addCmdEntry(cmdDetail.getBook(), cmdDetail.getPrice(), cmdDetail.getQuantity());
-			}
+			populateResponse(command, response, false);
 		}
 		else {
 			response.setSuccess(false);
@@ -94,7 +110,7 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	}
 
 	@Override
-	public boolean isCmdOfUser(Integer idUser, Integer idCmd) {
+	public boolean isCmdOfUser(final Integer idUser, final Integer idCmd) {
 		CommandEntity command = getCommand(idCmd);
 		return (command.getUser().getIdUser() == idUser) || command.getUser().isAdmin();
 	}

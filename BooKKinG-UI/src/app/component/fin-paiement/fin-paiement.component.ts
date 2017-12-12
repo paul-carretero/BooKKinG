@@ -14,28 +14,27 @@ import { ConnectionService } from '../../service/connection.service';
  */
 export class FinPaiementComponent implements OnInit {
 
-  constructor(private serviceAchat: AchatService, private servicePanier: PanierService, private serviceClient : ConnectionService) { }
+  constructor(private serviceAchat: AchatService, private servicePanier: PanierService, private serviceClient: ConnectionService) { }
 
 
   ngOnInit() {
     // on vide le panier
-    PanierComponent.contenuPanier =[];
-    PanierComponent.montantTotal = 0;
+    PanierComponent.contenuPanier = [];
     // A TESTER !!
     this.serviceAchat.enregistrerCommande().subscribe(
       reponse => {
-        console.log("enregistrement de la commande " + JSON.stringify(reponse));
+        console.log('enregistrement de la commande ' + JSON.stringify(reponse));
         // on supprime l'enregistrement en base de donnée
-        if(reponse.success){
-          this.servicePanier.viderPanier().subscribe( 
-            reponse => { 
-              console.log("panier vidé en base de donnée : " + reponse.success);
+        if (reponse.success) {
+          this.servicePanier.viderPanier().subscribe(
+            reponseVider => {
+              console.log('panier vidé en base de donnée : ' + reponseVider.success);
             }
-          );  
+          );
         }
       }
-    ); 
-    
+    );
+
   }
 
 }

@@ -14,6 +14,9 @@ public class CartItemJson  extends AbstractJson implements CartItemJsonItf, Vali
 	private Integer idBook;
 	
 	private Integer quantity;
+	
+	@SuppressWarnings("unused")
+	private boolean isInStock = true;
 
 	public CartItemJson() {
 		super();
@@ -23,10 +26,17 @@ public class CartItemJson  extends AbstractJson implements CartItemJsonItf, Vali
 	 * @param idBook
 	 * @param quantity
 	 */
-	public CartItemJson(int idBook, int quantity) {
+	public CartItemJson(final int idBook, final int quantity) {
 		super();
-		this.idBook = idBook;
-		this.quantity = quantity;
+		this.idBook		= idBook;
+		this.quantity 	= quantity;
+	}
+
+	public CartItemJson(final int idBook, final int quantity, final boolean isInStock) {
+		super();
+		this.idBook 	= idBook;
+		this.quantity 	= quantity;
+		this.isInStock 	= isInStock;
 	}
 
 	@Override
@@ -47,6 +57,5 @@ public class CartItemJson  extends AbstractJson implements CartItemJsonItf, Vali
 		if (this.quantity == null) {
 			this.quantity = 0;
 		}
-		System.out.println(this.quantity);
 	}
 }

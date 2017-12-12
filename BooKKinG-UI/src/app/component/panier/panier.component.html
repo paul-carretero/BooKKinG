@@ -1,7 +1,6 @@
 <h3>
-    Panier - total : {{montantTotal}} euros <input type="button" (click)="viderPanier()" value="Vider Panier">
+    Panier - total : {{staticGetTotalPrice()}} euros <input type="button" (click)="viderPanier()" value="Vider Panier">
 </h3>
-
 
 <div>
     <ul>
@@ -9,17 +8,7 @@
     </ul>
 </div>
 
-
-<!--
 <div>
-  <ul>
-    <li *ngFor="let livre of listeLivre;"> {{livre.genre}} / {{livre.title}} - {{livre.author}} : {{livre.price}} euros <input type="button" (click)="retirer(livre)" value="Retirer du panier"> </li>
-  </ul>
-</div>
--->
-
-
-<div>
-    total : {{montantGlobal}} euros
+    total : {{staticGetTotalPrice()}} euros
     <input type="button" (click)="payer()" value="Payer">
 </div>
