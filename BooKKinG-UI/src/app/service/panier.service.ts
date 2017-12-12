@@ -122,9 +122,16 @@ export class PanierService {
   }
 
   public recupererPanier(): Observable<ResponsePanier> {
-    console.log('dans recuperer panier');
-    const panier = this.http.get(this.urlPanier, { withCredentials: true })
-      .map(res => res.json());
+    const panier = this.http.get(this.urlPanier, { withCredentials: true }).map(res => res.json());
+    panier.subscribe(
+      reponse => {
+        if (reponse.success) {
+          this.contenuPanier = reponse.items;
+        } else {
+          alert(reponse);
+        }
+      }
+    );
     return panier;
 
   }
@@ -139,7 +146,6 @@ export class PanierService {
   }
 
   public miseAJourQuantiteLivre(updatedArticle: SimpleArticle): Observable<ResponsePanier> {
-    console.log('dans mise a jour d\'une quantité d\'un livre du panier');
     const panier = this.http.put(this.urlPanier, updatedArticle, { withCredentials: true })
       .map(res => res.json());
     return panier;

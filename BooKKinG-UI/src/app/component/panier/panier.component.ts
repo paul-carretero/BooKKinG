@@ -40,7 +40,7 @@ export class PanierComponent implements OnInit {
   /**
   * Méthode appelée pour démarrer le processus de paiement
   */
-  public payer() {
+  public payer(): void {
     console.log('dans payer du panier');
     PayerComponent.setEnCoursDePaiement(true);
     // si le client est connecté alors on peut démarrer le processus de paiement
