@@ -30,6 +30,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LivreService } from './service/livre.service';
 import { ArianeComponent } from './component/ariane/ariane.component';
 import { NavigationService } from './service/navigation.service';
+import { StockComponent } from './component/livre/stock/stock.component';
 
 
 
@@ -73,6 +74,7 @@ export const appRoutes: Routes = [
     IdentificationInscriptionComponent,
     HistoriqueCommandesComponent,
     ArianeComponent,
+    StockComponent,
   ],
   // modules que l'application va utiliser
   // ! penser à y mettre aussi les modules pour les formulaires

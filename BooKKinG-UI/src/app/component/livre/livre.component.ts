@@ -8,6 +8,8 @@ import { HeaderComponent } from '../header/header.component';
 import { FiltreComponent } from '../filtre/filtre.component';
 import { PanierService } from '../../service/panier.service';
 import { NavigationService } from '../../service/navigation.service';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-livre',
@@ -18,11 +20,13 @@ export class LivreComponent implements OnInit {
 
   private idLivre: number;
 
-  private sub: any;
+  private sub: Subscription;
 
   private livre: Livre;
 
   private nbLivre = 1;
+
+  updateQuantity: Subject<number> = new Subject();
 
   constructor(private route: ActivatedRoute, private service: LivreService, private servicePanier: PanierService,
     private navigationService: NavigationService) {
@@ -69,10 +73,11 @@ export class LivreComponent implements OnInit {
     this.servicePanier.ajouterLivrePanier(livre, this.nbLivre);
   }
 
-  public setNbLivre(nb: any) {
-    this.nbLivre = Number(nb.target.value);
+  public setNbLivre(nb: string) {
+    this.nbLivre = Number(nb);
+    if (this.nbLivre < 1) {
+      this.nbLivre = 1;
+    }
+    this.updateQuantity.next(this.nbLivre);
   }
-
-
-
 }

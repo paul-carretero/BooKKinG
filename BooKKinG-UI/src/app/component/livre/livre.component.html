@@ -19,9 +19,10 @@
         <div class="price-display">{{getTotalPrice()}} €</div>
         <div class="quantity">
             <label for="quantite">Quantité: </label>
-            <input id="quantite" type="number" (input)="setNbLivre($event)" value="{{nbLivre}}" min="1" max={{livre.stock}} />
+            <input id="quantite" type="number" (input)="setNbLivre($event.target.value)" value="{{nbLivre}}" min="1" />
         </div>
-        <br/>
+        <div class="clear"><br/></div>
+        <app-stock [updateQuantity]="updateQuantity" [stock]="livre.stock"></app-stock>
         <input type="button" (click)="ajouterAuPanier(livre)" value="Ajouter au panier" class="btn btn-block btn-success add-to-cart">
     </div>
     <div class="col-md-1"></div>

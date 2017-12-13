@@ -66,6 +66,7 @@ export class PanierService {
         // on augmente sa quantité
         this.contenuPanier[i].quantity += quantity;
         ajoute = true;
+        this.tryUpdateItemOnServer(livre.idBook, this.contenuPanier[i].quantity);
       }
       i++;
     }
@@ -73,10 +74,8 @@ export class PanierService {
     if (!ajoute) {
       // on l'ajoute dans le panier
       this.contenuPanier[i] = { book: livre, quantity: quantity, idBook: livre.idBook };
+      this.tryUpdateItemOnServer(livre.idBook, quantity);
     }
-
-    // si le client est connecté, on met aussi à jour le panier distant
-    this.tryUpdateItemOnServer(livre.idBook, quantity);
   }
 
   public setQuantity(idBook: number, quantity: number) {
@@ -127,8 +126,9 @@ export class PanierService {
       reponse => {
         if (reponse.success) {
           this.contenuPanier = reponse.items;
+          console.log(JSON.stringify(reponse.items));
         } else {
-          alert(reponse);
+          alert(reponse.message);
         }
       }
     );
@@ -155,8 +155,16 @@ export class PanierService {
   public viderPanier(): Observable<ResponsePanier> {
     this.contenuPanier = [];
     console.log('dans vider panier');
-    const panier = this.http.delete(this.urlPanier, { withCredentials: true })
-      .map(res => res.json());
+    const panier = this.http.delete(this.urlPanier, { withCredentials: true }).map(res => res.json());
+    if (this.connectionService.getConnectionStatus()) {
+      panier.subscribe(
+        reponse => {
+          if (!reponse.success) {
+            alert(reponse.message);
+          }
+        }
+      );
+    }
     return panier;
   }
 
