@@ -1,29 +1,39 @@
-<div>Livre</div>
+<br/>
 <div class="row">
-    <div class="col-lg-2">
-        <!--<img alt="Embedded Image" src="data:image/png;base64," {{livre.picture}} />-->
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <img alt="Embedded Image" class="main-picture" src="data:image/png;base64,{{livre.picture}}" />
     </div>
-    <div class="col-lg-5">
+    <div class="col-md-5">
         <h2>{{livre.title}}</h2>
-        <div>{{livre.type}}</div>
-        <div>{{livre.genre}}</div>
-    </div>
-    <div class="col-lg-3 boite">
-        <div>{{livre.price}} €</div>
         <div>
-            <label>Quantité</label>
-            <input type="number" (input)="setNbLivre($event)" value="nbLivre" min="0" max={{livre.stock}} />
+            <ul>
+                <li>De: <strong>{{livre.author}}</strong></li>
+                <li>Type: <strong>{{livre.type}}</strong></li>
+                <li>Genre: <strong>{{livre.genre}}</strong></li>
+            </ul>
         </div>
-        <input type="button" (click)="ajouterAuPanier(livre)" value="Ajouter au panier">
+        <div></div>
     </div>
+    <div class="col-md-3 boite">
+        <div class="price-display">{{getTotalPrice()}} €</div>
+        <div class="quantity">
+            <label for="quantite">Quantité: </label>
+            <input id="quantite" type="number" (input)="setNbLivre($event)" value="{{nbLivre}}" min="1" max={{livre.stock}} />
+        </div>
+        <br/>
+        <input type="button" (click)="ajouterAuPanier(livre)" value="Ajouter au panier" class="btn btn-block btn-success add-to-cart">
+    </div>
+    <div class="col-md-1"></div>
 </div>
+<br/>
 <div class="row">
-    <h2>Description</h2>
-    <p class="boite">
-        {{livre.summary}}
-    </p>
-</div>
-
-<div class="row">
-        <input type="button" (click)="retourPageRecherche()" value="<< Précédent" />        
+    <div class="col-md-1"></div>
+    <div class="col-md-10 boite">
+        <h2>Description</h2>
+        <p class="summary">
+            {{livre.summary}}
+        </p>
+    </div>
+    <div class="col-md-1"></div>
 </div>

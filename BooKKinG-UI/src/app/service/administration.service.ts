@@ -3,27 +3,21 @@ import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Globals } from '../globals';
+import { Reponse } from '../model/reponse';
 
 @Injectable()
 export class AdministrationService {
-  urlLivre = `http://`+Globals.host+`/BooKKinG-Server-web/Book` ;
-  
 
-  constructor(private http : Http) { }
+  urlLivre = `http://` + Globals.host + `/BooKKinG-Server-web/Book`;
 
+  constructor(private http: Http) { }
 
-  
-  public ajouterLivre(livre : Livre) : Observable<Reponse>{
-    console.log("dans ajouter un livre");
-    console.log("livre à ajouter : " + livre.title);
-    let reponse = this.http.post(this.urlLivre, livre, {withCredentials: true})
+  public ajouterLivre(livre: Livre): Observable<Reponse> {
+    console.log('dans ajouter un livre');
+    console.log('livre à ajouter : ' + livre.title);
+    const reponse = this.http.post(this.urlLivre, livre, { withCredentials: true })
       .map(res => res.json());
     return reponse;
   }
 
-}
-
-export class Reponse {
-  success : boolean;
-  message : string;
 }

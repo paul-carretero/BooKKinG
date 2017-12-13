@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuRechercheComponent } from '../menu-recherche/menu-recherche.component';
-import { CookieService } from 'ngx-cookie-service';
 import { Globals } from '../../globals';
-import { RouterLink } from '@angular/router';
-import { PanierComponent } from '../panier/panier.component';
-import { ConnectionComponent } from '../../composant/connection/connection.component';
-import { FiltreComponent } from '../filtre/filtre.component';
-import { Notifiable } from '../../notifiable';
+import { RouterLink, Router } from '@angular/router';
+import { ConnectionService } from '../../service/connection.service';
+import { PanierService } from '../../service/panier.service';
+import { NavigationService } from '../../service/navigation.service';
+import { RechercheService } from '../../service/recherche.service';
 
 @Component({
   selector: 'app-header',
@@ -15,63 +14,42 @@ import { Notifiable } from '../../notifiable';
 })
 export class HeaderComponent implements OnInit {
 
-  private static current = 'ROMAN';
-  private static filtre: Notifiable = null;
-  private static recherche: Notifiable = null;
-  private displayType = new Map<string, string>();
-  private typeLivres: string[] = Globals.typeLivres;
+  private resetOnChange = '';
 
-  public static getCurrentType(): string {
-    return HeaderComponent.current;
+  constructor(private router: Router, private connectionService: ConnectionService,
+    private panierService: PanierService, private navigationService: NavigationService,
+    private rechercheService: RechercheService) { }
+
+  ngOnInit() { }
+
+  private displayableType(type: string): string {
+    return Globals.getDisplayableName(type);
   }
 
-  public static rechercheSubscribe(o: Notifiable) {
-    HeaderComponent.recherche = o;
-  }
-
-  static filtreSubscribe(o: Notifiable): any {
-    HeaderComponent.filtre = o;
-  }
-
-  constructor(private cookieService: CookieService) {}
-
-  ngOnInit() {
-    console.log(this.getSavedCurrent());
-    if ( this.getSavedCurrent() !== '') {
-      HeaderComponent.current = this.getSavedCurrent();
+  private setCurrentType(type: string): void {
+    this.resetOnChange = '';
+    this.rechercheService.setCurrentSearch('');
+    if (Globals.typeLivre.includes(type)) {
+      this.navigationService.setCurrentType(type);
     }
-    this.displayType.set('ROMAN', 'Romans');
-    this.displayType.set('MAGAZINE', 'Magazines');
-    this.displayType.set('MANGA', 'Mangas');
-    this.displayType.set('BD', 'BDs');
-    this.displayType.set('MANUEL', 'Manuels');
-    this.displayType.set('ESSAI', 'Essais');
   }
 
-  public displayableType(type: string): string {
-    return this.displayType.get(type);
-  }
-
-  private getSavedCurrent(): string {
-    return this.cookieService.get('current');
-  }
-
-  private isCurrent(type: string): boolean {
-    return type === HeaderComponent.current;
-  }
-
-  get staticCurrent(): string{
-    return HeaderComponent.current;
-  }
-
-  public setCurrent(type: string): void {
-    HeaderComponent.current = type;
-    this.cookieService.set('current', HeaderComponent.current);
-    if (HeaderComponent.filtre != null) {
-      HeaderComponent.filtre.notify();
+  private setCurrentOther(other: string): void {
+    this.resetOnChange = '';
+    this.rechercheService.setCurrentSearch('');
+    if (Globals.otherNavPage.includes(other)) {
+      this.navigationService.setCurrentOther(other);
     }
-    if (HeaderComponent.recherche != null) {
-      HeaderComponent.recherche.notify();
+  }
+
+  private search(str: string): void {
+    this.resetOnChange = str;
+    if (str.length > 2) {
+      this.navigationService.setCurrentType('ANY');
+      this.router.navigate(['/menu-recherche']);
+      this.rechercheService.setCurrentSearch(str);
+    } else {
+      this.rechercheService.setCurrentSearch('');
     }
   }
 
@@ -79,19 +57,31 @@ export class HeaderComponent implements OnInit {
    * Delegate methodes
    */
 
-  public getNumberOfCartItem(): number {
-    return PanierComponent.getNumberOfItems();
+  private deconnexion(): void {
+    this.connectionService.deconnexion();
   }
 
-  public getTotalPriceOfCart(): number {
-    return PanierComponent.getTotalPrice();
-  }
-
-  public getIdentity(): string {
-    if (ConnectionComponent.getConnectionStatus()) {
-      return ConnectionComponent.getUser().name;
+  get identity(): string {
+    if (this.connectionService.getConnectionStatus()) {
+      return this.connectionService.getCurrentUser().name;
     } else {
-      return 'Login/Register';
+      return null;
     }
+  }
+
+  get numberOfCartItem(): number {
+    return this.panierService.getNumberOfItems();
+  }
+
+  get totalPriceOfCart(): number {
+    return this.panierService.getTotalPrice();
+  }
+
+  get typeLivres(): string[] {
+    return Globals.typeLivre;
+  }
+
+  get currentType(): string {
+    return this.navigationService.getCurrentType();
   }
 }

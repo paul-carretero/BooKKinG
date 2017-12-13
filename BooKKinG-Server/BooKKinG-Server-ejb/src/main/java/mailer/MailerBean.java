@@ -1,10 +1,8 @@
 package mailer;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.util.Properties;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -135,8 +133,9 @@ public class MailerBean implements MailerBeanLocal {
 		String shipping = "3";
 		String total = String.valueOf(cmd.getTotal() + 3);
 		
-		template = template.replaceFirst(Pattern.quote("{{SHIPPING_NAME}}"), aUser.getName());
-		template = template.replaceFirst(Pattern.quote("{{SHIPPING_ADRESSE}}"), aUser.getAddress());
+		template = template.replaceFirst(Pattern.quote("{{USER_NAME}}"), aUser.getName());
+		template = template.replaceFirst(Pattern.quote("{{SHIPPING_ADRESSE}}"), cmd.getAddress());
+		template = template.replaceFirst(Pattern.quote("{{INVOICE_ADRESSE}}"), cmd.getAddress());
 		template = template.replaceFirst(Pattern.quote("{{COMMAND_DATE}}"), cmd.getDate());
 		template = template.replaceFirst(Pattern.quote("{{COMMAND_ID}}"), cmd.getIdCmd().toString());
 		template = template.replaceFirst(Pattern.quote("{{SUB_TOTAL}}"), subtotal);

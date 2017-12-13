@@ -1,0 +1,20 @@
+<div class="ariane-wrapper">
+    <a (click)="onClickHome()" routerLink="/">
+        <fa name="home "></fa>
+    </a>
+    <ng-container *ngIf="typeName != null && typeName !== 'ANY' ">
+        <span (click)="onClickType()">
+            <fa name="caret-right ">
+            </fa><a routerLink="/menu-recherche">{{getDisplayable(typeName)}}</a>
+        </span>
+    </ng-container>
+    <ng-container *ngIf="genreName != null && genreName !== 'ANY'">
+        <span (click)="onClickGenre()">
+            <fa name="caret-right ">
+            </fa><a routerLink="/menu-recherche">{{getDisplayable(genreName)}}</a>
+        </span>
+    </ng-container>
+    <ng-container *ngIf="currentEnd != null && currentEnd != 'HOME' ">
+        <fa name="caret-right "></fa>{{getDisplayable(currentEnd)}}
+    </ng-container>
+</div>

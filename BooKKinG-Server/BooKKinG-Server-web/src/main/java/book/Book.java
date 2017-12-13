@@ -51,6 +51,7 @@ public class Book extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/plain;charset=UTF-8");
 		String stringReq = HttpHelper.extractDataFromGet(NAME, request.getRequestURI());
 		if(stringReq.matches("^\\d+$")) {
 			BookEntItf requestedBook = this.bookBean.getBook(Integer.valueOf(stringReq));
@@ -72,6 +73,7 @@ public class Book extends HttpServlet {
 	 */
 	@Override
 	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/plain;charset=UTF-8");
 		BookSearchJson data = (BookSearchJson) AbstractJson.fromJson(request, BookSearchJson.class);
 		if(HttpHelper.checkAndValidData(data, response)) {
 			BookListJsonItf res = new BookListJson();
@@ -86,6 +88,7 @@ public class Book extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/plain;charset=UTF-8");
 		if(HttpHelper.checkAuth(request, response)) {
 			BookPostJson data = (BookPostJson) AbstractJson.fromJson(request, BookPostJson.class);
 			if(HttpHelper.checkAndValidData(data, response)) {

@@ -64,4 +64,15 @@
     <url-pattern>/Cart/*</url-pattern>
     <url-pattern>/Cart</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Init</display-name>
+    <servlet-name>Init</servlet-name>
+    <servlet-class>book.Init</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Init</servlet-name>
+    <url-pattern>/Init</url-pattern>
+    <url-pattern>/Init/*</url-pattern>
+  </servlet-mapping>
 </web-app>

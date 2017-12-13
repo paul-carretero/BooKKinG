@@ -38,6 +38,15 @@ public class CartBean extends AbstractBean implements CartBeanLocal {
     public CartBean() {}
 
 	@Override
+	public void synchClearCart(final Integer idUser) {
+		List<CartDetailEntity> toDelete = this.user.getUser(idUser).getCart();
+		
+		for(CartDetailEntity entry : toDelete) {
+			this.manager.remove(entry);
+		}
+	}
+	
+	@Override
 	@Asynchronous
 	public void clearCart(final Integer idUser) {
 		List<CartDetailEntity> toDelete = this.user.getUser(idUser).getCart();

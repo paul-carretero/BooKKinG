@@ -78,3 +78,17 @@
     height: auto;
     width: 100%;
 }
+
+.not-really-a-button {
+    margin-bottom: 1em;
+}
+
+.not-really-a-button:hover {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    cursor: default;
+}
+
+.not-really-a-button:active {
+    box-shadow: none;
+}

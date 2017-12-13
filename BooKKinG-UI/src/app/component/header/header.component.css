@@ -1,16 +1,9 @@
-.cart-wrapper {
-    background-image: url("/assets/cart.png");
-    background-repeat: no-repeat;
-    background-size: 100px 100px;
-    display: block;
-    width: 100px;
-    height: 100px;
-    text-align: center;
-    padding: 20px;
+.home-link {
+    cursor: pointer;
 }
 
-.cart-wrapper span {
-    color: black;
+.block-login {
+    padding: 10px 20px;
 }
 
 #header_wrapper {
@@ -24,12 +17,6 @@
     width: auto;
     height: 60px!important;
     margin-top: 25px;
-}
-
-#header_wrapper #menu_wrapper {
-    margin-left: auto;
-    margin-right: auto;
-    width: 800px;
 }
 
 #search_wrapper {

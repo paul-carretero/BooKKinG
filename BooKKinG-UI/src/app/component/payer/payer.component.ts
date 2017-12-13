@@ -1,10 +1,11 @@
 import { Router } from '@angular/router';
 import { LivraisonComponent } from './../livraison/livraison.component';
-import { ConnectionComponent } from './../../composant/connection/connection.component';
-import { PanierComponent, article } from './../panier/panier.component';
+import { ConnectionComponent } from './../../component/connection/connection.component';
 import { Component, OnInit } from '@angular/core';
 import { Client } from '../../model/client';
 import { Livre } from '../../model/livre';
+import { Article } from '../../model/article';
+import { PanierService } from '../../service/panier.service';
 
 @Component({
   selector: 'app-payer',
@@ -12,34 +13,41 @@ import { Livre } from '../../model/livre';
   styleUrls: ['./payer.component.css']
 })
 export class PayerComponent implements OnInit {
-  static enCoursDePaiement : boolean;
 
-  client : Client;
+  private static enCoursDePaiement: boolean;
+  private client: Client;
+  private listeLivre: Article[];
+  private total: number;
+  private mode_paiment:boolean;
 
-  listeLivre : article[];
-  total : number;
+  public static setEnCoursDePaiement(b: boolean) {
+    PayerComponent.enCoursDePaiement = b;
+  }
 
-  constructor(private router : Router) { }
+  constructor(private router: Router, private panierService: PanierService) { }
 
   ngOnInit() {
-    PayerComponent.enCoursDePaiement = true; 
-    console.log("init de payer");
-    this.listeLivre = PanierComponent.contenuPanier;
-    this.total = PanierComponent.montantTotal + LivraisonComponent.prixLivraison;
-    this.client = ConnectionComponent.client;
+    PayerComponent.enCoursDePaiement = true;
+    console.log('init de payer');
+    this.listeLivre = this.panierService.getContenuPanier();
+    this.total = this.panierService.getTotalPrice() + LivraisonComponent.prixLivraison;
+    this.mode_paiment =false;
   }
 
-  
-  public paiementPayPal(){
-    console.log("payer avec paypal");
-    PayerComponent.enCoursDePaiement = false;
-    this.router.navigate(['finPaiement']);
+  public setModepaiment(b:boolean){
+    this.mode_paiment=b;
   }
 
-  public paiementCB(){
-    console.log("payer avec Carte Bancaire");
-    PayerComponent.enCoursDePaiement = false;
-    this.router.navigate(['finPaiement']);
+  public validerPaiement()
+  {
+    if(this.mode_paiment == false){
+      console.log('payer avec paypal');
+      PayerComponent.enCoursDePaiement = false;
+      this.router.navigate(['finPaiement']);
+    }else{
+      console.log('payer avec cartebancaire');
+      PayerComponent.enCoursDePaiement = false;
+      this.router.navigate(['finPaiement']);
+    }
   }
-
 }

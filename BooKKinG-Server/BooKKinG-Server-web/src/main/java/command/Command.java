@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import cart.bean.CartBeanLocal;
 import command.bean.CommandBeanLocal;
+import command.request.CommandReqJson;
 import command.response.CommandJson;
 import command.response.CommandListJson;
+import shared.AbstractJson;
 import shared.GenericResponseJson;
 import shared.HttpHelper;
 
@@ -46,6 +48,7 @@ public class Command extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/plain;charset=UTF-8");
 		if(HttpHelper.checkAuth(request, response)) {
 			String stringReq = HttpHelper.extractDataFromGet(NAME, request.getRequestURI());
 			if(stringReq.length() == 0) {
@@ -73,13 +76,18 @@ public class Command extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/plain;charset=UTF-8");
 		if(HttpHelper.checkAuth(request, response)) {
-			if(this.cartBean.checkNoEmpty(HttpHelper.getIdUser(request))) {
-				this.commandBean.proceedCartCheckout(HttpHelper.getIdUser(request));
-				response.getWriter().append(new GenericResponseJson(true).toString());
-			}
-			else {
-				response.getWriter().append(new GenericResponseJson(false,"Votre panier est vide").toString());
+			CommandReqJson data = (CommandReqJson) AbstractJson.fromJson(request, CommandReqJson.class);
+			if(HttpHelper.checkAndValidData(data, response)) {
+				if(this.cartBean.checkNoEmpty(HttpHelper.getIdUser(request))) {
+					CommandJson newCmd = new CommandJson();
+					this.commandBean.proceedCartCheckout(HttpHelper.getIdUser(request),data, newCmd);
+					response.getWriter().append(newCmd.toString());
+				}
+				else {
+					response.getWriter().append(new GenericResponseJson(false,"Votre panier est vide").toString());
+				}
 			}
 		}
 	}

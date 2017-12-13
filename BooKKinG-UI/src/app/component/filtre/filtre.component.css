@@ -1,3 +1,26 @@
+#range-slider {
+    width: 180px;
+}
+
+.menu-container {
+    text-align: center;
+    padding-top: 1em;
+    background-color: rgba(255, 255, 255, 0.5);
+    max-height: 25em;
+    overflow-y: auto;
+}
+
+.menu-header {
+    font-size: 1.5em;
+    text-align: center;
+    background: linear-gradient(to bottom, rgba(226, 226, 226, 1) 0%, rgba(219, 219, 219, 0.9) 50%, rgba(209, 209, 209, 0.8) 51%, rgba(254, 254, 254, 0.7) 100%);
+}
+
+.range-price-display {
+    color: red;
+    font-weight: bold;
+}
+
 #table {
     border: 2px solid green;
 }
@@ -152,47 +175,6 @@ a.list-group-item.active:focus .list-group-item-text {
 }
 
 
-/*List Group Green*/
-
-.list-group-item-green {
-    color: #fff;
-    background-color: #00aa44;
-    border-color: #00aa44;
-}
-
-a.list-group-item-green {
-    color: #fff;
-}
-
-a.list-group-item-green .list-group-item-heading {
-    color: inherit;
-}
-
-a.list-group-item-green:hover,
-a.list-group-item-green:focus {
-    color: #fff;
-    background-color: #00993d;
-    border-right: 10px solid #00ff00;
-    border-top: 1px solid #00993d;
-}
-
-a.list-group-item-green.active,
-a.list-group-item-green.active:hover,
-a.list-group-item-green.active:focus {
-    color: #fff;
-    background-color: #00993d;
-    border-color: #00aa44;
-}
-
-a.list-group-item-green.active:hover,
-a.list-group-item-green.active:focus {
-    color: #fff;
-    background-color: #00993d;
-    border-right: 10px solid #00ff00;
-    border-top: 1px solid #00993d;
-}
-
-
 /*List Group Item Blue*/
 
 .list-group-item-blue {
@@ -233,91 +215,6 @@ a.list-group-item-blue.active:focus {
     background-color: #337ab7;
     border-right: 10px solid #00CCFF;
     border-top: 2px solid #337ab7;
-}
-
-
-/*List Group Item Orange*/
-
-.list-group-item-orange {
-    color: #fff;
-    background-color: #ff6600;
-    border-color: #ff6600;
-}
-
-a.list-group-item-orange {
-    color: #fff;
-}
-
-a.list-group-item-orange .list-group-item-heading {
-    color: inherit;
-}
-
-a.list-group-item-orange:hover,
-a.list-group-item-orange:focus {
-    color: #fff;
-    background-color: #E65C00;
-    border-right: 10px solid #FF9900;
-    border-top: 2px solid #E65C00;
-}
-
-a.list-group-item-orange.active,
-a.list-group-item-orange.active:hover,
-a.list-group-item-orange.active:focus {
-    color: #fff;
-    text-decoration: none;
-    background-color: #E65C00;
-    border-color: #E65C00;
-}
-
-a.list-group-item-orange.active:hover,
-a.list-group-item-orange.active:focus {
-    color: #fff;
-    text-decoration: none;
-    background-color: #E65C00;
-    border-right: 10px solid #FF9900;
-    border-top: 2px solid #E65C00;
-}
-
-
-/*List Group Item Orange*/
-
-.list-group-item-red {
-    color: #fff;
-    background-color: #ff0000;
-    border-color: #ff0000;
-}
-
-a.list-group-item-red {
-    color: #fff;
-}
-
-a.list-group-item-red .list-group-item-heading {
-    color: inherit;
-}
-
-a.list-group-item-red:hover,
-a.list-group-item-red:focus {
-    color: #fff;
-    background-color: #CC0000;
-    border-right: 10px solid #FF1919;
-    border-top: 2px solid #CC0000;
-}
-
-a.list-group-item-red.active,
-a.list-group-item-red.active:hover,
-a.list-group-item-red.active:focus {
-    color: #fff;
-    text-decoration: none;
-    background-color: #CC0000;
-    border-color: #CC0000;
-}
-
-a.list-group-item-red.active:hover,
-a.list-group-item-red.active:focus {
-    color: #fff;
-    text-decoration: none;
-    background-color: #CC0000;
-    border-right: 10px solid #FF1919;
 }
 
 .list-group-item-heading {

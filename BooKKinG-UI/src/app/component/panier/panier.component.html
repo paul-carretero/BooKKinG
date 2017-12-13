@@ -1,29 +1,18 @@
 <h3>
-    Panier - total : {{montantTotal}} euros <input type="button" (click)="viderPanier()" value="Vider Panier">
+    Panier - total : {{montantGlobal}} euros <input type="button" (click)="viderPanier()" value="Vider Panier">
 </h3>
-
 
 <div>
     <ul>
-        <li *ngFor="let article of contenuPanier;"> {{article.book.genre}} / {{article.book.title}} - {{article.book.author}} : {{article.book.price}} euros / quantite : {{article.quantity}} <input type="number" (input)="set(article.book, $event)" value="{{article.quantity}}" min="0" max="{{article.book.stock}}">            <input type="button" (click)="supprimer(article.idBook)" value="Retirer du panier"><input type="button" (click)="detailLivre(article.book)" value="Détail"></li>
+        <li *ngFor="let article of contenuPanier;"> {{article.book.genre}} / {{article.book.title}} - {{article.book.author}} : {{article.book.price}} euros / quantite : {{article.quantity}} <input type="number" (input)="setQuantity(article.book, $event)" value="{{article.quantity}}" min="0" max="{{article.book.stock}}">            <input type="button" (click)="supprimer(article.idBook)" value="Retirer du panier"><input type="button" (click)="detailLivre(article.book)" value="Détail"></li>
     </ul>
 </div>
-
-
-<!--
-<div>
-  <ul>
-    <li *ngFor="let livre of listeLivre;"> {{livre.genre}} / {{livre.title}} - {{livre.author}} : {{livre.price}} euros <input type="button" (click)="retirer(livre)" value="Retirer du panier"> </li>
-  </ul>
-</div>
--->
-
 
 <div>
     total : {{montantGlobal}} euros
     <input type="button" (click)="payer()" value="Payer">
 </div>
 
-<div>
+<!--div>
     <input type="button" (click)="retourPageRecherche()" value="<< Précédent" />        
-</div>
+</div-->

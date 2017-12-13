@@ -5,7 +5,6 @@ import javax.persistence.*;
 
 import book.entity.BookEntItf;
 import book.entity.BookEntity;
-import shared.Helper;
 
 /**
  * Entity implementation class for Entity: CmdDetails

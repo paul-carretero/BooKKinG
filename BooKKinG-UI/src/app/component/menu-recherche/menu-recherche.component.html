@@ -10,18 +10,17 @@
                         <div>{{livre.title}}</div>
                     </div>
                     <div class="col-md-4">
-                        <input type="button" (click)="ajouterAuPanier(livre)" value="Ajouter au panier" class="btn btn-lg btn-block btn-success">
+                        <span class="btn btn-block btn-danger not-really-a-button">{{livre.price.toFixed(2)}} €</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-8">
                         <div>{{getSummarizedSummary(livre)}}</div>
                     </div>
-                </div>
-                <div class="row">
-                        <div class="col-md-8 boite">
-                                <a (click)="voirDetailLivre(livre)" style="color: black;" > Voir les Détails</a>
-                        </div>
+                    <div class="col-md-4">
+                        <input type="button" (click)="ajouterAuPanier(livre)" value="Ajouter au panier" class="btn btn-block btn-success">
+                        <input type="button" routerLink="/livre/{{livre.idBook}}" value="Voir les Détails" class="btn btn-block btn-success">
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router/src/directives/router_link';
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -7,64 +8,70 @@ import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MenuRechercheComponent } from '../menu-recherche/menu-recherche.component';
 import { HeaderComponent } from '../header/header.component';
 import { Globals } from '../../globals';
-import { Notifiable } from '../../notifiable';
+import { LivreService } from '../../service/livre.service';
+import { NavigationService } from '../../service/navigation.service';
+import { RechercheService } from '../../service/recherche.service';
 
 @Component({
   selector: 'app-filtre',
   templateUrl: './filtre.component.html',
-  styleUrls: ['./filtre.component.css']
+  styleUrls: ['./filtre.component.css'],
 })
-export class FiltreComponent implements OnInit, Notifiable {
 
-  static filtre: Notifiable = null;
+export class FiltreComponent implements OnInit {
 
-  private static genreSelected = 'ANY';
+  private minPrice = 0;
 
-  private genres: string[];
+  private maxPrice = 100;
 
-  public static getCurrentGenre(): string {
-    return FiltreComponent.genreSelected;
+  private minMinPrice = 0;
+
+  private maxMaxPrice = 100;
+
+  constructor(private router: Router, private service: LivreService, private navigationService: NavigationService,
+    private rechercheService: RechercheService) {
+    this.service.initConstantes().subscribe(
+      reponse => {
+        if (reponse.success) {
+          this.maxMaxPrice = reponse.max;
+          this.maxPrice = reponse.max;
+          this.minPrice = reponse.min;
+          this.minMinPrice = reponse.min;
+        }
+      }
+    );
   }
 
-  public static rechercheSubscribe(o: Notifiable): void {
-    FiltreComponent.filtre = o;
-  }
+  ngOnInit() { }
 
-  public notify(): void {
-    FiltreComponent.genreSelected = 'ANY';
-    switch (HeaderComponent.getCurrentType()) {
-      case 'ROMAN':
-        this.genres = Globals.genreRoman;
-        break;
-      case 'MAGAZINE':
-        this.genres = Globals.genreMagazine;
-        break;
-      case 'MANGA':
-        this.genres = Globals.genreManga;
-        break;
-      case 'BD':
-        this.genres = Globals.genreBD;
-        break;
-      case 'MANUEL':
-        this.genres = Globals.genreManuel;
-        break;
-      case 'ESSAI':
-        this.genres = Globals.genreEssais;
-        break;
+  get genres(): string[] {
+    const currentType = this.navigationService.getCurrentType();
+    if (Globals.typeLivre.includes(currentType)) {
+      return Globals.genreLivres.get(currentType);
+    } else {
+      return Globals.genreLivres.get('ANY');
     }
   }
 
-  constructor() {}
-
-  ngOnInit() {
-    HeaderComponent.filtreSubscribe(this);
-    this.notify();
+  get currentGenre(): string {
+    return this.navigationService.getCurrentGenre();
   }
 
-  private setGenreSelected(genre): void {
-    FiltreComponent.genreSelected = genre;
-    if (FiltreComponent != null) {
-      FiltreComponent.filtre.notify();
+  private displayableGenre(genre: string): string {
+    return Globals.getDisplayableName(genre);
+  }
+
+  private setCurrentGenre(newGenre: string): void {
+    this.navigationService.setCurrentGenre(newGenre);
+  }
+
+  private onPriceChange(raw: string, update: boolean): void {
+    const tab = raw.split(',');
+    this.minPrice = Number(tab[0]);
+    this.maxPrice = Number(tab[1]);
+    if (update) {
+      this.rechercheService.setMinPrice(Number(tab[0]));
+      this.rechercheService.setMaxPrice(Number(tab[1]));
     }
   }
 }

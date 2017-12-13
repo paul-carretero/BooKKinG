@@ -15,4 +15,6 @@ public interface CartBeanLocal {
 	public void getCart(Integer idUser, CartJsonResponseItf response);
 
 	public boolean checkNoEmpty(Integer idUser);
+
+	public void synchClearCart(Integer idUser);
 }

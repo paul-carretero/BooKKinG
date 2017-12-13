@@ -1,8 +1,6 @@
 package command.entity;
 
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -33,6 +31,9 @@ public class CommandEntity implements CommandEntItf {
 	@Column(name="date")
 	private Date date;
 	
+	@Column(name="address")
+	private String address;
+	
 	@OneToMany(mappedBy="command", fetch=FetchType.LAZY, orphanRemoval=true, cascade=CascadeType.ALL)
 	private List<CmdDetailEntity> cmdDetails;
 	
@@ -46,6 +47,13 @@ public class CommandEntity implements CommandEntItf {
 		this.cmdDetails = new ArrayList<>();
 	}
 
+	public CommandEntity(final String address) {
+		super();
+		this.cmdDetails = new ArrayList<>();
+		this.address	= address;
+		this.date 		= new Date(System.currentTimeMillis());
+	}
+	
 	@Override
 	public Integer getIdCmd() {
 		return this.idCmd;
@@ -67,6 +75,20 @@ public class CommandEntity implements CommandEntItf {
 	public List<CmdDetailEntity> getCmdDetails() {
 		return this.cmdDetails;
 	}
+	
+	@Override
+	public String getAddress() {
+		return this.address;
+	}
+	
+	@Override
+	public float getTotal() {
+		float res = 0f;
+		for(CmdDetailEntity cmdEntry : this.cmdDetails) {
+			res += cmdEntry.getPrice() * cmdEntry.getQuantity();
+		}
+		return res;
+	}
 
 	public void setIdCmd(Integer idCmd) {
 		this.idCmd = idCmd;
@@ -76,21 +98,8 @@ public class CommandEntity implements CommandEntItf {
 		this.user = user;
 	}
 
-	public void setDate() {
-		this.date = new Date(System.currentTimeMillis());
-	}
-
 	public void setCmdDetails(List<CmdDetailEntity> cmdDetails) {
 		this.cmdDetails = cmdDetails;
-	}
-
-	@Override
-	public float getTotal() {
-		float res = 0f;
-		for(CmdDetailEntity cmdEntry : this.cmdDetails) {
-			res += cmdEntry.getPrice() * cmdEntry.getQuantity();
-		}
-		return res;
 	}
 
 	public void addEntry(CmdDetailEntity cmdDetail) {

@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Livre } from '../../model/livre';
 import { PanierComponent } from '../panier/panier.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { LivreService } from './../../service/livre.service';
+import { ArianeComponent } from '../ariane/ariane.component';
+import { HeaderComponent } from '../header/header.component';
+import { FiltreComponent } from '../filtre/filtre.component';
+import { PanierService } from '../../service/panier.service';
+import { NavigationService } from '../../service/navigation.service';
 
 @Component({
   selector: 'app-livre',
@@ -10,46 +16,63 @@ import { Router } from '@angular/router';
 })
 export class LivreComponent implements OnInit {
 
-  static staticLivre: Livre = {
-    title:"L'art d'avoir toujours raison",
-    author:"Arthur",
-    genre: "Philo",
-    type: "Roman",
-    price: 20,
-    stock: 5,
-    summary: "blabla bla blabla. chfdohbifdhgiofs .reghuivo suiovhrtuioghigohvbuior \ngiczegfizgeifgufgizgfuie"
-  };
+  private idLivre: number;
 
-  livre: Livre;
+  private sub: any;
 
-  nbLivre: number = 1;
+  private livre: Livre;
 
-  constructor(private router : Router) { }
+  private nbLivre = 1;
 
-  ngOnInit() {
-    this.livre = LivreComponent.staticLivre;
+  constructor(private route: ActivatedRoute, private service: LivreService, private servicePanier: PanierService,
+    private navigationService: NavigationService) {
+    this.livre = {
+      title: 'loading',
+      author: 'loading',
+      genre: 'loading',
+      type: 'loading',
+      price: 0,
+      stock: 0,
+      summary: 'loading'
+    };
   }
 
-  public static ajouterAuLivreDetaille(livre: Livre){
-    LivreComponent.staticLivre = livre;
+  ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      this.idLivre = Number(params['id']);
+      this.service.rechercherLivre(this.idLivre).subscribe(
+        reponse => {
+          if (reponse.success) {
+            this.livre = reponse;
+            this.navigationService.setFromLivre(this.livre);
+          }
+        }
+      );
+    });
+  }
+
+  private getTotalPrice(): string {
+    return (this.livre.price * this.nbLivre).toFixed(2);
+  }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   /**
     * Méthode demandant l'ajout d'un livre au panier
     * @param livre livre à ajouter au panier
     */
-   public ajouterAuPanier(livre : Livre) {
-    console.log("livre : " + livre.title + " à ajouter au panier");
-    PanierComponent.ajouterLivrePanier(livre, this.nbLivre);
-   }
-
-   public setNbLivre(nb: any) {
-      this.nbLivre = nb.target.value;
-   }
-
-
-  public retourPageRecherche() {
-    this.router.navigate(['menu-recherche']);
+  public ajouterAuPanier(livre: Livre) {
+    console.log('livre : ' + livre.title + ' à ajouter au panier');
+    this.servicePanier.ajouterLivrePanier(livre, this.nbLivre);
   }
+
+  public setNbLivre(nb: any) {
+    this.nbLivre = Number(nb.target.value);
+  }
+
+
 
 }

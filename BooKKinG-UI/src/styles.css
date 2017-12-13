@@ -1,10 +1,29 @@
-html {
-    /*background-image: url("/assets/back.jpg");*/
-}
-
 body {
     margin: 0;
     padding: 0;
     background-image: url("/assets/back.gif");
     background-size: 150px;
+}
+
+.main {
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 21px);
+    margin-bottom: -30px;
+}
+
+.page {
+    flex: 1;
+    margin: 0;
+}
+
+.footer {
+    text-align: center;
+    color: black;
+    margin-left: -15px;
+    width: calc(100% + 30px);
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-top: 1px solid black;
 }

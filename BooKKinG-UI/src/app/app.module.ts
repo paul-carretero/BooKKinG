@@ -7,15 +7,13 @@ import { ConnectionService } from './service/connection.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
-
 
 import { AppComponent } from './app.component';
 import { PanierComponent } from './component/panier/panier.component';
 import { MenuRechercheComponent } from './component/menu-recherche/menu-recherche.component';
-import { ConnectionComponent } from './composant/connection/connection.component';
+import { ConnectionComponent } from './component/connection/connection.component';
 import { CompteClientComponent } from './component/compte-client/compte-client.component';
 import { Http, HttpModule } from '@angular/http';
 import { InscriptionComponent } from './component/inscription/inscription.component';
@@ -29,25 +27,28 @@ import { FiltreComponent } from './component/filtre/filtre.component';
 import { IdentificationInscriptionComponent } from './component/identification-inscription/identification-inscription.component';
 import { HistoriqueCommandesComponent } from './component/historique-commandes/historique-commandes.component';
 import { CookieService } from 'ngx-cookie-service';
+import { LivreService } from './service/livre.service';
+import { ArianeComponent } from './component/ariane/ariane.component';
+import { NavigationService } from './service/navigation.service';
 
 
 
 // constante regroupant les routes vers les différents pages liées aux composants
 // ! le nom du path est celui utilisé dans les liens dans app.component.html
 export const appRoutes: Routes = [
-  { path: 'livre', component: LivreComponent },  
+  { path: 'livre', component: LivreComponent },
   { path: 'panier', component: PanierComponent },
   { path: 'menu-recherche', component: MenuRechercheComponent },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'connection', component: ConnectionComponent },
-  { path: 'identification-inscription', component: IdentificationInscriptionComponent},
+  { path: 'identification-inscription', component: IdentificationInscriptionComponent },
   { path: 'payer', component: PayerComponent },
   { path: 'livraison', component: LivraisonComponent },
   { path: 'finPaiement', component: FinPaiementComponent },
-  { path: 'admin', component: AdministrationComponent},
-  { path: 'compte', component: CompteClientComponent},
-  { path: 'commandes', component: HistoriqueCommandesComponent},
-  { path: 'livre', component: LivreComponent}
+  { path: 'admin', component: AdministrationComponent },
+  { path: 'compte', component: CompteClientComponent },
+  { path: 'commandes', component: HistoriqueCommandesComponent },
+  { path: 'livre/:id', component: LivreComponent }
 ];
 
 
@@ -70,26 +71,31 @@ export const appRoutes: Routes = [
     HeaderComponent,
     FiltreComponent,
     IdentificationInscriptionComponent,
-    HistoriqueCommandesComponent
+    HistoriqueCommandesComponent,
+    ArianeComponent,
   ],
   // modules que l'application va utiliser
   // ! penser à y mettre aussi les modules pour les formulaires
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes, {useHash : true}),
+    RouterModule.forRoot(appRoutes, { useHash: true }),
     FormsModule,
     HttpModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   // fournisseur de services dans l'application
   providers: [
     Globals,
+    PanierService,
     ConnectionService,
     RechercheService,
     AdministrationService,
-    PanierService,
     AchatService,
-    CookieService
+    CookieService,
+    LivreService,
+    NavigationService
   ],
   bootstrap: [AppComponent]
 })

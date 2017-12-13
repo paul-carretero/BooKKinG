@@ -26,6 +26,9 @@
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.dialect" value="shared.RegexpMySQLDialect" />
 			<property name="persistenceUnitName" value="master" />
+			<property name="hibernate.connection.CharSet" value="utf8" />
+			<property name="hibernate.connection.characterEncoding" value="utf8" />
+			<property name="hibernate.connection.useUnicode" value="true" />
 		</properties>
 	</persistence-unit>
 </persistence>

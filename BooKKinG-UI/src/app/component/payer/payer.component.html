@@ -5,7 +5,7 @@
 -->
 
 
-  <h3>
+  <!--h3>
     Total à payer : {{total}} euros
   </h3>
   <p>
@@ -16,5 +16,66 @@
   </div>
   <div>
     par Carte Bancaire <input type ="button" (click)="paiementCB()" value="Choisir">
-  </div>
+  </div-->
+
+  <div class="bs-calltoaction bs-calltoaction-success">
+
+    <h3>
+      Total à payer : {{total}} euros
+    </h3>
+
+        <p class="bord" style="color:black;">
+        Choisir mode de paiement :
+      </p>
+
+      <div class ="row"> 
+          <div class="col-md-3 ">
+              
+              <img id="logo_img" src="assets/PayPal.png" alt="logo_site" />      
+          </div>
+        <div class="col-md-7 ">
+          <ul>
+                  par PayPal
+          </ul>
+        </div>
+        <div class="col-md-7 ">
+            <div class="funkyradio-default">
+                <input type="radio" name="radio" id="radio1" (click)="setModepaiment(false)"/>
+                <label for="radio1">  </label>
+            </div>
+        </div>
+      </div>
+
+      <hr width="80%" > 
+      
+
+      <div class ="row">   
+        <div class="col-md-3 ">
+            
+            <img id="logo_img" src="assets/CB.gif" alt="logo_site"  />      
+        </div>
+        <div class="col-md-7 ">
+          <ul>
+              par Carte Bancaire
+          </ul>
+        </div>
+
+         <div class="col-md-7 ">
+            <div class="funkyradio-default">
+                <input type="radio" name="radio" id="radio1" (click)="setModepaiment(true)"/>
+                <label for="radio1"> </label>
+            </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3 cta-button">
+          <ul>
+                   <button type="submit" class="btn btn-lg btn-block btn-success" (click)="validerPaiement()"> Valider </button>
+          </ul>
+        </div>
+      </div>
+
+</div>
+
 
