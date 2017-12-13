@@ -1,6 +1,4 @@
-import { PanierComponent } from './component/panier/panier.component';
 import { Component } from '@angular/core';
-import { MenuRechercheComponent } from './component/menu-recherche/menu-recherche.component';
 
 @Component({
   selector: 'app-root',

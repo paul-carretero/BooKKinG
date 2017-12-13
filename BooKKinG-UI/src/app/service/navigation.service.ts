@@ -2,47 +2,34 @@ import { Injectable } from '@angular/core';
 import { Livre } from '../model/livre';
 import { CookieService } from 'ngx-cookie-service';
 import { NavigationData } from '../model/navigation-data';
-import { MenuRechercheComponent } from '../component/menu-recherche/menu-recherche.component';
-import { Notifiable } from '../itf/notifiable';
-import { Subscribable } from '../itf/subscribable';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class NavigationService implements Subscribable {
+export class NavigationService {
 
   private current = new NavigationData();
 
-  private toNotify: Notifiable[];
+  private navEvent: Subject<NavigationData>;
 
   constructor(private cookieService: CookieService) {
-    this.toNotify = [];
     this.initFromCookie();
+    this.navEvent = new Subject();
   }
 
-  // Notification Management
-
-  private notify(): void {
-    for (const n of this.toNotify) {
-      n.notify();
-    }
+  public suscribeForNavEvent(): Observable<NavigationData> {
+    return this.navEvent.asObservable();
   }
 
-  public subscribeForNotify(n: Notifiable): void {
-    if (!this.toNotify.includes(n)) {
-      this.toNotify.push(n);
-    }
-  }
-
-  public unSubscribe(n: Notifiable): void {
-    if (this.toNotify.includes(n)) {
-      const index = this.toNotify.indexOf(n);
-      this.toNotify.splice(index, 1);
-    }
+  public getCurrentNavData(): NavigationData {
+    return this.current;
   }
 
   // private methods
 
-  private backUpNavData(): void {
+  private defNewNavData(): void {
     this.cookieService.set('nav-data', JSON.stringify(this.current));
+    this.navEvent.next(this.current);
   }
 
   private initFromCookie(): void {
@@ -76,10 +63,7 @@ export class NavigationService implements Subscribable {
   public setCurrentType(newType: string): void {
     this.reset();
     this.current.type = newType;
-    if (newType !== 'ANY') {
-      this.notify();
-    }
-    this.backUpNavData();
+    this.defNewNavData();
   }
 
   public setCurrentGenre(newGenre: string): void {
@@ -87,14 +71,13 @@ export class NavigationService implements Subscribable {
     this.current.search = null;
     this.current.other = null;
     this.current.genre = newGenre;
-    this.notify();
-    this.backUpNavData();
+    this.defNewNavData();
   }
 
   public setCurrentOther(newOther: string): void {
     this.reset();
     this.current.other = newOther;
-    this.backUpNavData();
+    this.defNewNavData();
   }
 
   public setFromLivre(newLivre: Livre): void {
@@ -102,6 +85,6 @@ export class NavigationService implements Subscribable {
     this.current.type = newLivre.type;
     this.current.genre = newLivre.genre;
     this.current.other = newLivre.title;
-    this.backUpNavData();
+    this.defNewNavData();
   }
 }

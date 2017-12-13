@@ -9,6 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { TooltipDirective } from 'ng2-tooltip-directive/components';
 
 import { AppComponent } from './app.component';
 import { PanierComponent } from './component/panier/panier.component';
@@ -75,6 +76,7 @@ export const appRoutes: Routes = [
     HistoriqueCommandesComponent,
     ArianeComponent,
     StockComponent,
+    TooltipDirective,
   ],
   // modules que l'application va utiliser
   // ! penser à y mettre aussi les modules pour les formulaires

@@ -1,9 +1,34 @@
-export class Recherche {
+import { Globals } from '../globals';
+import { Equalable } from '../itf/equalable';
+
+export class Recherche implements Equalable {
     title: string;
     author: string;
-    maxPrice: number;
-    minPrice: number;
+    minPrice: number = Globals.initData.min;
+    maxPrice: number = Globals.initData.max;
     type: string;
     genre: string;
     anySearch: string;
+
+    equals(other: Recherche): boolean {
+        return this.title === other.title
+            && this.author === other.author
+            && this.maxPrice === other.maxPrice
+            && this.minPrice === other.minPrice
+            && this.type === other.type
+            && this.genre === other.genre
+            && this.anySearch === other.anySearch;
+    }
+
+    clone(): Recherche {
+        const res = new Recherche();
+        res.title = this.title;
+        res.author = this.author;
+        res.minPrice = this.minPrice;
+        res.maxPrice = this.maxPrice;
+        res.type = this.type;
+        res.genre = this.genre;
+        res.anySearch = this.anySearch;
+        return res;
+    }
 }

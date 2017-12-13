@@ -17,7 +17,11 @@
     </div>
     <div class="col-md-3 boite">
         <div class="price-display">{{getTotalPrice()}} €</div>
-        <div class="quantity">
+        <div *ngIf="nbLivre > livre.stock" class="quantity" tooltip="Veuillez noter que nous ne disposons présentement pas du stock demandé, un délai sera nécessaire" placement="top">
+            <label for="quantite">Quantité: </label>
+            <input id="quantite" type="number" (input)="setNbLivre($event.target.value)" value="{{nbLivre}}" min="1" />
+        </div>
+        <div *ngIf="nbLivre <= livre.stock" class="quantity">
             <label for="quantite">Quantité: </label>
             <input id="quantite" type="number" (input)="setNbLivre($event.target.value)" value="{{nbLivre}}" min="1" />
         </div>

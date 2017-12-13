@@ -30,6 +30,9 @@ export class FiltreComponent implements OnInit {
 
   constructor(private router: Router, private service: LivreService, private navigationService: NavigationService,
     private rechercheService: RechercheService) {
+  }
+
+  ngOnInit() {
     this.service.initConstantes().subscribe(
       reponse => {
         if (reponse.success) {
@@ -41,8 +44,6 @@ export class FiltreComponent implements OnInit {
       }
     );
   }
-
-  ngOnInit() { }
 
   get genres(): string[] {
     const currentType = this.navigationService.getCurrentType();

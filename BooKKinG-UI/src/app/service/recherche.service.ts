@@ -1,81 +1,97 @@
 import { Livre } from './../model/livre';
 import { ReponseRecherche } from './../model/reponse-recherche';
 import { Recherche } from '../model/recherche';
-
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Globals } from '../globals';
-import { MenuRechercheComponent } from '../component/menu-recherche/menu-recherche.component';
-import { Notifiable } from '../itf/notifiable';
-import { Subscribable } from '../itf/subscribable';
+import { NavigationService } from './navigation.service';
+import { NavigationData } from '../model/navigation-data';
+import { LRUMapCache } from '../model/lrumapcache';
 
 @Injectable()
-export class RechercheService implements Subscribable {
+export class RechercheService {
 
   private urlLivre = `http://` + Globals.host + `/BooKKinG-Server-web/Book`;
 
-  private anySearch = '';
+  private currentLivreList: Livre[];
 
-  private min = Globals.initData.min;
+  private currentRecherche: Recherche;
 
-  private max = Globals.initData.max;
+  private cache: LRUMapCache<Livre[]>;
 
-  private toNotify: Notifiable[];
-
-  constructor(private http: Http) {
-    this.toNotify = [];
+  constructor(private http: Http, private navService: NavigationService) {
+    this.currentRecherche = new Recherche();
+    this.currentLivreList = [];
+    this.cache = new LRUMapCache<Livre[]>(4);
+    this.listenForNavUpdate();
+    this.newRechercheFromNavData(this.navService.getCurrentNavData());
   }
 
-  private notify(): void {
-    for (const n of this.toNotify) {
-      n.notify();
+  // Private Methodes //
+
+  private newRechercheFromNavData(navData: NavigationData): void {
+    if (navData.other == null && navData.livre == null) {
+      this.currentRecherche.anySearch = navData.search;
+      this.currentRecherche.type = navData.type;
+      this.currentRecherche.genre = navData.genre;
+      this.refresh();
     }
   }
 
-  public subscribeForNotify(n: Notifiable): void {
-    if (!this.toNotify.includes(n)) {
-      this.toNotify.push(n);
+  private listenForNavUpdate(): void {
+    this.navService.suscribeForNavEvent().subscribe(
+      navData => {
+        this.newRechercheFromNavData(navData);
+      }
+    );
+  }
+
+  private rechercherEnsembleLivre(recherche: Recherche): Observable<ReponseRecherche> {
+    return this.http.put(this.urlLivre, recherche, { withCredentials: true }).map(res => res.json());
+  }
+
+  private refresh() {
+    if (this.cache.includes(this.currentRecherche)) {
+      this.currentLivreList = this.cache.get(this.currentRecherche);
+    } else {
+      this.rechercherEnsembleLivre(this.currentRecherche).subscribe(
+        reponse => {
+          if (reponse.success) {
+            this.currentLivreList = reponse.books;
+            this.cache.put(this.currentRecherche, this.currentLivreList);
+          } else {
+            console.log(reponse.message);
+          }
+        }
+      );
     }
   }
 
-  public unSubscribe(n: Notifiable): void {
-    if (this.toNotify.includes(n)) {
-      const index = this.toNotify.indexOf(n);
-      this.toNotify.splice(index, 1);
-    }
-  }
+  // Public Interfaces //
 
-  public getMinPrice(): number {
-    return this.min;
-  }
-
-  public getMaxPrice(): number {
-    return this.max;
-  }
-
+  /**
+   * redéfini le prix maximum de la recherche et lance la recherche
+   * @param val le nouveau prix maximum
+   */
   public setMaxPrice(val: number): void {
-    this.max = val;
-    this.notify();
+    this.currentRecherche.maxPrice = val;
+    this.refresh();
   }
 
   public setMinPrice(val: number): void {
-    this.min = val;
-    this.notify();
+    this.currentRecherche.minPrice = val;
+    this.refresh();
   }
 
-  public getCurrentSearch(): string {
-    return this.anySearch;
-  }
-
-  public setCurrentSearch(newSearch: string): any {
-    this.anySearch = newSearch;
-    if (this.anySearch !== '') {
-      this.notify();
+  public setCurrentSearch(newSearch: string): void {
+    this.currentRecherche.anySearch = newSearch;
+    if (this.currentRecherche.anySearch !== '') {
+      this.refresh();
     }
   }
 
-  public rechercherEnsembleLivre(recherche: Recherche): Observable<ReponseRecherche> {
-    return this.http.put(this.urlLivre, recherche, { withCredentials: true }).map(res => res.json());
+  public getLastLivreList(): Livre[] {
+    return this.currentLivreList;
   }
 }

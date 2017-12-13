@@ -1,45 +1,98 @@
 @supports (--css: variables) {
-	input[type="range"].multirange {
-		padding: 0;
-		margin: 0;
-		display: inline-block;
-		vertical-align: top;
-	}
+    input[type="range"].multirange {
+        padding: 0;
+        margin: 0;
+        display: inline-block;
+        vertical-align: top;
+    }
+    input[type="range"].multirange.original {
+        position: absolute;
+    }
+    input[type="range"].multirange.original::-webkit-slider-thumb {
+        position: relative;
+        z-index: 2;
+    }
+    input[type="range"].multirange.original::-moz-range-thumb {
+        transform: scale(1);
+        /* FF doesn't apply position it seems */
+        z-index: 1;
+    }
+    input[type="range"].multirange::-moz-range-track {
+        border-color: transparent;
+        /* needed to switch FF to "styleable" control */
+    }
+    input[type="range"].multirange.ghost {
+        position: relative;
+        background: var(--track-background);
+        --track-background: linear-gradient(to right, transparent var(--low), var(--range-color) 0, var(--range-color) var(--high), transparent 0) no-repeat 0 45% / 100% 40%;
+        --range-color: hsl(190, 80%, 40%);
+    }
+    input[type="range"].multirange.ghost::-webkit-slider-runnable-track {
+        background: var(--track-background);
+    }
+    input[type="range"].multirange.ghost::-moz-range-track {
+        background: var(--track-background);
+    }
+}
 
-	input[type="range"].multirange.original {
-		position: absolute;
-	}
 
-		input[type="range"].multirange.original::-webkit-slider-thumb {
-			position: relative;
-			z-index: 2;
-		}
+/********************* tooltip css (oui c'est pas le rapport mais c'est une lib externe...) ***************/
 
-		input[type="range"].multirange.original::-moz-range-thumb {
-			transform: scale(1); /* FF doesn't apply position it seems */
-			z-index: 1;
-		}
+.ng-tooltip {
+    max-width: 200px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 8px;
+    position: absolute;
+    z-index: 1000;
+    display: block;
+    opacity: 0;
+    -webkit-transition: opacity 300ms;
+    -moz-transition: opacity 300ms;
+    -o-transition: opacity 300ms;
+    transition: opacity 300ms;
+}
 
-		input[type="range"].multirange::-moz-range-track {
-			border-color: transparent; /* needed to switch FF to "styleable" control */
-		}
+.ng-tooltip-show {
+    opacity: 1;
+}
 
-	input[type="range"].multirange.ghost {
-		position: relative;
-		background: var(--track-background);
-		--track-background: linear-gradient(to right,
-				transparent var(--low), var(--range-color) 0,
-				var(--range-color) var(--high), transparent 0
-			) no-repeat 0 45% / 100% 40%;
-		--range-color: hsl(190, 80%, 40%);
-	}
+.ng-tooltip::after {
+    content: "";
+    position: absolute;
+    border-style: solid;
+}
 
-		input[type="range"].multirange.ghost::-webkit-slider-runnable-track {
-			background: var(--track-background);
-		}
+.ng-tooltip-top::after {
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-color: black transparent transparent transparent;
+}
 
-		input[type="range"].multirange.ghost::-moz-range-track {
-			background: var(--track-background);
-		}
+.ng-tooltip-bottom::after {
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-color: transparent transparent black transparent;
+}
 
+.ng-tooltip-left::after {
+    top: 50%;
+    left: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-color: transparent transparent transparent black;
+}
+
+.ng-tooltip-right::after {
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-color: transparent black transparent transparent;
 }

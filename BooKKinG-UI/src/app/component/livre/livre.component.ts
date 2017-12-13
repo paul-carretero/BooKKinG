@@ -1,22 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Livre } from '../../model/livre';
-import { PanierComponent } from '../panier/panier.component';
 import { ActivatedRoute } from '@angular/router';
 import { LivreService } from './../../service/livre.service';
-import { ArianeComponent } from '../ariane/ariane.component';
-import { HeaderComponent } from '../header/header.component';
-import { FiltreComponent } from '../filtre/filtre.component';
 import { PanierService } from '../../service/panier.service';
 import { NavigationService } from '../../service/navigation.service';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import { TooltipDirective } from 'ng2-tooltip-directive/components';
 
 @Component({
   selector: 'app-livre',
   templateUrl: './livre.component.html',
   styleUrls: ['./livre.component.css']
 })
-export class LivreComponent implements OnInit {
+export class LivreComponent implements OnInit, OnDestroy {
 
   private idLivre: number;
 
@@ -55,13 +52,12 @@ export class LivreComponent implements OnInit {
     });
   }
 
-  private getTotalPrice(): string {
-    return (this.livre.price * this.nbLivre).toFixed(2);
-  }
-
-  // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  private getTotalPrice(): string {
+    return (this.livre.price * this.nbLivre).toFixed(2);
   }
 
   /**
