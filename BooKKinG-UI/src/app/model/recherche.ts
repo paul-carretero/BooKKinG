@@ -1,7 +1,6 @@
 import { Globals } from '../globals';
-import { Equalable } from '../itf/equalable';
 
-export class Recherche implements Equalable {
+export class Recherche {
     title: string;
     author: string;
     minPrice: number = Globals.initData.min;

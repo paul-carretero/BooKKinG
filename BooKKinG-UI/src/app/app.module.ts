@@ -9,7 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { TooltipDirective } from 'ng2-tooltip-directive/components';
+import { LRUCacheService } from './service/lrucache.service';
 
 import { AppComponent } from './app.component';
 import { PanierComponent } from './component/panier/panier.component';
@@ -32,6 +32,7 @@ import { LivreService } from './service/livre.service';
 import { ArianeComponent } from './component/ariane/ariane.component';
 import { NavigationService } from './service/navigation.service';
 import { StockComponent } from './component/livre/stock/stock.component';
+import { TooltipDirective } from 'ng2-tooltip-directive/components';
 
 
 
@@ -99,7 +100,8 @@ export const appRoutes: Routes = [
     AchatService,
     CookieService,
     LivreService,
-    NavigationService
+    NavigationService,
+    LRUCacheService
   ],
   bootstrap: [AppComponent]
 })

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { Globals } from '../globals';
 import { NavigationService } from './navigation.service';
 import { NavigationData } from '../model/navigation-data';
-import { LRUMapCache } from '../model/lrumapcache';
+import { LRUCacheService } from './lrucache.service';
 
 @Injectable()
 export class RechercheService {
@@ -18,12 +18,9 @@ export class RechercheService {
 
   private currentRecherche: Recherche;
 
-  private cache: LRUMapCache<Livre[]>;
-
-  constructor(private http: Http, private navService: NavigationService) {
+  constructor(private http: Http, private navService: NavigationService, private cache: LRUCacheService) {
     this.currentRecherche = new Recherche();
     this.currentLivreList = [];
-    this.cache = new LRUMapCache<Livre[]>(4);
     this.listenForNavUpdate();
     this.newRechercheFromNavData(this.navService.getCurrentNavData());
   }

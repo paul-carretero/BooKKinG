@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Livre } from '../../../model/livre';
 import { NgModel } from '@angular/forms/src/directives/ng_model';
 import { Subject } from 'rxjs/Subject';
@@ -9,10 +9,7 @@ import { Subject } from 'rxjs/Subject';
   templateUrl: './stock.component.html',
   styleUrls: ['./stock.component.css']
 })
-export class StockComponent implements OnInit, OnDestroy {
-
-  @Input()
-  private updateQuantity: Subject<number>;
+export class StockComponent implements OnInit {
 
   @Input()
   private stock: number;
@@ -23,24 +20,6 @@ export class StockComponent implements OnInit, OnDestroy {
     this.warning = false;
   }
 
-  ngOnInit() {
-    if (this.updateQuantity != null) {
-      this.subscribe();
-    }
-  }
-
-  ngOnDestroy() {
-    this.updateQuantity.unsubscribe();
-  }
-
-  private subscribe(): void {
-    this.updateQuantity.subscribe(event => {
-      if (event > this.stock) {
-        this.warning = true;
-      } else {
-        this.warning = false;
-      }
-    });
-  }
+  ngOnInit() { }
 
 }

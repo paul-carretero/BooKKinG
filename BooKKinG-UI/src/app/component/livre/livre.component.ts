@@ -19,41 +19,23 @@ export class LivreComponent implements OnInit, OnDestroy {
 
   private sub: Subscription;
 
-  private livre: Livre;
-
   private nbLivre = 1;
 
-  updateQuantity: Subject<number> = new Subject();
-
-  constructor(private route: ActivatedRoute, private service: LivreService, private servicePanier: PanierService,
-    private navigationService: NavigationService) {
-    this.livre = {
-      title: 'loading',
-      author: 'loading',
-      genre: 'loading',
-      type: 'loading',
-      price: 0,
-      stock: 0,
-      summary: 'loading'
-    };
+  constructor(private route: ActivatedRoute, private service: LivreService, private servicePanier: PanierService) {
   }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.idLivre = Number(params['id']);
-      this.service.rechercherLivre(this.idLivre).subscribe(
-        reponse => {
-          if (reponse.success) {
-            this.livre = reponse;
-            this.navigationService.setFromLivre(this.livre);
-          }
-        }
-      );
+      this.service.updateLivreId(Number(params['id']));
     });
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  get livre(): Livre {
+    return this.service.getLivre();
   }
 
   private getTotalPrice(): string {
@@ -64,16 +46,14 @@ export class LivreComponent implements OnInit, OnDestroy {
     * Méthode demandant l'ajout d'un livre au panier
     * @param livre livre à ajouter au panier
     */
-  public ajouterAuPanier(livre: Livre) {
-    console.log('livre : ' + livre.title + ' à ajouter au panier');
+  private ajouterAuPanier(livre: Livre) {
     this.servicePanier.ajouterLivrePanier(livre, this.nbLivre);
   }
 
-  public setNbLivre(nb: string) {
+  private setNbLivre(nb: string) {
     this.nbLivre = Number(nb);
     if (this.nbLivre < 1) {
       this.nbLivre = 1;
     }
-    this.updateQuantity.next(this.nbLivre);
   }
 }
