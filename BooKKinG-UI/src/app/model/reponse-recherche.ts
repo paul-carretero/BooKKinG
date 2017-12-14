@@ -1,7 +1,8 @@
 import { Livre } from './livre';
+import { Reponse } from './reponse';
 
-export class ReponseRecherche {
+export class ReponseRecherche extends Reponse {
     books: Livre[];
-    success: boolean;
-    message: string;
+    resultsAvailable: number;
+    pagesAvailable: number;
 }

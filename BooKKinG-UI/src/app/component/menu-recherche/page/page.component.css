@@ -1,0 +1,11 @@
+.inner {
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+.wrapper {
+    color: black;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+    width: 100%;
+}

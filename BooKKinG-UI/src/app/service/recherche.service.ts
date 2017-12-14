@@ -14,13 +14,13 @@ export class RechercheService {
 
   private urlLivre = `http://` + Globals.host + `/BooKKinG-Server-web/Book`;
 
-  private currentLivreList: Livre[];
+  private currentLivreList: ReponseRecherche;
 
   private currentRecherche: Recherche;
 
   constructor(private http: Http, private navService: NavigationService, private cache: LRUCacheService) {
     this.currentRecherche = new Recherche();
-    this.currentLivreList = [];
+    this.currentLivreList = new ReponseRecherche();
     this.listenForNavUpdate();
     this.newRechercheFromNavData(this.navService.getCurrentNavData());
   }
@@ -55,7 +55,7 @@ export class RechercheService {
       this.rechercherEnsembleLivre(this.currentRecherche).subscribe(
         reponse => {
           if (reponse.success) {
-            this.currentLivreList = reponse.books;
+            this.currentLivreList = reponse;
             this.cache.put(this.currentRecherche, this.currentLivreList);
           } else {
             console.log(reponse.message);
@@ -88,7 +88,24 @@ export class RechercheService {
     }
   }
 
+  public setCurrentPage(iPage: number): void {
+    this.currentRecherche.page = iPage;
+    this.refresh();
+  }
+
+  public getAvailablePages(): number {
+    return this.currentLivreList.pagesAvailable;
+  }
+
+  public getAvailableResults(): number {
+    return this.currentLivreList.resultsAvailable;
+  }
+
   public getLastLivreList(): Livre[] {
-    return this.currentLivreList;
+    return this.currentLivreList.books;
+  }
+
+  public getCurrentPage(): number {
+    return this.currentRecherche.page;
   }
 }

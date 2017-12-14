@@ -1,7 +1,6 @@
 import { Article } from './article';
+import { Reponse } from './reponse';
 
-export class ResponsePanier {
+export class ResponsePanier extends Reponse {
     items: Article[];
-    success: boolean;
-    message: string;
 }

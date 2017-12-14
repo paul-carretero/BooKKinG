@@ -1,0 +1,19 @@
+<div *ngIf="totalDisplayableLivre > 0" class="row">
+    <div class="inner text-left col-md-1"></div>
+    <div class="inner text-left col-md-4">
+        Livre affiché : {{displayedLivre}} sur {{totalDisplayableLivre}}
+    </div>
+    <div class="inner text-left col-md-2"></div>
+    <div class="inner text-right col-md-4">
+        <fa name="chevron-left "></fa>
+        <ng-container *ngFor="let page of availablePage;">
+            <span (click)="setPage(page)">{{page}}</span>
+        </ng-container>
+        <fa name="chevron-right "></fa>
+    </div>
+    <div class="inner text-left col-md-1"></div>
+</div>
+
+<div *ngIf="totalDisplayableLivre <= 0" class="text-center">
+    aucun résultat
+</div>

@@ -15,6 +15,12 @@ public class BookListJson extends GenericResponseJson implements BookListJsonItf
 	private static final long serialVersionUID = 3258017333213392628L;
 	
 	private List<BookJson> books;
+	
+	@SuppressWarnings("unused")
+	private int pagesAvailable;
+	
+	@SuppressWarnings("unused")
+	private int resultsAvailable;
 
 	/**
 	 * default constructor
@@ -22,6 +28,7 @@ public class BookListJson extends GenericResponseJson implements BookListJsonItf
 	public BookListJson() {
 		super();
 		this.books = new ArrayList<>();
+		this.pagesAvailable = 1;
 	}
 
 	@Override
@@ -29,5 +36,15 @@ public class BookListJson extends GenericResponseJson implements BookListJsonItf
 		BookJson res = new BookJson();
 		this.books.add(res);
 		return res;
+	}
+	
+	@Override
+	public void setTotalAvailable(final int n) {
+		this.resultsAvailable = n;
+	}
+	
+	@Override
+	public void setTotalPageAvailable(final int n) {
+		this.pagesAvailable = n;
 	}
 }

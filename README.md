@@ -10,6 +10,7 @@ Installation des dépendances
 > - `npm install ngx-cookie --save`
 > - `npm install ngx-cookie-service --save`
 > - `npm i ng2-tooltip-directive`
+
 BooKKinG-Server
 ==============
 Configuration Server
@@ -135,7 +136,7 @@ Liste des Json retourné par l'API en sortie (server -> client):
 > **BookJson:**<a id="BookJson"></a>
 > Réponse représentant les données d'un livre
 > 
-> - **Exemple:** `{"genre":"GENRE1","type":"ANY","author":"JC Van Damme","price":20.0,"title":"JCVD","picture":"base64_encoded_picture","summary":"Réflexion sur la vie de JCVD","idBook":1,"stock":42,"success":true,"message":""}`
+> - **Exemple:** `{"genre":"GENRE1","type":"ANY","author":"JC Van Damme","price":20.0,"title":"JCVD","picture":"base64_encoded_picture","summary":"Réflexion sur la vie de JCVD","idBook":1,"stock":42,"pagesAvailable":5,"resultsAvailable":42,"success":true,"message":""}`
 > - **Paramètres** :
 > > - `genre` genre du livre
 > > - `type` type du livre
@@ -152,9 +153,11 @@ Liste des Json retourné par l'API en sortie (server -> client):
 > **BookListJson:**<a id="BookListJson"></a>
 > Réponse représentant les données d'une liste livre (éventuellement issue d'une recherche)
 > 
-> - **Exemple:** `{"books":[{"genre":"GENRE1","type":"ANY","author":"JC Van Damme","price":20.0,"title":"JCVD","picture":"base64_encoded_picture","summary":"Réflexion sur la vie de JCVD","idBook":1,"stock":42,"success":true,"message":""}],"success":true,"message":""}`
+> - **Exemple:** `{"books":[{"genre":"GENRE1","type":"ANY","author":"JC Van Damme","price":20.0,"title":"JCVD","picture":"base64_encoded_picture","summary":"Réflexion sur la vie de JCVD","idBook":1,"stock":42,"success":true,"message":""}],"pagesAvailable":5,"resultsAvailable":42,"success":true,"message":""}`
 > - **Paramètres** :
 > > - `books` un tableau contenant des [BookJson](#BookJson)
+> > - `pagesAvailable` Nombre de page disponible pour cette recherche
+> > - `resultsAvailable` Nombre de livre totaux correspondant à la recherche
 > > - `success` true
 > > - `message` unused
 
@@ -340,7 +343,7 @@ Liste des Json retourné par l'API en sortie (server -> client):
 > **POST:**
 > Créer une nouvelle commande avec le contenu du panier d'un utilisateur connecté. Envoie un mail de confirmation à l'utilisateur connecté.
 > 
-> - **paramètre** : -
+> - **paramètre** : [CommandReqJson](#CommandReqJson)
 > - **retourne** : [GenericResponseJson](#GenericResponseJson)
 
 ---------

@@ -34,6 +34,7 @@ import { NavigationService } from './service/navigation.service';
 import { StockComponent } from './component/livre/stock/stock.component';
 import { TooltipDirective } from 'ng2-tooltip-directive/components';
 import { InformationsClientComponent } from './component/informations-client/informations-client.component';
+import { PageComponent } from './component/menu-recherche/page/page.component';
 
 
 
@@ -80,6 +81,7 @@ export const appRoutes: Routes = [
     StockComponent,
     TooltipDirective,
     InformationsClientComponent,
+    PageComponent,
   ],
   // modules que l'application va utiliser
   // ! penser à y mettre aussi les modules pour les formulaires

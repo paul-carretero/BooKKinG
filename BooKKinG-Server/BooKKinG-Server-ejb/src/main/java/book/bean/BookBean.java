@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.ejb.Asynchronous;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 
 import book.dataItf.BookJsonItf;
 import book.dataItf.BookListJsonItf;
@@ -24,6 +25,11 @@ import shared.AbstractBean;
 @Stateless
 @LocalBean
 public class BookBean extends AbstractBean implements BookBeanLocal {
+	
+	/**
+	 * nombre de livre par page à envoyer au front
+	 */
+	private static final int PAGE_SIZE = 10;
 
 	/**
 	 * Default constructor. 
@@ -80,21 +86,31 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 	@Override
 	public void getBooks(final BookSearchItf searchData, final BookListJsonItf response){
 		String regExpSearch = generateRegexpSubQuery(getSearchRegexp(searchData.getAnySearch()),"b");
-		List<BookEntity> books = this.manager.createQuery(
+		Query searchBookQuery = this.manager.createQuery(
 				" FROM BookEntity b WHERE "
 						+ "(b.type = :type OR :type = 'ANY')"
 						+ " AND (b.genre = :genre OR :genre = 'ANY')"
 						+ " AND (b.price >= :minprice OR :minprice <= 0)"
 						+ " AND (b.price <= :maxprice OR :maxprice <= 0)"
 						+ " AND (b.title LIKE :title OR b.author LIKE :author)"
-						+ " AND ( "+regExpSearch+" ) ")
+						+ " AND ( "+regExpSearch+" ) "
+						+ " ORDER BY b.title ASC")
 				.setParameter("type", searchData.getType())
 				.setParameter("genre", searchData.getGenre())
 				.setParameter("minprice", Float.valueOf(searchData.getMinPrice()))
 				.setParameter("maxprice", Float.valueOf(searchData.getMaxPrice()))
 				.setParameter("type", searchData.getType())
 				.setParameter("title", "%"+searchData.getTitle()+"%")
-				.setParameter("author", "%"+searchData.getAuthor()+"%")
+				.setParameter("author", "%"+searchData.getAuthor()+"%");
+		
+		int nResult = searchBookQuery.getResultList().size();
+		int nPage = Math.floorDiv(nResult, PAGE_SIZE)+1;
+		response.setTotalPageAvailable(nPage);
+		response.setTotalAvailable(nResult);
+		
+		List<BookEntity> books = searchBookQuery
+				.setMaxResults(PAGE_SIZE)
+				.setFirstResult(searchData.getPage() * PAGE_SIZE)
 				.getResultList();
 		for(BookEntity book : books) {
 			BookJsonItf entry = response.prepareNewEntry();
