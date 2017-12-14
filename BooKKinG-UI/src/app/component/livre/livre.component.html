@@ -9,8 +9,8 @@
         <div>
             <ul>
                 <li>De: <strong>{{livre.author}}</strong></li>
-                <li>Type: <strong>{{livre.type}}</strong></li>
-                <li>Genre: <strong>{{livre.genre}}</strong></li>
+                <li>Type: <strong>{{getDisplayable(livre.type)}}</strong></li>
+                <li>Genre: <strong>{{getDisplayable(livre.genre)}}</strong></li>
             </ul>
         </div>
         <div></div>
@@ -42,3 +42,4 @@
     </div>
     <div class="col-md-1"></div>
 </div>
+<br/>

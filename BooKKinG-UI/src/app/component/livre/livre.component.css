@@ -40,3 +40,11 @@
 .clear {
     clear: both;
 }
+
+h2 {
+    width: 100%;
+    border-bottom: 1px solid black;
+    font-size: 1.8em;
+    font-weight: 550;
+    color: black;
+}

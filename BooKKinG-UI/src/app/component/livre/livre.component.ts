@@ -7,6 +7,7 @@ import { NavigationService } from '../../service/navigation.service';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { TooltipDirective } from 'ng2-tooltip-directive/components';
+import { Globals } from '../../globals';
 
 @Component({
   selector: 'app-livre',
@@ -40,6 +41,10 @@ export class LivreComponent implements OnInit, OnDestroy {
 
   private getTotalPrice(): string {
     return (this.livre.price * this.nbLivre).toFixed(2);
+  }
+
+  private getDisplayable(str: string): string {
+    return Globals.getDisplayableName(str);
   }
 
   /**

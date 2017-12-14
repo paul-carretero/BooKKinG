@@ -1,13 +1,13 @@
 <ng-container *ngIf="stock >= 10">
-    <span class="bg-success text-white"><fa name="check "></fa>En stock</span>
+    <span class="bg-success stock-wrapper"><fa name="check "></fa>En stock</span>
 </ng-container>
 <ng-container *ngIf="stock < 10 && stock > 0">
-    <span class="bg-warning text-white">
+    <span class="bg-warning stock-wrapper">
         <fa name="exclamation-circle "></fa> Plus que {{stock}} exemplaire<span *ngIf="stock > 1">s</span>
     </span>
 </ng-container>
 <ng-container *ngIf="stock <= 0">
-    <span class="bg-danger text-white">
+    <span class="bg-danger stock-wrapper">
       <fa name="ban "></fa>rupture momentanée
     </span>
 </ng-container>
