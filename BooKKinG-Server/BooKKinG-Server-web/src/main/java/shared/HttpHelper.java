@@ -48,7 +48,7 @@ public class HttpHelper {
 
 	public static boolean checkAndValidData(final Validifyable data, final HttpServletResponse response) throws IOException {
 		if(data == null) {
-			response.getWriter().append(new GenericResponseJson(false,"echec : aucune donnee").toString());
+			response.getWriter().append(new GenericResponseJson(false,"echec : JSON invalide").toString());
 			return false;
 		}
 		data.validify();

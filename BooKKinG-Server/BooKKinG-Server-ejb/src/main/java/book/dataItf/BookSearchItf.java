@@ -19,4 +19,6 @@ public interface BookSearchItf {
 	
 	public String getAnySearch();
 
+	public Integer getPage();
+
 }

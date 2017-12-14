@@ -6,7 +6,9 @@ import { LivreService } from './service/livre.service';
 @Injectable()
 export class Globals {
 
-  public static host: String = 'bookking.ovh'; // bookking.ovh ou localhost:8080 ou 192.168.1.39:8080
+  public static recherche_size = 10;
+
+  public static host: String = '127.0.0.1'; // bookking.ovh ou localhost:8080 ou 192.168.1.39:8080
 
   public static initData: Init = new Init();
 

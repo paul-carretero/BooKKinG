@@ -24,6 +24,11 @@ import shared.AbstractBean;
 @Stateless
 @LocalBean
 public class BookBean extends AbstractBean implements BookBeanLocal {
+	
+	/**
+	 * nombre de livre par page à envoyer au front
+	 */
+	private static final int PAGE_SIZE = 10;
 
 	/**
 	 * Default constructor. 
@@ -80,6 +85,7 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 	@Override
 	public void getBooks(final BookSearchItf searchData, final BookListJsonItf response){
 		String regExpSearch = generateRegexpSubQuery(getSearchRegexp(searchData.getAnySearch()),"b");
+		System.out.println("===>" + searchData.getPage());
 		List<BookEntity> books = this.manager.createQuery(
 				" FROM BookEntity b WHERE "
 						+ "(b.type = :type OR :type = 'ANY')"
@@ -87,7 +93,8 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 						+ " AND (b.price >= :minprice OR :minprice <= 0)"
 						+ " AND (b.price <= :maxprice OR :maxprice <= 0)"
 						+ " AND (b.title LIKE :title OR b.author LIKE :author)"
-						+ " AND ( "+regExpSearch+" ) ")
+						+ " AND ( "+regExpSearch+" ) "
+						+ " ORDER BY b.title ASC")
 				.setParameter("type", searchData.getType())
 				.setParameter("genre", searchData.getGenre())
 				.setParameter("minprice", Float.valueOf(searchData.getMinPrice()))
@@ -95,6 +102,8 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 				.setParameter("type", searchData.getType())
 				.setParameter("title", "%"+searchData.getTitle()+"%")
 				.setParameter("author", "%"+searchData.getAuthor()+"%")
+				.setMaxResults(PAGE_SIZE)
+				.setFirstResult(searchData.getPage() * PAGE_SIZE)
 				.getResultList();
 		for(BookEntity book : books) {
 			BookJsonItf entry = response.prepareNewEntry();

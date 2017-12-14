@@ -1,6 +1,5 @@
 package shared;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.stream.Collectors;
 
@@ -25,17 +24,13 @@ public abstract class AbstractJson implements Serializable {
 	public String toString() {
 		return gson.toJson(this);
 	}
-
-	public static Object fromJson(final String json, Class<? extends AbstractJson> targetClass) {
-		return gson.fromJson(json, targetClass);
-	}
 	
 	public static Object fromJson(final HttpServletRequest request, final Class<? extends AbstractJson> targetClass) {
 		try {
 			String requestBody = request.getReader().lines().collect(Collectors.joining());
 			return gson.fromJson(requestBody, targetClass);
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 			return null;
 		}
 	}
