@@ -31,7 +31,10 @@ export class LivreService {
         this.rechercherLivre(idBook);
       } else {
         this.currentLivre = cacheLivre;
+        this.navigationService.setFromLivre(this.currentLivre);
       }
+    } else {
+      this.navigationService.setFromLivre(this.currentLivre);
     }
   }
 

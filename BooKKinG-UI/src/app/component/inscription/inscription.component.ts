@@ -5,7 +5,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { ConnectionService } from '../../service/connection.service';
-import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-inscription',
@@ -14,34 +14,38 @@ import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class InscriptionComponent implements OnInit {
 
-  /**
-   * Attribut correspondant au client connecté
-   */
-  client: Client = { name: '', address: '', email: '', password: '' };
+  private serverResponse: string;
 
-  constructor(private service: ConnectionService) { }
+  private inscriptionForm: FormGroup;
 
-  ngOnInit() {
+  constructor(private routeur: Router, private service: ConnectionService, private fb: FormBuilder) {
+    this.inscriptionForm = fb.group({
+      name: ['', Validators.required],
+      address: ['', Validators.required],
+      email: ['', Validators.email],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+    });
+    this.serverResponse = '';
   }
 
-  public inscription(form: NgForm) {
-    if (form.value.password === form.value.passwordbis) {
-      this.client.name = form.value.name;
-      this.client.email = form.value.email;
-      this.client.address = form.value.address;
-      this.client.password = form.value.password;
-      this.service.creationClient(this.client).subscribe(
-        connected => {
-          if (connected.success) {
-            alert('Votre inscription a bien été validée !');
-          } else {
-            alert(connected.message);
-          }
+  ngOnInit() { }
+
+  public inscription() {
+    const connClient = new Client();
+    connClient.name = this.inscriptionForm.value.name;
+    connClient.email = this.inscriptionForm.value.email;
+    connClient.address = this.inscriptionForm.value.address;
+    connClient.password = this.inscriptionForm.value.password;
+    this.service.creationClient(connClient).subscribe(
+      response => {
+        if (response.success) {
+          // redirect
+        } else {
+          this.serverResponse = response.message;
         }
-      );
-    } else {
-      alert('Le mot de passe ne correspond pas !');
-    }
+      }
+    );
   }
 
 

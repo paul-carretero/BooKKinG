@@ -86,5 +86,6 @@ export class NavigationService {
     this.current.genre = newLivre.genre;
     this.current.other = newLivre.title;
     this.defNewNavData();
+    console.log(this.current);
   }
 }
