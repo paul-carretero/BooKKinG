@@ -1,9 +1,13 @@
+import { Article } from './../../model/article';
+import { HistoriqueCommandes } from './../../model/historique-commandes';
+import { Commande } from './../../model/commande';
 import { Component, OnInit } from '@angular/core';
 import { Livre } from '../../model/livre';
-import { Commande } from '../../model/commande';
 import { AchatService } from '../../service/achat.service';
 import { SimpleArticle } from '../../model/simple-article';
-import { Article } from '../../model/article';
+
+
+
 
 @Component({
   selector: 'app-historique-commandes',
@@ -12,7 +16,7 @@ import { Article } from '../../model/article';
 })
 export class HistoriqueCommandesComponent implements OnInit {
 
-  private static historique: Commande[] = [];
+  private static historique: HistoriqueCommandes;
 
   private articles: Article[];
   private commandeSelected = false;
@@ -20,12 +24,13 @@ export class HistoriqueCommandesComponent implements OnInit {
 
   constructor(private serviceCommande: AchatService) {
     this.commandeAAfficher = new Commande();
+    HistoriqueCommandesComponent.historique = new HistoriqueCommandes();
   }
 
   ngOnInit() {
     this.commandeSelected = false;
 
-
+/*
     // code en dur
     const commande = new Commande();
     commande.books = [{
@@ -71,23 +76,27 @@ export class HistoriqueCommandesComponent implements OnInit {
 
     HistoriqueCommandesComponent.historique = [commande, commande2];
     // fin partie test en dur
-
+*/
 
     // partie communiquant avec le serveur
-    /*
+    
+    
     this.serviceCommande.recupererCommandes().subscribe(
       commandes => {
         if(commandes.success){
           console.log("récupération des commandes réussie");
           HistoriqueCommandesComponent.historique = commandes;
-         // this.historique = commandes;
+          HistoriqueCommandesComponent.historique = commandes;
+          this.calculMontantDesCommandes();
         }
         else{
           console.log(commandes.message);
         }
       }
     );
-    */
+
+
+    
   }
 
   get historique() { return HistoriqueCommandesComponent.historique; }
@@ -131,4 +140,29 @@ export class HistoriqueCommandesComponent implements OnInit {
     }
     return quantity;
   }
+
+
+  public getMontantTotalCommande(commande : Commande){
+    let articlesCommande : Article[];
+    articlesCommande = this.recupererArticlesCommande(commande);
+    let total = 0;
+    articlesCommande.forEach(
+      article =>{
+        total = total + (article.book.price * 100 * this.getQuantity(commande, article.book.idBook));
+      }
+    );
+
+    return total / 100;
+
+  }
+
+  public calculMontantDesCommandes(){
+    HistoriqueCommandesComponent.historique.commands.forEach(
+      commande =>{
+        commande.total = this.getMontantTotalCommande(commande);
+      }
+    );
+  }
+
 }
+

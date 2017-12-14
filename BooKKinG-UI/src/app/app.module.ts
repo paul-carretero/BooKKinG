@@ -33,6 +33,7 @@ import { ArianeComponent } from './component/ariane/ariane.component';
 import { NavigationService } from './service/navigation.service';
 import { StockComponent } from './component/livre/stock/stock.component';
 import { TooltipDirective } from 'ng2-tooltip-directive/components';
+import { InformationsClientComponent } from './component/informations-client/informations-client.component';
 
 
 
@@ -78,6 +79,7 @@ export const appRoutes: Routes = [
     ArianeComponent,
     StockComponent,
     TooltipDirective,
+    InformationsClientComponent,
   ],
   // modules que l'application va utiliser
   // ! penser à y mettre aussi les modules pour les formulaires

@@ -1,10 +1,31 @@
-<div>
+
+<div class="wrapper">
+  <header class="row">
+      <h1>Votre compte</h1>
+  </header>
+
+  <div class="row">
+      <div class="col-md-6 ">
+          <app-historique-commandes></app-historique-commandes>
+      </div>
+
+      <div class="col-md-6 ">
+          <app-informations-client></app-informations-client>
+      </div>
+  </div>
+</div>
+
+
+
+<!--
+  
+  <div>
   <div> Nom : {{client.name}} </div>
   <div> Adresse: {{client.address}}</div>
   <div> Email: {{client.email}}</div>
   <input type="button" (click)="modifierInformations()" value="modifier les informations">
 </div>
-
+-->
 <!-- TEMPLATE : LES DONNÉES DANS L’OBJET FORM -->
 <!--
 <div [hidden]="!modifiaction">
@@ -41,6 +62,7 @@
 
 
 <!-- TEMPLATE : TWO WAY BINDING -->
+<!--
 <div [hidden]="!modifiaction">
   <form (ngSubmit)="modifier()">
     <div class="form-group">
@@ -66,3 +88,4 @@
     <button type="submit">Modifier</button>
   </form>
 </div>
+-->
