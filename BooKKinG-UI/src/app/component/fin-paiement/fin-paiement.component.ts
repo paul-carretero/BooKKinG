@@ -1,6 +1,8 @@
 import { PanierService } from './../../service/panier.service';
 import { AchatService } from './../../service/achat.service';
 import { Component, OnInit } from '@angular/core';
+import { LivraisonComponent } from '../livraison/livraison.component';
+import { ConnectionService } from '../../service/connection.service';
 
 @Component({
   selector: 'app-fin-paiement',
@@ -12,18 +14,21 @@ import { Component, OnInit } from '@angular/core';
  */
 export class FinPaiementComponent implements OnInit {
 
-  constructor(private serviceAchat: AchatService, private servicePanier: PanierService) { }
+  constructor(private serviceAchat: AchatService, private servicePanier: PanierService, private serviceConnect : ConnectionService) { }
 
 
   ngOnInit() {
-    // on vide le panier
-    this.servicePanier.viderPanier();
-    // A TESTER !!
-    this.serviceAchat.enregistrerCommande().subscribe(
+    // on enregistre la commande
+    console.log("taille du panier" + this.servicePanier.getContenuPanier().length);
+    console.log("connected ?" +this.serviceConnect.getConnectionStatus());
+    this.serviceAchat.enregistrerCommande(LivraisonComponent.adresseLivraison).subscribe(
       reponse => {
         console.log('enregistrement de la commande ' + JSON.stringify(reponse));
+        console.log("taille du panier" + this.servicePanier.getContenuPanier().length);
+        console.log("connected ?" +this.serviceConnect.getConnectionStatus());
         // on supprime l'enregistrement en base de donnée
         if (reponse.success) {
+          console.log('enregistrement de la commande réussi');
           this.servicePanier.viderPanier().subscribe(
             reponseVider => {
               console.log('panier vidé en base de donnée : ' + reponseVider.success);
@@ -32,6 +37,7 @@ export class FinPaiementComponent implements OnInit {
         }
       }
     );
+
 
   }
 

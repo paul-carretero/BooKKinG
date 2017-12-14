@@ -11,9 +11,11 @@ export class AchatService {
 
   constructor(private http: Http) { }
 
-  public enregistrerCommande(): Observable<any> {
+  public enregistrerCommande(adresseLivraison : string): Observable<any> {
     console.log('dans enregistrement commande');
-    const reponse = this.http.post(this.urlAchat, '', { withCredentials: true })
+    let json = {address:adresseLivraison}; 
+    //const reponse = this.http.post(this.urlAchat, '', { withCredentials: true })
+    const reponse = this.http.post(this.urlAchat, json, { withCredentials: true })
       .map(res => res.json());
     return reponse;
   }

@@ -103,18 +103,18 @@ export class HistoriqueCommandesComponent implements OnInit {
 
 
   public afficherDetailsCommande(commande: Commande) {
-    console.log('afficher les détails de la commande : ' + commande.date);
+   // console.log('afficher les détails de la commande : ' + commande.date);
     this.commandeSelected = true;
     this.commandeAAfficher = commande;
     this.articles = this.recupererArticlesCommande(commande);
   }
 
   public recupererArticlesCommande(commande: Commande): Article[] {
-    console.log('récupérer les articles de la commande : ' + commande.date);
+    //console.log('récupérer les articles de la commande : ' + commande.date);
     const articles: Article[] = [];
     let i = 0;
     while (i < commande.books.length) {
-      console.log('récupération du livre ' + commande.books[i].title);
+     // console.log('récupération du livre ' + commande.books[i].title);
       articles[i] = new Article();
       articles[i].book = new Livre();
       articles[i].book = commande.books[i];
@@ -127,7 +127,7 @@ export class HistoriqueCommandesComponent implements OnInit {
 
   public getQuantity(commande: Commande, idBook: number): number {
 
-    console.log('récupération de la quantité du livre' + idBook + ' de la commande : ' + commande.date);
+   // console.log('récupération de la quantité du livre' + idBook + ' de la commande : ' + commande.date);
     let quantity: number;
     let i = 0;
     let trouve = false;
