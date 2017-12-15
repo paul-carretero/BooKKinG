@@ -108,6 +108,10 @@ export class Globals {
     return Globals.etapePaiment;
   }
 
+  public static setMode(s: string): void {
+    Globals.etapePaiment = s;
+  }
+
   public static setEtat(b: boolean): void {
     Globals.payer = b;
   }

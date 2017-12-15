@@ -10,19 +10,19 @@
             <div class="col-md-7 ">
                 <ul>
                     <li>
-                            {{pointLivraison.nom}} / {{pointLivraison.datesLivraison}} - {{pointLivraison.adresse}}                                                                   
+                            BooKKinG {{pointLivraison.ville}}                                                                    
                     </li>
                 </ul>
             </div>
             <div class="col-md-2">
                 <ul>
-                        {{pointLivraison.prix}} €                                                       
+                        {{prixAdressePointLivraison}} €                                                       
                 </ul>
             </div>
 
             <div class="col-md-3 cta-button">
                 <ul>
-                        <input type="button" (click)="ChoixPointLivraison(pointLivraison)" value="Choisir"class="btn btn-lg btn-block btn-success">                            
+                        <input type="button" (click)="ChoixPointLivraison(pointLivraison);setMode('MODE_PM')" value="Choisir"class="btn btn-lg btn-block btn-success">                            
                 </ul>
             </div>
         </div>
@@ -48,7 +48,7 @@
 
         <div class="col-md-3 cta-button">
                 <ul>
-                        <input type="button" (click)="ChoixAdressePersonnelle()" value="Choisir" class="btn btn-lg btn-block btn-success">  
+                        <input type="button" (click)="ChoixAdressePersonnelle();setMode('MODE_PM')" value="Choisir" class="btn btn-lg btn-block btn-success">  
                 </ul>
         </div>
     </div>
@@ -94,7 +94,7 @@
 
             <div class="col-md-3 cta-button">
                     <ul>
-                             <button type="submit" class="btn btn-lg btn-block btn-success">Choisir</button>
+                             <button type="submit" class="btn btn-lg btn-block btn-success" >Choisir</button>
                     </ul>
             </div>
     

@@ -1,11 +1,17 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { AchatService } from './achat.service';
+import { HttpModule } from '@angular/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AchatService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AchatService]
+      providers: [AchatService],
+      imports: [ 
+        RouterTestingModule,
+        HttpModule
+      ]
     });
   });
 
