@@ -34,6 +34,7 @@ import { ArianeComponent } from './component/ariane/ariane.component';
 import { NavigationService } from './service/navigation.service';
 import { StockComponent } from './component/livre/stock/stock.component';
 import { TooltipDirective } from 'ng2-tooltip-directive/components';
+import { HeaderPaiementComponent } from './component/header-paiement/header-paiement.component';
 import { InformationsClientComponent } from './component/informations-client/informations-client.component';
 import { PageComponent } from './component/menu-recherche/page/page.component';
 import { ReturnButtonComponent } from './component/ariane/return-button/return-button.component';
@@ -77,6 +78,7 @@ export const appRoutes: Routes = [
     HistoriqueCommandesComponent,
     ArianeComponent,
     StockComponent,
+    HeaderPaiementComponent,
     TooltipDirective,
     InformationsClientComponent,
     PageComponent,
