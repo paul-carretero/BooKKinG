@@ -6,4 +6,5 @@ export class NavigationData {
     livre?: Livre;
     other?: string;
     search?: string;
+    noPage?: number;
 }
