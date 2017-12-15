@@ -1,6 +1,10 @@
+import { ConnectionService } from './../../service/connection.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PayerComponent } from './payer.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpModule } from '@angular/http';
+import { PanierService } from '../../service/panier.service';
 
 describe('PayerComponent', () => {
   let component: PayerComponent;
@@ -8,7 +12,15 @@ describe('PayerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PayerComponent ]
+      declarations: [ PayerComponent ],
+      imports: [ 
+        RouterTestingModule,
+        HttpModule
+      ],
+      providers: [
+        PanierService,
+        ConnectionService
+      ]
     })
     .compileComponents();
   }));
