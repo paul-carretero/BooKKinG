@@ -23,6 +23,7 @@ export class LivraisonComponent implements OnInit {
   adresseClient: string;
   prixAdresseClient = 10;
   prixAdresseSaisie = 20;
+  prixAdressePointLivraison = 0;
 
   constructor(private router: Router, private connectionService: ConnectionService) { }
 
@@ -35,20 +36,23 @@ export class LivraisonComponent implements OnInit {
 
   public generatePointLivraison() {
     this.listePointLivraison = [
-
+      {ville:"Paris"},
+      {ville:"Bordeaux"},
+      {ville:"Grenoble"}
+/*
       { nom: 'Tabac Presse', datesLivraison: 'Livré entre le 26.12 et le 31.12', adresse: '15 rue Pierre Brosselette - 38400 ST MARTIN D HERES', prix: 0 },
 
       { nom: 'Alessi Cerame', datesLivraison: 'Livré entre le 26.12 et le 31.12', adresse: '11 rue des Glairons - 38400 ST MARTIN D HERES ', prix: 3 }
-
+*/
     ];
 
   }
 
 
   public ChoixPointLivraison(pointLivraison: PointLivraison) {
-    console.log('Point de livraison choisi : ' + pointLivraison.nom);
-    LivraisonComponent.prixLivraison = pointLivraison.prix;
-    LivraisonComponent.adresseLivraison = pointLivraison.adresse;
+    console.log('Point de livraison choisi : ' + pointLivraison.ville);
+    LivraisonComponent.prixLivraison = this.prixAdressePointLivraison;
+    LivraisonComponent.adresseLivraison = pointLivraison.ville;
     this.router.navigate(['payer']);
   }
 

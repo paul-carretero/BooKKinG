@@ -1,39 +1,36 @@
-import { RechercheService } from './../../service/recherche.service';
+import { LRUCacheService } from './../../../service/lrucache.service';
 import { CookieService } from 'ngx-cookie-service';
-import { NavigationService } from './../../service/navigation.service';
-import { LRUCacheService } from './../../service/lrucache.service';
-import { LivreService } from './../../service/livre.service';
+import { NavigationService } from './../../../service/navigation.service';
+import { HistoriquePagesService } from './../../../service/historique-pages.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FiltreComponent } from './filtre.component';
+import { ReturnButtonComponent } from './return-button.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule } from '@angular/http';
 
-describe('FiltreComponent', () => {
-  let component: FiltreComponent;
-  let fixture: ComponentFixture<FiltreComponent>;
+describe('ReturnButtonComponent', () => {
+  let component: ReturnButtonComponent;
+  let fixture: ComponentFixture<ReturnButtonComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FiltreComponent 
-      ],
+      declarations: [ ReturnButtonComponent ],
       imports: [
         RouterTestingModule,
         HttpModule
       ],
       providers: [
-        LivreService,
-        LRUCacheService,
+        HistoriquePagesService,
         NavigationService,
         CookieService,
-        RechercheService
+        LRUCacheService
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FiltreComponent);
+    fixture = TestBed.createComponent(ReturnButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

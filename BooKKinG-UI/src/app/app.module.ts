@@ -1,3 +1,4 @@
+import { HistoriquePagesService } from './service/historique-pages.service';
 import { AchatService } from './service/achat.service';
 import { PanierService } from './service/panier.service';
 import { AdministrationService } from './service/administration.service';
@@ -36,24 +37,21 @@ import { TooltipDirective } from 'ng2-tooltip-directive/components';
 import { HeaderPaiementComponent } from './component/header-paiement/header-paiement.component';
 import { InformationsClientComponent } from './component/informations-client/informations-client.component';
 import { PageComponent } from './component/menu-recherche/page/page.component';
+import { ReturnButtonComponent } from './component/ariane/return-button/return-button.component';
 
 
 
 // constante regroupant les routes vers les différents pages liées aux composants
 // ! le nom du path est celui utilisé dans les liens dans app.component.html
 export const appRoutes: Routes = [
-  { path: 'livre', component: LivreComponent },
   { path: 'panier', component: PanierComponent },
   { path: 'menu-recherche', component: MenuRechercheComponent },
-  { path: 'inscription', component: InscriptionComponent },
-  { path: 'connection', component: ConnectionComponent },
   { path: 'identification-inscription', component: IdentificationInscriptionComponent },
   { path: 'payer', component: PayerComponent },
   { path: 'livraison', component: LivraisonComponent },
   { path: 'finPaiement', component: FinPaiementComponent },
   { path: 'admin', component: AdministrationComponent },
   { path: 'compte', component: CompteClientComponent },
-  { path: 'commandes', component: HistoriqueCommandesComponent },
   { path: 'livre/:id', component: LivreComponent }
 ];
 
@@ -84,6 +82,7 @@ export const appRoutes: Routes = [
     TooltipDirective,
     InformationsClientComponent,
     PageComponent,
+    ReturnButtonComponent,
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   // modules que l'application va utiliser
@@ -108,7 +107,8 @@ export const appRoutes: Routes = [
     CookieService,
     LivreService,
     NavigationService,
-    LRUCacheService
+    LRUCacheService,
+    HistoriquePagesService
   ],
   bootstrap: [AppComponent]
 })
