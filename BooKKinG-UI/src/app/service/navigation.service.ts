@@ -80,6 +80,10 @@ export class NavigationService {
     this.defNewNavData();
   }
 
+  public setCurrent(newCurrent: NavigationData) {
+    this.current = newCurrent;
+  }
+
   public setFromLivre(newLivre: Livre): void {
     this.reset();
     this.current.type = newLivre.type;
