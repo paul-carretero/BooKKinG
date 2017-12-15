@@ -28,7 +28,7 @@ public class BookEntity implements Serializable, BookEntItf {
     private Genre genre;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="type")
+	@Column(name="booktype")
     private Type type;
 	
 	@Column(name="author")

@@ -6,7 +6,7 @@ import { RechercheService } from './service/recherche.service';
 import { ConnectionService } from './service/connection.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LRUCacheService } from './service/lrucache.service';
@@ -34,6 +34,8 @@ import { NavigationService } from './service/navigation.service';
 import { StockComponent } from './component/livre/stock/stock.component';
 import { TooltipDirective } from 'ng2-tooltip-directive/components';
 import { HeaderPaiementComponent } from './component/header-paiement/header-paiement.component';
+import { InformationsClientComponent } from './component/informations-client/informations-client.component';
+import { PageComponent } from './component/menu-recherche/page/page.component';
 
 
 
@@ -80,7 +82,10 @@ export const appRoutes: Routes = [
     StockComponent,
     HeaderPaiementComponent,
     TooltipDirective,
+    InformationsClientComponent,
+    PageComponent,
   ],
+  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   // modules que l'application va utiliser
   // ! penser à y mettre aussi les modules pour les formulaires
   imports: [

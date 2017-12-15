@@ -2,15 +2,15 @@
   Mes commandes
   
   <ul>
-    <li *ngFor="let commande of historique;"  [ngClass]="{'active': selectedItem == commande}" (click) ="afficherDetailsCommande(commande)"> 
-      Commande {{commande.idCmd}} du {{commande.date}} 
+    <li *ngFor="let commande of historique.commands;"  [ngClass]="{'active': selectedItem == commande}" (click) ="afficherDetailsCommande(commande)"> 
+      Commande {{commande.idCmd}} du {{commande.date}} : total {{commande.total}}
     </li>
   </ul>
 </div>
 
 
 <div [hidden]="!commandeSelected">
-  Commande {{commandeAAfficher.idCmd}} du {{commandeAAfficher.date}}
+  Commande {{commandeAAfficher.idCmd}} du {{commandeAAfficher.date}} : total {{commandeAAfficher.total}}
     <ul>
         <li *ngFor="let article of articles;"> 
             {{article.book.title}} | {{article.quantity}}  | {{article.book.price}} euros  

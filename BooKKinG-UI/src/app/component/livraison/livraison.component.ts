@@ -1,8 +1,8 @@
+import { ConnectionService } from './../../service/connection.service';
 import { ConnectionComponent } from './../../component/connection/connection.component';
 import { Router } from '@angular/router';
 import { PointLivraison } from './../../model/point-livraison';
 import { Component, OnInit } from '@angular/core';
-import { ConnectionService } from '../../service/connection.service';
 import { Globals } from '../../globals';
 
 @Component({
@@ -16,6 +16,8 @@ import { Globals } from '../../globals';
  */
 export class LivraisonComponent implements OnInit {
   static prixLivraison: number;
+  static adresseLivraison: string;
+
 
   listePointLivraison: PointLivraison[];
   adresseClient: string;
@@ -46,12 +48,14 @@ export class LivraisonComponent implements OnInit {
   public ChoixPointLivraison(pointLivraison: PointLivraison) {
     console.log('Point de livraison choisi : ' + pointLivraison.nom);
     LivraisonComponent.prixLivraison = pointLivraison.prix;
+    LivraisonComponent.adresseLivraison = pointLivraison.adresse;
     this.router.navigate(['payer']);
   }
 
   public ChoixAdressePersonnelle() {
     console.log('Adresse personnelle choisie : ');
     LivraisonComponent.prixLivraison = this.prixAdresseClient;
+    LivraisonComponent.adresseLivraison = this.connectionService.getCurrentUser().address;
     this.router.navigate(['payer']);
 
   }
@@ -60,7 +64,9 @@ export class LivraisonComponent implements OnInit {
   public saisirAdresse(form) {
     console.log('dans saisir une adresse de livraison');
     console.log('contenu du formulaire {' + form.value.numero + ' ' + form.value.rue + ' - ' + form.value.codePostal + ' ' + form.value.ville + '}');
+    let adresse = form.value.numero + ' ' + form.value.rue + ' - ' + form.value.codePostal + ' ' + form.value.ville ;
     LivraisonComponent.prixLivraison = this.prixAdresseSaisie;
+    LivraisonComponent.adresseLivraison = adresse;
     this.router.navigate(['payer']);
 
   }

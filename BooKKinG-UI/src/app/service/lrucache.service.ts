@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Recherche } from '../model/recherche';
 import { Livre } from '../model/livre';
+import { ReponseRecherche } from '../model/reponse-recherche';
 
 @Injectable()
 export class LRUCacheService {
@@ -9,7 +10,7 @@ export class LRUCacheService {
 
   private keyArray: Recherche[];
 
-  private valueArray: Livre[][];
+  private valueArray: ReponseRecherche[];
 
   private timestamp: number[];
 
@@ -44,7 +45,7 @@ export class LRUCacheService {
 
   // public Interface //
 
-  public get(key: Recherche): Livre[] {
+  public get(key: Recherche): ReponseRecherche {
     const index: number = this.getIndexOf(key);
     if (index == null) {
       return null;
@@ -53,7 +54,7 @@ export class LRUCacheService {
     return this.valueArray[index];
   }
 
-  public put(key: Recherche, value: Livre[]): void {
+  public put(key: Recherche, value: ReponseRecherche): void {
     const index = this.getLeastRecentlyUsedIndex();
     this.keyArray[index] = key.clone();
     this.valueArray[index] = value;
@@ -65,9 +66,9 @@ export class LRUCacheService {
   }
 
   public getLivre(idBook: number): Livre {
-    for (const listLivre of this.valueArray) {
-      if (listLivre != null) {
-        for (const livre of listLivre) {
+    for (const listReponseRecherche of this.valueArray) {
+      if (listReponseRecherche != null) {
+        for (const livre of listReponseRecherche.books) {
           if (livre.idBook === idBook) {
             return livre;
           }

@@ -1,4 +1,6 @@
-export class Livre {
+import { Reponse } from './reponse';
+
+export class Livre extends Reponse {
     idBook?: number; // le ? Rend optionnel le champ. // l'id du livre dans la base de donnée
     title: string; // le titre du livre
     author: string;  // l'auteur du livre
@@ -8,6 +10,4 @@ export class Livre {
     stock: number; // nombre de livres en stock
     summary: string; // résumé du livre
     picture?: string;
-    success?: boolean;
-    message?: string;
 }

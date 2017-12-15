@@ -7,6 +7,12 @@ import java.security.NoSuchAlgorithmException;
 
 public class Helper {
 
+	public static final String BORDEAUX = "BooKKinG Bordeaux";
+	
+	public static final String GRENOBLE = "BooKKinG Grenoble";
+	
+	public static final String PARIS = "BooKKinG Paris";
+
 	public static String getEncodedPwd(final String password, final String salt)
 	{
 		String toHash = password + salt;
@@ -39,6 +45,25 @@ public class Helper {
 		else {
 			return str + getMissingSpace(length - str.length());
 		}
-		
+	}
+	
+	public static String getAddress(String address) {
+		if(address.equals("PARIS")) {
+			return PARIS;
+		}
+		if(address.equals("BORDEAUX")) {
+			return BORDEAUX;
+		}
+		if(address.equals("GRENOBLE")) {
+			return GRENOBLE;
+		}
+		return address;
+	}
+	
+	public static Integer getShippingPrice(String address) {
+		if(address.equals("PARIS") || address.equals("BORDEAUX") || address.equals("GRENOBLE")) {
+			return 0;
+		}
+		return 5;
 	}
 }

@@ -4,6 +4,10 @@ import shared.GenericResponseJsonItf;
 
 public interface BookListJsonItf extends GenericResponseJsonItf {
 
-	BookJsonItf prepareNewEntry();
+	public BookJsonItf prepareNewEntry();
+
+	public void setTotalPageAvailable(int n);
+	
+	public void setTotalAvailable(int n);
 
 }

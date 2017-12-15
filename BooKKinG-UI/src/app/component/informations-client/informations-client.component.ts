@@ -1,16 +1,14 @@
-import { ConnectionService } from './../../service/connection.service';
 import { Component, OnInit } from '@angular/core';
 import { Client } from '../../model/client';
-import { ConnectionComponent } from '../../component/connection/connection.component';
-import { NgForm } from '@angular/forms';
+import { ConnectionService } from '../../service/connection.service';
 
 @Component({
-  selector: 'app-compte-client',
-  templateUrl: './compte-client.component.html',
-  styleUrls: ['./compte-client.component.css']
+  selector: 'app-informations-client',
+  templateUrl: './informations-client.component.html',
+  styleUrls: ['./informations-client.component.css']
 })
-export class CompteClientComponent implements OnInit {
-/*
+export class InformationsClientComponent implements OnInit {
+
   private client: Client;
   private clientModifie: Client;
   private newPassword: string;
@@ -19,20 +17,12 @@ export class CompteClientComponent implements OnInit {
   private validAddress = true;
   private validPassword = true;
   private validPasswordConfirm = true;
-*/
 
-  constructor(){}
-
-/*
   constructor(private serviceConnection: ConnectionService) {
     this.client = new Client();
     this.clientModifie = new Client();
   }
-*/
 
-  ngOnInit() {}
-
-  /*
   ngOnInit() {
     console.log('dans compte client');
     this.client = this.serviceConnection.getCurrentUser();
@@ -100,5 +90,5 @@ export class CompteClientComponent implements OnInit {
       }
     }
   }
-  */
+
 }

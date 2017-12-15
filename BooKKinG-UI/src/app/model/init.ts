@@ -1,6 +1,7 @@
 import { Livre } from './livre';
+import { Reponse } from './reponse';
 
-export class Init {
+export class Init extends Reponse {
     /**
      * prix min des livres
      */
@@ -12,6 +13,4 @@ export class Init {
     mostBuyBook: Livre;
     randomBook: Livre;
     newestBook: Livre;
-    success: boolean;
-    message: string;
 }

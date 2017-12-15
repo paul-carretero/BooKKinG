@@ -16,6 +16,7 @@ import command.entity.CommandEntItf;
 import command.entity.CommandEntity;
 import mailer.MailerBeanLocal;
 import shared.AbstractBean;
+import shared.Helper;
 import user.bean.UserBeanLocal;
 import user.entity.UserEntItf;
 import user.entity.UserEntity;
@@ -67,7 +68,9 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	public void proceedCartCheckout(final Integer idUser, final CommandReqJsonItf data, final CommandJsonItf response) {
 		UserEntity u = this.user.getUser(idUser);
 		List<CartDetailEntity> currentCart = u.getCart();
-		CommandEntity cmd = new CommandEntity(data.getAddress());
+		Integer shippingPrice = Helper.getShippingPrice(data.getAddress());
+		String shippingAddress = Helper.getAddress(data.getAddress());
+		CommandEntity cmd = new CommandEntity(shippingAddress,shippingPrice);
 		cmd.setUser(u);
 		this.manager.persist(cmd);
 		for(CartDetailEntity cartEntry : currentCart) {
@@ -102,7 +105,7 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	public void getCommands(final Integer idUser, final CommandListJsonItf response) {
 		UserEntItf u = this.user.getUser(idUser);
 		for(CommandEntity command : u.getCommands()) {
-			CommandJsonItf cmdJson = response.prepareNewEntry(command.getDate(),command.getIdCmd());
+			CommandJsonItf cmdJson = response.prepareNewEntry(command.getDate(),command.getIdCmd(), command.getShippingCost(), command.getAddress());
 			for(CmdDetailEntity cmdDetail : command.getCmdDetails()) {
 				cmdJson.addCmdEntry(cmdDetail.getBook(), cmdDetail.getPrice(), cmdDetail.getQuantity());
 			}

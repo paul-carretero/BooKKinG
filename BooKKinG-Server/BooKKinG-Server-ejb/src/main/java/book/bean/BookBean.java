@@ -9,12 +9,12 @@ import java.util.Set;
 import javax.ejb.Asynchronous;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 
 import book.dataItf.BookJsonItf;
 import book.dataItf.BookListJsonItf;
 import book.dataItf.BookCreateDataItf;
 import book.dataItf.BookSearchItf;
-import book.dataItf.InitResponseJsonItf;
 import book.entity.BookEntity;
 import shared.AbstractBean;
 
@@ -24,6 +24,11 @@ import shared.AbstractBean;
 @Stateless
 @LocalBean
 public class BookBean extends AbstractBean implements BookBeanLocal {
+	
+	/**
+	 * nombre de livre par page à envoyer au front
+	 */
+	private static final int PAGE_SIZE = 5;
 
 	/**
 	 * Default constructor. 
@@ -80,21 +85,31 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 	@Override
 	public void getBooks(final BookSearchItf searchData, final BookListJsonItf response){
 		String regExpSearch = generateRegexpSubQuery(getSearchRegexp(searchData.getAnySearch()),"b");
-		List<BookEntity> books = this.manager.createQuery(
+		Query searchBookQuery = this.manager.createQuery(
 				" FROM BookEntity b WHERE "
 						+ "(b.type = :type OR :type = 'ANY')"
 						+ " AND (b.genre = :genre OR :genre = 'ANY')"
 						+ " AND (b.price >= :minprice OR :minprice <= 0)"
 						+ " AND (b.price <= :maxprice OR :maxprice <= 0)"
 						+ " AND (b.title LIKE :title OR b.author LIKE :author)"
-						+ " AND ( "+regExpSearch+" ) ")
+						+ " AND ( "+regExpSearch+" ) "
+						+ " ORDER BY b.title ASC")
 				.setParameter("type", searchData.getType())
 				.setParameter("genre", searchData.getGenre())
 				.setParameter("minprice", Float.valueOf(searchData.getMinPrice()))
 				.setParameter("maxprice", Float.valueOf(searchData.getMaxPrice()))
 				.setParameter("type", searchData.getType())
 				.setParameter("title", "%"+searchData.getTitle()+"%")
-				.setParameter("author", "%"+searchData.getAuthor()+"%")
+				.setParameter("author", "%"+searchData.getAuthor()+"%");
+		
+		int nResult = searchBookQuery.getResultList().size();
+		int nPage = (nResult + PAGE_SIZE - 1) / PAGE_SIZE;
+		response.setTotalPageAvailable(nPage);
+		response.setTotalAvailable(nResult);
+		
+		List<BookEntity> books = searchBookQuery
+				.setMaxResults(PAGE_SIZE)
+				.setFirstResult(searchData.getPage() * PAGE_SIZE)
 				.getResultList();
 		for(BookEntity book : books) {
 			BookJsonItf entry = response.prepareNewEntry();
@@ -117,41 +132,4 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 				);
 		this.manager.persist(newBook);
 	}
-
-	@Override
-	public void getRandom(InitResponseJsonItf response) {
-		BookEntity randomBook = (BookEntity) this.manager.createQuery("FROM BookEntity ORDER BY rand()").setMaxResults(1).getSingleResult();
-		BookJsonItf aBook = response.prepareNewBookRandom();
-		aBook.setField(randomBook);
-	}
-
-	@Override
-	public void getNewest(InitResponseJsonItf response) {
-		BookEntity randomBook = (BookEntity) this.manager.createQuery("FROM BookEntity ORDER BY idBook DESC").setMaxResults(1).getSingleResult();
-		BookJsonItf aBook = response.prepareNewBookNewest();
-		aBook.setField(randomBook);
-	}
-
-	@Override
-	public void getMostBuy(InitResponseJsonItf response) {
-		Integer mostBuyBook = (Integer) this.manager.createNativeQuery("SELECT idBook AS total FROM CmdDetail GROUP BY idBook ORDER BY total DESC LIMIT 1").getSingleResult();
-		BookJsonItf res = response.prepareNewBookMostBuy();
-		res.setField(getBook(mostBuyBook));
-	}
-
-	@Override
-	public void getRange(InitResponseJsonItf response) {
-		Integer min = Math.round(((Float) this.manager.createNativeQuery("SELECT MIN(price) FROM Book").getSingleResult())-1);
-		min = Math.max(0, min);
-		Integer max = Math.round(((Float) this.manager.createNativeQuery("SELECT MAX(price) FROM Book").getSingleResult())+1);
-		response.setRange(min, max);
-	}
-
-	@Override
-	public int getMinForTest() {
-		Integer min = Math.round(((Float) this.manager.createNativeQuery("SELECT MIN(price) FROM Book").getSingleResult())-1);
-		min = Math.max(0, min);
-		return min;
-	}
-
 }
