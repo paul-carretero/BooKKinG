@@ -1,5 +1,5 @@
-import { NavPage } from './../../nav-page.enum';
-import { HistoriquePagesService } from './../../service/historique-pages.service';
+import { NavPage } from './../../../nav-page.enum';
+import { HistoriquePagesService } from './../../../service/historique-pages.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
