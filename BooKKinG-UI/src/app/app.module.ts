@@ -35,6 +35,7 @@ import { StockComponent } from './component/livre/stock/stock.component';
 import { TooltipDirective } from 'ng2-tooltip-directive/components';
 import { InformationsClientComponent } from './component/informations-client/informations-client.component';
 import { PageComponent } from './component/menu-recherche/page/page.component';
+import { HomeComponent } from './component/home/home.component';
 
 
 
@@ -82,6 +83,7 @@ export const appRoutes: Routes = [
     TooltipDirective,
     InformationsClientComponent,
     PageComponent,
+    HomeComponent,
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   // modules que l'application va utiliser
