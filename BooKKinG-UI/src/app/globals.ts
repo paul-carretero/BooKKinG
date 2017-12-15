@@ -58,12 +58,27 @@ export class Globals {
     ]
   );
 
+  public static etapePaiment:string ='';
+  public static payer :boolean = false;
+
   public static getDisplayableName(key: string): string {
     if (Globals.displayable.has(key)) {
       return Globals.displayable.get(key);
     } else {
       return key;
     }
+  }
+
+  public static getMode():string{
+    return Globals.etapePaiment;
+  }
+
+  public static setEtat(b:boolean):void{
+    Globals.payer=b;
+  }
+
+  public static getEtat():boolean{
+    return Globals.payer;
   }
 
 }

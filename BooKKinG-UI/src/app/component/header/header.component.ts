@@ -37,6 +37,9 @@ export class HeaderComponent implements OnInit {
   private setCurrentOther(other: string): void {
     this.resetOnChange = '';
     this.rechercheService.setCurrentSearch('');
+    if(other == 'HOME'){
+      Globals.setEtat(false);
+    }
     if (Globals.otherNavPage.includes(other)) {
       this.navigationService.setCurrentOther(other);
     }
@@ -83,5 +86,13 @@ export class HeaderComponent implements OnInit {
 
   get currentType(): string {
     return this.navigationService.getCurrentType();
+  }
+
+  get getEtape():string{
+    return Globals.getMode();    
+  }
+
+  get getEtatPayer():boolean{
+    return Globals.payer;
   }
 }

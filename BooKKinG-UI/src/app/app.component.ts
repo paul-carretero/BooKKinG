@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Globals } from './globals';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,7 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
   title = 'BooKKinG';
+  get getEtatPayer():boolean{
+    return Globals.payer;
+  }
 }

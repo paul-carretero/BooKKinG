@@ -1,6 +1,7 @@
 import { PanierService } from './../../service/panier.service';
 import { AchatService } from './../../service/achat.service';
 import { Component, OnInit } from '@angular/core';
+import { Globals } from '../../globals';
 
 @Component({
   selector: 'app-fin-paiement',
@@ -32,7 +33,8 @@ export class FinPaiementComponent implements OnInit {
         }
       }
     );
-
+    Globals.payer=false;
   }
+
 
 }
