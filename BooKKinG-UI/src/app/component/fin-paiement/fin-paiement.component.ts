@@ -19,13 +19,9 @@ export class FinPaiementComponent implements OnInit {
 
   ngOnInit() {
     // on enregistre la commande
-    console.log("taille du panier" + this.servicePanier.getContenuPanier().length);
-    console.log("connected ?" +this.serviceConnect.getConnectionStatus());
     this.serviceAchat.enregistrerCommande(LivraisonComponent.adresseLivraison).subscribe(
       reponse => {
         console.log('enregistrement de la commande ' + JSON.stringify(reponse));
-        console.log("taille du panier" + this.servicePanier.getContenuPanier().length);
-        console.log("connected ?" +this.serviceConnect.getConnectionStatus());
         // on supprime l'enregistrement en base de donnée
         if (reponse.success) {
           console.log('enregistrement de la commande réussi');
