@@ -8,23 +8,36 @@ import { Router } from '@angular/router';
 @Injectable()
 export class HistoriquePagesService {
 
+  private static MAX_HISTORY = 10;
+
   private histoPages: NavigationData[];
 
   constructor(private navServ: NavigationService) {
-    this.subNav();
     this.histoPages = [];
-   }
+    this.subNav();
+  }
 
-   private subNav() {
-     this.navServ.suscribeForNavEvent().subscribe(
-       current => { this.histoPages.push(current); }
-     );
-   }
+  private subNav() {
+    this.navServ.suscribeForNavEvent().subscribe(
+      current => {
+        if (this.histoPages.length > HistoriquePagesService.MAX_HISTORY) {
+          this.histoPages.shift();
+        }
+        this.histoPages.push(current);
+      }
+    );
+  }
 
-   public navPagePrecedante(): string {
-     const pagePrec: NavigationData = this.histoPages.pop();
-     this.navServ.setCurrent(pagePrec);
-     return pagePrec.other;
-   }
+  public canGoBack(): boolean {
+    return this.histoPages.length > 0;
+  }
 
+  public navPagePrecedante(): NavigationData {
+    let pagePrec: NavigationData = this.histoPages.pop();
+    while (pagePrec.equals(this.navServ.getCurrentNavData())) {
+      pagePrec = this.histoPages.pop();
+    }
+    this.navServ.setCurrent(pagePrec, true);
+    return pagePrec;
+  }
 }

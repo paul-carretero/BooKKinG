@@ -28,7 +28,7 @@ export class RechercheService {
   // Private Methodes //
 
   private newRechercheFromNavData(navData: NavigationData): void {
-    if (navData.other == null && navData.livre == null) {
+    if (navData.other === Globals.RECHERCHE && navData.livre == null) {
       this.currentRecherche.anySearch = navData.search;
       this.currentRecherche.type = navData.type;
       this.currentRecherche.genre = navData.genre;
@@ -50,6 +50,7 @@ export class RechercheService {
   }
 
   private refresh() {
+    console.log(JSON.stringify(this.currentRecherche));
     if (this.cache.includes(this.currentRecherche)) {
       this.currentLivreList = this.cache.get(this.currentRecherche);
     } else {
@@ -92,6 +93,7 @@ export class RechercheService {
   public setCurrentPage(iPage: number): void {
     this.currentRecherche.page = iPage;
     this.refresh();
+    this.navService.setCurrentPage(1);
   }
 
   public getAvailablePages(): number {

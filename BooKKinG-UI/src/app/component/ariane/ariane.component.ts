@@ -29,6 +29,10 @@ export class ArianeComponent implements OnInit {
     return this.navigationService.getCurrentOther();
   }
 
+  get shoudlDisplayEnd(): boolean {
+    return true;
+  }
+
   private onClickType(): void {
     this.navigationService.setCurrentType(this.typeName);
   }

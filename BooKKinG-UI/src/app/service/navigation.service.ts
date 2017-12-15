@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { NavigationData } from '../model/navigation-data';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import { Globals } from '../globals';
 
 @Injectable()
 export class NavigationService {
@@ -14,7 +15,7 @@ export class NavigationService {
 
   constructor(private cookieService: CookieService) {
     this.initFromCookie();
-    this.navEvent = new Subject();
+    this.navEvent = new Subject<NavigationData>();
   }
 
   public suscribeForNavEvent(): Observable<NavigationData> {
@@ -30,6 +31,7 @@ export class NavigationService {
   private defNewNavData(): void {
     this.cookieService.set('nav-data', JSON.stringify(this.current));
     this.navEvent.next(this.current);
+    console.log('--->' + JSON.stringify(this.current));
   }
 
   private initFromCookie(): void {
@@ -60,16 +62,20 @@ export class NavigationService {
     return this.current.other;
   }
 
+  public getCurrentPage(): number {
+    return this.current.nPage || 1;
+  }
+
   public setCurrentType(newType: string): void {
     this.reset();
     this.current.type = newType;
+    this.current.other = Globals.RECHERCHE;
     this.defNewNavData();
   }
 
   public setCurrentGenre(newGenre: string): void {
     this.current.livre = null;
-    this.current.search = null;
-    this.current.other = null;
+    this.current.other = Globals.RECHERCHE;
     this.current.genre = newGenre;
     this.defNewNavData();
   }
@@ -80,15 +86,22 @@ export class NavigationService {
     this.defNewNavData();
   }
 
-  public setCurrent(newCurrent: NavigationData) {
+  public setCurrent(newCurrent: NavigationData, notify: boolean) {
     this.current = newCurrent;
+    if (notify) {
+      this.defNewNavData();
+    }
   }
 
   public setFromLivre(newLivre: Livre): void {
     this.reset();
     this.current.type = newLivre.type;
     this.current.genre = newLivre.genre;
-    this.current.other = newLivre.title;
+    this.current.other = Globals.LIVRE;
     this.defNewNavData();
+  }
+
+  public setCurrentPage(iPage: number) {
+    this.current.nPage = iPage;
   }
 }

@@ -1,12 +1,12 @@
-    <div id="header_wrapper" class="container">
-        <div (click)="setCurrentOther('HOME')" routerLink="/" class="col-md-1 home-link">
-            <img id="logo_img" src="assets/logo.gif" alt="logo_site" />
-            <span>BooKKinG</span>
-        </div>
+<div id="header_wrapper" class="container">
+    <div (click)="setCurrentOther('HOME')" routerLink="/" class="col-md-1 home-link">
+        <img id="logo_img" src="assets/logo.gif" alt="logo_site" />
+        <span>BooKKinG</span>
+    </div>
 
-        <div *ngIf="getEtatPayer;then paiement else accueil"></div>
+    <div *ngIf="getEtatPayer;then paiement else accueil"></div>
 
-        <ng-template #accueil>        
+    <ng-template #accueil>
         <div class="row">
             <nav class="col-md-8" id="menu_wrapper">
                 <ul id="nav">
@@ -36,7 +36,7 @@
         </div>
         <div class="row ">
             <div class="col-md-3 ">
-    
+
             </div>
             <div class="col-md-6 ">
                 <form id="search_wrapper ">
@@ -47,21 +47,13 @@
                 </form>
             </div>
             <div class="col-md-3 ">
-    
+
             </div>
         </div>
     </ng-template>
 
     <ng-template #paiement>
-                    <app-header-paiement></app-header-paiement>
+        <app-header-paiement></app-header-paiement>
     </ng-template>
-    
+
 </div>
-
-
-
-
-
-
-
-
