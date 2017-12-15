@@ -24,8 +24,8 @@ public class CommandEntity implements CommandEntItf {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer idCmd;
 	
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idUser")
+	@ManyToOne(fetch=FetchType.LAZY, optional=false)
+	@JoinColumn(name="idUser", nullable=false)
 	private UserEntity user;
 	
 	@Column(name="date")
@@ -33,6 +33,9 @@ public class CommandEntity implements CommandEntItf {
 	
 	@Column(name="address")
 	private String address;
+	
+	@Column(name="livraison")
+	private Integer shipping;
 	
 	@OneToMany(mappedBy="command", fetch=FetchType.LAZY, orphanRemoval=true, cascade=CascadeType.ALL)
 	private List<CmdDetailEntity> cmdDetails;
@@ -47,11 +50,12 @@ public class CommandEntity implements CommandEntItf {
 		this.cmdDetails = new ArrayList<>();
 	}
 
-	public CommandEntity(final String address) {
+	public CommandEntity(final String address, final Integer shipping) {
 		super();
 		this.cmdDetails = new ArrayList<>();
 		this.address	= address;
 		this.date 		= new Date(System.currentTimeMillis());
+		this.shipping 	= shipping;
 	}
 	
 	@Override
@@ -82,6 +86,11 @@ public class CommandEntity implements CommandEntItf {
 	}
 	
 	@Override
+	public Integer getShippingCost() {
+		return this.shipping;
+	}
+	
+	@Override
 	public float getTotal() {
 		float res = 0f;
 		for(CmdDetailEntity cmdEntry : this.cmdDetails) {
@@ -90,16 +99,8 @@ public class CommandEntity implements CommandEntItf {
 		return res;
 	}
 
-	public void setIdCmd(Integer idCmd) {
-		this.idCmd = idCmd;
-	}
-
 	public void setUser(UserEntity user) {
 		this.user = user;
-	}
-
-	public void setCmdDetails(List<CmdDetailEntity> cmdDetails) {
-		this.cmdDetails = cmdDetails;
 	}
 
 	public void addEntry(CmdDetailEntity cmdDetail) {

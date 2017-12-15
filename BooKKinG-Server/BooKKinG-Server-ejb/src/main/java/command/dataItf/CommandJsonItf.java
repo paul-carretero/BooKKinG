@@ -13,4 +13,8 @@ public interface CommandJsonItf extends GenericResponseJsonItf {
 
 	public void addCmdEntry(BookEntItf aBook, Float price, Integer quantity);
 
+	public void setShippingCost(Integer shippingCost);
+
+	public void setShippingAddress(String shippingAddress);
+
 }
