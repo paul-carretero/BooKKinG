@@ -19,4 +19,6 @@ public interface CommandEntItf extends Serializable {
 
 	public String getAddress();
 
+	public Integer getShippingCost();
+
 }

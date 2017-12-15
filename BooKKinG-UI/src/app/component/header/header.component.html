@@ -26,7 +26,7 @@
             </ng-container>
             <ng-container *ngIf="identity != null ">
                 <button (click)="setCurrentOther('COMPTE')" routerLink="/compte" class="btn btn-block btn-success btn-sm"><fa name="user "></fa> &nbsp;&nbsp; {{identity}}</button>
-                <button (click)="setCurrentOther('HOME'); deconnexion()" routerLink="/" class="btn btn-block btn-outline-secondary btn-sm">Se déconnecter</button>
+                <button (click)="setCurrentOther('HOME'); deconnexion()" routerLink="/" class="btn btn-block btn-link btn-sm">Se déconnecter</button>
             </ng-container>
         </div>
     </div>

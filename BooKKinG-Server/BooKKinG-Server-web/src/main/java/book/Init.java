@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import book.bean.BookBeanLocal;
 import book.response.InitResponseJson;
+import init.InitBeanLocal;
 
 /**
  * Servlet implementation class Init
@@ -21,8 +21,8 @@ public class Init extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 854905681146711274L;
 	
-	@EJB(lookup="java:app/BooKKinG-Server-ejb/BookBean!book.bean.BookBeanLocal")
-	private BookBeanLocal bookBean;
+	@EJB(lookup="java:app/BooKKinG-Server-ejb/InitBean!init.InitBeanLocal")
+	private InitBeanLocal initBean;
 
 	/**
      * @see HttpServlet#HttpServlet()
@@ -34,13 +34,15 @@ public class Init extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/plain;charset=UTF-8");
 		InitResponseJson res = new InitResponseJson();
-		this.bookBean.getRange(res);
-		this.bookBean.getMostBuy(res);
-		this.bookBean.getNewest(res);
-		this.bookBean.getRandom(res);
+		this.initBean.getRange(res);
+		this.initBean.getMostBuy(res);
+		this.initBean.getNewest(res);
+		this.initBean.getRandom(res);
+		this.initBean.getStatiAddress(res);
 		response.getWriter().append(res.toString());
 	}
 }

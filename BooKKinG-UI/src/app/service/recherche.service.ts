@@ -39,6 +39,7 @@ export class RechercheService {
   private listenForNavUpdate(): void {
     this.navService.suscribeForNavEvent().subscribe(
       navData => {
+        this.currentRecherche.page = 1;
         this.newRechercheFromNavData(navData);
       }
     );

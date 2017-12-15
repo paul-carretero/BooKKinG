@@ -18,6 +18,15 @@ public class InitResponseJson extends GenericResponseJson implements InitRespons
 	private BookJson newestBook;
 	
 	@SuppressWarnings("unused")
+	private String parisAddress;
+	
+	@SuppressWarnings("unused")
+	private String BordeauxAddress;
+	
+	@SuppressWarnings("unused")
+	private String grenobleAddress;
+	
+	@SuppressWarnings("unused")
 	private Integer min;
 	
 	@SuppressWarnings("unused")
@@ -49,6 +58,21 @@ public class InitResponseJson extends GenericResponseJson implements InitRespons
 	public BookJsonItf prepareNewBookMostBuy() {
 		this.mostBuyBook = new BookJson();
 		return this.mostBuyBook;
+	}
+
+	@Override
+	public void setParis(String addr) {
+		this.parisAddress = addr;
+	}
+
+	@Override
+	public void setBordeaux(String addr) {
+		this.BordeauxAddress = addr;
+	}
+
+	@Override
+	public void setGrenoble(String addr) {
+		this.grenobleAddress = addr;
 	}
 
 }

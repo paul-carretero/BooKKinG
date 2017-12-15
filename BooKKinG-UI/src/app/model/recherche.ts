@@ -8,7 +8,7 @@ export class Recherche {
     type: string;
     genre: string;
     anySearch: string;
-    page: number;
+    page = 1;
 
     equals(other: Recherche): boolean {
         return this.title === other.title
