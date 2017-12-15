@@ -6,7 +6,7 @@ import { RechercheService } from './service/recherche.service';
 import { ConnectionService } from './service/connection.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LRUCacheService } from './service/lrucache.service';
@@ -83,6 +83,7 @@ export const appRoutes: Routes = [
     InformationsClientComponent,
     PageComponent,
   ],
+  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   // modules que l'application va utiliser
   // ! penser à y mettre aussi les modules pour les formulaires
   imports: [
