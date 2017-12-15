@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { ConnectionService } from '../../service/connection.service';
 import { NgForm, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Globals } from '../../globals';
 
 @Component({
   selector: 'app-connection',
@@ -68,5 +69,11 @@ export class ConnectionComponent implements OnInit {
    */
   public deconnexion() {
     this.service.deconnexion();
+  }
+
+  public navigateLivraison(){
+    if(Globals.payer){
+      this.routeur.navigate(['livraison']);
+    }
   }
 }

@@ -9,10 +9,10 @@
                 <app-filtre></app-filtre>
             </div>
             <div class="col-md-9">
+                <app-return-button></app-return-button>
                 <app-ariane></app-ariane>
                 <router-outlet></router-outlet>
             </div>
-            <!--app-content class="col-lg-8">content</app-content-->
         </div>
     </div>
     <footer class="footer">
@@ -24,3 +24,20 @@
         </div>
     </footer>
 </div>
+
+
+<!--div *ngIf="getEtatPayer;then paiement else accueil"></div>
+
+<ng-template #accueil>
+<div class="col-md-3">
+    <app-filtre></app-filtre>
+</div>
+<div class="col-md-9">
+    <app-ariane></app-ariane>
+    <router-outlet></router-outlet>
+</div>
+</ng-template>
+
+<ng-template #paiement>
+    <router-outlet></router-outlet>                    
+</ng-template-->

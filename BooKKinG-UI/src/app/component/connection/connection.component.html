@@ -21,7 +21,7 @@
           Vous devez entrer un mot de passe !<br/>
         </span>
         <br/>
-        <button class="btn btn-block btn-success" type="submit" [disabled]="!connexionForm.valid">Se connecter</button>
+        <button class="btn btn-block btn-success" type="submit" [disabled]="!connexionForm.valid" (click)="navigateLivraison()" >Se connecter</button>
         <button type="button" class="btn btn-link btn-block btn-sm">mot de passe oublié ?</button>
     </form>
 </div>
