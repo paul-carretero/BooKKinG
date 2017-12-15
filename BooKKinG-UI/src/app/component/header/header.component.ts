@@ -37,12 +37,12 @@ export class HeaderComponent implements OnInit {
   private setCurrentOther(other: string): void {
     this.resetOnChange = '';
     this.rechercheService.setCurrentSearch('');
-    if(other == 'HOME'){
+    if (other === 'HOME') {
       Globals.setEtat(false);
     }
-    if (Globals.otherNavPage.includes(other)) {
-      this.navigationService.setCurrentOther(other);
-    }
+    // if (Globals.otherNavPage.includes(other)) {
+    this.navigationService.setCurrentOther(other);
+    // }
   }
 
   private search(str: string): void {
@@ -88,11 +88,11 @@ export class HeaderComponent implements OnInit {
     return this.navigationService.getCurrentType();
   }
 
-  get getEtape():string{
-    return Globals.getMode();    
+  get getEtape(): string {
+    return Globals.getMode();
   }
 
-  get getEtatPayer():boolean{
+  get getEtatPayer(): boolean {
     return Globals.payer;
   }
 }

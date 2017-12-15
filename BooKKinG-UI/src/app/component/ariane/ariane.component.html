@@ -15,7 +15,7 @@
             </fa><a routerLink="/menu-recherche">{{getDisplayable(genreName)}}</a>
         </span>
     </ng-container>
-    <ng-container *ngIf="currentEnd != null && currentEnd != 'HOME' ">
+    <ng-container *ngIf="shoudlDisplayEnd">
         <fa name="caret-right "></fa>{{getDisplayable(currentEnd)}}
     </ng-container>
 </div>

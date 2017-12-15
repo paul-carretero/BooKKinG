@@ -37,6 +37,7 @@ import { TooltipDirective } from 'ng2-tooltip-directive/components';
 import { HeaderPaiementComponent } from './component/header-paiement/header-paiement.component';
 import { InformationsClientComponent } from './component/informations-client/informations-client.component';
 import { PageComponent } from './component/menu-recherche/page/page.component';
+import { HomeComponent } from './component/home/home.component';
 import { ReturnButtonComponent } from './component/ariane/return-button/return-button.component';
 
 
@@ -82,6 +83,7 @@ export const appRoutes: Routes = [
     TooltipDirective,
     InformationsClientComponent,
     PageComponent,
+    HomeComponent,
     ReturnButtonComponent,
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
