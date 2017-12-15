@@ -22,7 +22,7 @@ export class ReturnButtonComponent implements OnInit {
 
   public returnPrevPage() {
     if (this.canGoBack) {
-      const navPage = this.histoNav.navPagePrecedante();
+      const navPage = this.histoNav.navPagePrecedente();
       if (this.canGoBack) {
         if (navPage.livre) {
           this.router.navigate([navPage.other + '/' + navPage.livre.idBook.toString()]);

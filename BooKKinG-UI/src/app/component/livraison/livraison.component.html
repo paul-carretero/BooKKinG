@@ -1,28 +1,28 @@
 <div class="bs-calltoaction bs-calltoaction-success">
-        
+
     <p class="bord" style="color:black;">
         Choisir un point de retrait pour votre colis :
     </p>
 
     <div *ngFor="let pointLivraison of listePointLivraison;">
-        <div class ="row">
-                    
+        <div class="row">
+
             <div class="col-md-7 ">
                 <ul>
                     <li>
-                            BooKKinG {{pointLivraison.ville}}                                                                    
+                        BooKKinG {{pointLivraison.ville}}
                     </li>
                 </ul>
             </div>
             <div class="col-md-2">
                 <ul>
-                        {{prixAdressePointLivraison}} €                                                       
+                    Gratuit!
                 </ul>
             </div>
 
             <div class="col-md-3 cta-button">
                 <ul>
-                        <input type="button" (click)="ChoixPointLivraison(pointLivraison);setMode('MODE_PM')" value="Choisir"class="btn btn-lg btn-block btn-success">                            
+                    <input type="button" (click)="ChoixPointLivraison(pointLivraison)" value="Choisir" class="btn btn-lg btn-block btn-success">
                 </ul>
             </div>
         </div>
@@ -33,72 +33,72 @@
         Choisir chez vous ou saisir une adresse :
     </p>
 
-    <div class ="row">
+    <div class="row">
         <div class="col-md-7 ">
             <ul>
-                        Chez vous : {{adresseClient}}                                                               
+                Chez vous : {{adresseClient}}
             </ul>
         </div>
 
         <div class="col-md-2 ">
-                <ul>
-                        {{prixAdresseClient}} €                                                           
-                </ul>
+            <ul>
+                {{prixAdresseClient}} €
+            </ul>
         </div>
 
         <div class="col-md-3 cta-button">
-                <ul>
-                        <input type="button" (click)="ChoixAdressePersonnelle();setMode('MODE_PM')" value="Choisir" class="btn btn-lg btn-block btn-success">  
-                </ul>
+            <ul>
+                <input type="button" (click)="ChoixAdressePersonnelle()" value="Choisir" class="btn btn-lg btn-block btn-success">
+            </ul>
         </div>
     </div>
 
-        <hr width="80%" > 
-        <ul >Saisir une adresse : </ul>
-            
+    <hr width="80%">
+    <ul>Saisir une adresse : </ul>
 
-        <div class="row">
-            <div class="col-md-7 ">
-                    <form (ngSubmit)="saisirAdresse(form)" #form="ngForm">
-                            <div>
-                                <label for="numero">Numéro :</label>
-                                <input type="text" class="form-control" name="numero" ngModel >
-                    
-                            </div>
-                    
-                            <div>
-                                <label for="rue">Rue :</label>
-                                <input type="text" class="form-control" name="rue" ngModel>
-                    
-                            </div>
-                            
-                            <div>
-                                <label for="codePostal">Code Postal :</label>
-                                <input type="text" class="form-control" name="codePostal" ngModel >
-                    
-                            </div>  
-                    
-                            <div>
-                                <label for="ville">Ville :</label>
-                                <input type="text" class="form-control" name="ville" ngModel >
-                        
-                            </div>
-                    </form>
-            </div>
 
-            <div class="col-md-2 ">
-                    <ul>
-                            {{prixAdresseSaisie}} €                                                            
-                    </ul>
-            </div>
+    <div class="row">
+        <div class="col-md-7 ">
+            <form (ngSubmit)="saisirAdresse(form)" #form="ngForm">
+                <div>
+                    <label for="numero">Numéro :</label>
+                    <input type="text" class="form-control" name="numero" ngModel>
 
-            <div class="col-md-3 cta-button">
-                    <ul>
-                             <button type="submit" class="btn btn-lg btn-block btn-success" >Choisir</button>
-                    </ul>
-            </div>
-    
+                </div>
 
+                <div>
+                    <label for="rue">Rue :</label>
+                    <input type="text" class="form-control" name="rue" ngModel>
+
+                </div>
+
+                <div>
+                    <label for="codePostal">Code Postal :</label>
+                    <input type="text" class="form-control" name="codePostal" ngModel>
+
+                </div>
+
+                <div>
+                    <label for="ville">Ville :</label>
+                    <input type="text" class="form-control" name="ville" ngModel>
+
+                </div>
+            </form>
         </div>
-       
+
+        <div class="col-md-2 ">
+            <ul>
+                5 €
+            </ul>
+        </div>
+
+        <div class="col-md-3 cta-button">
+            <ul>
+                <button type="submit" class="btn btn-lg btn-block btn-success">Choisir</button>
+            </ul>
+        </div>
+
+
+    </div>
+
 </div>

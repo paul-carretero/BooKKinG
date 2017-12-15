@@ -11,6 +11,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/cor
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LRUCacheService } from './service/lrucache.service';
+import { InitService } from './service/init.service';
 
 import { AppComponent } from './app.component';
 import { PanierComponent } from './component/panier/panier.component';
@@ -34,11 +35,12 @@ import { ArianeComponent } from './component/ariane/ariane.component';
 import { NavigationService } from './service/navigation.service';
 import { StockComponent } from './component/livre/stock/stock.component';
 import { TooltipDirective } from 'ng2-tooltip-directive/components';
-import { HeaderPaiementComponent } from './component/header-paiement/header-paiement.component';
+import { HeaderPaiementComponent } from './component/header/header-paiement/header-paiement.component';
 import { InformationsClientComponent } from './component/informations-client/informations-client.component';
 import { PageComponent } from './component/menu-recherche/page/page.component';
 import { HomeComponent } from './component/home/home.component';
 import { ReturnButtonComponent } from './component/ariane/return-button/return-button.component';
+import { HeaderStandardComponent } from './component/header/header-standard/header-standard.component';
 
 
 
@@ -85,6 +87,7 @@ export const appRoutes: Routes = [
     PageComponent,
     HomeComponent,
     ReturnButtonComponent,
+    HeaderStandardComponent,
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   // modules que l'application va utiliser
@@ -110,7 +113,8 @@ export const appRoutes: Routes = [
     LivreService,
     NavigationService,
     LRUCacheService,
-    HistoriquePagesService
+    HistoriquePagesService,
+    InitService
   ],
   bootstrap: [AppComponent]
 })

@@ -31,7 +31,6 @@ export class NavigationService {
   private defNewNavData(): void {
     this.cookieService.set('nav-data', JSON.stringify(this.current));
     this.navEvent.next(this.current);
-    console.log('--->' + JSON.stringify(this.current));
   }
 
   private initFromCookie(): void {
@@ -86,11 +85,9 @@ export class NavigationService {
     this.defNewNavData();
   }
 
-  public setCurrent(newCurrent: NavigationData, notify: boolean) {
+  public setCurrent(newCurrent: NavigationData) {
     this.current = newCurrent;
-    if (notify) {
-      this.defNewNavData();
-    }
+    this.defNewNavData();
   }
 
   public setFromLivre(newLivre: Livre): void {
@@ -103,5 +100,6 @@ export class NavigationService {
 
   public setCurrentPage(iPage: number) {
     this.current.nPage = iPage;
+    this.defNewNavData();
   }
 }

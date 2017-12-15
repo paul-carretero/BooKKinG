@@ -1,7 +1,7 @@
-<div *ngIf="etapePaiement=='LIVRAISON';then livraison"></div>
+<div *ngIf="etapePaiement==='LIVRAISON';then livraison"></div>
 <ng-template #livraison>
-    <div class="stepwizard col-md-6 " >
-        <div class="stepwizard-row header_commande" >
+    <div class="stepwizard col-md-6 ">
+        <div class="stepwizard-row header_commande">
             <div class="stepwizard-step">
                 <button type="button" class="btn btn-default btn-circle">1</button>
                 <p>Panier</p>
@@ -15,17 +15,17 @@
                 <p>Paiement</p>
             </div>
             <div class="stepwizard-step">
-                <button type="button" class="btn btn-default btn-circle" >4</button>
+                <button type="button" class="btn btn-default btn-circle">4</button>
                 <p>Terminer</p>
-            </div> 
+            </div>
         </div>
     </div>
 </ng-template>
 
-<div *ngIf="etapePaiement=='MODE_PM';then paiment"></div>
-<ng-template #paiment>
-    <div class="stepwizard col-md-6 " >
-        <div class="stepwizard-row header_commande" >
+<div *ngIf="etapePaiement=='PAYER';then paiement"></div>
+<ng-template #paiement>
+    <div class="stepwizard col-md-6 ">
+        <div class="stepwizard-row header_commande">
             <div class="stepwizard-step">
                 <button type="button" class="btn btn-default btn-circle">1</button>
                 <p>Panier</p>
@@ -39,17 +39,17 @@
                 <p>Paiement</p>
             </div>
             <div class="stepwizard-step">
-                <button type="button" class="btn btn-default btn-circle" >4</button>
+                <button type="button" class="btn btn-default btn-circle">4</button>
                 <p>Terminer</p>
-            </div> 
+            </div>
         </div>
     </div>
 </ng-template>
 
-<div *ngIf="etapePaiement=='TERMINER';then terminer"></div>
+<div *ngIf="etapePaiement=='FIN_PAIEMENT';then terminer"></div>
 <ng-template #terminer>
-    <div class="stepwizard col-md-6 " >
-        <div class="stepwizard-row header_commande" >
+    <div class="stepwizard col-md-6 ">
+        <div class="stepwizard-row header_commande">
             <div class="stepwizard-step">
                 <button type="button" class="btn btn-default btn-circle">1</button>
                 <p>Panier</p>
@@ -64,8 +64,8 @@
             </div>
             <div class="stepwizard-step">
                 <button type="button" class="btn btn-primary btn-circle">4</button>
-                <p>Terminer</p>
-            </div> 
+                <p>confirmation</p>
+            </div>
         </div>
     </div>
 </ng-template>

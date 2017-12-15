@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Globals } from '../../globals';
+import { Globals } from '../../../globals';
+import { AchatService } from '../../../service/achat.service';
 
 @Component({
   selector: 'app-header-paiement',
@@ -7,14 +8,14 @@ import { Globals } from '../../globals';
   styleUrls: ['./header-paiement.component.css']
 })
 export class HeaderPaiementComponent implements OnInit {
-  static test :string='';
-  constructor() { }
+
+  constructor(private achatService: AchatService) { }
 
   ngOnInit() {
   }
 
-  get etapePaiement():string{
-    return Globals.getMode();
+  get etapePaiement(): string {
+    return this.achatService.getEtapePaiement();
   }
 
 }

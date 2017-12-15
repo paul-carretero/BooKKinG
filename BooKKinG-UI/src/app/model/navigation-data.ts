@@ -6,10 +6,11 @@ export class NavigationData {
     livre?: Livre;
     other?: string;
     search?: string;
-    nPage?: number;
+    nPage = 1;
 
-    public equals(other: NavigationData): boolean {
-        return other.type === this.type
+    equals(other: NavigationData): boolean {
+        return other != null
+            && other.type === this.type
             && other.genre === this.genre
             && other.livre === this.livre
             && other.other === this.other

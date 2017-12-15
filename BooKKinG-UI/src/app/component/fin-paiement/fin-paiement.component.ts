@@ -15,33 +15,18 @@ import { LivraisonComponent } from '../livraison/livraison.component';
  */
 export class FinPaiementComponent implements OnInit {
 
-  constructor(private serviceAchat: AchatService, private servicePanier: PanierService, private serviceConnect : ConnectionService) { }
-
+  constructor(private serviceAchat: AchatService, private serviceConnect: ConnectionService) { }
 
   ngOnInit() {
     // on enregistre la commande
-    this.serviceAchat.enregistrerCommande(LivraisonComponent.adresseLivraison).subscribe(
+    this.serviceAchat.enregistrerCommande().subscribe(
       reponse => {
         console.log('enregistrement de la commande ' + JSON.stringify(reponse));
         // on supprime l'enregistrement en base de donnée
         if (reponse.success) {
           console.log('enregistrement de la commande réussi');
-          this.servicePanier.viderPanier().subscribe(
-            reponseVider => {
-              console.log('panier vidé en base de donnée : ' + reponseVider.success);
-            }
-          );
         }
       }
     );
-    //Globals.payer=false;
-    Globals.setMode('TERMINER');
   }
-
-  public  initHeader():void{
-    console.log("aaaaaaaaaaaaaa");
-    Globals.setEtat(false);
-  }
-
-
 }

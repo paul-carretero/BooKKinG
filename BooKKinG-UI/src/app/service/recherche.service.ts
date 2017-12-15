@@ -27,11 +27,19 @@ export class RechercheService {
 
   // Private Methodes //
 
+  private noChange(newNavData: NavigationData): boolean {
+    return this.currentRecherche.anySearch === newNavData.search
+      && this.currentRecherche.type === newNavData.type
+      && this.currentRecherche.genre === newNavData.genre
+      && this.currentRecherche.page === newNavData.nPage;
+  }
+
   private newRechercheFromNavData(navData: NavigationData): void {
     if (navData.other === Globals.RECHERCHE && navData.livre == null) {
       this.currentRecherche.anySearch = navData.search;
       this.currentRecherche.type = navData.type;
       this.currentRecherche.genre = navData.genre;
+      this.currentRecherche.page = navData.nPage;
       this.refresh();
     }
   }
@@ -39,8 +47,12 @@ export class RechercheService {
   private listenForNavUpdate(): void {
     this.navService.suscribeForNavEvent().subscribe(
       navData => {
-        this.currentRecherche.page = 1;
-        this.newRechercheFromNavData(navData);
+        if (!this.noChange(navData)) {
+          this.currentRecherche.page = 1;
+          this.newRechercheFromNavData(navData);
+        } else {
+          console.log('no change');
+        }
       }
     );
   }
@@ -93,7 +105,7 @@ export class RechercheService {
   public setCurrentPage(iPage: number): void {
     this.currentRecherche.page = iPage;
     this.refresh();
-    this.navService.setCurrentPage(1);
+    this.navService.setCurrentPage(iPage);
   }
 
   public getAvailablePages(): number {

@@ -1,59 +1,11 @@
 <div id="header_wrapper" class="container">
-    <div (click)="setCurrentOther('HOME')" routerLink="/" class="col-md-1 home-link">
-        <img id="logo_img" src="assets/logo.gif" alt="logo_site" />
-        <span>BooKKinG</span>
-    </div>
-
-    <div *ngIf="getEtatPayer;then paiement else accueil"></div>
-
-    <ng-template #accueil>
-        <div class="row">
-            <nav class="col-md-8" id="menu_wrapper">
-                <ul id="nav">
-                    <ng-container *ngFor="let type of typeLivres;">
-                        <ng-container *ngIf="type !== 'ANY'">
-                            <li *ngIf="type === currentType;else defaultheader" (click)="setCurrentType(type, true)"><a class="current" routerLink="/menu-recherche" href=" # ">{{displayableType(type)}}</a></li>
-                            <ng-template #defaultheader>
-                                <li (click)="setCurrentType(type, true)"><a href=" # " routerLink="/menu-recherche">{{displayableType(type)}}</a></li>
-                            </ng-template>
-                        </ng-container>
-                    </ng-container>
-                </ul>
-            </nav>
-            <div class="col-md-2 block-login">
-                <button (click)="setCurrentOther('PANIER')" routerLink="/panier" class="btn btn-block btn-success btn-sm">
-                    <fa name="shopping-cart "></fa> &nbsp;&nbsp; {{numberOfCartItem}}
-                    livre<ng-container *ngIf="numberOfCartItem > 1" >s</ng-container> ({{totalPriceOfCart.toFixed(2)}} €)
-                </button>
-                <ng-container *ngIf="identity == null ">
-                    <button (click)="setCurrentOther('LOGIN')" routerLink="/identification-inscription" class="btn btn-block btn-success btn-sm"><fa name="user "></fa> &nbsp;&nbsp; Login - Enregistrement</button>
-                </ng-container>
-                <ng-container *ngIf="identity != null ">
-                    <button (click)="setCurrentOther('COMPTE')" routerLink="/compte" class="btn btn-block btn-success btn-sm"><fa name="user "></fa> &nbsp;&nbsp; {{identity}}</button>
-                    <button (click)="setCurrentOther('HOME'); deconnexion()" routerLink="/" class="btn btn-block btn-outline-secondary btn-sm">Se déconnecter</button>
-                </ng-container>
-            </div>
-        </div>
-        <div class="row ">
-            <div class="col-md-3 ">
-
-            </div>
-            <div class="col-md-6 ">
-                <form id="search_wrapper ">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="search-addon"><fa name="search "></fa></span>
-                        <input type="search" value="{{resetOnChange}}" (input)="search($event.target.value)" class="form-control" placeholder="Rechercher un livre, un autheur..." aria-describedby="search-addon" />
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-3 ">
-
-            </div>
-        </div>
-    </ng-template>
-
-    <ng-template #paiement>
-        <app-header-paiement></app-header-paiement>
-    </ng-template>
-
+    <ng-container *ngIf="isInTransaction;then paiement else accueil"></ng-container>
 </div>
+
+<ng-template #paiement>
+    <app-header-paiement></app-header-paiement>
+</ng-template>
+
+<ng-template #accueil>
+    <app-header-standard></app-header-standard>
+</ng-template>

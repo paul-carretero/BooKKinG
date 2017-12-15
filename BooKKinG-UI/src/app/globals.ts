@@ -7,9 +7,9 @@ export class Globals {
 
   public static readonly pageSize = 5;
 
-  public static readonly host: String = 'bookking.ovh'; // bookking.ovh ou localhost:8080 ou 192.168.1.39:8080
+  public static readonly prixLivraison = 5;
 
-  public static initData: Init = new Init();
+  public static readonly host: String = 'bookking.ovh'; // bookking.ovh ou localhost:8080 ou 192.168.1.39:8080
 
   public static readonly genreLivres = new Map<string, string[]>(
     [
@@ -50,6 +50,10 @@ export class Globals {
     ]
   );
 
+  public static readonly transactionPage = [Globals.FIN_PAIEMENT, Globals.PAYER, Globals.LIVRAISON];
+
+  public static readonly pointLivraison = ['GRENOBLE', 'PARIS', 'BORDEAUX'];
+
   public static readonly typeLivre = Array.from(Globals.genreLivres.keys());
 
   public static readonly otherNavPage = Array.from(Globals.otherPage.keys());
@@ -85,9 +89,6 @@ export class Globals {
     ]
   );
 
-  public static etapePaiment = '';
-  public static payer = false;
-
   public static getDisplayableName(key: string): string {
     if (Globals.displayable.has(key)) {
       return Globals.displayable.get(key);
@@ -103,21 +104,4 @@ export class Globals {
       return '/';
     }
   }
-
-  public static getMode(): string {
-    return Globals.etapePaiment;
-  }
-
-  public static setMode(s: string): void {
-    Globals.etapePaiment = s;
-  }
-
-  public static setEtat(b: boolean): void {
-    Globals.payer = b;
-  }
-
-  public static getEtat(): boolean {
-    return Globals.payer;
-  }
-
 }

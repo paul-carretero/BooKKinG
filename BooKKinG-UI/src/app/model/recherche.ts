@@ -1,14 +1,14 @@
 import { Globals } from '../globals';
 
 export class Recherche {
-    title: string;
-    author: string;
-    minPrice: number = Globals.initData.min;
-    maxPrice: number = Globals.initData.max;
-    type: string;
-    genre: string;
-    anySearch: string;
-    page = 1;
+    title?: string;
+    author?: string;
+    minPrice?: number;
+    maxPrice?: number;
+    type?: string;
+    genre?: string;
+    anySearch?: string;
+    page?= 1;
 
     equals(other: Recherche): boolean {
         return this.title === other.title

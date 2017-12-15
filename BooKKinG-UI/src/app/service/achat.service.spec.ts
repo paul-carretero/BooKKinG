@@ -8,7 +8,7 @@ describe('AchatService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [AchatService],
-      imports: [ 
+      imports: [
         RouterTestingModule,
         HttpModule
       ]

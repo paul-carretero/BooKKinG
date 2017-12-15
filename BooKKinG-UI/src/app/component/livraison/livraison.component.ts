@@ -1,9 +1,9 @@
 import { ConnectionService } from './../../service/connection.service';
 import { ConnectionComponent } from './../../component/connection/connection.component';
 import { Router } from '@angular/router';
-import { PointLivraison } from './../../model/point-livraison';
 import { Component, OnInit } from '@angular/core';
 import { Globals } from '../../globals';
+import { AchatService } from '../../service/achat.service';
 
 @Component({
   selector: 'app-livraison',
@@ -15,67 +15,38 @@ import { Globals } from '../../globals';
  * Composant correspondant à la livraison
  */
 export class LivraisonComponent implements OnInit {
-  static prixLivraison: number;
-  static adresseLivraison: string;
 
+  constructor(private router: Router, private connectionService: ConnectionService, private achatService: AchatService) { }
 
-  listePointLivraison: PointLivraison[];
-  adresseClient: string;
-  prixAdresseClient = 5;
-  prixAdresseSaisie = 20;
-  prixAdressePointLivraison = 0;
+  ngOnInit() { }
 
-  constructor(private router: Router, private connectionService: ConnectionService) { }
-
-  ngOnInit() {
-    console.log('dans Livraison');
-    this.generatePointLivraison();
-    this.adresseClient = this.connectionService.getCurrentUser().address;
+  get LivraisonStandard(): number {
+    return Globals.prixLivraison;
   }
 
-
-  public generatePointLivraison() {
-    this.listePointLivraison = [
-      {ville:"Paris"},
-      {ville:"Bordeaux"},
-      {ville:"Grenoble"}
-/*
-      { nom: 'Tabac Presse', datesLivraison: 'Livré entre le 26.12 et le 31.12', adresse: '15 rue Pierre Brosselette - 38400 ST MARTIN D HERES', prix: 0 },
-
-      { nom: 'Alessi Cerame', datesLivraison: 'Livré entre le 26.12 et le 31.12', adresse: '11 rue des Glairons - 38400 ST MARTIN D HERES ', prix: 3 }
-*/
-    ];
-
+  get addressClient(): string {
+    return this.connectionService.getCurrentUser().address;
   }
 
+  get listePointLivraison(): string[] {
+    return Globals.pointLivraison;
+  }
 
-  public ChoixPointLivraison(pointLivraison: PointLivraison) {
-    console.log('Point de livraison choisi : ' + pointLivraison.ville);
-    LivraisonComponent.prixLivraison = this.prixAdressePointLivraison;
-    LivraisonComponent.adresseLivraison = pointLivraison.ville;
+  public ChoixPointLivraison(pointLivraison: string) {
+    this.achatService.setAddress(pointLivraison);
     this.router.navigate(['payer']);
   }
 
   public ChoixAdressePersonnelle() {
-    console.log('Adresse personnelle choisie : ');
-    LivraisonComponent.prixLivraison = this.prixAdresseClient;
-    LivraisonComponent.adresseLivraison = this.connectionService.getCurrentUser().address;
+    this.achatService.setAddress(this.addressClient);
     this.router.navigate(['payer']);
 
   }
-
 
   public saisirAdresse(form) {
-    console.log('dans saisir une adresse de livraison');
-    console.log('contenu du formulaire {' + form.value.numero + ' ' + form.value.rue + ' - ' + form.value.codePostal + ' ' + form.value.ville + '}');
-    let adresse = form.value.numero + ' ' + form.value.rue + ' - ' + form.value.codePostal + ' ' + form.value.ville ;
-    LivraisonComponent.prixLivraison = this.prixAdresseSaisie;
-    LivraisonComponent.adresseLivraison = adresse;
+    const addresse = form.value.numero + ' ' + form.value.rue + ' - ' + form.value.codePostal + ' ' + form.value.ville;
+    this.achatService.setAddress(addresse);
     this.router.navigate(['payer']);
 
-  }
-
-  public setMode(mode : string):void{
-     Globals.setMode(mode);
   }
 }

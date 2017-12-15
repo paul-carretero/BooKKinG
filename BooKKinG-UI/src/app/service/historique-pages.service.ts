@@ -8,9 +8,11 @@ import { Router } from '@angular/router';
 @Injectable()
 export class HistoriquePagesService {
 
-  private static MAX_HISTORY = 10;
+  private static readonly MAX_HISTORY = 100;
 
   private histoPages: NavigationData[];
+
+  private count = 0;
 
   constructor(private navServ: NavigationService) {
     this.histoPages = [];
@@ -24,20 +26,23 @@ export class HistoriquePagesService {
           this.histoPages.shift();
         }
         this.histoPages.push(current);
+        this.count++;
       }
     );
   }
 
   public canGoBack(): boolean {
-    return this.histoPages.length > 0;
+    return this.count > 0;
   }
 
-  public navPagePrecedante(): NavigationData {
+  public navPagePrecedente(): NavigationData {
     let pagePrec: NavigationData = this.histoPages.pop();
-    while (pagePrec.equals(this.navServ.getCurrentNavData())) {
+    while (this.histoPages.length > 0 && this.navServ.getCurrentNavData().equals(pagePrec)) {
       pagePrec = this.histoPages.pop();
     }
-    this.navServ.setCurrent(pagePrec, true);
+    this.navServ.setCurrent(pagePrec);
+    this.count--;
+    this.count--;
     return pagePrec;
   }
 }

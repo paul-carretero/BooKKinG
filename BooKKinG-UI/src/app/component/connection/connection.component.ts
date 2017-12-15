@@ -8,6 +8,7 @@ import { ConnectionService } from '../../service/connection.service';
 import { NgForm, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Globals } from '../../globals';
+import { AchatService } from '../../service/achat.service';
 
 @Component({
   selector: 'app-connection',
@@ -29,7 +30,7 @@ export class ConnectionComponent implements OnInit {
   * @param routeur permet de gérer le routage
   * @param service permet d'accéder aux services du composant ConnectionService
   */
-  constructor(private routeur: Router, private service: ConnectionService, private fb: FormBuilder) {
+  constructor(private routeur: Router, private service: ConnectionService, private fb: FormBuilder, private achatService: AchatService) {
     this.connexionForm = fb.group({
       email: ['', Validators.email],
       password: ['', Validators.required],
@@ -57,23 +58,13 @@ export class ConnectionComponent implements OnInit {
       connected => {
         if (connected.success) {
           this.serverResponse = '';
+          if (this.achatService.getTransactionState()) {
+            this.routeur.navigate(['livraison']);
+          }
         } else {
           this.serverResponse = connected.message;
         }
       }
     );
-  }
-
-  /**
-   * Méthode permettant la déconnexion d'un client
-   */
-  public deconnexion() {
-    this.service.deconnexion();
-  }
-
-  public navigateLivraison(){
-    if(Globals.payer){
-      this.routeur.navigate(['livraison']);
-    }
   }
 }
