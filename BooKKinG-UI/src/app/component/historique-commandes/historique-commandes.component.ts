@@ -85,6 +85,7 @@ export class HistoriqueCommandesComponent implements OnInit {
       commandes => {
         if(commandes.success){
           console.log("récupération des commandes réussie");
+          console.log("JSON recupéré : " + JSON.stringify(commandes));
           HistoriqueCommandesComponent.historique = commandes;
           HistoriqueCommandesComponent.historique = commandes;
           this.calculMontantDesCommandes();
@@ -159,7 +160,7 @@ export class HistoriqueCommandesComponent implements OnInit {
   public calculMontantDesCommandes(){
     HistoriqueCommandesComponent.historique.commands.forEach(
       commande =>{
-        commande.total = this.getMontantTotalCommande(commande);
+        commande.total = this.getMontantTotalCommande(commande) + commande.shippingCost;
       }
     );
   }

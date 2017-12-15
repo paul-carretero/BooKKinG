@@ -11,7 +11,8 @@
 
 <div [hidden]="!commandeSelected">
   Commande {{commandeAAfficher.idCmd}} du {{commandeAAfficher.date}} : total {{commandeAAfficher.total}}
-    <ul>
+  Livrée à : {{commandeAAfficher.shippingAddress}} pour {{commandeAAfficher.shippingCost}} euros  
+  <ul>
         <li *ngFor="let article of articles;"> 
             {{article.book.title}} | {{article.quantity}}  | {{article.book.price}} euros  
         </li>
