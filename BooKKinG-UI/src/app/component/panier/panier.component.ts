@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { PayerComponent } from '../payer/payer.component';
 import { Article } from '../../model/article';
 import { ConnectionService } from '../../service/connection.service';
+import { Globals } from '../../globals';
 
 @Component({
   selector: 'app-panier',
@@ -50,7 +51,13 @@ export class PanierComponent implements OnInit {
       this.router.navigate(['/identification-inscription']);
     }
   }
+  public setMode(mode : string):string{
+    return Globals.etapePaiment=mode;
+  }
 
+  public setPayerEtat(b: boolean):void{
+     Globals.setEtat(b);
+  }
   /**
    * Méthode pour vider le panier
    */

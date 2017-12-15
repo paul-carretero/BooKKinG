@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Globals } from './globals';
 import { RouterModule } from '@angular/router/src/router_module';
 
 @Component({
@@ -9,4 +10,7 @@ import { RouterModule } from '@angular/router/src/router_module';
 
 export class AppComponent {
   title = 'BooKKinG';
+  get getEtatPayer():boolean{
+    return Globals.payer;
+  }
 }

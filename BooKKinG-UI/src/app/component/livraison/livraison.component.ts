@@ -3,6 +3,7 @@ import { ConnectionComponent } from './../../component/connection/connection.com
 import { Router } from '@angular/router';
 import { PointLivraison } from './../../model/point-livraison';
 import { Component, OnInit } from '@angular/core';
+import { Globals } from '../../globals';
 
 @Component({
   selector: 'app-livraison',
@@ -72,5 +73,9 @@ export class LivraisonComponent implements OnInit {
     LivraisonComponent.adresseLivraison = adresse;
     this.router.navigate(['payer']);
 
+  }
+
+  public setMode(mode : string):string{
+    return Globals.etapePaiment=mode;
   }
 }

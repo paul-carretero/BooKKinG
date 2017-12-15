@@ -6,6 +6,7 @@ import { Client } from '../../model/client';
 import { Livre } from '../../model/livre';
 import { Article } from '../../model/article';
 import { PanierService } from '../../service/panier.service';
+import { Globals } from '../../globals';
 
 @Component({
   selector: 'app-payer',
@@ -49,5 +50,8 @@ export class PayerComponent implements OnInit {
       PayerComponent.enCoursDePaiement = false;
       this.router.navigate(['finPaiement']);
     }
+  }
+  public setMode(mode : string):string{
+    return Globals.etapePaiment=mode;
   }
 }
