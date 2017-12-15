@@ -51,8 +51,8 @@ export class PanierComponent implements OnInit {
       this.router.navigate(['/identification-inscription']);
     }
   }
-  public setMode(mode : string):string{
-    return Globals.etapePaiment=mode;
+  public setMode(mode : string):void{
+     Globals.setMode(mode);
   }
 
   public setPayerEtat(b: boolean):void{

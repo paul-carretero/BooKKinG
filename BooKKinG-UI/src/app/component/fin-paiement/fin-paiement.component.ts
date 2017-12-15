@@ -38,7 +38,13 @@ export class FinPaiementComponent implements OnInit {
         }
       }
     );
-    Globals.payer=false;
+    //Globals.payer=false;
+    Globals.setMode('TERMINER');
+  }
+
+  public  initHeader():void{
+    console.log("aaaaaaaaaaaaaa");
+    Globals.setEtat(false);
   }
 
 

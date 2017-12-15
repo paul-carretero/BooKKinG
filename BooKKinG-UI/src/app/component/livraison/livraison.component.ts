@@ -71,7 +71,7 @@ export class LivraisonComponent implements OnInit {
 
   }
 
-  public setMode(mode : string):string{
-    return Globals.etapePaiment=mode;
+  public setMode(mode : string):void{
+     Globals.setMode(mode);
   }
 }

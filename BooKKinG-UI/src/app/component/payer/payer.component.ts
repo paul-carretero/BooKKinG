@@ -51,7 +51,7 @@ export class PayerComponent implements OnInit {
       this.router.navigate(['finPaiement']);
     }
   }
-  public setMode(mode : string):string{
-    return Globals.etapePaiment=mode;
+  public static setMode(mode : string):void{
+     Globals.setMode(mode);
   }
 }
