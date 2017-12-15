@@ -21,7 +21,7 @@ export class LivraisonComponent implements OnInit {
 
   listePointLivraison: PointLivraison[];
   adresseClient: string;
-  prixAdresseClient = 10;
+  prixAdresseClient = 5;
   prixAdresseSaisie = 20;
   prixAdressePointLivraison = 0;
 
