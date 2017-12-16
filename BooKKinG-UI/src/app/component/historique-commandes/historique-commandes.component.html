@@ -1,20 +1,64 @@
-<div>
-    Mes commandes {{test}}
-
-    <ul>
-        <li *ngFor="let commande of historique;" [ngClass]="{'active': selectedItem == commande}" (click)="afficherDetailsCommande(commande)">
-            Commande {{commande.idCmd}} du {{commande.date}} : total {{commande.total}}
-        </li>
-    </ul>
-</div>
 
 
 <div [hidden]="!commandeSelected">
-    Commande {{commandeAAfficher.idCmd}} du {{commandeAAfficher.date}} : total {{commandeAAfficher.total}} Livrée à : {{commandeAAfficher.shippingAddress}} pour {{commandeAAfficher.shippingCost}} euros
-    <ul>
-        <li *ngFor="let article of articles;">
-            {{article.book.title}} | {{article.quantity}} | {{article.book.price}} euros
-        </li>
-    </ul>
-
+    <div class="wrapper-cart">
+        <h3>
+            Détails de la commande  {{commandeAAfficher.idCmd}}
+        </h3>
+        <div>
+            Commande effectuée le {{commandeAAfficher.date}}
+        </div>
+        <div>
+            Livrée à : {{commandeAAfficher.shippingAddress}} pour {{commandeAAfficher.shippingCost}} €
+        </div>
+        <div>
+            Total {{commandeAAfficher.total}} €
+        </div>
+        <ul>
+            <li *ngFor="let article of articles;">
+                {{article.book.title}}, Quantité : {{article.quantity}} <br/> Prix à l'unité :  {{article.book.price}} €
+            </li>
+        </ul>
+    </div>
 </div>
+
+
+<div class="wrapper-cart">
+    <table class="table table-hover table-responsive-md">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">
+                    Commande id
+                </th>                    
+                <th scope="col">
+                    date
+                </th>
+                <th scope="col">
+                    Prix
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody class="table-striped">
+            <tr *ngFor=" let commande of historique;">
+                <td>
+                    {{commande.idCmd}} 
+                </td>
+                <td>
+                    {{commande.date}}
+                </td>
+                <td>
+                    {{commande.total}}
+                </td> 
+                <td>
+                    <span class="clickable" (click)="afficherDetailsCommande(commande)" [ngClass]="{'active': selectedItem == commande}" >
+                        <u>Détails</u>
+                    </span>
+                </td>                 
+            </tr>
+        </tbody>            
+    </table>
+</div>
+
