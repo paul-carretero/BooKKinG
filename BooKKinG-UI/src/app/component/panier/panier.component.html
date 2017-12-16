@@ -1,18 +1,64 @@
+
 <h3>
-    Panier - total : {{montantGlobal}} euros <input type="button" (click)="viderPanier()" value="Vider Panier">
+    <div class="row">
+        <div class="col-md-6">
+            Votre panier contient {{numberOfCartItem}} article<ng-container *ngIf="numberOfCartItem > 1">s</ng-container>
+        </div>
+        <div class="col-md-3">
+            <u>TOTAL</u>   {{montantGlobal}} €
+        </div>
+        <div class="col-md-3">
+            <input class="btn btn-success btn-sm btn-block" type="button" (click)="viderPanier()" value="Vider Panier">     
+        </div>
+    </div>      
 </h3>
 
-<div>
-    <ul>
-        <li *ngFor="let article of contenuPanier;"> {{article.book.genre}} / {{article.book.title}} - {{article.book.author}} : {{article.book.price}} euros / quantite : {{article.quantity}} <input type="number" (input)="setQuantity(article.book, $event)" value="{{article.quantity}}" min="0" max="{{article.book.stock}}">            <input type="button" (click)="supprimer(article.idBook)" value="Retirer du panier"><input type="button" (click)="detailLivre(article.book)" value="Détail"></li>
+
+    <ul *ngFor="let article of contenuPanier;">       
+         
+            <div class="bs-calltoaction bs-calltoaction-success">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div style="font-weight:bold">
+                            {{article.book.title}}                           
+                        </div>
+                        <div>
+                            {{article.book.author}}
+                        </div>
+                        <div >
+                            {{article.book.genre}}
+                        </div>
+                        <div>
+                            Prix unitaire : {{article.book.price}} €
+                        </div>                                                  
+                    </div>
+                    <div class="col-md-2">                        
+                        <input type="number" (input)="setQuantity(article.book, $event)" value="{{article.quantity}}" min="0" max="{{article.book.stock}}">                                                
+                    </div>                        
+                    <div class="col-md-1">                                                                                           
+                        <i class="fa fa-trash-o garbage" (click)="supprimer(article.idBook)" style="font-size:24px"></i>                        
+                    </div>                    
+                </div>
+
+                <div>
+                    <input class="btn btn-success btn-sm" type="button" (click)="detailLivre(article.book)" value="Détail">         
+                </div>       
+            </div>                             
+        
     </ul>
-</div>
 
-<div>
-    total : {{montantGlobal}} euros
-    <input type="button" (click)="payer()" value="Payer">
-</div>
 
-<!--div>
-    <input type="button" (click)="retourPageRecherche()" value="<< Précédent" />        
-</div-->
+    <div class="row">
+        <div class="col-md-6">               
+        </div>
+        <div class="col-md-3" style="font-size:170%;">
+            <ng-container *ngIf="numberOfCartItem > 0"><u>TOTAL</u>   {{montantGlobal}} €</ng-container>
+        </div>
+        <div class="col-md-3">                
+        </div>
+    </div>   
+
+<div align="center">
+    <input class="btn btn-success btn-sm" style="font-size:120%;" type="button" (click)="payer()" value="Passer la commande">        
+</div>
+    

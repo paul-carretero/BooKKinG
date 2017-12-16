@@ -63,6 +63,15 @@ export class PanierComponent implements OnInit {
     this.service.setQuantity(livre.idBook, quantiteLivre);
   }
 
+  public getPriceBooks( quantity: any, unitaryPrice : number ) : number{
+    const quantiteLivre = Number(quantity.target.value);
+    return quantiteLivre * unitaryPrice;
+  }
+  
+  get numberOfCartItem(): number {
+    return this.service.getNumberOfItems();
+  }
+
   /*public retourPageRecherche() {
     this.router.navigate(['menu-recherche']);
   }*/
