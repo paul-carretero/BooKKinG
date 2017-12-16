@@ -28,6 +28,12 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 	private List<BookJson>		books;
 
 	private List<CartItemJson> 	items;
+	
+	@SuppressWarnings("unused")
+	private Integer 			shippingCost;
+	
+	@SuppressWarnings("unused")
+	private String				shippingAddress;
 
 	public CommandJson() {
 		super();
@@ -35,24 +41,36 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 		this.items 		= new LinkedList<>();
 	}
 
-	public CommandJson(final String date, final Integer idCmd) {
+	public CommandJson(final String date, final Integer idCmd, final Integer shippingCost, final String shippingAddress) {
 		super();
-		this.date		= date;
-		this.idCmd		= idCmd;
-		this.books 		= new LinkedList<>();
-		this.items 		= new LinkedList<>();
+		this.date				= date;
+		this.idCmd				= idCmd;
+		this.shippingAddress	= shippingAddress;
+		this.shippingCost		= shippingCost;
+		this.books 				= new LinkedList<>();
+		this.items 				= new LinkedList<>();
 	}
 	
 	@Override
-	public void setDate(String date) {
+	public void setDate(final String date) {
 		this.date = date;
 	}
 
 	@Override
-	public void setIdCmd(Integer idCmd) {
+	public void setIdCmd(final Integer idCmd) {
 		this.idCmd = idCmd;
 	}
 	
+	@Override
+	public void setShippingCost(final Integer shippingCost) {
+		this.shippingCost = shippingCost;
+	}
+
+	@Override
+	public void setShippingAddress(final String shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+
 	/**
 	 * @param aBook
 	 * @param price

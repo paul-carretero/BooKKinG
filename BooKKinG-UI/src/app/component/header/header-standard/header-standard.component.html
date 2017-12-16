@@ -1,0 +1,47 @@
+<div class="row">
+    <div (click)="setCurrentOther('HOME')" class="col-md-1 home-link">
+        <img id="logo_img" src="assets/logo.gif" alt="logo_site" />
+        <span>BooKKinG</span>
+    </div>
+    <nav class="col-md-8" id="menu_wrapper">
+        <ul id="nav">
+            <ng-container *ngFor="let type of typeLivres;">
+                <ng-container *ngIf="type !== 'ANY'">
+                    <li *ngIf="type === currentType;else defaultheader" (click)="setCurrentType(type)"><a class="current">{{displayableType(type)}}</a></li>
+                    <ng-template #defaultheader>
+                        <li (click)="setCurrentType(type)"><a>{{displayableType(type)}}</a></li>
+                    </ng-template>
+                </ng-container>
+            </ng-container>
+        </ul>
+    </nav>
+    <div class="col-md-3 block-login">
+        <button (click)="setCurrentOther('PANIER')" class="btn btn-block btn-success btn-sm">
+                <fa name="shopping-cart "></fa> &nbsp;&nbsp; {{numberOfCartItem}}
+                livre<ng-container *ngIf="numberOfCartItem > 1" >s</ng-container> ({{totalPriceOfCart.toFixed(2)}} €)
+            </button>
+        <ng-container *ngIf="identity == null ">
+            <button (click)="setCurrentOther('LOGIN')" class="btn btn-block btn-success btn-sm"><fa name="user "></fa> &nbsp;&nbsp; Login - Enregistrement</button>
+        </ng-container>
+        <ng-container *ngIf="identity != null ">
+            <button (click)="setCurrentOther('COMPTE')" class="btn btn-block btn-success btn-sm"><fa name="user "></fa> &nbsp;&nbsp; {{identity}}</button>
+            <button (click)="setCurrentOther('HOME'); deconnexion()" class="btn btn-block btn-link btn-sm">Se déconnecter</button>
+        </ng-container>
+    </div>
+</div>
+<div class="row ">
+    <div class="col-md-3 ">
+
+    </div>
+    <div class="col-md-6 ">
+        <form id="search_wrapper ">
+            <div class="input-group">
+                <span class="input-group-addon" id="search-addon"><fa name="search "></fa></span>
+                <input type="search" value="{{resetOnChange}}" (input)="search($event.target.value)" class="form-control" placeholder="Rechercher un livre, un autheur..." aria-describedby="search-addon" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3 ">
+
+    </div>
+</div>

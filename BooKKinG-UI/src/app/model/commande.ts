@@ -8,4 +8,12 @@ export class Commande extends Reponse {
     books: Livre[]; // tableau des livre de la commande
     items: SimpleArticle[]; // tableau associant l'id d'un livre de la commande à sa quantité
     total: number; // montant total de la commande
+    /**
+     * montant de la livraison
+     */
+    shippingCost : number ;
+    /**
+     * adresse de livraison
+     */
+    shippingAddress : string;
 }

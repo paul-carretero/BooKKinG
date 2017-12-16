@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InformationsClientComponent } from './informations-client.component';
+import { FormsModule } from '@angular/forms';
+import { ConnectionService } from '../../service/connection.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpModule } from '@angular/http';
 
 describe('InformationsClientComponent', () => {
   let component: InformationsClientComponent;
@@ -8,7 +12,16 @@ describe('InformationsClientComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InformationsClientComponent ]
+      declarations: [ InformationsClientComponent 
+      ],
+      imports: [ 
+        RouterTestingModule,
+        HttpModule,
+        FormsModule
+      ],
+      providers: [
+        ConnectionService,
+      ]
     })
     .compileComponents();
   }));

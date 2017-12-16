@@ -2,17 +2,16 @@ import { Injectable } from '@angular/core';
 import { Init } from './model/init';
 import { LivreService } from './service/livre.service';
 
-
 @Injectable()
 export class Globals {
 
-  public static recherche_size = 10;
+  public static readonly pageSize = 5;
 
-  public static host: String = 'bookking.ovh'; // bookking.ovh ou localhost:8080 ou 192.168.1.39:8080
+  public static readonly prixLivraison = 5;
 
-  public static initData: Init = new Init();
+  public static readonly host: String = 'bookking.ovh'; // bookking.ovh ou localhost:8080 ou 192.168.1.39:8080
 
-  public static genreLivres = new Map<string, string[]>(
+  public static readonly genreLivres = new Map<string, string[]>(
     [
       ['ROMAN', ['DRAMATIQUE', 'SF', 'FANTASY', 'POLICIER', 'HORREUR', 'ANY']],
       ['MAGAZINE', ['HISTOIRE', 'ART', 'LOISIR', 'ANY']],
@@ -25,11 +24,41 @@ export class Globals {
     ]
   );
 
-  public static otherNavPage = ['HOME', 'LOGIN', 'COMPTE', 'PANIER'];
+  public static readonly HOME = 'HOME';
+  public static readonly LOGIN = 'LOGIN';
+  public static readonly COMPTE = 'COMPTE';
+  public static readonly PANIER = 'PANIER';
+  public static readonly LIVRE = 'LIVRE';
+  public static readonly ADMIN = 'ADMIN';
+  public static readonly FIN_PAIEMENT = 'FIN_PAIEMENT';
+  public static readonly LIVRAISON = 'LIVRAISON';
+  public static readonly PAYER = 'PAYER';
+  public static readonly RECHERCHE = 'RECHERCHE';
 
-  public static typeLivre = Array.from(Globals.genreLivres.keys());
+  public static readonly otherPage = new Map<string, string>(
+    [
+      [Globals.HOME, '/'],
+      [Globals.LOGIN, '/identification-inscription'],
+      [Globals.COMPTE, '/compte'],
+      [Globals.PANIER, '/panier'],
+      [Globals.LIVRE, '/livre'],
+      [Globals.ADMIN, '/admin'],
+      [Globals.FIN_PAIEMENT, '/finPaiement'],
+      [Globals.LIVRAISON, '/livraison'],
+      [Globals.PAYER, '/payer'],
+      [Globals.RECHERCHE, '/menu-recherche'],
+    ]
+  );
 
-  private static displayable = new Map<string, string>(
+  public static readonly transactionPage = [Globals.FIN_PAIEMENT, Globals.PAYER, Globals.LIVRAISON];
+
+  public static readonly pointLivraison = ['GRENOBLE', 'PARIS', 'BORDEAUX'];
+
+  public static readonly typeLivre = Array.from(Globals.genreLivres.keys());
+
+  public static readonly otherNavPage = Array.from(Globals.otherPage.keys());
+
+  private static readonly displayable = new Map<string, string>(
     [
       ['ROMAN', 'Romans'],
       ['MAGAZINE', 'Magazines'],
@@ -68,4 +97,11 @@ export class Globals {
     }
   }
 
+  public static getRoute(key: string): string {
+    if (Globals.otherPage.has(key)) {
+      return Globals.otherPage.get(key);
+    } else {
+      return '/';
+    }
+  }
 }

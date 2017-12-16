@@ -130,8 +130,7 @@ public class MailerBean implements MailerBeanLocal {
 	public void sendConfirmationCommand(final UserEntItf aUser, final CommandEntItf cmd) {
 		String template = getTemplate("invoice");
 		String subtotal = String.valueOf(cmd.getTotal());
-		String shipping = "3";
-		String total = String.valueOf(cmd.getTotal() + 3);
+		String total = String.valueOf(cmd.getTotal() + cmd.getShippingCost());
 		
 		template = template.replaceFirst(Pattern.quote("{{USER_NAME}}"), aUser.getName());
 		template = template.replaceFirst(Pattern.quote("{{SHIPPING_ADRESSE}}"), cmd.getAddress());
@@ -139,7 +138,7 @@ public class MailerBean implements MailerBeanLocal {
 		template = template.replaceFirst(Pattern.quote("{{COMMAND_DATE}}"), cmd.getDate());
 		template = template.replaceFirst(Pattern.quote("{{COMMAND_ID}}"), cmd.getIdCmd().toString());
 		template = template.replaceFirst(Pattern.quote("{{SUB_TOTAL}}"), subtotal);
-		template = template.replaceFirst(Pattern.quote("{{SHIPPING_COST}}"), shipping);
+		template = template.replaceFirst(Pattern.quote("{{SHIPPING_COST}}"), cmd.getShippingCost().toString());
 		template = template.replaceFirst(Pattern.quote("{{TOTAL_PRICE}}"), total);
 		
 		StringBuffer details = new StringBuffer();

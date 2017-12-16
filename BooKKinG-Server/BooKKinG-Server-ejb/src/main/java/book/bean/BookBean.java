@@ -15,7 +15,6 @@ import book.dataItf.BookJsonItf;
 import book.dataItf.BookListJsonItf;
 import book.dataItf.BookCreateDataItf;
 import book.dataItf.BookSearchItf;
-import book.dataItf.InitResponseJsonItf;
 import book.entity.BookEntity;
 import shared.AbstractBean;
 
@@ -29,7 +28,7 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 	/**
 	 * nombre de livre par page à envoyer au front
 	 */
-	private static final int PAGE_SIZE = 10;
+	private static final int PAGE_SIZE = 5;
 
 	/**
 	 * Default constructor. 
@@ -104,7 +103,7 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 				.setParameter("author", "%"+searchData.getAuthor()+"%");
 		
 		int nResult = searchBookQuery.getResultList().size();
-		int nPage = Math.floorDiv(nResult, PAGE_SIZE)+1;
+		int nPage = (nResult + PAGE_SIZE - 1) / PAGE_SIZE;
 		response.setTotalPageAvailable(nPage);
 		response.setTotalAvailable(nResult);
 		
@@ -133,41 +132,4 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 				);
 		this.manager.persist(newBook);
 	}
-
-	@Override
-	public void getRandom(InitResponseJsonItf response) {
-		BookEntity randomBook = (BookEntity) this.manager.createQuery("FROM BookEntity ORDER BY rand()").setMaxResults(1).getSingleResult();
-		BookJsonItf aBook = response.prepareNewBookRandom();
-		aBook.setField(randomBook);
-	}
-
-	@Override
-	public void getNewest(InitResponseJsonItf response) {
-		BookEntity randomBook = (BookEntity) this.manager.createQuery("FROM BookEntity ORDER BY idBook DESC").setMaxResults(1).getSingleResult();
-		BookJsonItf aBook = response.prepareNewBookNewest();
-		aBook.setField(randomBook);
-	}
-
-	@Override
-	public void getMostBuy(InitResponseJsonItf response) {
-		Integer mostBuyBook = (Integer) this.manager.createNativeQuery("SELECT idBook AS total FROM CmdDetail GROUP BY idBook ORDER BY total DESC LIMIT 1").getSingleResult();
-		BookJsonItf res = response.prepareNewBookMostBuy();
-		res.setField(getBook(mostBuyBook));
-	}
-
-	@Override
-	public void getRange(InitResponseJsonItf response) {
-		Integer min = Math.round(((Float) this.manager.createNativeQuery("SELECT MIN(price) FROM Book").getSingleResult())-1);
-		min = Math.max(0, min);
-		Integer max = Math.round(((Float) this.manager.createNativeQuery("SELECT MAX(price) FROM Book").getSingleResult())+1);
-		response.setRange(min, max);
-	}
-
-	@Override
-	public int getMinForTest() {
-		Integer min = Math.round(((Float) this.manager.createNativeQuery("SELECT MIN(price) FROM Book").getSingleResult())-1);
-		min = Math.max(0, min);
-		return min;
-	}
-
 }

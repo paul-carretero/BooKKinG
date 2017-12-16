@@ -9,4 +9,10 @@ public interface InitResponseJsonItf {
 	public BookJsonItf prepareNewBookNewest();
 
 	public BookJsonItf prepareNewBookMostBuy();
+
+	public void setParis(String paris);
+
+	public void setBordeaux(String bordeaux);
+
+	public void setGrenoble(String grenoble);
 }

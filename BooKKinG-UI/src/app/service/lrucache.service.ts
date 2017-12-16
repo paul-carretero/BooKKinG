@@ -6,7 +6,7 @@ import { ReponseRecherche } from '../model/reponse-recherche';
 @Injectable()
 export class LRUCacheService {
 
-  private static MAX_CAPACITY = 4;
+  private static readonly MAX_CAPACITY = 4;
 
   private keyArray: Recherche[];
 

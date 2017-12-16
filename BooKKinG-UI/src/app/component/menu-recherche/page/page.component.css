@@ -1,11 +1,26 @@
 .inner {
     border-radius: 3px;
-    font-weight: 600;
+    background: rgba(255, 255, 255, 0.3);
+    display: inline-block;
+    padding: 0.25em 1em;
 }
 
-.wrapper {
+.row {
     color: black;
     margin-top: 0.25em;
     margin-bottom: 0.25em;
     width: 100%;
+}
+
+.current {
+    font-weight: bold;
+}
+
+.clickable:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+fa {
+    cursor: pointer;
 }

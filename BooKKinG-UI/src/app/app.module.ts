@@ -1,3 +1,4 @@
+import { HistoriquePagesService } from './service/historique-pages.service';
 import { AchatService } from './service/achat.service';
 import { PanierService } from './service/panier.service';
 import { AdministrationService } from './service/administration.service';
@@ -6,21 +7,20 @@ import { RechercheService } from './service/recherche.service';
 import { ConnectionService } from './service/connection.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LRUCacheService } from './service/lrucache.service';
+import { InitService } from './service/init.service';
 
 import { AppComponent } from './app.component';
 import { PanierComponent } from './component/panier/panier.component';
 import { MenuRechercheComponent } from './component/menu-recherche/menu-recherche.component';
-import { ConnectionComponent } from './component/connection/connection.component';
 import { CompteClientComponent } from './component/compte-client/compte-client.component';
 import { Http, HttpModule } from '@angular/http';
-import { InscriptionComponent } from './component/inscription/inscription.component';
-import { PayerComponent } from './component/payer/payer.component';
-import { LivraisonComponent } from './component/livraison/livraison.component';
-import { FinPaiementComponent } from './component/fin-paiement/fin-paiement.component';
+import { PayerComponent } from './component/achat-transaction/payer/payer.component';
+import { LivraisonComponent } from './component/achat-transaction/livraison/livraison.component';
+import { FinPaiementComponent } from './component/achat-transaction/fin-paiement/fin-paiement.component';
 import { AdministrationComponent } from './component/administration/administration.component';
 import { LivreComponent } from './component/livre/livre.component';
 import { HeaderComponent } from './component/header/header.component';
@@ -33,26 +33,29 @@ import { ArianeComponent } from './component/ariane/ariane.component';
 import { NavigationService } from './service/navigation.service';
 import { StockComponent } from './component/livre/stock/stock.component';
 import { TooltipDirective } from 'ng2-tooltip-directive/components';
+import { HeaderPaiementComponent } from './component/header/header-paiement/header-paiement.component';
 import { InformationsClientComponent } from './component/informations-client/informations-client.component';
 import { PageComponent } from './component/menu-recherche/page/page.component';
+import { HomeComponent } from './component/home/home.component';
+import { ReturnButtonComponent } from './component/ariane/return-button/return-button.component';
+import { HeaderStandardComponent } from './component/header/header-standard/header-standard.component';
+import { InscriptionComponent } from './component/identification-inscription/inscription/inscription.component';
+import { ConnectionComponent } from './component/identification-inscription/connection/connection.component';
+
 
 
 
 // constante regroupant les routes vers les différents pages liées aux composants
 // ! le nom du path est celui utilisé dans les liens dans app.component.html
 export const appRoutes: Routes = [
-  { path: 'livre', component: LivreComponent },
   { path: 'panier', component: PanierComponent },
   { path: 'menu-recherche', component: MenuRechercheComponent },
-  { path: 'inscription', component: InscriptionComponent },
-  { path: 'connection', component: ConnectionComponent },
   { path: 'identification-inscription', component: IdentificationInscriptionComponent },
   { path: 'payer', component: PayerComponent },
   { path: 'livraison', component: LivraisonComponent },
   { path: 'finPaiement', component: FinPaiementComponent },
   { path: 'admin', component: AdministrationComponent },
   { path: 'compte', component: CompteClientComponent },
-  { path: 'commandes', component: HistoriqueCommandesComponent },
   { path: 'livre/:id', component: LivreComponent }
 ];
 
@@ -79,10 +82,15 @@ export const appRoutes: Routes = [
     HistoriqueCommandesComponent,
     ArianeComponent,
     StockComponent,
+    HeaderPaiementComponent,
     TooltipDirective,
     InformationsClientComponent,
     PageComponent,
+    HomeComponent,
+    ReturnButtonComponent,
+    HeaderStandardComponent,
   ],
+  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   // modules que l'application va utiliser
   // ! penser à y mettre aussi les modules pour les formulaires
   imports: [
@@ -105,7 +113,9 @@ export const appRoutes: Routes = [
     CookieService,
     LivreService,
     NavigationService,
-    LRUCacheService
+    LRUCacheService,
+    HistoriquePagesService,
+    InitService
   ],
   bootstrap: [AppComponent]
 })

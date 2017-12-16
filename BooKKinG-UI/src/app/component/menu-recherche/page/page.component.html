@@ -1,17 +1,24 @@
 <div *ngIf="totalDisplayableLivre > 0" class="row">
-    <div class="inner text-left col-md-1"></div>
-    <div class="inner text-left col-md-4">
-        Livre affiché : {{displayedLivre}} sur {{totalDisplayableLivre}}
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+        <div class="inner">
+            Livres affichés : {{minLivre}} - {{maxLivre}} sur {{totalDisplayableLivre}}
+        </div>
     </div>
-    <div class="inner text-left col-md-2"></div>
-    <div class="inner text-right col-md-4">
-        <fa name="chevron-left "></fa>
-        <ng-container *ngFor="let page of availablePage;">
-            <span (click)="setPage(page)">{{page}}</span>
-        </ng-container>
-        <fa name="chevron-right "></fa>
+    <div class="col-md-2"></div>
+    <div class="text-right col-md-4">
+        <div class="inner">
+            <fa (click)="prevPage()" name="chevron-left "></fa>&nbsp;&nbsp;
+            <ng-container *ngFor="let page of availablePage;">
+                <span *ngIf="page > 1">&nbsp;&nbsp;-&nbsp;&nbsp;</span>
+                <span *ngIf="page !== currentPage;" class="clickable" (click)="setPage(page)">{{page}}</span>
+                <span *ngIf="page === currentPage;" class="current" (click)="setPage(page)">{{page}}</span>
+            </ng-container>
+            &nbsp;&nbsp;
+            <fa (click)="nextPage()" name="chevron-right "></fa>
+        </div>
     </div>
-    <div class="inner text-left col-md-1"></div>
+    <div class="text-left col-md-1"></div>
 </div>
 
 <div *ngIf="totalDisplayableLivre <= 0" class="text-center">

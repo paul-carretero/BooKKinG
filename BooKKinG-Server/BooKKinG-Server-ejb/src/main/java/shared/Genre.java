@@ -13,5 +13,7 @@ public enum Genre {
 	ART,
 	PHOTOGRAPHIE,
 	BIOGRAPHIE,
+	PHILOSOPHIE,
+	HISTOIRE,
 	ANY;
 }
