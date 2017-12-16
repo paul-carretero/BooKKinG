@@ -1,9 +1,8 @@
-import { ConnectionService } from './../../service/connection.service';
-import { ConnectionComponent } from './../../component/connection/connection.component';
+import { ConnectionService } from './../../../service/connection.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Globals } from '../../globals';
-import { AchatService } from '../../service/achat.service';
+import { Globals } from '../../../globals';
+import { AchatService } from '../../../service/achat.service';
 
 @Component({
   selector: 'app-livraison',

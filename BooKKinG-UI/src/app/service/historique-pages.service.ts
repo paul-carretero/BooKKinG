@@ -15,7 +15,7 @@ export class HistoriquePagesService {
   private count = 0;
 
   constructor(private navServ: NavigationService) {
-    this.histoPages = [];
+    this.histoPages = [this.cloneNavData(this.navServ.getCurrentNavData())];
     this.subNav();
   }
 
@@ -25,10 +25,21 @@ export class HistoriquePagesService {
         if (this.histoPages.length > HistoriquePagesService.MAX_HISTORY) {
           this.histoPages.shift();
         }
-        this.histoPages.push(current);
+        this.histoPages.push(this.cloneNavData(current));
         this.count++;
       }
     );
+  }
+
+  private cloneNavData(o: NavigationData): NavigationData {
+    const res = new NavigationData();
+    res.genre = o.genre;
+    res.livre = o.livre;
+    res.nPage = o.nPage;
+    res.other = o.other;
+    res.search = o.search;
+    res.type = o.type;
+    return res;
   }
 
   public canGoBack(): boolean {
@@ -36,13 +47,15 @@ export class HistoriquePagesService {
   }
 
   public navPagePrecedente(): NavigationData {
+    const c = this.cloneNavData(this.navServ.getCurrentNavData());
     let pagePrec: NavigationData = this.histoPages.pop();
-    while (this.histoPages.length > 0 && this.navServ.getCurrentNavData().equals(pagePrec)) {
+    while (this.histoPages.length > 0 && c.equals(pagePrec)) {
       pagePrec = this.histoPages.pop();
     }
     this.navServ.setCurrent(pagePrec);
     this.count--;
     this.count--;
+    this.count = Math.max(0, this.count);
     return pagePrec;
   }
 }

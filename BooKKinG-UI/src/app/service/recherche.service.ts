@@ -39,7 +39,10 @@ export class RechercheService {
       this.currentRecherche.anySearch = navData.search;
       this.currentRecherche.type = navData.type;
       this.currentRecherche.genre = navData.genre;
-      this.currentRecherche.page = navData.nPage;
+      this.currentRecherche.page = Number(navData.nPage.toFixed(0)); // force reference update
+      if (this.currentRecherche.page == null) {
+        this.currentRecherche.page = 1;
+      }
       this.refresh();
     }
   }
@@ -50,8 +53,6 @@ export class RechercheService {
         if (!this.noChange(navData)) {
           this.currentRecherche.page = 1;
           this.newRechercheFromNavData(navData);
-        } else {
-          console.log('no change');
         }
       }
     );
@@ -62,7 +63,6 @@ export class RechercheService {
   }
 
   private refresh() {
-    console.log(JSON.stringify(this.currentRecherche));
     if (this.cache.includes(this.currentRecherche)) {
       this.currentLivreList = this.cache.get(this.currentRecherche);
     } else {
@@ -86,18 +86,21 @@ export class RechercheService {
    * @param val le nouveau prix maximum
    */
   public setMaxPrice(val: number): void {
+    this.currentRecherche.page = 1;
     this.currentRecherche.maxPrice = val;
     this.refresh();
   }
 
   public setMinPrice(val: number): void {
+    this.currentRecherche.page = 1;
     this.currentRecherche.minPrice = val;
     this.refresh();
   }
 
   public setCurrentSearch(newSearch: string): void {
+    this.currentRecherche.page = 1;
     this.currentRecherche.anySearch = newSearch;
-    if (this.currentRecherche.anySearch !== '') {
+    if (this.currentRecherche.anySearch.length > 2) {
       this.refresh();
     }
   }
@@ -121,6 +124,6 @@ export class RechercheService {
   }
 
   public getCurrentPage(): number {
-    return this.currentRecherche.page;
+    return this.currentRecherche.page || 1;
   }
 }

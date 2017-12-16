@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuRechercheComponent } from '../../menu-recherche/menu-recherche.component';
 import { Globals } from '../../../globals';
-import { RouterLink, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ConnectionService } from '../../../service/connection.service';
 import { PanierService } from '../../../service/panier.service';
 import { NavigationService } from '../../../service/navigation.service';
@@ -32,19 +32,21 @@ export class HeaderStandardComponent implements OnInit {
     if (Globals.typeLivre.includes(type)) {
       this.navigationService.setCurrentType(type);
     }
+    this.router.navigate([Globals.getRoute(Globals.RECHERCHE)]);
   }
 
   private setCurrentOther(other: string): void {
     this.resetOnChange = '';
     this.rechercheService.setCurrentSearch('');
     this.navigationService.setCurrentOther(other);
+    this.router.navigate([Globals.getRoute(other)]);
   }
 
   private search(str: string): void {
     this.resetOnChange = str;
     if (str.length > 2) {
       this.navigationService.setCurrentType('ANY');
-      this.router.navigate(['/menu-recherche']);
+      this.router.navigate([Globals.getRoute(Globals.RECHERCHE)]);
       this.rechercheService.setCurrentSearch(str);
     } else {
       this.rechercheService.setCurrentSearch('');

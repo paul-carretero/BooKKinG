@@ -16,13 +16,11 @@ import { InitService } from './service/init.service';
 import { AppComponent } from './app.component';
 import { PanierComponent } from './component/panier/panier.component';
 import { MenuRechercheComponent } from './component/menu-recherche/menu-recherche.component';
-import { ConnectionComponent } from './component/connection/connection.component';
 import { CompteClientComponent } from './component/compte-client/compte-client.component';
 import { Http, HttpModule } from '@angular/http';
-import { InscriptionComponent } from './component/inscription/inscription.component';
-import { PayerComponent } from './component/payer/payer.component';
-import { LivraisonComponent } from './component/livraison/livraison.component';
-import { FinPaiementComponent } from './component/fin-paiement/fin-paiement.component';
+import { PayerComponent } from './component/achat-transaction/payer/payer.component';
+import { LivraisonComponent } from './component/achat-transaction/livraison/livraison.component';
+import { FinPaiementComponent } from './component/achat-transaction/fin-paiement/fin-paiement.component';
 import { AdministrationComponent } from './component/administration/administration.component';
 import { LivreComponent } from './component/livre/livre.component';
 import { HeaderComponent } from './component/header/header.component';
@@ -41,6 +39,9 @@ import { PageComponent } from './component/menu-recherche/page/page.component';
 import { HomeComponent } from './component/home/home.component';
 import { ReturnButtonComponent } from './component/ariane/return-button/return-button.component';
 import { HeaderStandardComponent } from './component/header/header-standard/header-standard.component';
+import { InscriptionComponent } from './component/identification-inscription/inscription/inscription.component';
+import { ConnectionComponent } from './component/identification-inscription/connection/connection.component';
+
 
 
 

@@ -2,7 +2,7 @@
   Mes commandes
   
   <ul>
-    <li *ngFor="let commande of historique.commands;"  [ngClass]="{'active': selectedItem == commande}" (click) ="afficherDetailsCommande(commande)"> 
+    <li *ngFor="let commande of historique;"  [ngClass]="{'active': selectedItem == commande}" (click) ="afficherDetailsCommande(commande)"> 
       Commande {{commande.idCmd}} du {{commande.date}} : total {{commande.total}}
     </li>
   </ul>

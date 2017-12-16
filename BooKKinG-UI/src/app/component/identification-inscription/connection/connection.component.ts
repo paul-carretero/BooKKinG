@@ -1,14 +1,14 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Client } from '../../model/client';
+import { Client } from '../../../model/client';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
-import { ConnectionService } from '../../service/connection.service';
+import { ConnectionService } from '../../../service/connection.service';
 import { NgForm, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Globals } from '../../globals';
-import { AchatService } from '../../service/achat.service';
+import { Globals } from '../../../globals';
+import { AchatService } from '../../../service/achat.service';
 
 @Component({
   selector: 'app-connection',

@@ -64,6 +64,7 @@ ul#nav a {
     text-decoration: none;
     text-shadow: 1px 1px 0 #B4C6C6;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 ul#nav>li:hover>a {

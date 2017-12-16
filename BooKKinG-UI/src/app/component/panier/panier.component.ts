@@ -2,11 +2,11 @@ import { PanierService } from './../../service/panier.service';
 import { Livre } from './../../model/livre';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PayerComponent } from '../payer/payer.component';
 import { Article } from '../../model/article';
 import { ConnectionService } from '../../service/connection.service';
 import { Globals } from '../../globals';
 import { AchatService } from '../../service/achat.service';
+import { NavigationService } from '../../service/navigation.service';
 
 @Component({
   selector: 'app-panier',
@@ -20,11 +20,12 @@ import { AchatService } from '../../service/achat.service';
 export class PanierComponent implements OnInit {
 
   constructor(private router: Router, private service: PanierService,
-    private connectionService: ConnectionService, private achatService: AchatService) { }
+    private connectionService: ConnectionService, private achatService: AchatService, private navigationService: NavigationService) { }
 
   ngOnInit() { }
 
   public detailLivre(livre: Livre) {
+    this.navigationService.setFromLivre(livre);
     this.router.navigate([Globals.getRoute(Globals.LIVRE) + '/' + livre.idBook]);
   }
 
@@ -48,8 +49,10 @@ export class PanierComponent implements OnInit {
     this.achatService.startTransaction();
     // si le client est connecté alors on peut démarrer le processus de paiement
     if (this.connectionService.getConnectionStatus()) {
+      this.navigationService.setCurrentOther(Globals.LIVRAISON);
       this.router.navigate([Globals.getRoute(Globals.LIVRAISON)]);
     } else {
+      this.navigationService.setCurrentOther(Globals.LOGIN);
       this.router.navigate([Globals.getRoute(Globals.LOGIN)]);
     }
   }

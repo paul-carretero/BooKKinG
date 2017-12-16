@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Globals } from '../../../globals';
 import { AchatService } from '../../../service/achat.service';
+import { Router } from '@angular/router';
+import { NavigationService } from '../../../service/navigation.service';
 
 @Component({
   selector: 'app-header-paiement',
@@ -9,7 +11,7 @@ import { AchatService } from '../../../service/achat.service';
 })
 export class HeaderPaiementComponent implements OnInit {
 
-  constructor(private achatService: AchatService) { }
+  constructor(private router: Router, private achatService: AchatService, private navService: NavigationService) { }
 
   ngOnInit() {
   }
@@ -18,4 +20,8 @@ export class HeaderPaiementComponent implements OnInit {
     return this.achatService.getEtapePaiement();
   }
 
+  public navigate(where: string): void {
+    this.navService.setCurrentOther(where);
+    this.router.navigate([Globals.getRoute(where)]);
+  }
 }

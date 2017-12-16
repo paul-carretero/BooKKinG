@@ -1,0 +1,58 @@
+<div class="wrapper">
+    <h3>Veuillez choisir un moyen de paiement</h3>
+
+    <div class=" row ">
+        <div class="col-md-2 "></div>
+        <div class="col-md-9 ">
+            <div (click)="validerPaiement()" class="row choice ">
+                <div class="col-md-4 ">
+                    <fa class="fa-big " name=credit-card></fa>
+                </div>
+                <div class="col-md-6 center ">
+                    <span class="align-middle ">Payer par carte Bancaire<br/> (Expédition Immédiate)</span>
+                </div>
+                <div class=" col-md-2 ">
+                    <fa class="fa-big " name="caret-right "></fa>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 "></div>
+    </div>
+    <div class="row ">
+        <div class="col-md-2 "></div>
+        <div class="col-md-9 ">
+            <div (click)="validerPaiement()" class="row choice ">
+                <div class="col-md-4 ">
+                    <fa class="fa-big " name="paypal "></fa>
+                </div>
+                <div class="col-md-6 center ">
+                    <span class="align-middle ">Payer par PayPal<br/> (Expédition Immédiate)</span>
+                </div>
+                <div class=" col-md-2 ">
+                    <fa class="fa-big " name="caret-right "></fa>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 "></div>
+    </div>
+    <div class="row ">
+        <div class="col-md-2 "></div>
+        <div class="col-md-9 ">
+            <div (click)="validerPaiement()" class="row choice ">
+                <div class="col-md-4 ">
+                    <fa class="fa-big " name="exchange "></fa>
+                </div>
+                <div class="col-md-6 center ">
+                    <span class="align-middle ">Payer par virement bancaire<br/> (Expédition lors de la confirmation de votre virement)</span>
+                </div>
+                <div class=" col-md-2 ">
+                    <fa class="fa-big " name="caret-right "></fa>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 "></div>
+    </div>
+    <footer>
+        Total à payer : {{total}}€
+    </footer>
+</div>

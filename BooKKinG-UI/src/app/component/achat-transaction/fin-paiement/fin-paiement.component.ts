@@ -1,8 +1,8 @@
-import { PanierService } from './../../service/panier.service';
-import { AchatService } from './../../service/achat.service';
+import { PanierService } from './../../../service/panier.service';
+import { AchatService } from './../../../service/achat.service';
 import { Component, OnInit } from '@angular/core';
-import { Globals } from '../../globals';
-import { ConnectionService } from '../../service/connection.service';
+import { Globals } from '../../../globals';
+import { ConnectionService } from '../../../service/connection.service';
 import { LivraisonComponent } from '../livraison/livraison.component';
 
 @Component({
@@ -25,6 +25,8 @@ export class FinPaiementComponent implements OnInit {
         // on supprime l'enregistrement en base de donnée
         if (reponse.success) {
           console.log('enregistrement de la commande réussi');
+        } else {
+          console.log(reponse.message);
         }
       }
     );

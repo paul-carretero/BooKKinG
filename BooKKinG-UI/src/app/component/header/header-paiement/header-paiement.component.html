@@ -1,71 +1,65 @@
-<div *ngIf="etapePaiement==='LIVRAISON';then livraison"></div>
-<ng-template #livraison>
-    <div class="stepwizard col-md-6 ">
-        <div class="stepwizard-row header_commande">
-            <div class="stepwizard-step">
-                <button type="button" class="btn btn-default btn-circle">1</button>
-                <p>Panier</p>
-            </div>
-            <div class="stepwizard-step">
-                <button type="button" class="btn btn-primary btn-circle">2</button>
-                <p>Livraison</p>
-            </div>
-            <div class="stepwizard-step">
-                <button type="button" class="btn btn-default btn-circle">3</button>
-                <p>Paiement</p>
-            </div>
-            <div class="stepwizard-step">
-                <button type="button" class="btn btn-default btn-circle">4</button>
-                <p>Terminer</p>
-            </div>
-        </div>
+<div class="row">
+    <div (click)="navigate('HOME')" routerLink="/" class="col-md-1 home-link">
+        <img id="logo_img" src="assets/logo.gif" alt="logo_site" />
+        <span>BooKKinG</span>
     </div>
-</ng-template>
+    <div class="col-md-2"></div>
+    <div class="col-md-9">
+        <div class="stepwizard">
+            <div class="stepwizard-row">
+                <div class="stepwizard-step">
+                    <button type="button" (click)="navigate('PANIER')" class="btn btn-default btn-circle">1</button>
+                    <p>Panier</p>
+                </div>
 
-<div *ngIf="etapePaiement=='PAYER';then paiement"></div>
-<ng-template #paiement>
-    <div class="stepwizard col-md-6 ">
-        <div class="stepwizard-row header_commande">
-            <div class="stepwizard-step">
-                <button type="button" class="btn btn-default btn-circle">1</button>
-                <p>Panier</p>
-            </div>
-            <div class="stepwizard-step">
-                <button type="button" class="btn btn-default btn-circle">2</button>
-                <p>Livraison</p>
-            </div>
-            <div class="stepwizard-step">
-                <button type="button" class="btn btn-primary btn-circle">3</button>
-                <p>Paiement</p>
-            </div>
-            <div class="stepwizard-step">
-                <button type="button" class="btn btn-default btn-circle">4</button>
-                <p>Terminer</p>
-            </div>
-        </div>
-    </div>
-</ng-template>
+                <ng-container *ngIf="etapePaiement==='LIVRAISON';then livraison"></ng-container>
+                <ng-template #livraison>
+                    <div class="stepwizard-step">
+                        <button type="button" class="btn btn-primary btn-circle">2</button>
+                        <p>Livraison</p>
+                    </div>
+                    <div class="stepwizard-step">
+                        <button type="button" (click)="navigate('PAYER')" disabled class="btn btn-default btn-circle">3</button>
+                        <p>Paiement</p>
+                    </div>
+                    <div class="stepwizard-step">
+                        <button type="button" (click)="navigate('FIN_PAIEMENT')" disabled class="btn btn-default btn-circle">4</button>
+                        <p>Terminer</p>
+                    </div>
+                </ng-template>
 
-<div *ngIf="etapePaiement=='FIN_PAIEMENT';then terminer"></div>
-<ng-template #terminer>
-    <div class="stepwizard col-md-6 ">
-        <div class="stepwizard-row header_commande">
-            <div class="stepwizard-step">
-                <button type="button" class="btn btn-default btn-circle">1</button>
-                <p>Panier</p>
-            </div>
-            <div class="stepwizard-step">
-                <button type="button" class="btn btn-default btn-circle">2</button>
-                <p>Livraison</p>
-            </div>
-            <div class="stepwizard-step">
-                <button type="button" class="btn btn-default btn-circle">3</button>
-                <p>Paiement</p>
-            </div>
-            <div class="stepwizard-step">
-                <button type="button" class="btn btn-primary btn-circle">4</button>
-                <p>confirmation</p>
+                <ng-container *ngIf="etapePaiement=='PAYER';then paiement"></ng-container>
+                <ng-template #paiement>
+                    <div class="stepwizard-step">
+                        <button type="button" class="btn btn-default btn-circle">2</button>
+                        <p>Livraison</p>
+                    </div>
+                    <div class="stepwizard-step">
+                        <button type="button" class="btn btn-primary btn-circle">3</button>
+                        <p>Paiement</p>
+                    </div>
+                    <div class="stepwizard-step">
+                        <button type="button" disabled class="btn btn-default btn-circle">4</button>
+                        <p>Terminer</p>
+                    </div>
+                </ng-template>
+
+                <ng-container *ngIf="etapePaiement=='FIN_PAIEMENT';then terminer"></ng-container>
+                <ng-template #terminer>
+                    <div class="stepwizard-step">
+                        <button type="button" disabled class="btn btn-default btn-circle">2</button>
+                        <p>Livraison</p>
+                    </div>
+                    <div class="stepwizard-step">
+                        <button type="button" disabled class="btn btn-default btn-circle">3</button>
+                        <p>Paiement</p>
+                    </div>
+                    <div class="stepwizard-step">
+                        <button type="button" class="btn btn-primary btn-circle">4</button>
+                        <p>confirmation</p>
+                    </div>
+                </ng-template>
             </div>
         </div>
     </div>
-</ng-template>
+</div>
