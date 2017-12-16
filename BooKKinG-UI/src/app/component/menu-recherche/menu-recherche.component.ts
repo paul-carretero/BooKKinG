@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Livre } from '../../model/livre';
 import { PanierService } from '../../service/panier.service';
+import { Globals } from '../../globals';
 
 @Component({
   selector: 'app-menu-recherche',
@@ -25,6 +26,10 @@ export class MenuRechercheComponent implements OnInit {
       points = '...';
     }
     return livre.summary.substring(0, 168) + points;
+  }
+
+  private getDisplayable(str: string): string {
+    return Globals.getDisplayableName(str);
   }
 
   /**
