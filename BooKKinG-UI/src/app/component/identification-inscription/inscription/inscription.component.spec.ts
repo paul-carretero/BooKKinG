@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule } from '@angular/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ConnectionService } from '../../service/connection.service';
+import { ConnectionService } from '../../../service/connection.service';
 
 describe('InscriptionComponent', () => {
   let component: InscriptionComponent;
@@ -13,20 +13,20 @@ describe('InscriptionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InscriptionComponent 
+      declarations: [InscriptionComponent
       ],
       schemas: [NO_ERRORS_SCHEMA],
-      imports: [ 
+      imports: [
         RouterTestingModule,
         HttpModule,
-        FormsModule, 
+        FormsModule,
         ReactiveFormsModule
       ],
       providers: [
         ConnectionService
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -8,7 +8,7 @@ describe('ConnectionService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [ConnectionService],
-      imports: [ 
+      imports: [
         RouterTestingModule,
         HttpModule
       ]

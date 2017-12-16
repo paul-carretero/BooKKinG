@@ -7,6 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { AchatService } from '../../service/achat.service';
 import { HttpModule } from '@angular/http';
 import { ConnectionService } from '../../service/connection.service';
+import { NavigationService } from '../../service/navigation.service';
+import { CookieService } from 'ngx-cookie-service';
+import { PanierService } from '../../service/panier.service';
 
 describe('CompteClientComponent', () => {
   let component: CompteClientComponent;
@@ -14,9 +17,9 @@ describe('CompteClientComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CompteClientComponent,
-      HistoriqueCommandesComponent,
-      InformationsClientComponent
+      declarations: [CompteClientComponent,
+        HistoriqueCommandesComponent,
+        InformationsClientComponent
       ],
       imports: [
         FormsModule,
@@ -24,10 +27,13 @@ describe('CompteClientComponent', () => {
       ],
       providers: [
         ConnectionService,
-        AchatService
+        AchatService,
+        NavigationService,
+        CookieService,
+        PanierService
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -4,8 +4,12 @@ import { ConnectionComponent } from './connection.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ConnectionService } from '../../service/connection.service';
+import { ConnectionService } from '../../../service/connection.service';
 import { HttpModule } from '@angular/http';
+import { AchatService } from '../../../service/achat.service';
+import { NavigationService } from '../../../service/navigation.service';
+import { CookieService } from 'ngx-cookie-service';
+import { PanierService } from '../../../service/panier.service';
 
 describe('ConnectionComponent', () => {
   let component: ConnectionComponent;
@@ -13,8 +17,7 @@ describe('ConnectionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConnectionComponent 
-      ],
+      declarations: [ConnectionComponent],
       schemas: [NO_ERRORS_SCHEMA],
       imports: [
         ReactiveFormsModule,
@@ -22,10 +25,14 @@ describe('ConnectionComponent', () => {
         HttpModule
       ],
       providers: [
-        ConnectionService
+        ConnectionService,
+        AchatService,
+        NavigationService,
+        CookieService,
+        PanierService
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

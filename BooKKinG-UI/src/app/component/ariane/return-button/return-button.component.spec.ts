@@ -7,6 +7,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReturnButtonComponent } from './return-button.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule } from '@angular/http';
+import { AchatService } from '../../../service/achat.service';
+import { PanierService } from '../../../service/panier.service';
+import { ConnectionService } from '../../../service/connection.service';
 
 describe('ReturnButtonComponent', () => {
   let component: ReturnButtonComponent;
@@ -14,7 +17,7 @@ describe('ReturnButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReturnButtonComponent ],
+      declarations: [ReturnButtonComponent],
       imports: [
         RouterTestingModule,
         HttpModule
@@ -23,10 +26,13 @@ describe('ReturnButtonComponent', () => {
         HistoriquePagesService,
         NavigationService,
         CookieService,
-        LRUCacheService
+        LRUCacheService,
+        AchatService,
+        PanierService,
+        ConnectionService,
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

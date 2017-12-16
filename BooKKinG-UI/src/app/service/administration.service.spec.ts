@@ -8,7 +8,7 @@ describe('AdministrationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [AdministrationService],
-      imports: [ 
+      imports: [
         RouterTestingModule,
         HttpModule
       ],

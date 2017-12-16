@@ -1,7 +1,6 @@
 import { ConnectionService } from './../../service/connection.service';
 import { Component, OnInit } from '@angular/core';
 import { Client } from '../../model/client';
-import { ConnectionComponent } from '../../component/connection/connection.component';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -10,27 +9,27 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./compte-client.component.css']
 })
 export class CompteClientComponent implements OnInit {
-/*
-  private client: Client;
-  private clientModifie: Client;
-  private newPassword: string;
-  private modifiaction = false;
-  private validName = true;
-  private validAddress = true;
-  private validPassword = true;
-  private validPasswordConfirm = true;
-*/
+  /*
+    private client: Client;
+    private clientModifie: Client;
+    private newPassword: string;
+    private modifiaction = false;
+    private validName = true;
+    private validAddress = true;
+    private validPassword = true;
+    private validPasswordConfirm = true;
+  */
 
-  constructor(){}
+  constructor() { }
 
-/*
-  constructor(private serviceConnection: ConnectionService) {
-    this.client = new Client();
-    this.clientModifie = new Client();
-  }
-*/
+  /*
+    constructor(private serviceConnection: ConnectionService) {
+      this.client = new Client();
+      this.clientModifie = new Client();
+    }
+  */
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   /*
   ngOnInit() {

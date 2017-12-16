@@ -17,7 +17,6 @@ export class PanierService {
   private contenuPanier: Article[] = [];
 
   constructor(private http: Http, private connectionService: ConnectionService) {
-    // circular dependancy...
     this.connectionService.panierServiceRegister(this);
   }
 
@@ -113,7 +112,7 @@ export class PanierService {
       this.miseAJourQuantiteLivre(articleSimple).subscribe(
         reponse => {
           if (!reponse.success) {
-            alert(reponse);
+            console.log(reponse);
           }
         }
       );

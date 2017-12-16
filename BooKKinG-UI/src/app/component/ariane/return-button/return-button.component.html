@@ -1,1 +1,1 @@
-<div (click)="returnPagePreced()" class="fa fa-arrow-left btnReturn" aria-hidden="true"> Retour</div>
+<div *ngIf="!shouldHide" (click)="returnPrevPage()" class="fa fa-arrow-left btnReturn" aria-hidden="true"> Retour</div>

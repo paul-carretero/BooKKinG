@@ -8,6 +8,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FiltreComponent } from './filtre.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule } from '@angular/http';
+import { InitService } from '../../service/init.service';
 
 describe('FiltreComponent', () => {
   let component: FiltreComponent;
@@ -15,7 +16,7 @@ describe('FiltreComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FiltreComponent 
+      declarations: [FiltreComponent
       ],
       imports: [
         RouterTestingModule,
@@ -26,10 +27,11 @@ describe('FiltreComponent', () => {
         LRUCacheService,
         NavigationService,
         CookieService,
-        RechercheService
+        RechercheService,
+        InitService
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

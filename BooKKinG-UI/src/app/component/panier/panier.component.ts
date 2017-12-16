@@ -2,10 +2,11 @@ import { PanierService } from './../../service/panier.service';
 import { Livre } from './../../model/livre';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PayerComponent } from '../payer/payer.component';
 import { Article } from '../../model/article';
 import { ConnectionService } from '../../service/connection.service';
 import { Globals } from '../../globals';
+import { AchatService } from '../../service/achat.service';
+import { NavigationService } from '../../service/navigation.service';
 
 @Component({
   selector: 'app-panier',
@@ -18,12 +19,14 @@ import { Globals } from '../../globals';
  */
 export class PanierComponent implements OnInit {
 
-  constructor(private router: Router, private service: PanierService, private connectionService: ConnectionService) { }
+  constructor(private router: Router, private service: PanierService,
+    private connectionService: ConnectionService, private achatService: AchatService, private navigationService: NavigationService) { }
 
   ngOnInit() { }
 
   public detailLivre(livre: Livre) {
-    this.router.navigate(['/livre/' + livre.idBook]);
+    this.navigationService.setFromLivre(livre);
+    this.router.navigate([Globals.getRoute(Globals.LIVRE) + '/' + livre.idBook]);
   }
 
   get montantGlobal(): string {
@@ -43,21 +46,17 @@ export class PanierComponent implements OnInit {
   */
   public payer(): void {
     console.log('dans payer du panier');
-    PayerComponent.setEnCoursDePaiement(true);
+    this.achatService.startTransaction();
     // si le client est connecté alors on peut démarrer le processus de paiement
     if (this.connectionService.getConnectionStatus()) {
-      this.router.navigate(['livraison']);
+      this.navigationService.setCurrentOther(Globals.LIVRAISON);
+      this.router.navigate([Globals.getRoute(Globals.LIVRAISON)]);
     } else {
-      this.router.navigate(['/identification-inscription']);
+      this.navigationService.setCurrentOther(Globals.LOGIN);
+      this.router.navigate([Globals.getRoute(Globals.LOGIN)]);
     }
   }
-  public setMode(mode : string):void{
-     Globals.setMode(mode);
-  }
 
-  public setPayerEtat(b: boolean):void{
-     Globals.setEtat(b);
-  }
   /**
    * Méthode pour vider le panier
    */
@@ -69,9 +68,4 @@ export class PanierComponent implements OnInit {
     const quantiteLivre = Number(quantity.target.value);
     this.service.setQuantity(livre.idBook, quantiteLivre);
   }
-
-  /*public retourPageRecherche() {
-    this.router.navigate(['menu-recherche']);
-  }*/
-
 }

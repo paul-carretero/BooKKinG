@@ -5,6 +5,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PanierComponent } from './panier.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule } from '@angular/http';
+import { AchatService } from '../../service/achat.service';
+import { NavigationService } from '../../service/navigation.service';
+import { CookieService } from 'ngx-cookie-service';
 
 describe('PanierComponent', () => {
   let component: PanierComponent;
@@ -12,17 +15,20 @@ describe('PanierComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PanierComponent ],
-      imports: [ 
-          RouterTestingModule,
-          HttpModule
+      declarations: [PanierComponent],
+      imports: [
+        RouterTestingModule,
+        HttpModule
       ],
       providers: [
         PanierService,
-        ConnectionService
+        ConnectionService,
+        AchatService,
+        NavigationService,
+        CookieService,
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

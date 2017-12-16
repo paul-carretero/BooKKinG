@@ -11,17 +11,16 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/cor
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LRUCacheService } from './service/lrucache.service';
+import { InitService } from './service/init.service';
 
 import { AppComponent } from './app.component';
 import { PanierComponent } from './component/panier/panier.component';
 import { MenuRechercheComponent } from './component/menu-recherche/menu-recherche.component';
-import { ConnectionComponent } from './component/connection/connection.component';
 import { CompteClientComponent } from './component/compte-client/compte-client.component';
 import { Http, HttpModule } from '@angular/http';
-import { InscriptionComponent } from './component/inscription/inscription.component';
-import { PayerComponent } from './component/payer/payer.component';
-import { LivraisonComponent } from './component/livraison/livraison.component';
-import { FinPaiementComponent } from './component/fin-paiement/fin-paiement.component';
+import { PayerComponent } from './component/achat-transaction/payer/payer.component';
+import { LivraisonComponent } from './component/achat-transaction/livraison/livraison.component';
+import { FinPaiementComponent } from './component/achat-transaction/fin-paiement/fin-paiement.component';
 import { AdministrationComponent } from './component/administration/administration.component';
 import { LivreComponent } from './component/livre/livre.component';
 import { HeaderComponent } from './component/header/header.component';
@@ -34,10 +33,15 @@ import { ArianeComponent } from './component/ariane/ariane.component';
 import { NavigationService } from './service/navigation.service';
 import { StockComponent } from './component/livre/stock/stock.component';
 import { TooltipDirective } from 'ng2-tooltip-directive/components';
-import { HeaderPaiementComponent } from './component/header-paiement/header-paiement.component';
+import { HeaderPaiementComponent } from './component/header/header-paiement/header-paiement.component';
 import { InformationsClientComponent } from './component/informations-client/informations-client.component';
 import { PageComponent } from './component/menu-recherche/page/page.component';
+import { HomeComponent } from './component/home/home.component';
 import { ReturnButtonComponent } from './component/ariane/return-button/return-button.component';
+import { HeaderStandardComponent } from './component/header/header-standard/header-standard.component';
+import { InscriptionComponent } from './component/identification-inscription/inscription/inscription.component';
+import { ConnectionComponent } from './component/identification-inscription/connection/connection.component';
+
 
 
 
@@ -82,7 +86,9 @@ export const appRoutes: Routes = [
     TooltipDirective,
     InformationsClientComponent,
     PageComponent,
+    HomeComponent,
     ReturnButtonComponent,
+    HeaderStandardComponent,
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   // modules que l'application va utiliser
@@ -108,7 +114,8 @@ export const appRoutes: Routes = [
     LivreService,
     NavigationService,
     LRUCacheService,
-    HistoriquePagesService
+    HistoriquePagesService,
+    InitService
   ],
   bootstrap: [AppComponent]
 })

@@ -8,9 +8,9 @@ import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MenuRechercheComponent } from '../menu-recherche/menu-recherche.component';
 import { HeaderComponent } from '../header/header.component';
 import { Globals } from '../../globals';
-import { LivreService } from '../../service/livre.service';
 import { NavigationService } from '../../service/navigation.service';
 import { RechercheService } from '../../service/recherche.service';
+import { InitService } from '../../service/init.service';
 
 @Component({
   selector: 'app-filtre',
@@ -28,12 +28,12 @@ export class FiltreComponent implements OnInit {
 
   private maxMaxPrice = 100;
 
-  constructor(private router: Router, private service: LivreService, private navigationService: NavigationService,
-    private rechercheService: RechercheService) {
+  constructor(private router: Router, private navigationService: NavigationService,
+    private rechercheService: RechercheService, private initService: InitService) {
   }
 
   ngOnInit() {
-    this.service.initConstantes().subscribe(
+    this.initService.initConstantes().subscribe(
       reponse => {
         if (reponse.success) {
           this.maxMaxPrice = reponse.max;

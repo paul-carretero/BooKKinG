@@ -4,7 +4,11 @@ import { LivraisonComponent } from './livraison.component';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ConnectionService } from '../../service/connection.service';
+import { ConnectionService } from '../../../service/connection.service';
+import { AchatService } from '../../../service/achat.service';
+import { NavigationService } from '../../../service/navigation.service';
+import { CookieService } from 'ngx-cookie-service';
+import { PanierService } from '../../../service/panier.service';
 
 describe('LivraisonComponent', () => {
   let component: LivraisonComponent;
@@ -12,18 +16,22 @@ describe('LivraisonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LivraisonComponent 
+      declarations: [LivraisonComponent
       ],
-      imports: [ 
+      imports: [
         RouterTestingModule,
         HttpModule,
         FormsModule
       ],
       providers: [
-        ConnectionService
+        ConnectionService,
+        AchatService,
+        NavigationService,
+        CookieService,
+        PanierService
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
