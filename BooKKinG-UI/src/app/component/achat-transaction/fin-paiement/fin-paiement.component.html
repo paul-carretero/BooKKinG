@@ -1,8 +1,39 @@
-
-<h1>
-    Merci de votre achat et d'avoir supporté notre site, vous êtes trop mignon <3.
-</h1>
-<div>
-    <input type="button" (click)="initHeader()" value="Accueil">
-    
+<div class="wrapper-cart">
+    <h3>Merci pour votre commande est confirmée</h3>
+    <footer>
+        <div class="row ">
+            <div class="col-md-2 "></div>
+            <div class="col-md-9 ">
+                <div (click)="setCurrentOther('HOME')" class="row choice ">
+                    <div class="col-md-4 ">
+                        <fa class="fa-big " name="home "></fa>
+                    </div>
+                    <div class="col-md-6 center ">
+                        <span class="align-middle ">Retour à l'accueil</span>
+                    </div>
+                    <div class=" col-md-2 ">
+                        <fa class="fa-big " name="caret-right "></fa>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1 "></div>
+        </div>
+        <div class="row ">
+            <div class="col-md-2 "></div>
+            <div class="col-md-9 ">
+                <div (click)="setCurrentOther('COMPTE')" class="row choice ">
+                    <div class="col-md-4 ">
+                        <fa class="fa-big " name="user "></fa>
+                    </div>
+                    <div class="col-md-6 center ">
+                        <span class="align-middle ">Visualiser mes commandes</span>
+                    </div>
+                    <div class=" col-md-2 ">
+                        <fa class="fa-big " name="caret-right "></fa>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1 "></div>
+        </div>
+    </footer>
 </div>

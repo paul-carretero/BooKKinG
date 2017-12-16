@@ -1,48 +1,4 @@
-.wrapper {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 0.5em;
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-
-.bord {
-    border: 3px black solid;
-    text-align: center;
-    background-color: #B4C6C6;
-}
-
-.fa-big {
-    font-size: 10em;
-    line-height: 100%;
-}
-
-.choice div {
-    height: 100%;
-}
-
-.choice {
-    margin-bottom: 1em;
-    height: 10em;
-    border: 1px solid #d7dada;
-    border-radius: 3px;
-    background-image: linear-gradient(to bottom, #f4f5f560, #dfdddd60);
-    cursor: pointer;
-}
-
-.choice:hover {
-    border: 1px solid #bfc4c4;
-    background-image: linear-gradient(to bottom, #d9dddd, #c6c3c3);
-}
-
-h3 {
-    border-bottom: 1px solid black;
-    width: 100%;
-    margin-bottom: 1em;
-}
-
 footer {
-    border-top: 1px solid black;
-    width: 100%;
     padding: 1em 2em;
     text-align: right;
     font-size: 2em;

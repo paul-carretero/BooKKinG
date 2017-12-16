@@ -7,6 +7,8 @@ import { ConnectionService } from '../../service/connection.service';
 import { Globals } from '../../globals';
 import { AchatService } from '../../service/achat.service';
 import { NavigationService } from '../../service/navigation.service';
+import { TooltipDirective } from 'ng2-tooltip-directive/components';
+
 
 @Component({
   selector: 'app-panier',
@@ -37,8 +39,17 @@ export class PanierComponent implements OnInit {
     return this.service.getContenuPanier();
   }
 
+  public getPrice(a: Article): string {
+    return (a.quantity * a.book.price).toFixed(2);
+  }
+
   public supprimer(idBook: number) {
     this.service.setQuantity(idBook, 0);
+  }
+
+  private setCurrentHome(): void {
+    this.navigationService.setCurrentOther(Globals.HOME);
+    this.router.navigate([Globals.getRoute(Globals.HOME)]);
   }
 
   /**
@@ -64,8 +75,8 @@ export class PanierComponent implements OnInit {
     this.service.viderPanier();
   }
 
-  public setQuantity(livre: Livre, quantity: any) {
-    const quantiteLivre = Number(quantity.target.value);
+  public setQuantity(livre: Livre, quantity: string) {
+    const quantiteLivre = Number(quantity);
     this.service.setQuantity(livre.idBook, quantiteLivre);
   }
 }

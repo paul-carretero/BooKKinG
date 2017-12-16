@@ -12,7 +12,7 @@ import { ConnectionService } from './connection.service';
 @Injectable()
 export class PanierService {
 
-  urlPanier = `http://` + Globals.host + `/BooKKinG-Server-web/Cart`;
+  private readonly urlPanier = `http://` + Globals.host + `/BooKKinG-Server-web/Cart`;
 
   private contenuPanier: Article[] = [];
 

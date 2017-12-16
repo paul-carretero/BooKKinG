@@ -1,0 +1,39 @@
+#clear-cart-btn {
+    float: right;
+    margin-right: 2em;
+    margin-top: -0.5em;
+    width: 20em;
+}
+
+.td-image {
+    width: 10%
+}
+
+.table thead,
+.table tfoot {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+}
+
+input[type="number"] {
+    width: 80px;
+}
+
+fa[name="trash"] {
+    cursor: pointer;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+tfoot {
+    border-top: 3px solid black;
+    font-size: 150%;
+}
+
+.empty-cart{
+    width: 50%;
+    margin-left: 25%;
+    text-align: center;
+}

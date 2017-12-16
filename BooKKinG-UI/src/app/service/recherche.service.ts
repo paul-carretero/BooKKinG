@@ -12,7 +12,7 @@ import { LRUCacheService } from './lrucache.service';
 @Injectable()
 export class RechercheService {
 
-  private urlLivre = `http://` + Globals.host + `/BooKKinG-Server-web/Book`;
+  private readonly urlLivre = `http://` + Globals.host + `/BooKKinG-Server-web/Book`;
 
   private currentLivreList: ReponseRecherche;
 

@@ -1,98 +1,42 @@
-.bord{
-    border: 3px black solid;
-    text-align: center;
-    background-color: #B4C6C6;
-    
+.choice {
+    height: 5em;
 }
 
-.item{
-    background-color: white;
+.fa-big {
+    font-size: 5em;
 }
 
-.bs-calltoaction{
-    position: relative;
-    width:auto;
-    padding: 15px 25px;
-    border: 1px solid black;
-    margin-top: 10px;
-    margin-bottom: 10px;
+h4 {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
     border-radius: 5px;
+    border-color: black;
+    width: 80%;
+    margin-left: 10%;
+    padding: 0.5em;
 }
 
-    .bs-calltoaction > .row{
-        display:table;
-        width: calc(100% + 30px);
-    }
-     
-        .bs-calltoaction > .row > [class^="col-"],
-        .bs-calltoaction > .row > [class*=" col-"]{
-            float:none;
-            display:table-cell;
-            vertical-align:middle;
-        }
-
-            .cta-contents{
-                padding-top: 10px;
-                padding-bottom: 10px;
-            }
-
-                .cta-title{
-                    margin: 0 auto 15px;
-                    padding: 0;
-                }
-
-                .cta-desc{
-                    padding: 0;
-                }
-
-                .cta-desc p:last-child{
-                    margin-bottom: 0;
-                }
-
-            .cta-button{
-                padding-top: 10px;
-                padding-bottom: 10px;
-            }
-
-@media (max-width: 991px){
-    .bs-calltoaction > .row{
-        display:block;
-        width: auto;
-    }
-
-        .bs-calltoaction > .row > [class^="col-"],
-        .bs-calltoaction > .row > [class*=" col-"]{
-            float:none;
-            display:block;
-            vertical-align:middle;
-            position: relative;
-        }
-
-        .cta-contents{
-            text-align: center;
-        }
+textarea {
+    width: 100%;
+    height: 4em;
 }
 
-
-
-
-
-.bs-calltoaction.bs-calltoaction-success{
-    color: #fff;
-    background-color:   #009999;
-    border-color:   #009999;
+.new-addr-wrapper {
+    height: 4m;
+    position: relative;
+    top: -0.9em;
 }
 
-
-.bs-calltoaction.bs-calltoaction-primary .cta-button .btn,
-.bs-calltoaction.bs-calltoaction-info .cta-button .btn,
-.bs-calltoaction.bs-calltoaction-success .cta-button .btn,
-.bs-calltoaction.bs-calltoaction-warning .cta-button .btn,
-.bs-calltoaction.bs-calltoaction-danger .cta-button .btn{
-    border-color:#fff;
+.new-addr-wrapper .fa-big {
+    font-size: 4em;
 }
 
-.test{
-    border: 3px black solid;
-    color: black;
+.wrapper-cart .align-middle-l {
+    padding-top: 1.1em!important;
+}
+
+.ship-cost {
+    color: red;
+    font-weight: bolder;
+    float: right;
 }

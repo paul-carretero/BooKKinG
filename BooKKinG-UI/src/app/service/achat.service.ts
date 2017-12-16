@@ -14,11 +14,11 @@ export class AchatService {
 
   private readonly urlAchat = `http://` + Globals.host + `/BooKKinG-Server-web/Command`;
 
+  private readonly address = { address: '' };
+
   private etapePaiement: string = null;
 
   private isInTransaction = false;
-
-  private readonly address = { address: '' };
 
   private commandesClient: Commande[];
 
@@ -164,7 +164,7 @@ export class AchatService {
   }
 
   public getPrixLivraison(): number {
-    if (Globals.pointLivraison.includes(this.address.address)) {
+    if (!Globals.pointLivraison.includes(this.address.address)) {
       return Globals.prixLivraison;
     }
     return 0;

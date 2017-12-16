@@ -11,9 +11,9 @@ import { PanierService } from './panier.service';
 @Injectable()
 export class ConnectionService {
 
-  private urlConnection = `http://` + Globals.host + `/BooKKinG-Server-web/Login`;
+  private readonly urlConnection = `http://` + Globals.host + `/BooKKinG-Server-web/Login`;
 
-  private urlUser = `http://` + Globals.host + `/BooKKinG-Server-web/User`;
+  private readonly urlUser = `http://` + Globals.host + `/BooKKinG-Server-web/User`;
 
   private currentClient: Client = null;
 
@@ -27,6 +27,22 @@ export class ConnectionService {
    */
   constructor(private http: Http) {
     this.currentClient = new Client();
+    this.isConnected = false;
+    this.initConnexion();
+  }
+
+  private initConnexion(): void {
+    const conn = this.http.get(this.urlConnection, { withCredentials: true }).map(res => res.json());
+    conn.subscribe(
+      connected => {
+        if (connected.success) {
+          this.isConnected = true;
+          this.recuperationInformationsClient();
+        } else {
+          this.isConnected = false;
+        }
+      }
+    );
   }
 
   public getConnectionStatus(): boolean {

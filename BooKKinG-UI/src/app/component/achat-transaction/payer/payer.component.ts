@@ -12,6 +12,8 @@ import { NavigationService } from '../../../service/navigation.service';
 })
 export class PayerComponent implements OnInit {
 
+  private readonly payementsOption = ['credit-card', 'paypal', 'exchange'];
+
   constructor(private router: Router, private panierService: PanierService,
     private achatService: AchatService, private navigationService: NavigationService) { }
 
@@ -22,7 +24,17 @@ export class PayerComponent implements OnInit {
     return (this.panierService.getTotalPrice() + this.achatService.getPrixLivraison()).toFixed(2);
   }
 
-  public validerPaiement() {
+  private getDisplayable(p: string): string {
+    if (p === 'credit-card') {
+      return 'Carte de Crédit';
+    } else if (p === 'paypal') {
+      return 'PayPal';
+    } else {
+      return 'Virement Bancaire';
+    }
+  }
+
+  private validerPaiement(): void {
     this.navigationService.setCurrentOther(Globals.FIN_PAIEMENT);
     this.router.navigate([Globals.getRoute(Globals.FIN_PAIEMENT)]);
   }

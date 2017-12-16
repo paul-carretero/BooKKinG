@@ -10,7 +10,7 @@ export class HistoriquePagesService {
 
   private static readonly MAX_HISTORY = 100;
 
-  private histoPages: NavigationData[];
+  private readonly histoPages: NavigationData[];
 
   private count = 0;
 
@@ -43,13 +43,13 @@ export class HistoriquePagesService {
   }
 
   public canGoBack(): boolean {
-    return this.count > 0;
+    return this.count > 0 && this.histoPages.length > 0;
   }
 
   public navPagePrecedente(): NavigationData {
     const c = this.cloneNavData(this.navServ.getCurrentNavData());
     let pagePrec: NavigationData = this.histoPages.pop();
-    while (this.histoPages.length > 0 && c.equals(pagePrec)) {
+    while (this.histoPages.length > 0 && (c.equals(pagePrec) || Globals.transactionPage.includes(pagePrec.other))) {
       pagePrec = this.histoPages.pop();
     }
     this.navServ.setCurrent(pagePrec);

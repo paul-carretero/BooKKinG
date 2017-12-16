@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { Globals } from '../../../globals';
 import { ConnectionService } from '../../../service/connection.service';
 import { LivraisonComponent } from '../livraison/livraison.component';
+import { NavigationService } from '../../../service/navigation.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fin-paiement',
@@ -15,7 +17,8 @@ import { LivraisonComponent } from '../livraison/livraison.component';
  */
 export class FinPaiementComponent implements OnInit {
 
-  constructor(private serviceAchat: AchatService, private serviceConnect: ConnectionService) { }
+  constructor(private router: Router, private serviceAchat: AchatService, private serviceConnect: ConnectionService,
+    private navigationService: NavigationService) { }
 
   ngOnInit() {
     // on enregistre la commande
@@ -30,5 +33,12 @@ export class FinPaiementComponent implements OnInit {
         }
       }
     );
+  }
+
+  private setCurrentOther(other: string): void {
+    if (Globals.otherNavPage.includes(other)) {
+      this.navigationService.setCurrentOther(other);
+      this.router.navigate([Globals.getRoute(other)]);
+    }
   }
 }

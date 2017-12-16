@@ -11,7 +11,7 @@ export class NavigationService {
 
   private current = new NavigationData();
 
-  private navEvent: Subject<NavigationData>;
+  private readonly navEvent: Subject<NavigationData>;
 
   constructor(private cookieService: CookieService) {
     this.initFromCookie();

@@ -19,11 +19,11 @@
                         <p>Livraison</p>
                     </div>
                     <div class="stepwizard-step">
-                        <button type="button" (click)="navigate('PAYER')" disabled class="btn btn-default btn-circle">3</button>
+                        <button type="button" disabled class="btn btn-default btn-circle">3</button>
                         <p>Paiement</p>
                     </div>
                     <div class="stepwizard-step">
-                        <button type="button" (click)="navigate('FIN_PAIEMENT')" disabled class="btn btn-default btn-circle">4</button>
+                        <button type="button" disabled class="btn btn-default btn-circle">4</button>
                         <p>Terminer</p>
                     </div>
                 </ng-template>
@@ -31,7 +31,7 @@
                 <ng-container *ngIf="etapePaiement=='PAYER';then paiement"></ng-container>
                 <ng-template #paiement>
                     <div class="stepwizard-step">
-                        <button type="button" class="btn btn-default btn-circle">2</button>
+                        <button type="button" (click)="navigate('LIVRAISON')" class="btn btn-default btn-circle">2</button>
                         <p>Livraison</p>
                     </div>
                     <div class="stepwizard-step">
