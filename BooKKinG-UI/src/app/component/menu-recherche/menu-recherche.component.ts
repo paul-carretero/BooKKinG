@@ -3,6 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Livre } from '../../model/livre';
 import { PanierService } from '../../service/panier.service';
+import { Globals } from '../../globals';
+import { NavigationService } from '../../service/navigation.service';
+import { TooltipDirective } from 'ng2-tooltip-directive/components';
+
 
 @Component({
   selector: 'app-menu-recherche',
@@ -15,7 +19,7 @@ import { PanierService } from '../../service/panier.service';
  */
 export class MenuRechercheComponent implements OnInit {
 
-  constructor(private router: Router, private service: RechercheService, private servicePanier: PanierService) { }
+  constructor(private router: Router, private service: RechercheService, private servicePanier: PanierService, private navigationService: NavigationService) { }
 
   ngOnInit() { }
 
@@ -25,6 +29,16 @@ export class MenuRechercheComponent implements OnInit {
       points = '...';
     }
     return livre.summary.substring(0, 168) + points;
+  }
+
+  private getDisplayable(str: string): string {
+    return Globals.getDisplayableName(str);
+  }
+
+
+  private detailLivre(livre: Livre) {
+    this.navigationService.setFromLivre(livre);
+    this.router.navigate([Globals.getRoute(Globals.LIVRE) + '/' + livre.idBook]);
   }
 
   /**

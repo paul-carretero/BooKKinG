@@ -82,14 +82,25 @@ export class ConnectionService {
     return conn;
   }
 
-  public deconnexion(): Observable<any> {
+  public deconnexion(): void {
     this.currentClient = new Client();
     this.isConnected = false;
-    return this.http.delete(this.urlConnection, { withCredentials: true }).map(res => res.json());
+    this.notifService.getSubject().next('Au revoir, et à bientôt sur BooKKinG');
+    this.http.delete(this.urlConnection, { withCredentials: true }).map(res => res.json()).subscribe(
+      res => {
+        if (res.success) {
+          this.panierService.viderPanier();
+        } else {
+          console.log(res.message);
+        }
+      }
+    );
   }
 
-  public reinitialiserMotDePasse(client: Client): Observable<any> {
-    return this.http.post(this.urlConnection, client, { withCredentials: true }).map(res => res.json());
+  public reinitialiserMotDePasse(email: string): Observable<any> {
+    const c = new Client();
+    c.email = email;
+    return this.http.post(this.urlConnection, c, { withCredentials: true }).map(res => res.json());
   }
 
   // ------------------------------------------------ Servlet  User ----------------------------------------------------------

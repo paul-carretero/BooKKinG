@@ -8,6 +8,7 @@ import { Globals } from '../globals';
 import { NavigationService } from './navigation.service';
 import { NavigationData } from '../model/navigation-data';
 import { LRUCacheService } from './lrucache.service';
+import { NotifService } from './notif.service';
 
 @Injectable()
 export class RechercheService {
@@ -18,7 +19,8 @@ export class RechercheService {
 
   private currentRecherche: Recherche;
 
-  constructor(private http: Http, private navService: NavigationService, private cache: LRUCacheService) {
+  constructor(private http: Http, private navService: NavigationService,
+    private cache: LRUCacheService, private notifService: NotifService) {
     this.currentRecherche = new Recherche();
     this.currentLivreList = new ReponseRecherche();
     this.listenForNavUpdate();
@@ -66,11 +68,14 @@ export class RechercheService {
     if (this.cache.includes(this.currentRecherche)) {
       this.currentLivreList = this.cache.get(this.currentRecherche);
     } else {
+      this.notifService.getSubject().next('SEARCH');
+      this.currentLivreList = new ReponseRecherche();
       this.rechercherEnsembleLivre(this.currentRecherche).subscribe(
         reponse => {
           if (reponse.success) {
             this.currentLivreList = reponse;
             this.cache.put(this.currentRecherche, this.currentLivreList);
+            this.notifService.getSubject().next();
           } else {
             console.log(reponse.message);
           }

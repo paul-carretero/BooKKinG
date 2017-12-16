@@ -97,8 +97,13 @@ public class Login extends HttpServlet {
 		response.setContentType("text/plain;charset=UTF-8");
 		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 		if(HttpHelper.checkAndValidData(data, response)) {
-			if(data.checkEmail() && this.userBean.resetPassword(data.getEmail())) {
-				response.getWriter().append(new GenericResponseJson(true).toString());
+			if(data.checkEmail()) {
+				if(this.userBean.resetPassword(data.getEmail())) {
+					response.getWriter().append(new GenericResponseJson(true).toString());
+				}
+				else {
+					response.getWriter().append(new GenericResponseJson(false,"aucun compte n'est associé à cet email").toString());
+				}
 			}
 			else {
 				response.getWriter().append(new GenericResponseJson(false,"email invalide").toString());

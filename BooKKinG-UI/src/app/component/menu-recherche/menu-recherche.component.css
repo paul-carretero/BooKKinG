@@ -92,3 +92,11 @@
 .not-really-a-button:active {
     box-shadow: none;
 }
+
+.type {
+    text-decoration:underline;
+}
+
+.genre {
+    text-decoration:underline;
+}

@@ -52,6 +52,10 @@ export class FiltreComponent implements OnInit {
     return '';
   }
 
+  get isInTransaction(): boolean {
+    return Globals.transactionPage.includes(this.navigationService.getCurrentOther());
+  }
+
   get genres(): string[] {
     const currentType = this.navigationService.getCurrentType();
     if (Globals.typeLivre.includes(currentType)) {
@@ -81,5 +85,10 @@ export class FiltreComponent implements OnInit {
       this.rechercheService.setMinPrice(Number(tab[0]));
       this.rechercheService.setMaxPrice(Number(tab[1]));
     }
+  }
+
+  private cancel(): void {
+    this.navigationService.setCurrentOther(Globals.PANIER);
+    this.router.navigate([Globals.getRoute(Globals.PANIER)]);
   }
 }
