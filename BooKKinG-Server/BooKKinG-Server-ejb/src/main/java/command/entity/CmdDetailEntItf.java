@@ -8,7 +8,7 @@ public interface CmdDetailEntItf {
 
 	public BookEntItf getBook();
 
-	public Integer getQuantity();
+	public int getQuantity();
 
 	public Float getPrice();
 

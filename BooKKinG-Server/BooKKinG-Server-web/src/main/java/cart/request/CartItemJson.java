@@ -11,9 +11,9 @@ public class CartItemJson  extends AbstractJson implements CartItemJsonItf, Vali
 	 */
 	private static final long serialVersionUID = 2131990500946912748L;
 
-	private Integer idBook;
+	private int idBook;
 	
-	private Integer quantity;
+	private int quantity;
 	
 	@SuppressWarnings("unused")
 	private boolean isInStock = true;
@@ -40,22 +40,17 @@ public class CartItemJson  extends AbstractJson implements CartItemJsonItf, Vali
 	}
 
 	@Override
-	public Integer getIdBook() {
+	public int getIdBook() {
 		return this.idBook;
 	}
 
 	@Override
-	public Integer getQuantity() {
+	public int getQuantity() {
 		return this.quantity;
 	}
 
 	@Override
 	public void validify() {
-		if (this.idBook == null) {
-			this.idBook = 0;
-		}
-		if (this.quantity == null) {
-			this.quantity = 0;
-		}
+		// nothing to do
 	}
 }

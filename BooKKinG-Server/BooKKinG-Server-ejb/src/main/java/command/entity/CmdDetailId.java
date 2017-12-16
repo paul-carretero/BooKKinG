@@ -8,15 +8,15 @@ public class CmdDetailId  implements Serializable{
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 3156866025388250150L;
-	public Integer command;
-	public Integer book;
+	public int command;
+	public int book;
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.book == null) ? 0 : this.book.hashCode());
-		result = prime * result + ((this.command == null) ? 0 : this.command.hashCode());
+		result = prime * result + book;
+		result = prime * result + command;
 		return result;
 	}
 	@Override
@@ -28,17 +28,10 @@ public class CmdDetailId  implements Serializable{
 		if (!(obj instanceof CmdDetailId))
 			return false;
 		CmdDetailId other = (CmdDetailId) obj;
-		if (this.book == null) {
-			if (other.book != null)
-				return false;
-		} else if (!this.book.equals(other.book))
+		if (book != other.book)
 			return false;
-		if (this.command == null) {
-			if (other.command != null)
-				return false;
-		} else if (!this.command.equals(other.command))
+		if (command != other.command)
 			return false;
 		return true;
 	}
-
 }

@@ -23,11 +23,16 @@ export class LivraisonComponent implements OnInit {
   private addrTextarea: string;
 
   constructor(private router: Router, private connectionService: ConnectionService,
-    private achatService: AchatService, private navService: NavigationService) {
+    private achatService: AchatService, private navigationService: NavigationService, private serviceConnect: ConnectionService) {
     this.displayCustomAddr = false;
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    if (!this.serviceConnect.getConnectionStatus() || !this.achatService.getTransactionState()) {
+      this.navigationService.setCurrentOther(Globals.HOME);
+      this.router.navigate([Globals.getRoute(Globals.HOME)]);
+    }
+  }
 
   get LivraisonStandard(): string {
     return Globals.prixLivraison.toFixed(2);
@@ -61,7 +66,7 @@ export class LivraisonComponent implements OnInit {
   }
 
   private validateLivraison(): void {
-    this.navService.setCurrentOther(Globals.PAYER);
+    this.navigationService.setCurrentOther(Globals.PAYER);
     this.router.navigate([Globals.getRoute(Globals.PAYER)]);
   }
 

@@ -5,15 +5,15 @@ import shared.GenericResponseJsonItf;
 
 public interface CommandJsonItf extends GenericResponseJsonItf {
 
-	public void addCmdEntry(BookEntItf aBook, Float price, Integer quantity, boolean isInStock);
+	public void addCmdEntry(BookEntItf aBook, Float price, int quantity, boolean isInStock);
 
-	public void setIdCmd(Integer idCmd);
+	public void setIdCmd(int idCmd);
 
 	public void setDate(String date);
 
-	public void addCmdEntry(BookEntItf aBook, Float price, Integer quantity);
+	public void addCmdEntry(BookEntItf aBook, Float price, int quantity);
 
-	public void setShippingCost(Integer shippingCost);
+	public void setShippingCost(int shippingCost);
 
 	public void setShippingAddress(String shippingAddress);
 

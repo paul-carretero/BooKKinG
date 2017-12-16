@@ -9,6 +9,6 @@ public interface CartDetailEntItf {
 
 	public BookEntItf getBook();
 
-	public Integer getQuantity();
+	public int getQuantity();
 
 }

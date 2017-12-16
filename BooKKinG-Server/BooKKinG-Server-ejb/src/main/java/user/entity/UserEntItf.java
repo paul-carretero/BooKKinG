@@ -16,7 +16,7 @@ public interface UserEntItf extends Serializable{
 
 	public String getAddress();
 
-	public Integer getIdUser();
+	public int getIdUser();
 
 	public List<CommandEntity> getCommands();
 

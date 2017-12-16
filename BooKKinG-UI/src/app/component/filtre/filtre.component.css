@@ -25,6 +25,10 @@
     border: 2px solid green;
 }
 
+.nodisplay {
+    display: none;
+}
+
 body {
     font-family: "Segoe UI Light", "Segoe UI", "Segoe WP", "Helvetica Neue", sans-serif;
 }

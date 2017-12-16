@@ -23,7 +23,7 @@ public class CartJsonResponse extends GenericResponseJson implements CartJsonRes
 	}
 
 	@Override
-	public void addBook(BookEntItf aBook, Integer quantity) {
+	public void addBook(BookEntItf aBook, int quantity) {
 		this.items.add(new Article(new BookJson(aBook), quantity, aBook.getIdBook()));
 	}
 

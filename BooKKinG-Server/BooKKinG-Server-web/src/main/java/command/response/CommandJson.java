@@ -30,7 +30,7 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 	private List<CartItemJson> 	items;
 	
 	@SuppressWarnings("unused")
-	private Integer 			shippingCost;
+	private int 			shippingCost;
 	
 	@SuppressWarnings("unused")
 	private String				shippingAddress;
@@ -41,7 +41,7 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 		this.items 		= new LinkedList<>();
 	}
 
-	public CommandJson(final String date, final Integer idCmd, final Integer shippingCost, final String shippingAddress) {
+	public CommandJson(final String date, final int idCmd, final int shippingCost, final String shippingAddress) {
 		super();
 		this.date				= date;
 		this.idCmd				= idCmd;
@@ -57,12 +57,12 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 	}
 
 	@Override
-	public void setIdCmd(final Integer idCmd) {
+	public void setIdCmd(final int idCmd) {
 		this.idCmd = idCmd;
 	}
 	
 	@Override
-	public void setShippingCost(final Integer shippingCost) {
+	public void setShippingCost(final int shippingCost) {
 		this.shippingCost = shippingCost;
 	}
 
@@ -77,7 +77,7 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 	 * @param quantity
 	 */
 	@Override
-	public void addCmdEntry(BookEntItf aBook,Float price, Integer quantity) {
+	public void addCmdEntry(BookEntItf aBook,Float price, int quantity) {
 		BookJson b = new BookJson(aBook);
 		b.setPrice(price);
 		this.books.add(b);
@@ -90,9 +90,13 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 	 * @param quantity
 	 */
 	@Override
-	public void addCmdEntry(BookEntItf aBook,Float price, Integer quantity, boolean isInStock) {
+	public void addCmdEntry(BookEntItf aBook,Float price, int quantity, boolean isInStock) {
 		BookJson b = new BookJson(aBook);
 		b.setPrice(price);
+		b.setStock(0);
+		if(isInStock) {
+			b.setStock(100000);
+		}
 		this.books.add(b);
 		this.items.add(new CartItemJson(aBook.getIdBook(), quantity, isInStock));
 	}

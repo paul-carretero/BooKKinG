@@ -10,7 +10,7 @@ import book.entity.BookEntity;
 @Local
 public interface BookBeanLocal {
 
-	public BookEntity getBook(Integer idBook);
+	public BookEntity getBook(int idBook);
 
 	public void getBooks(BookSearchItf searchData,BookListJsonItf response);
 

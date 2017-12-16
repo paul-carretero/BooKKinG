@@ -1,5 +1,60 @@
 <div class="wrapper-cart">
     <h3>Merci pour votre commande est confirmée</h3>
+    <table class="table table-hover table-responsive-md">
+        <thead class="thead-dark">
+            <tr>
+                <th colspan="5">Détail de votre Commande:</th>
+            </tr>
+            <tr>
+                <th class="td-image" scope="col">
+
+                </th>
+                <th scope="col">
+                    Livre
+                </th>
+                <th scope="col">
+                    En Stock?
+                </th>
+                <th scope="col">
+                    Quantité
+                </th>
+                <th scope="col">
+                    Prix
+                </th>
+            </tr>
+        </thead>
+        <tbody class="table-striped">
+            <tr *ngFor=" let article of currentArticles; ">
+                <td class="td-image clickable" (click)="detailLivre(article.book) ">
+
+                </td>
+                <td class="clickable" (click)="detailLivre(article.book)">
+                    {{article.book.title}} <br/> {{article.book.type}} de {{article.book.author}}
+                </td>
+                <td>
+                    <app-stock [stock]="article.book.stock"></app-stock>
+                </td>
+                <td>
+                    {{article.quantity}}
+                </td>
+                <td>
+                    {{getPrice(article)}} €
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan=3></td>
+                <td>Frais de Livraison</td>
+                <td>{{shippingCost}} €</td>
+            </tr>
+            <tr>
+                <td colspan=3></td>
+                <td>Total</td>
+                <td>{{totalPrice}} €</td>
+            </tr>
+        </tfoot>
+    </table>
     <footer>
         <div class="row ">
             <div class="col-md-2 "></div>

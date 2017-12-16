@@ -4,20 +4,18 @@ import book.response.BookJson;
 
 public class Article {
 	
-	@SuppressWarnings("unused")
 	private final BookJson book;
 	
-	@SuppressWarnings("unused")
-	private final Integer quantity;
+	private final int quantity;
 	
-	private final Integer idBook;
+	private final int idBook;
 
 	/**
 	 * @param book
 	 * @param quantity
 	 * @param idBook
 	 */
-	public Article(BookJson book, Integer quantity, Integer idBook) {
+	public Article(BookJson book, int quantity, int idBook) {
 		super();
 		this.book = book;
 		this.quantity = quantity;
@@ -28,7 +26,9 @@ public class Article {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.idBook == null) ? 0 : this.idBook.hashCode());
+		result = prime * result + ((this.book == null) ? 0 : this.book.hashCode());
+		result = prime * result + this.idBook;
+		result = prime * result + this.quantity;
 		return result;
 	}
 
@@ -41,11 +41,17 @@ public class Article {
 		if (!(obj instanceof Article))
 			return false;
 		Article other = (Article) obj;
-		if (this.idBook == null) {
-			if (other.idBook != null)
+		if (this.book == null) {
+			if (other.book != null)
 				return false;
-		} else if (!this.idBook.equals(other.idBook))
+		} else if (!this.book.equals(other.book))
+			return false;
+		if (this.idBook != other.idBook)
+			return false;
+		if (this.quantity != other.quantity)
 			return false;
 		return true;
 	}
+
+	
 }

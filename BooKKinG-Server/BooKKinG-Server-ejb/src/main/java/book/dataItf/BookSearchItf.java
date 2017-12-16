@@ -9,9 +9,9 @@ public interface BookSearchItf {
 
 	public String getAuthor();
 
-	public Integer getMaxPrice();
+	public int getMaxPrice();
 
-	public Integer getMinPrice();
+	public int getMinPrice();
 
 	public Type getType();
 
@@ -19,6 +19,6 @@ public interface BookSearchItf {
 	
 	public String getAnySearch();
 
-	public Integer getPage();
+	public int getPage();
 
 }

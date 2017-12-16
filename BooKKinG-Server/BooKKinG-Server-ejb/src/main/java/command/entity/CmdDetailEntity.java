@@ -31,7 +31,7 @@ public class CmdDetailEntity implements Serializable, CmdDetailEntItf {
 	private BookEntity book;
 	
 	@Column(name="quantity")
-	private Integer quantity;
+	private int quantity;
 	
 	@Column(name="price")
 	private Float price;
@@ -46,7 +46,7 @@ public class CmdDetailEntity implements Serializable, CmdDetailEntItf {
 	 * @param amount
 	 * @param price
 	 */
-	public CmdDetailEntity(CommandEntity command, BookEntity book, Integer amount, Float price) {
+	public CmdDetailEntity(CommandEntity command, BookEntity book, int amount, Float price) {
 		super();
 		this.command = command;
 		this.book = book;
@@ -65,7 +65,7 @@ public class CmdDetailEntity implements Serializable, CmdDetailEntItf {
 	}
 
 	@Override
-	public Integer getQuantity() {
+	public int getQuantity() {
 		return this.quantity;
 	}
 
@@ -82,7 +82,7 @@ public class CmdDetailEntity implements Serializable, CmdDetailEntItf {
 		this.book = book;
 	}
 
-	public void setQuantity(Integer quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
@@ -115,7 +115,7 @@ public class CmdDetailEntity implements Serializable, CmdDetailEntItf {
 		res.append("</table>");
 		res.append("</td>");
 		res.append("<td class=\"item-col quantity\">");
-		res.append(this.quantity.toString());
+		res.append(this.quantity);
 		res.append("</td>");
 		res.append("<td class=\"item-col quantity\">");
 		res.append(stock);

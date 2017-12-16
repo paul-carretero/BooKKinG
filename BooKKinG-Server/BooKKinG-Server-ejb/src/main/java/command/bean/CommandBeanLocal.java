@@ -9,14 +9,11 @@ import command.dataItf.CommandReqJsonItf;
 @Local
 public interface CommandBeanLocal {
 	
-	public void proceedCartCheckout(Integer idUser, CommandReqJsonItf data, CommandJsonItf response);
+	public void proceedCartCheckout(int idUser, CommandReqJsonItf data, CommandJsonItf response);
 	
-	public void getCommand(Integer idCmd, CommandJsonItf response);
+	public void getCommand(int idCmd, CommandJsonItf response);
 
-	public void getCommands(Integer idUser, CommandListJsonItf response);
+	public void getCommands(int idUser, CommandListJsonItf response);
 
-	public boolean isCmdOfUser(Integer idUser, Integer idCmd);
-
-	
-
+	public boolean isCmdOfUser(int idUser, int idCmd);
 }

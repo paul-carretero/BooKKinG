@@ -35,10 +35,10 @@ public class BookJson extends GenericResponseJson implements BookJsonItf {
 	private String summary;
 	
 	@SuppressWarnings("unused")
-	private Integer idBook;
+	private int idBook;
 	
 	@SuppressWarnings("unused")
-	private Integer stock;
+	private int stock;
 	
 	
 	public BookJson() {
@@ -73,5 +73,9 @@ public class BookJson extends GenericResponseJson implements BookJsonItf {
 
 	public void setPrice(Float price) {
 		this.price = price;
+	}
+
+	public void setStock(final int i) {
+		this.stock = i;
 	}
 }

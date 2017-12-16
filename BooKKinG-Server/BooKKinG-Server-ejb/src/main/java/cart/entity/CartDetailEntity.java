@@ -33,7 +33,7 @@ public class CartDetailEntity implements Serializable, CartDetailEntItf {
 	private BookEntity book;
 
 	@Column(name="quantity", nullable=false)
-	private Integer quantity;
+	private int quantity;
 
 	public CartDetailEntity() {
 		super();
@@ -44,7 +44,7 @@ public class CartDetailEntity implements Serializable, CartDetailEntItf {
 	 * @param book
 	 * @param quantity
 	 */
-	public CartDetailEntity(UserEntity user, BookEntity book, Integer quantity) {
+	public CartDetailEntity(UserEntity user, BookEntity book, int quantity) {
 		super();
 		this.user		= user;
 		this.book		= book;
@@ -62,7 +62,7 @@ public class CartDetailEntity implements Serializable, CartDetailEntItf {
 	}
 
 	@Override
-	public Integer getQuantity() {
+	public int getQuantity() {
 		return this.quantity;
 	}
 
@@ -74,7 +74,7 @@ public class CartDetailEntity implements Serializable, CartDetailEntItf {
 		this.book = book;
 	}
 
-	public void setQuantity(Integer amount) {
+	public void setQuantity(int amount) {
 		this.quantity = amount;
 	}
 

@@ -78,7 +78,7 @@ public class UserBean extends AbstractBean implements UserBeanLocal {
 
 	@Override
 	@Asynchronous
-	public void updateUser(final Integer idUser, final UserJsonItf data) {
+	public void updateUser(final int idUser, final UserJsonItf data) {
 		UserEntItf u = getUser(idUser);
 		u.setAddress(data.getAddress());
 		u.setName(data.getName());
@@ -109,7 +109,7 @@ public class UserBean extends AbstractBean implements UserBeanLocal {
 	}
 
 	@Override
-	public boolean isAdmin(Integer idUser) {
+	public boolean isAdmin(int idUser) {
 		return getUser(idUser).isAdmin();
 	}
 }

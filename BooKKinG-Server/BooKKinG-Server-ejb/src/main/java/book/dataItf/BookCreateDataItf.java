@@ -19,6 +19,6 @@ public interface BookCreateDataItf {
 
 	String getSummary();
 
-	Integer getStock();
+	int getStock();
 
 }

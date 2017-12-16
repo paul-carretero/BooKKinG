@@ -39,7 +39,7 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	 */
 	public CommandBean() {}
 	
-	private CommandEntity getCommand(final Integer idCmd) {
+	private CommandEntity getCommand(final int idCmd) {
 		return this.manager.find(CommandEntity.class, idCmd);
 	}
 	
@@ -51,6 +51,8 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	private static void populateResponse(final CommandEntItf command, final CommandJsonItf response, final boolean showStock) {
 		response.setDate(command.getDate());
 		response.setIdCmd(command.getIdCmd());
+		response.setShippingCost(command.getShippingCost());
+		response.setShippingAddress(command.getAddress());
 		for(CmdDetailEntity cmdDetail : command.getCmdDetails()) {
 			if(showStock) {
 				// On a déjà retiré le stock pour la commande, on vérifie si on a plus que 0 en rajoutant le stock retiré...
@@ -65,12 +67,13 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 
 	@Override
 	@Transactional(rollbackOn={Exception.class})
-	public void proceedCartCheckout(final Integer idUser, final CommandReqJsonItf data, final CommandJsonItf response) {
-		UserEntity u = this.user.getUser(idUser);
-		List<CartDetailEntity> currentCart = u.getCart();
-		Integer shippingPrice = Helper.getShippingPrice(data.getAddress());
-		String shippingAddress = Helper.getAddress(data.getAddress());
-		CommandEntity cmd = new CommandEntity(shippingAddress,shippingPrice);
+	public void proceedCartCheckout(final int idUser, final CommandReqJsonItf data, final CommandJsonItf response) {
+		final UserEntity u = this.user.getUser(idUser);
+		final List<CartDetailEntity> currentCart = u.getCart();
+		final int shippingPrice = Helper.getShippingPrice(data.getAddress());
+		final String shippingAddress = Helper.getAddress(data.getAddress());
+		final CommandEntity cmd = new CommandEntity(shippingAddress,shippingPrice);
+		
 		cmd.setUser(u);
 		this.manager.persist(cmd);
 		for(CartDetailEntity cartEntry : currentCart) {
@@ -90,8 +93,8 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	}
 
 	@Override
-	public void getCommand(final Integer idCmd, final CommandJsonItf response) {
-		CommandEntity command = getCommand(idCmd);
+	public void getCommand(final int idCmd, final CommandJsonItf response) {
+		final CommandEntity command = getCommand(idCmd);
 		if(command != null) {
 			populateResponse(command, response, false);
 		}
@@ -102,8 +105,8 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	}
 
 	@Override
-	public void getCommands(final Integer idUser, final CommandListJsonItf response) {
-		UserEntItf u = this.user.getUser(idUser);
+	public void getCommands(final int idUser, final CommandListJsonItf response) {
+		final UserEntItf u = this.user.getUser(idUser);
 		for(CommandEntity command : u.getCommands()) {
 			CommandJsonItf cmdJson = response.prepareNewEntry(command.getDate(),command.getIdCmd(), command.getShippingCost(), command.getAddress());
 			for(CmdDetailEntity cmdDetail : command.getCmdDetails()) {
@@ -113,8 +116,8 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	}
 
 	@Override
-	public boolean isCmdOfUser(final Integer idUser, final Integer idCmd) {
-		CommandEntity command = getCommand(idCmd);
+	public boolean isCmdOfUser(final int idUser, final int idCmd) {
+		final CommandEntity command = getCommand(idCmd);
 		return (command.getUser().getIdUser() == idUser) || command.getUser().isAdmin();
 	}
 }

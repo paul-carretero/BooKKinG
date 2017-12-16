@@ -7,7 +7,7 @@ import user.entity.UserEntity;
 
 public interface CommandEntItf extends Serializable {
 
-	public Integer getIdCmd();
+	public int getIdCmd();
 
 	public UserEntity getUser();
 
@@ -19,6 +19,6 @@ public interface CommandEntItf extends Serializable {
 
 	public String getAddress();
 
-	public Integer getShippingCost();
+	public int getShippingCost();
 
 }

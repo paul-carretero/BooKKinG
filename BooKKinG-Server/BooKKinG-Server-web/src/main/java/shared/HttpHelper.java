@@ -55,7 +55,7 @@ public class HttpHelper {
 		return true;
 	}
 
-	public static Integer getIdUser(final HttpServletRequest request) {
+	public static int getIdUser(final HttpServletRequest request) {
 		return (Integer) request.getSession().getAttribute("idUser");
 	}
 

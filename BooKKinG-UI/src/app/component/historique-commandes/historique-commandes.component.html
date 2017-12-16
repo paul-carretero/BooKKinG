@@ -1,20 +1,19 @@
 <div>
-  Mes commandes
-  
-  <ul>
-    <li *ngFor="let commande of historique;"  [ngClass]="{'active': selectedItem == commande}" (click) ="afficherDetailsCommande(commande)"> 
-      Commande {{commande.idCmd}} du {{commande.date}} : total {{commande.total}}
-    </li>
-  </ul>
+    Mes commandes {{test}}
+
+    <ul>
+        <li *ngFor="let commande of historique;" [ngClass]="{'active': selectedItem == commande}" (click)="afficherDetailsCommande(commande)">
+            Commande {{commande.idCmd}} du {{commande.date}} : total {{commande.total}}
+        </li>
+    </ul>
 </div>
 
 
 <div [hidden]="!commandeSelected">
-  Commande {{commandeAAfficher.idCmd}} du {{commandeAAfficher.date}} : total {{commandeAAfficher.total}}
-  Livrée à : {{commandeAAfficher.shippingAddress}} pour {{commandeAAfficher.shippingCost}} euros  
-  <ul>
-        <li *ngFor="let article of articles;"> 
-            {{article.book.title}} | {{article.quantity}}  | {{article.book.price}} euros  
+    Commande {{commandeAAfficher.idCmd}} du {{commandeAAfficher.date}} : total {{commandeAAfficher.total}} Livrée à : {{commandeAAfficher.shippingAddress}} pour {{commandeAAfficher.shippingCost}} euros
+    <ul>
+        <li *ngFor="let article of articles;">
+            {{article.book.title}} | {{article.quantity}} | {{article.book.price}} euros
         </li>
     </ul>
 

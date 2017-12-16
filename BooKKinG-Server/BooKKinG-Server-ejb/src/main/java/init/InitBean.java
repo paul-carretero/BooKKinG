@@ -40,17 +40,17 @@ public class InitBean extends AbstractBean implements InitBeanLocal {
 			BookJsonItf aBook = response.prepareNewBookNewest();
 			aBook.setField(randomBook);
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			System.err.println("[initFail, lack of data]" + e.getMessage());
 		}
 	}
 
 	@Override
 	public void getMostBuy(InitResponseJsonItf response) {
-		Integer mostBuyBook;
+		int mostBuyBook;
 		try {
 			mostBuyBook = (Integer) this.manager.createNativeQuery("SELECT idBook AS total FROM CmdDetail GROUP BY idBook ORDER BY total DESC LIMIT 1").getSingleResult();
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			System.err.println("[initFail, lack of data]" + e.getMessage());
 			return;
 		}
 		BookJsonItf res = response.prepareNewBookMostBuy();
@@ -59,14 +59,14 @@ public class InitBean extends AbstractBean implements InitBeanLocal {
 
 	@Override
 	public void getRange(InitResponseJsonItf response) {
-		Integer min = 0;
-		Integer max = 100;
+		int min = 0;
+		int max = 100;
 		try {
 			min = Math.round(((Float) this.manager.createNativeQuery("SELECT MIN(price) FROM Book").getSingleResult())-1);
 			min = Math.max(0, min);
 			max = Math.round(((Float) this.manager.createNativeQuery("SELECT MAX(price) FROM Book").getSingleResult())+1);
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			System.err.println("[initFail, lack of data]" + e.getMessage());
 		}
 		response.setRange(min, max);
 	}

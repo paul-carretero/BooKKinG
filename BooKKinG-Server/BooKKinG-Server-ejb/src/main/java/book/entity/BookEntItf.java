@@ -5,7 +5,7 @@ import shared.Type;
 
 public interface BookEntItf {
 
-	public Integer getIdBook();
+	public int getIdBook();
 
 	public Genre getGenre();
 
@@ -19,10 +19,10 @@ public interface BookEntItf {
 
 	public Float getPrice();
 
-	public Integer getStock();
+	public int getStock();
 
 	public String getTitle();
 	
-	public void removeFromStock(Integer value);
+	public void removeFromStock(int value);
 
 }

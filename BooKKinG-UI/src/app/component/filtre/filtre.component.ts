@@ -45,6 +45,13 @@ export class FiltreComponent implements OnInit {
     );
   }
 
+  get classTransaction(): string {
+    if (Globals.transactionPage.includes(this.navigationService.getCurrentOther())) {
+      return 'nodisplay';
+    }
+    return '';
+  }
+
   get genres(): string[] {
     const currentType = this.navigationService.getCurrentType();
     if (Globals.typeLivre.includes(currentType)) {

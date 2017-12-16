@@ -125,7 +125,6 @@ export class PanierService {
       reponse => {
         if (reponse.success) {
           this.contenuPanier = reponse.items;
-          console.log(JSON.stringify(reponse.items));
         } else {
           alert(reponse.message);
         }
