@@ -7,6 +7,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FinPaiementComponent } from './fin-paiement.component';
 import { NavigationService } from '../../../service/navigation.service';
 import { CookieService } from 'ngx-cookie-service';
+import { StockComponent } from '../../livre/stock/stock.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NotifService } from '../../../service/notif.service';
+
 
 describe('FinPaiementComponent', () => {
   let component: FinPaiementComponent;
@@ -14,17 +19,20 @@ describe('FinPaiementComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FinPaiementComponent
+      declarations: [FinPaiementComponent, StockComponent
       ],
       imports: [
-        HttpModule
+        HttpModule,
+        RouterTestingModule
       ],
+      schemas: [NO_ERRORS_SCHEMA],
       providers: [
         AchatService,
         PanierService,
         ConnectionService,
         NavigationService,
-        CookieService
+        CookieService,
+        NotifService
       ]
     })
       .compileComponents();

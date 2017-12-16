@@ -21,6 +21,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core/src/metadata/ng_module';
 import { InitService } from './service/init.service';
+import { NotifService } from './service/notif.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -51,7 +52,8 @@ describe('AppComponent', () => {
         LivreService,
         NavigationService,
         LRUCacheService,
-        InitService
+        InitService,
+        NotifService
       ],
     }).compileComponents();
   }));
