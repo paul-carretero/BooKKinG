@@ -97,8 +97,10 @@ export class ConnectionService {
     );
   }
 
-  public reinitialiserMotDePasse(client: Client): Observable<any> {
-    return this.http.post(this.urlConnection, client, { withCredentials: true }).map(res => res.json());
+  public reinitialiserMotDePasse(email: string): Observable<any> {
+    const c = new Client();
+    c.email = email;
+    return this.http.post(this.urlConnection, c, { withCredentials: true }).map(res => res.json());
   }
 
   // ------------------------------------------------ Servlet  User ----------------------------------------------------------

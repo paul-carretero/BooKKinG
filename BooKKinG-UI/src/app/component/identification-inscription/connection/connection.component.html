@@ -1,10 +1,10 @@
 <!-- Formulaire pour récupérer les données saisies lors de la connexion  -->
 <!-- Formulaire : avec passage des données dans l'objet ngForm -->
 <!-- A la soumission, la méthode analyse l’objet form qui contient les valeurs -->
-<div class="wrapper">
+<div *ngIf="!resetPassword" class="wrapper">
     <header>Déjà inscrit?</header>
     <form (ngSubmit)="connexion()" [formGroup]="connexionForm">
-        <div class="bg-danger" [hidden]="serverResponse === '' || serverResponse === null">
+        <div class="{{serverResponseClass}}" [hidden]="serverResponse === '' || serverResponse === null">
             <fa name="exclamation-circle "></fa>{{serverResponse}}
         </div>
         <label for="email">Email:</label>
@@ -22,6 +22,24 @@
         </span>
         <br/>
         <button class="btn btn-block btn-success" type="submit" [disabled]="!connexionForm.valid">Se connecter</button>
-        <button type="button" (click)="resetpassword()" class="btn btn-link btn-block btn-sm">mot de passe oublié ?</button>
+        <button type="button" (click)="initResetPassword()" class="btn btn-link btn-block btn-sm">mot de passe oublié ?</button>
+    </form>
+</div>
+
+<div *ngIf="resetPassword" class="wrapper">
+    <header>Mot de passe oublié</header>
+    <form (ngSubmit)="resetPwd()" [formGroup]="resetPwdForm">
+        <div class="bg-danger" [hidden]="serverResponse === '' || serverResponse === null">
+            <fa name="exclamation-circle "></fa>{{serverResponse}}
+        </div>
+        <label for="resemail">Email:</label>
+        <input type="email" class="form-control" formControlName="resemail" id="resemail" #resemail ngModel>
+        <!-- Balise ne s'activant que si l'email renseigné n'est pas valide -->
+        <span [hidden]="resetPwdForm.get('resemail').valid || !resetPwdForm.get('resemail').touched" class="text-danger">
+          Vous devez entrer une adresse email valide.<br/>
+        </span>
+        <br/>
+        <button class="btn btn-block btn-success" type="submit" [disabled]="!resetPwdForm.valid">Renvoyer un mot de passe</button>
+        <button type="button" (click)="initDefaultConnection()" class="btn btn-link btn-block btn-sm">Retour vers connexion</button>
     </form>
 </div>
