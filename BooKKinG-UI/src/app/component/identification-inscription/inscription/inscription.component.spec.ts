@@ -6,6 +6,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule } from '@angular/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ConnectionService } from '../../../service/connection.service';
+import { NotifService } from '../../../service/notif.service';
+import { AchatService } from '../../../service/achat.service';
+import { NavigationService } from '../../../service/navigation.service';
+import { CookieService } from 'ngx-cookie-service';
+import { PanierService } from '../../../service/panier.service';
 
 describe('InscriptionComponent', () => {
   let component: InscriptionComponent;
@@ -23,7 +28,12 @@ describe('InscriptionComponent', () => {
         ReactiveFormsModule
       ],
       providers: [
-        ConnectionService
+        ConnectionService,
+        NotifService,
+        AchatService,
+        NavigationService,
+        CookieService,
+        PanierService
       ]
     })
       .compileComponents();

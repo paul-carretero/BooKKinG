@@ -8,6 +8,8 @@ import { HttpModule } from '@angular/http';
 import { AchatService } from '../../service/achat.service';
 import { NavigationService } from '../../service/navigation.service';
 import { CookieService } from 'ngx-cookie-service';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NotifService } from '../../service/notif.service';
 
 describe('PanierComponent', () => {
   let component: PanierComponent;
@@ -16,6 +18,7 @@ describe('PanierComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PanierComponent],
+      schemas: [NO_ERRORS_SCHEMA],
       imports: [
         RouterTestingModule,
         HttpModule
@@ -26,6 +29,7 @@ describe('PanierComponent', () => {
         AchatService,
         NavigationService,
         CookieService,
+        NotifService
       ]
     })
       .compileComponents();

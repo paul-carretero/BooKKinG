@@ -14,11 +14,7 @@ export class StockComponent implements OnInit {
   @Input()
   private stock: number;
 
-  private warning: boolean;
-
-  constructor() {
-    this.warning = false;
-  }
+  constructor() { }
 
   ngOnInit() { }
 

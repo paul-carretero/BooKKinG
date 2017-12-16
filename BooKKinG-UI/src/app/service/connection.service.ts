@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Client } from '../model/client';
 import { Globals } from '../globals';
 import { PanierService } from './panier.service';
+import { NotifService } from './notif.service';
 
 /**
  * Service dédié à la connection d'un utilisateur
@@ -25,7 +26,7 @@ export class ConnectionService {
    * Construteur pour le service de connection
    * @param http permet de faire le lien avec des pages http (des servlets)
    */
-  constructor(private http: Http) {
+  constructor(private http: Http, private notifService: NotifService) {
     this.currentClient = new Client();
     this.isConnected = false;
     this.initConnexion();
@@ -38,6 +39,7 @@ export class ConnectionService {
         if (connected.success) {
           this.isConnected = true;
           this.recuperationInformationsClient();
+          this.notifService.getSubject().next('Content de vous revoir, Votre session a été restauré.');
         } else {
           this.isConnected = false;
         }

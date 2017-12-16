@@ -19,6 +19,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LivreService } from '../../service/livre.service';
 import { NavigationService } from '../../service/navigation.service';
 import { LRUCacheService } from '../../service/lrucache.service';
+import { NotifService } from '../../service/notif.service';
 
 describe('AdministrationComponent', () => {
   let component: AdministrationComponent;
@@ -26,18 +27,19 @@ describe('AdministrationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdministrationComponent 
+      declarations: [AdministrationComponent
       ],
       imports: [
         RouterTestingModule,
         HttpModule
       ],
-      providers: [       
+      providers: [
         ConnectionService,
-        AdministrationService
+        AdministrationService,
+        NotifService
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

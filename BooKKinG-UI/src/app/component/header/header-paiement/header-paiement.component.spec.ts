@@ -8,6 +8,7 @@ import { NavigationService } from '../../../service/navigation.service';
 import { CookieService } from 'ngx-cookie-service';
 import { PanierService } from '../../../service/panier.service';
 import { ConnectionService } from '../../../service/connection.service';
+import { NotifService } from '../../../service/notif.service';
 
 
 describe('HeaderPaiementComponent', () => {
@@ -22,7 +23,8 @@ describe('HeaderPaiementComponent', () => {
         NavigationService,
         CookieService,
         PanierService,
-        ConnectionService
+        ConnectionService,
+        NotifService
       ],
       schemas: [NO_ERRORS_SCHEMA],
       imports: [

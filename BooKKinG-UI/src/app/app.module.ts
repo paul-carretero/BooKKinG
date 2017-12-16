@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LRUCacheService } from './service/lrucache.service';
 import { InitService } from './service/init.service';
+import { NotifService } from './service/notif.service';
 
 import { AppComponent } from './app.component';
 import { PanierComponent } from './component/panier/panier.component';
@@ -41,6 +42,7 @@ import { ReturnButtonComponent } from './component/ariane/return-button/return-b
 import { HeaderStandardComponent } from './component/header/header-standard/header-standard.component';
 import { InscriptionComponent } from './component/identification-inscription/inscription/inscription.component';
 import { ConnectionComponent } from './component/identification-inscription/connection/connection.component';
+import { NotifComponent } from './component/ariane/notif/notif.component';
 
 
 
@@ -89,6 +91,7 @@ export const appRoutes: Routes = [
     HomeComponent,
     ReturnButtonComponent,
     HeaderStandardComponent,
+    NotifComponent,
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   // modules que l'application va utiliser
@@ -115,7 +118,8 @@ export const appRoutes: Routes = [
     NavigationService,
     LRUCacheService,
     HistoriquePagesService,
-    InitService
+    InitService,
+    NotifService
   ],
   bootstrap: [AppComponent]
 })

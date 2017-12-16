@@ -7,6 +7,7 @@ import { NavigationService } from './navigation.service';
 import { PanierService } from './panier.service';
 import { Article } from '../model/article';
 import { Livre } from '../model/livre';
+import { NotifService } from './notif.service';
 
 
 @Injectable()
@@ -24,7 +25,8 @@ export class AchatService {
 
   private commandeCourante: Commande = null;
 
-  constructor(private http: Http, private navService: NavigationService, private servicePanier: PanierService) {
+  constructor(private http: Http, private navService: NavigationService,
+    private servicePanier: PanierService, private notifService: NotifService) {
     this.listenForNavUpdate();
     this.commandesClient = [];
     this.commandeCourante = new Commande();
@@ -119,6 +121,7 @@ export class AchatService {
         if (res.success) {
           this.servicePanier.viderPanier();
           this.commandeCourante = res;
+          this.notifService.getSubject().next('Votre commande #' + this.commandeCourante.idCmd + ' a bien été prise en compte!');
         } else {
           console.log(res.message);
           this.commandeCourante = new Commande();

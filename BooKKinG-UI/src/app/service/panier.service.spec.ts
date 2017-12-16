@@ -7,6 +7,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { PanierService } from './panier.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule } from '@angular/http';
+import { NotifService } from './notif.service';
 
 describe('PanierService', () => {
   beforeEach(() => {
@@ -14,7 +15,8 @@ describe('PanierService', () => {
       providers: [
         PanierService,
         ConnectionService,
-        AchatService
+        AchatService,
+        NotifService
       ],
       imports: [
         RouterTestingModule,

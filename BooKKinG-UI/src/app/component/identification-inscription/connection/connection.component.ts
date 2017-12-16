@@ -9,6 +9,8 @@ import { NgForm, FormGroup, FormControl, Validators, FormBuilder } from '@angula
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Globals } from '../../../globals';
 import { AchatService } from '../../../service/achat.service';
+import { NotifService } from '../../../service/notif.service';
+import { NavigationService } from '../../../service/navigation.service';
 
 @Component({
   selector: 'app-connection',
@@ -30,7 +32,8 @@ export class ConnectionComponent implements OnInit {
   * @param routeur permet de gérer le routage
   * @param service permet d'accéder aux services du composant ConnectionService
   */
-  constructor(private routeur: Router, private service: ConnectionService, private fb: FormBuilder, private achatService: AchatService) {
+  constructor(private routeur: Router, private service: ConnectionService, private fb: FormBuilder,
+    private achatService: AchatService, private notifService: NotifService, private navService: NavigationService) {
     this.connexionForm = fb.group({
       email: ['', Validators.email],
       password: ['', Validators.required],
@@ -57,9 +60,14 @@ export class ConnectionComponent implements OnInit {
     this.service.connection(connClient).subscribe(
       connected => {
         if (connected.success) {
+          this.notifService.getSubject().next('vous vous êtes connecté avec succès!');
           this.serverResponse = '';
           if (this.achatService.getTransactionState()) {
-            this.routeur.navigate(['livraison']);
+            this.navService.setCurrentOther(Globals.LIVRAISON);
+            this.routeur.navigate([Globals.getRoute(Globals.LIVRAISON)]);
+          } else {
+            this.navService.setCurrentOther(Globals.COMPTE);
+            this.routeur.navigate([Globals.getRoute(Globals.COMPTE)]);
           }
         } else {
           this.serverResponse = connected.message;

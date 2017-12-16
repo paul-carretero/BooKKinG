@@ -9,6 +9,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AchatService } from '../../../service/achat.service';
 import { NavigationService } from '../../../service/navigation.service';
 import { CookieService } from 'ngx-cookie-service';
+import { NotifService } from '../../../service/notif.service';
 
 
 describe('PayerComponent', () => {
@@ -28,7 +29,8 @@ describe('PayerComponent', () => {
         ConnectionService,
         AchatService,
         NavigationService,
-        CookieService
+        CookieService,
+        NotifService
       ]
     })
       .compileComponents();

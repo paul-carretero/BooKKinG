@@ -11,6 +11,7 @@ import { MenuRechercheComponent } from './menu-recherche.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule } from '@angular/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NotifService } from '../../service/notif.service';
 
 describe('MenuRechercheComponent', () => {
   let component: MenuRechercheComponent;
@@ -18,11 +19,11 @@ describe('MenuRechercheComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuRechercheComponent,
+      declarations: [MenuRechercheComponent,
         PageComponent
-       ],
-       schemas: [NO_ERRORS_SCHEMA],
-       imports: [ 
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
         RouterTestingModule,
         HttpModule
       ],
@@ -32,11 +33,12 @@ describe('MenuRechercheComponent', () => {
         CookieService,
         LRUCacheService,
         PanierService,
-        ConnectionService
+        ConnectionService,
+        NotifService
       ]
 
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
