@@ -27,6 +27,7 @@ export class LivraisonComponent implements OnInit {
     this.displayCustomAddr = false;
   }
 
+
   ngOnInit() {
     if (!this.serviceConnect.getConnectionStatus() || !this.achatService.getTransactionState()) {
       this.navigationService.setCurrentOther(Globals.HOME);
