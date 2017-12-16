@@ -141,7 +141,3 @@ input[type=number]{
 .not-really-a-button:active {
     box-shadow: none;
 }
-
-.background{
-    background-image: url("/assets/back.gif");    
-}
