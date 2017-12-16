@@ -9,6 +9,7 @@ import { AchatService } from '../../../service/achat.service';
 import { NavigationService } from '../../../service/navigation.service';
 import { CookieService } from 'ngx-cookie-service';
 import { PanierService } from '../../../service/panier.service';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('LivraisonComponent', () => {
   let component: LivraisonComponent;
@@ -18,6 +19,7 @@ describe('LivraisonComponent', () => {
     TestBed.configureTestingModule({
       declarations: [LivraisonComponent
       ],
+      schemas:[NO_ERRORS_SCHEMA],
       imports: [
         RouterTestingModule,
         HttpModule,
