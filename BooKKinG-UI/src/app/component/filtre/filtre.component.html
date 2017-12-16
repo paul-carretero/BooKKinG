@@ -38,3 +38,14 @@
         </div>
     </div>
 </div>
+<ng-container *ngIf="isInTransaction">
+    <br/>
+    <div class="row" id="table">
+        <div class="col-md-12 menu-header">
+            Annuler la commande
+        </div>
+        <div class="col-md-12 menu-container button-container">
+            <button (click)="cancel()" class="btn btn-warning btn-block"><fa name="times"></fa>Annuler</button>
+        </div>
+    </div>
+</ng-container>

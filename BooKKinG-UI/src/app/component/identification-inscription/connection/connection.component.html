@@ -22,6 +22,6 @@
         </span>
         <br/>
         <button class="btn btn-block btn-success" type="submit" [disabled]="!connexionForm.valid">Se connecter</button>
-        <button type="button" class="btn btn-link btn-block btn-sm">mot de passe oublié ?</button>
+        <button type="button" (click)="resetpassword()" class="btn btn-link btn-block btn-sm">mot de passe oublié ?</button>
     </form>
 </div>
