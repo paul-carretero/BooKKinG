@@ -51,9 +51,15 @@ export class FinPaiementComponent implements OnInit {
     return this.serviceAchat.getMontantTotalCommande(this.currentCmd).toFixed(2);
   }
 
+  private get idCommand():number{
+    return this.serviceAchat.getCommandeCourante().idCmd;
+  }
+
+
   public getPrice(a: Article): string {
     return (a.quantity * a.book.price).toFixed(2);
   }
+
 
   private detailLivre(livre: Livre) {
     this.navigationService.setFromLivre(livre);
