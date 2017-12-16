@@ -10,6 +10,7 @@ import { HeaderComponent } from './header.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ConnectionService } from '../../service/connection.service';
+import { AchatService } from '../../service/achat.service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -17,7 +18,7 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent 
+      declarations: [HeaderComponent
       ],
       imports: [
         RouterTestingModule,
@@ -25,15 +26,15 @@ describe('HeaderComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        ConnectionService, 
+        ConnectionService,
         PanierService,
         NavigationService,
         CookieService,
-        RechercheService, 
-        LRUCacheService
+        RechercheService,
+        AchatService
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
