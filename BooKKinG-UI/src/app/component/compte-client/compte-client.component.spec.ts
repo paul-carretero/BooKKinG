@@ -10,6 +10,7 @@ import { ConnectionService } from '../../service/connection.service';
 import { NavigationService } from '../../service/navigation.service';
 import { CookieService } from 'ngx-cookie-service';
 import { PanierService } from '../../service/panier.service';
+import { NotifService } from '../../service/notif.service';
 
 describe('CompteClientComponent', () => {
   let component: CompteClientComponent;
@@ -30,7 +31,8 @@ describe('CompteClientComponent', () => {
         AchatService,
         NavigationService,
         CookieService,
-        PanierService
+        PanierService,
+        NotifService
       ]
     })
       .compileComponents();

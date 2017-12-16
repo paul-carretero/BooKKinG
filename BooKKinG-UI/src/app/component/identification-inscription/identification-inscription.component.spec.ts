@@ -13,6 +13,7 @@ import { AchatService } from '../../service/achat.service';
 import { NavigationService } from '../../service/navigation.service';
 import { CookieService } from 'ngx-cookie-service';
 import { PanierService } from '../../service/panier.service';
+import { NotifService } from '../../service/notif.service';
 
 describe('IdentificationInscriptionComponent', () => {
   let component: IdentificationInscriptionComponent;
@@ -35,7 +36,8 @@ describe('IdentificationInscriptionComponent', () => {
         AchatService,
         NavigationService,
         CookieService,
-        PanierService
+        PanierService,
+        NotifService
       ]
     })
       .compileComponents();

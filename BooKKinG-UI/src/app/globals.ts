@@ -9,9 +9,9 @@ export class Globals {
 
   public static readonly prixLivraison = 5;
 
-  public static readonly host: string = '127.0.0.1:8080';
+  // public static readonly host: string = '127.0.0.1:8080';
 
-  // public static readonly host: String = 'bookking.ovh';
+  public static readonly host: String = 'bookking.ovh';
 
   public static readonly genreLivres = new Map<string, string[]>(
     [

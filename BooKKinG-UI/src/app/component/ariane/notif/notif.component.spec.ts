@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotifComponent } from './notif.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NotifService } from '../../../service/notif.service';
 
 describe('NotifComponent', () => {
   let component: NotifComponent;
@@ -8,9 +10,11 @@ describe('NotifComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotifComponent ]
+      declarations: [NotifComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [NotifService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

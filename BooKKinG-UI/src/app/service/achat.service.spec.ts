@@ -8,6 +8,7 @@ import { NavigationService } from './navigation.service';
 import { LRUCacheService } from './lrucache.service';
 import { PanierService } from './panier.service';
 import { ConnectionService } from './connection.service';
+import { NotifService } from './notif.service';
 
 describe('AchatService', () => {
   beforeEach(() => {
@@ -18,7 +19,8 @@ describe('AchatService', () => {
         CookieService,
         LRUCacheService,
         PanierService,
-        ConnectionService
+        ConnectionService,
+        NotifService
       ],
       imports: [
         RouterTestingModule,

@@ -11,6 +11,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ConnectionService } from '../../service/connection.service';
 import { AchatService } from '../../service/achat.service';
+import { NotifService } from '../../service/notif.service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -31,7 +32,8 @@ describe('HeaderComponent', () => {
         NavigationService,
         CookieService,
         RechercheService,
-        AchatService
+        AchatService,
+        NotifService
       ]
     })
       .compileComponents();

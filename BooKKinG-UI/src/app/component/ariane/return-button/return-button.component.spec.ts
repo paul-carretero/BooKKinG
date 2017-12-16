@@ -10,6 +10,7 @@ import { HttpModule } from '@angular/http';
 import { AchatService } from '../../../service/achat.service';
 import { PanierService } from '../../../service/panier.service';
 import { ConnectionService } from '../../../service/connection.service';
+import { NotifService } from '../../../service/notif.service';
 
 describe('ReturnButtonComponent', () => {
   let component: ReturnButtonComponent;
@@ -30,6 +31,7 @@ describe('ReturnButtonComponent', () => {
         AchatService,
         PanierService,
         ConnectionService,
+        NotifService
       ]
     })
       .compileComponents();
