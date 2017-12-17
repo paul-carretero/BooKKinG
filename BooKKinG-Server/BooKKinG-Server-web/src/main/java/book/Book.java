@@ -62,6 +62,13 @@ public class Book extends HttpServlet {
 				response.getWriter().append(new GenericResponseJson(false,"le book demande n'existe pas").toString());
 			}
 		}
+		else if(stringReq.equals("ALL")) {
+			if(HttpHelper.checkAdmin(this.userBean,request,response)) {
+				BookListJsonItf res = new BookListJson();
+				this.bookBean.getAllBooks(res);
+				response.getWriter().append(res.toString());
+			}
+		}
 		else {
 			response.getWriter().append(new GenericResponseJson(false,"id de book demande est invalide").toString());
 		}

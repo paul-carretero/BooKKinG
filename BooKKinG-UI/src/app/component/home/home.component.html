@@ -9,11 +9,6 @@
 
 
 <div class="carousel-wrapper">
-    <!--<ul class="nav nav-tabs nav-justified">
-        <ng-container *ngFor="let option of options; let i = index">
-            <li role="presentation" class="{{isActiveClass(i)}}"><a (click)="setCurrent(i)">{{option}}</a></li>
-        </ng-container>
-    </ul>-->
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
@@ -32,7 +27,7 @@
                         {{getSummarizedSummary()}}
                     </section>
                     <footer>
-                        <button type="button" class="btn btn-success">Voir cette offre!</button>
+                        <button (click)="goToBook()" type="button" class="btn btn-success">Voir cette offre!</button>
                     </footer>
                 </div>
                 <div class="col-md-6 image-container">

@@ -25,6 +25,7 @@ export class HistoriquePagesService {
         if (this.histoPages.length > HistoriquePagesService.MAX_HISTORY) {
           this.histoPages.shift();
         }
+        console.log(JSON.stringify(current));
         this.histoPages.push(this.cloneNavData(current));
         this.count++;
       }

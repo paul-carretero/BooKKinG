@@ -16,4 +16,6 @@ public interface BookBeanLocal {
 
 	public void addBooks(BookCreateDataItf data);
 
+	public void getAllBooks(BookListJsonItf res);
+
 }

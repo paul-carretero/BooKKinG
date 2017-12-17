@@ -144,4 +144,14 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 			this.manager.persist(newBook);
 		}
 	}
+
+	@Override
+	public void getAllBooks(BookListJsonItf res) {
+		Query searchBookQuery = this.manager.createQuery("FROM BookEntity b ORDER BY b.title ASC");
+		List<BookEntity> books = searchBookQuery.getResultList();
+		for(BookEntity book : books) {
+			BookJsonItf entry = res.prepareNewEntry();
+			entry.setField(book.getIdBook(),book.getTitle(),book.getStock());
+		}
+	}
 }

@@ -2,6 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InitService } from '../../service/init.service';
 import { Livre } from '../../model/livre';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NavigationService } from '../../service/navigation.service';
+import { Router } from '@angular/router';
+import { Globals } from '../../globals';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private interval: any;
 
-  constructor(private init: InitService, private sanitizer: DomSanitizer) { }
+  constructor(private init: InitService, private navService: NavigationService, private router: Router) { }
 
   ngOnInit() {
     this.interval = setInterval(this.next, HomeComponent.displayTime);
@@ -62,6 +65,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       default: {
         return this.init.getRandomBook() || new Livre();
       }
+    }
+  }
+
+  private goToBook(): void {
+    if (this.currentBook) {
+      this.navService.setFromLivre(this.currentBook);
+      this.router.navigate([Globals.getRoute(Globals.LIVRE), this.currentBook.idBook]);
     }
   }
 
