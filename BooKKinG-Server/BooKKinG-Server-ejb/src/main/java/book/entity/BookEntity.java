@@ -126,7 +126,11 @@ public class BookEntity implements Serializable, BookEntItf {
 	}
 
 	@Override
-	public void removeFromStock(int value) {
+	public void removeFromStock(final int value) {
 		this.stock -= value;
+	}
+
+	public void setStock(final int s) {
+		this.stock = s;
 	}
 }

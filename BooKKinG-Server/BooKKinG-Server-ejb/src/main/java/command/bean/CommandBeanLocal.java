@@ -1,7 +1,5 @@
 package command.bean;
 
-import java.sql.Timestamp;
-
 import javax.ejb.Local;
 
 import command.dataItf.CmdGetJsonItf;
