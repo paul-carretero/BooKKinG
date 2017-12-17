@@ -76,7 +76,7 @@ export class PanierService {
       this.contenuPanier[i] = { book: livre, quantity: quantity, idBook: livre.idBook };
       this.tryUpdateItemOnServer(livre.idBook, quantity);
     }
-    this.notifService.getSubject().next('Le livre ' + livre.title + ' a été ajouté à votre panier');
+    this.notifService.publish('Le livre ' + livre.title + ' a été ajouté à votre panier');
   }
 
   public setQuantity(idBook: number, quantity: number) {

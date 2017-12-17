@@ -45,7 +45,7 @@ export class InscriptionComponent implements OnInit {
     this.service.creationClient(connClient).subscribe(
       response => {
         if (response.success) {
-          this.notifService.getSubject().next('vous vous êtes enregistré avec succès!');
+          this.notifService.publish('vous vous êtes enregistré avec succès!');
           if (this.achatService.getTransactionState()) {
             this.navService.setCurrentOther(Globals.LIVRAISON);
             this.routeur.navigate([Globals.getRoute(Globals.LIVRAISON)]);

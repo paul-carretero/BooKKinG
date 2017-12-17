@@ -1,13 +1,24 @@
-<h3>
-    Page d'administration
-</h3>
+<section class="wrapper">
+    <h1>
+        Page d'administration
+    </h1>
 
-<div class="header-admin">
-    <ul class="nav nav-tabs nav-justified">
-        <ng-container *ngFor="let option of options; let i = index">
-            <li role="presentation" class="{{isActiveClass(i)}}"><a (click)="setCurrent(i)">{{option}}</a></li>
+    <div class="header-admin">
+        <ul class="nav nav-tabs nav-justified">
+            <ng-container *ngFor="let option of options; let i = index">
+                <li role="presentation" class="{{isActiveClass(i)}}"><a (click)="setCurrent(i)">{{option}}</a></li>
+            </ng-container>
+        </ul>
+    </div>
+    <div class="content">
+        <ng-container *ngIf="current === 0">
+            <app-administration-livres></app-administration-livres>
         </ng-container>
-    </ul>
-</div>
-<app-administration-commandes></app-administration-commandes>
-<app-administration-livres></app-administration-livres>
+        <ng-container *ngIf="current === 1">
+            <app-administration-stock></app-administration-stock>
+        </ng-container>
+        <ng-container *ngIf="current === 2">
+            <app-administration-commandes></app-administration-commandes>
+        </ng-container>
+    </div>
+</section>

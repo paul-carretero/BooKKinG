@@ -68,14 +68,14 @@ export class RechercheService {
     if (this.cache.includes(this.currentRecherche)) {
       this.currentLivreList = this.cache.get(this.currentRecherche);
     } else {
-      this.notifService.getSubject().next('SEARCH');
+      this.notifService.publish('SEARCH');
       this.currentLivreList = new ReponseRecherche();
       this.rechercherEnsembleLivre(this.currentRecherche).subscribe(
         reponse => {
           if (reponse.success) {
             this.currentLivreList = reponse;
             this.cache.put(this.currentRecherche, this.currentLivreList);
-            this.notifService.getSubject().next();
+            this.notifService.publish();
           } else {
             console.log(reponse.message);
           }

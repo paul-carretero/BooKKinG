@@ -1,9 +1,8 @@
-import { Client } from './../../model/client';
+import { Router } from '@angular/router';
+import { NavigationService } from './../../service/navigation.service';
 import { AdministrationService } from './../../service/administration.service';
 import { Component, OnInit } from '@angular/core';
-import { Livre } from '../../model/livre';
 import { ConnectionService } from '../../service/connection.service';
-import { Router } from '@angular/router';
 import { NotifService } from '../../service/notif.service';
 import { Globals } from '../../globals';
 
@@ -23,13 +22,14 @@ export class AdministrationComponent implements OnInit {
   private current = 0;
 
   constructor(private service: AdministrationService, private connectionService: ConnectionService,
-    private router: Router, private notifService: NotifService) { }
+    private router: Router, private notifService: NotifService, private navigationService: NavigationService) { }
 
   ngOnInit() {
-    if ((!this.connectionService.getConnectionStatus()) || (!this.connectionService.getCurrentUser().admin)) {
+    /*if ((!this.connectionService.getConnectionStatus()) || (!this.connectionService.getCurrentUser().admin)) {
       this.notifService.getSubject().next('Erreur : Vous n\' êtes pas administrateur');
+      this.navigationService.setCurrentOther(Globals.LOGIN);
       this.router.navigate([Globals.getRoute(Globals.LOGIN)]);
-    }
+    }*/
   }
 
   private isActiveClass(i: number): string {

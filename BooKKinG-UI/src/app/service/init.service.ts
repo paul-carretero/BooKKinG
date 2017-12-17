@@ -18,7 +18,7 @@ export class InitService {
   }
 
   public initConstantes(): Observable<any> {
-    const conn = this.http.get(this.urlInit, { withCredentials: true }).map(res => res.json());
+    const conn = this.http.get(this.urlInit, Globals.HTTP_OPTIONS).map(res => res.json());
     conn.subscribe(
       reponse => {
         if (reponse.success) {

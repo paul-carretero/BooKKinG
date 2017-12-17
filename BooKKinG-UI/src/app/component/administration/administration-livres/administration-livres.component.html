@@ -1,97 +1,90 @@
-<button class="btn btn-primary btn-sm" (click)="ajouterLivre()"> Ajouter un nouveau livre dans la base </button>
-<button class="btn btn-primary btn-sm" (click)="modifierStockLivrer()"> Modifier le stock d'un livre dans la base </button>
+<form (ngSubmit)="createNewBook()" [formGroup]="createNewBookForm">
 
+    <div class="row">
+        <div class="col-md-3">
+            <label for="title">Titre*:</label>
+        </div>
+        <div class="col-md-9">
+            <input type="text" class="form-control" formControlName="title" id="title" #title ngModel>
+            <span [hidden]="createNewBookForm.get('title').valid || !createNewBookForm.get('title').touched" class="text-danger">
+              Vous devez entrer un titre valide.
+            </span>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-3">
+            <label for="author">Auteur*:</label>
+        </div>
+        <div class="col-md-9">
+            <input type="text" class="form-control" formControlName="author" id="author" #author ngModel>
+            <span [hidden]="createNewBookForm.get('author').valid || !createNewBookForm.get('author').touched" class="text-danger">
+              Vous devez entrer un auteur valide.
+            </span>
+        </div>
+    </div>
 
-<div *ngIf ="ajouter" class="wrapper">
-  <header>Livre à ajouter dans la base de donnée</header>
-  <form (ngSubmit)="createNewBook()" [formGroup]="createNewBookForm">
-    <!-- <div class="{{serverResponseClass}}" [hidden]="serverResponse === '' || serverResponse === null">
-          <fa name="exclamation-circle "></fa>{{serverResponse}}
-      </div>
-    -->
+    <div class="row">
+        <div class="col-md-3 label-like">
+            Type* :
+        </div>
+        <div class="col-md-9">
+            <div class="btn-group" data-toggle="buttons">
+                <ng-container *ngFor="let type of types;">
+                    <label for="typeSelected" class="btn btn-primary {{getClassType(type)}}" (click)="setType(type)">
+            <input type="radio" value="{{type}}" name="typeSelected" /> {{getDisplayable(type)}}
+            </label>
+                </ng-container>
+            </div>
+        </div>
+    </div>
 
-      <label for="title">Titre:</label>
-      <input type="text" class="form-control" formControlName="title" id="title" #title ngModel>
-      <span [hidden]="createNewBookForm.get('title').valid || !createNewBookForm.get('title').touched" class="text-danger">
-        Vous devez entrer un titre valide.<br/>
-      </span>
-      <br/>
+    <div class="row">
+        <div class="col-md-3 label-like">
+            Genre* :
+        </div>
+        <div class="col-md-9">
+            <div class="btn-group" data-toggle="buttons">
+                <ng-container *ngFor="let genre of genres;">
+                    <label for="genreSelected" class="btn btn-primary {{getClassGenre(genre)}}" (click)="setGenre(genre)">
+            <input type="radio" value="{{genre}}" name="genreSelected" /> {{getDisplayable(genre)}}
+            </label>
+                </ng-container>
+            </div>
+        </div>
+    </div>
 
-      <label for="author">Auteur:</label>
-      <input type="text" class="form-control" formControlName="author" id="author" #author ngModel>
-      <span [hidden]="createNewBookForm.get('author').valid || !createNewBookForm.get('author').touched" class="text-danger">
-        Vous devez entrer un auteur valide.<br/>
-      </span>
-      <br/>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="summary">Résumé:</label>
+        </div>
+        <div class="col-md-9">
+            <textarea class="form-control" formControlName="summary" id="summary" #summary ngModel></textarea>
+        </div>
+    </div>
 
-      <div>
-        <label for="type"><strong>Type:</strong></label>
-        <input type="radio" value="ROMAN" formControlName="type"  id="type" #type ngModel> Roman 
-        <input type="radio" value="MAGAZINE" formControlName="type"  id="type" #type ngModel> Magazine 
-        <input type="radio" value="MANGA" formControlName="type" id="type" #type ngModel> Manga 
-        <input type="radio" value="BD" formControlName="type" id="type" #type ngModel> BD 
-        <input type="radio" value="MANUEL" formControlName="type" id="type" #type ngModel> Manuel 
-        <input type="radio" value="ESSAI" formControlName="type" id="type" #type ngModel> Essai 
-      </div>
-      <br/>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="price">Prix*:</label>
+        </div>
+        <div class="col-md-9">
+            <input type="number" step="0.01" min="0" class="form-control" formControlName="price" id="price" #price ngModel>
+            <span [hidden]="createNewBookForm.get('price').valid || !createNewBookForm.get('price').touched" class="text-danger">
+              Vous devez entrer un prix valide.<br/>
+            </span>
+        </div>
+    </div>
 
-      <div>
-        <label for="type"><strong>Genre:</strong></label>
-        <input type="radio" value="DRAMATIQUE" formControlName="genre"  id="genre" #type ngModel> Dramatique 
-        <input type="radio" value="SF" formControlName="genre"  id="genre" #type ngModel> Science Fiction
-        <input type="radio" value="FANTASY" formControlName="genre" id="genre" #type ngModel> Fantasy 
-        <input type="radio" value="POLICIER" formControlName="genre" id="genre" #type ngModel> Policier
-        <input type="radio" value="HORREUR" formControlName="genre" id="genre" #type ngModel> Horreur
-        <input type="radio" value="ANY" formControlName="genre" id="genre" #type ngModel> Any
-      </div>
-      <br/>
-
-      <label for="summary">Résumé:</label>
-      <input type="text" class="form-control" formControlName="summary" id="summary" #summary ngModel>
-      <br/>
-
-
-      <label for="price">Prix:</label>
-      <input type="number" min="0" class="form-control" formControlName="price" id="price" #price ngModel>
-      <span [hidden]="createNewBookForm.get('price').valid || !createNewBookForm.get('price').touched" class="text-danger">
-        Vous devez entrer un price valide.<br/>
-      </span>
-      <br/>
-
-      <label for="stock">Stock:</label>
-      <input type="number" min="0" class="form-control" formControlName="stock" id="stock" #stock ngModel>
-      <span [hidden]="createNewBookForm.get('stock').valid || !createNewBookForm.get('stock').touched" class="text-danger">
-        Vous devez entrer un stock valide.<br/>
-      </span>
-      <br/>
-
-
-      <button class="btn btn-block btn-success" type="submit" [disabled]="!createNewBookForm.valid">Ajouter</button>
-  </form>
-</div>
-
-
-<!--
-<div class="wrapper">
-  <header>Veuillez vous connecter en tant qu'administrateur</header>
-  <form (ngSubmit)="connexion()" [formGroup]="createNewBookForm">
-      <div class="{{serverResponseClass}}" [hidden]="serverResponse === '' || serverResponse === null">
-          <fa name="exclamation-circle "></fa>{{serverResponse}}
-      </div>
-      <label for="email">Email:</label>
-      <input type="email" class="form-control" formControlName="email" id="email" #email ngModel>
-      <span [hidden]="createNewBookForm.get('email').valid || !createNewBookForm.get('email').touched" class="text-danger">
-        Vous devez entrer une adresse email valide.<br/>
-      </span>
-      <br/>
-      <label for="password">Mot de passe:</label>
-      <input formControlName="password" type="password" class="form-control" id="password" #password ngModel>
-      <span [hidden]="createNewBookForm.get('password').valid || !createNewBookForm.get('password').touched" class="text-danger">
-        Vous devez entrer un mot de passe !<br/>
-      </span>
-      <br/>
-      <button class="btn btn-block btn-success" type="submit" [disabled]="!createNewBookForm.valid">Se connecter</button>
-  </form>
-</div>
--->
+    <div class="row">
+        <div class="col-md-3">
+            <label for="stock">Stock*:</label>
+        </div>
+        <div class="col-md-9">
+            <input type="number" min="0" class="form-control" formControlName="stock" id="stock" #stock ngModel>
+            <span [hidden]="createNewBookForm.get('stock').valid || !createNewBookForm.get('stock').touched" class="text-danger">
+              Vous devez entrer un stock valide.<br/>
+            </span>
+        </div>
+    </div>
+    <button class="btn btn-block btn-success" type="submit" [disabled]="!createNewBookForm.valid">Ajouter</button>
+</form>

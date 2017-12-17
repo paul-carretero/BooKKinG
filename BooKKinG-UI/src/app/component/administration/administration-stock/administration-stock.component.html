@@ -1,0 +1,21 @@
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th scope="col">
+                Livre
+            </th>
+            <th scope="col">
+                Stock
+            </th>
+        </tr>
+    </thead>
+    <tbody class="table-striped">
+        <tr *ngFor=" let livre of allLivres; ">
+            <td>
+                <a (click)="goToLivre(livre)">{{livre.title}}</a></td>
+            <td>
+                <input type="number" min="0" (input)="setQuantity(livre, $event.target.value)" value={{livre.stock}}>
+            </td>
+        </tr>
+    </tbody>
+</table>

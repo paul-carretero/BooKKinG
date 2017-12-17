@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Init } from './model/init';
 import { LivreService } from './service/livre.service';
+import { Http, RequestOptions, Headers } from '@angular/http';
 
 @Injectable()
 export class Globals {
@@ -12,6 +13,10 @@ export class Globals {
   // public static readonly host: string = '127.0.0.1:8080';
 
   public static readonly host: String = 'bookking.ovh';
+
+  public static readonly headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8' });
+
+  public static readonly HTTP_OPTIONS = new RequestOptions({ headers: Globals.headers, withCredentials: true });
 
   public static readonly genreLivres = new Map<string, string[]>(
     [

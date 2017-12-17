@@ -56,7 +56,7 @@ public class HttpHelper {
 	}
 
 	public static int getIdUser(final HttpServletRequest request) {
-		return (Integer) request.getSession().getAttribute("idUser");
+		return (int) request.getSession().getAttribute("idUser");
 	}
 
 	public static boolean isEmailValid(String email) {

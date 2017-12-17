@@ -1,0 +1,14 @@
+.row {
+    margin: auto;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-bottom: 1px solid white;
+    width: 95%;
+}
+
+.label-like {
+    font-weight: bold;
+}

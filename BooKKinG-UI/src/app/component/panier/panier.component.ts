@@ -74,7 +74,7 @@ export class PanierComponent implements OnInit {
    * Méthode pour vider le panier
    */
   public viderPanier() {
-    this.notifService.getSubject().next('Votre panier a été vidé.');
+    this.notifService.publish('Votre panier a été vidé.');
     this.service.viderPanier();
   }
 

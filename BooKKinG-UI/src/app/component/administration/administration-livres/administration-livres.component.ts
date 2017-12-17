@@ -1,7 +1,9 @@
+import { Globals } from './../../../globals';
 import { LivreService } from './../../../service/livre.service';
 import { Livre } from './../../../model/livre';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { AdministrationService } from '../../../service/administration.service';
 
 @Component({
   selector: 'app-administration-livres',
@@ -10,66 +12,76 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 })
 export class AdministrationLivresComponent implements OnInit {
 
-  private ajouter : boolean;
-
-
   private serverResponse: string;
 
   private createNewBookForm: FormGroup;
 
-  private serverResponseClass = 'bg-danger';
+  private currentgenre = 'ANY';
 
+  private currentType = 'ANY';
 
-
-  constructor(private fb: FormBuilder, private serviceLivre: LivreService) {
+  constructor(private fb: FormBuilder, private service: AdministrationService) {
     this.createNewBookForm = fb.group({
       title: ['', Validators.required],
       author: ['', Validators.required],
-      type: [''],
-      genre: [''],
       summary: [''],
-      price: [0],
-      stock:[0]
+      price: [0, Validators.required],
+      stock: [0, Validators.required],
     });
-
-
-   }
-
-  ngOnInit() {
-    console.log("dans admin");
-    this.ajouter = false;
   }
 
-  private ajouterLivre(){
-    console.log("ajouter un livre dans la base de donnée");
-    this.ajouter = true;
+  ngOnInit() { }
+
+  get types(): string[] {
+    return Globals.typeLivre;
   }
 
-  private recupererDonneesForm() : Livre{
+  get genres(): string[] {
+    return Globals.genreLivres.get(this.currentType);
+  }
+
+  private setGenre(nGenre: string): void {
+    this.currentgenre = nGenre;
+  }
+
+  private setType(nType: string): void {
+    this.currentgenre = 'ANY';
+    this.currentType = nType;
+  }
+
+  private getClassType(t: string): string {
+    if (t === this.currentType) {
+      return 'active';
+    }
+    return '';
+  }
+
+  private getClassGenre(g: string): string {
+    if (g === this.currentgenre) {
+      return 'active';
+    }
+    return '';
+  }
+
+  private getDisplayable(str: string): string {
+    return Globals.getDisplayableName(str);
+  }
+
+  private recupererDonneesForm(): Livre {
     const livre: Livre = new Livre();
     livre.title = this.createNewBookForm.value.title;
     livre.author = this.createNewBookForm.value.author;
-    livre.type = this.createNewBookForm.value.type;
-    livre.genre = this.createNewBookForm.value.genre;
+    livre.type = this.createNewBookForm.value.typeSelected;
+    livre.genre = this.createNewBookForm.value.genreSelected;
     livre.summary = this.createNewBookForm.value.summary;
     livre.price = this.createNewBookForm.value.price;
     livre.stock = this.createNewBookForm.value.stock;
-    console.log("titre livre : " + livre.title);
-    console.log("auteur livre : " + livre.author);
-    console.log("type livre : " + livre.type);
-    console.log("genre livre : " + livre.genre);
-    console.log("prix livre : " + livre.price);
-    console.log("stock livre : " + livre.stock);
-    console.log("résumé livre : " + livre.summary);
     return livre;
   }
 
-  public createNewBook(){
-    console.log("créer un nouveau livre dans la base de donnée");
+  public createNewBook() {
+    console.log('créer un nouveau livre dans la base de donnée');
     const livre: Livre = this.recupererDonneesForm();
-    this.serviceLivre.ajouterNouveauLivre(livre);
+    this.service.ajouterNouveauLivre(livre);
   }
-
-
-  
 }

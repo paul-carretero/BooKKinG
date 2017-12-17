@@ -115,14 +115,13 @@ export class AchatService {
 
   public enregistrerCommande(): void {
     console.log('dans enregistrement commande');
-    const reponse = this.http.post(this.urlAchat, this.address, { withCredentials: true }).map(res => res.json());
+    const reponse = this.http.post(this.urlAchat, this.address, Globals.HTTP_OPTIONS).map(res => res.json());
     reponse.subscribe(
       res => {
         if (res.success) {
-          console.log("commande enregistée :" + JSON.stringify(res));
           this.servicePanier.viderPanier();
           this.commandeCourante = res;
-          this.notifService.getSubject().next('Votre commande #' + this.commandeCourante.idCmd + ' a bien été prise en compte!');
+          this.notifService.publish('Votre commande #' + this.commandeCourante.idCmd + ' a bien été prise en compte!');
         } else {
           console.log(res.message);
           this.commandeCourante = new Commande();
@@ -137,7 +136,7 @@ export class AchatService {
 
   public recupererCommandes(): void {
     console.log('dans recupérer des commandes');
-    const reponse = this.http.get(this.urlAchat, { withCredentials: true }).map(res => res.json());
+    const reponse = this.http.get(this.urlAchat, Globals.HTTP_OPTIONS).map(res => res.json());
     reponse.subscribe(
       commandes => {
         if (commandes.success) {

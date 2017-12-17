@@ -36,7 +36,7 @@ export class LivreService {
   }
 
   public rechercherLivre(idBook: number): Observable<Livre> {
-    const conn = this.http.get(this.urlLivre + '/' + idBook + '/', { withCredentials: true }).map(res => res.json());
+    const conn = this.http.get(this.urlLivre + '/' + idBook + '/', Globals.HTTP_OPTIONS).map(res => res.json());
     conn.subscribe(
       reponse => {
         if (reponse.success) {
@@ -49,37 +49,4 @@ export class LivreService {
     );
     return conn;
   }
-
-
-  public ajouterNouveauLivre(livre: Livre): Observable<Livre> {
-    livre.idBook = 0;
-    const conn = this.http.post(this.urlLivre, livre ,{ withCredentials: true }).map(res => res.json());
-    conn.subscribe(
-      reponse => {
-        if (reponse.success) {
-          console.log("retour de ajouter nouveau livre" + JSON.stringify(reponse));
-        } else {
-          console.log("réponse serveur : " + reponse.message);
-        }
-      }
-    );
-    return conn;
-  }
-
-  public modifierStockLivre(livre: Livre): Observable<Livre> {
-    const conn = this.http.post(this.urlLivre, livre ,{ withCredentials: true }).map(res => res.json());
-    conn.subscribe(
-      reponse => {
-        if (reponse.success) {
-          console.log("retour de modifier stock nouveau livre" + JSON.stringify(reponse));
-        } else {
-          console.log("réponse serveur : " + reponse.message);
-        }
-      }
-    );
-    return conn;
-  }
-
-
-  // post
 }

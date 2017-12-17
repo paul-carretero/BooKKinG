@@ -86,7 +86,7 @@ export class ConnectionComponent implements OnInit {
     this.service.connection(connClient).subscribe(
       connected => {
         if (connected.success) {
-          this.notifService.getSubject().next('vous vous êtes connecté avec succès!');
+          this.notifService.publish('vous vous êtes connecté avec succès!');
           this.serverResponse = '';
 
           if (this.achatService.getTransactionState()) {
