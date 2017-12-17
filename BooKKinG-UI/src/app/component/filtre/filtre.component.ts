@@ -30,8 +30,8 @@ export class FiltreComponent implements OnInit {
   private maxMaxPrice = 100;
 
   constructor(private router: Router, private navigationService: NavigationService,
-    private rechercheService: RechercheService, private initService: InitService, 
-    private serviceAchat : AchatService, private serviceConnection : ConnectionService) {
+    private rechercheService: RechercheService, private initService: InitService,
+    private serviceAchat: AchatService, private serviceConnection: ConnectionService) {
   }
 
   ngOnInit() {
@@ -54,21 +54,28 @@ export class FiltreComponent implements OnInit {
     return '';
   }
 
-  get isInTransaction(): boolean {
-    return Globals.transactionPage.includes(this.navigationService.getCurrentOther()) 
-    && !this.isEndTransaction;
+  get classPrixFiltre(): string {
+    if (this.navigationService.getCurrentOther() === Globals.RECHERCHE) {
+      return '';
+    }
+    return 'nodisplay';
   }
 
-  get adresseLivraison() : string{
+  get isInTransaction(): boolean {
+    return Globals.transactionPage.includes(this.navigationService.getCurrentOther())
+      && !this.isEndTransaction;
+  }
+
+  get adresseLivraison(): string {
     return this.serviceAchat.getCommandeCourante().shippingAddress;
   }
 
 
-  get adressePaiement() : string{
+  get adressePaiement(): string {
     return this.serviceConnection.getCurrentUser().address;
   }
 
-  get isEndTransaction():boolean{
+  get isEndTransaction(): boolean {
     return Globals.FIN_PAIEMENT === this.navigationService.getCurrentOther();
   }
 
