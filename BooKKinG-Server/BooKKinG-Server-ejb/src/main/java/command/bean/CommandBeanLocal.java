@@ -1,7 +1,10 @@
 package command.bean;
 
+import java.sql.Timestamp;
+
 import javax.ejb.Local;
 
+import command.dataItf.CmdGetJsonItf;
 import command.dataItf.CommandJsonItf;
 import command.dataItf.CommandListJsonItf;
 import command.dataItf.CommandReqJsonItf;
@@ -17,5 +20,5 @@ public interface CommandBeanLocal {
 
 	public boolean isCmdOfUser(int idUser, int idCmd);
 
-	public void getCommands(String start, String end, CommandListJsonItf response);
+	public void getCommands(CmdGetJsonItf data, CommandListJsonItf response);
 }

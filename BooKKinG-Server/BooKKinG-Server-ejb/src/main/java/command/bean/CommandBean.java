@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.transaction.Transactional;
 
 import cart.entity.CartDetailEntity;
+import command.dataItf.CmdGetJsonItf;
 import command.dataItf.CommandJsonItf;
 import command.dataItf.CommandListJsonItf;
 import command.dataItf.CommandReqJsonItf;
@@ -117,9 +118,12 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	}
 	
 	@Override
-	public void getCommands(final String start, final String end, final CommandListJsonItf response) {
-		final List<CommandEntity> cmdList;
-		cmdList = this.manager.createQuery("FROM Command").getResultList();
+	public void getCommands(final CmdGetJsonItf data, final CommandListJsonItf response) {
+		 final List<CommandEntity> cmdList = this.manager.createQuery("FROM CommandEntity where date BETWEEN :start AND :end")
+				.setParameter("start", data.getStart())
+				.setParameter("end", data.getEnd())
+				.getResultList();
+		 
 		for(CommandEntity command : cmdList) {
 			CommandJsonItf cmdJson = response.prepareNewEntry(command.getDate(),command.getIdCmd(), command.getShippingCost(), command.getAddress());
 			for(CmdDetailEntity cmdDetail : command.getCmdDetails()) {

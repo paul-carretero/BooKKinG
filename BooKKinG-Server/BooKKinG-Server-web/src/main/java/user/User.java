@@ -49,7 +49,7 @@ public class User extends HttpServlet {
 		response.setContentType("text/plain;charset=UTF-8");
 		if(HttpHelper.checkAuth(request, response)) {
 			UserEntItf uItf = this.userBean.getUser(HttpHelper.getIdUser(request));
-			UserJsonResponse res = new UserJsonResponse(uItf.getName(), uItf.getEmail(), uItf.getAddress());
+			UserJsonResponse res = new UserJsonResponse(uItf.getName(), uItf.getEmail(), uItf.getAddress(), uItf.isAdmin());
 			response.getWriter().append(res.toString());
 		}
 	}

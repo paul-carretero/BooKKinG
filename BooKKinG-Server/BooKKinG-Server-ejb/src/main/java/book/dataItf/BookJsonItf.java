@@ -7,4 +7,6 @@ public interface BookJsonItf extends GenericResponseJsonItf {
 
 	public void setField(BookEntItf bookEnt);
 
+	public BookJsonItf simplify();
+
 }

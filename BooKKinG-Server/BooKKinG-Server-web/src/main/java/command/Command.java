@@ -10,12 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import cart.bean.CartBeanLocal;
 import command.bean.CommandBeanLocal;
+import command.request.CommandGetJson;
 import command.request.CommandReqJson;
 import command.response.CommandJson;
 import command.response.CommandListJson;
 import shared.AbstractJson;
 import shared.GenericResponseJson;
 import shared.HttpHelper;
+import user.bean.UserBeanLocal;
 
 /**
  * Servlet implementation class Command
@@ -34,6 +36,9 @@ public class Command extends HttpServlet {
 
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/CartBean!cart.bean.CartBeanLocal")
 	private CartBeanLocal cartBean;
+	
+	@EJB(lookup="java:app/BooKKinG-Server-ejb/UserBean!user.bean.UserBeanLocal")
+	private UserBeanLocal userBean;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -88,6 +93,18 @@ public class Command extends HttpServlet {
 				else {
 					response.getWriter().append(new GenericResponseJson(false,"Votre panier est vide").toString());
 				}
+			}
+		}
+	}
+	
+	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/plain;charset=UTF-8");
+		if(HttpHelper.checkAuth(request, response)) {
+			CommandGetJson data = (CommandGetJson) AbstractJson.fromJson(request, CommandGetJson.class);
+			if(HttpHelper.checkAdmin(this.userBean,request,response)) {
+				CommandListJson cmds = new CommandListJson();
+				this.commandBean.getCommands(data, cmds);
+				response.getWriter().append(cmds.toString());
 			}
 		}
 	}

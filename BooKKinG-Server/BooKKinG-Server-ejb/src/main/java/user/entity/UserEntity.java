@@ -45,7 +45,7 @@ public class UserEntity implements UserEntItf {
 	private List<CommandEntity> commands;
 	
 	@Column(name="admin")
-	private Boolean admin;
+	private boolean admin;
 	
 	/**
 	 * default constructor
