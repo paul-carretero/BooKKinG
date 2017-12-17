@@ -26,29 +26,23 @@
       <br/>
 
       <div>
-        <label for="type"><strong>Type:</strong></label>
-        <input type="radio" value="ROMAN" formControlName="type"  id="type" #type ngModel> Roman 
-        <input type="radio" value="MAGAZINE" formControlName="type"  id="type" #type ngModel> Magazine 
-        <input type="radio" value="MANGA" formControlName="type" id="type" #type ngModel> Manga 
-        <input type="radio" value="BD" formControlName="type" id="type" #type ngModel> BD 
-        <input type="radio" value="MANUEL" formControlName="type" id="type" #type ngModel> Manuel 
-        <input type="radio" value="ESSAI" formControlName="type" id="type" #type ngModel> Essai 
+        <label for="typeSelected"><strong>Type:</strong></label>
+        <div *ngFor="let type of types;">
+          <input type="radio" value="{{type}}" formControlName="typeSelected"  id="typeSelected" #typeSelected ngModel/> 
+          {{displayableType(type)}}
+        </div>
+
+        <div>
+          <label for="genreSelected"><strong>Genre:</strong></label>
+          <div *ngFor="let genre of genres;">
+            <input  type="radio" value="{{genre}}" formControlName="genreSelected"  id="genreSelected" #genreSelected ngModel/> 
+             {{displayableType(genre)}}
+          </div>
+        </div>
       </div>
       <br/>
-
-      <div>
-        <label for="type"><strong>Genre:</strong></label>
-        <input type="radio" value="DRAMATIQUE" formControlName="genre"  id="genre" #type ngModel> Dramatique 
-        <input type="radio" value="SF" formControlName="genre"  id="genre" #type ngModel> Science Fiction
-        <input type="radio" value="FANTASY" formControlName="genre" id="genre" #type ngModel> Fantasy 
-        <input type="radio" value="POLICIER" formControlName="genre" id="genre" #type ngModel> Policier
-        <input type="radio" value="HORREUR" formControlName="genre" id="genre" #type ngModel> Horreur
-        <input type="radio" value="ANY" formControlName="genre" id="genre" #type ngModel> Any
-      </div>
-      <br/>
-
       <label for="summary">Résumé:</label>
-      <input type="text" class="form-control" formControlName="summary" id="summary" #summary ngModel>
+      <textarea class="form-control" formControlName="summary" id="summary" #summary ngModel></textarea>
       <br/>
 
 
@@ -70,28 +64,3 @@
       <button class="btn btn-block btn-success" type="submit" [disabled]="!createNewBookForm.valid">Ajouter</button>
   </form>
 </div>
-
-
-<!--
-<div class="wrapper">
-  <header>Veuillez vous connecter en tant qu'administrateur</header>
-  <form (ngSubmit)="connexion()" [formGroup]="createNewBookForm">
-      <div class="{{serverResponseClass}}" [hidden]="serverResponse === '' || serverResponse === null">
-          <fa name="exclamation-circle "></fa>{{serverResponse}}
-      </div>
-      <label for="email">Email:</label>
-      <input type="email" class="form-control" formControlName="email" id="email" #email ngModel>
-      <span [hidden]="createNewBookForm.get('email').valid || !createNewBookForm.get('email').touched" class="text-danger">
-        Vous devez entrer une adresse email valide.<br/>
-      </span>
-      <br/>
-      <label for="password">Mot de passe:</label>
-      <input formControlName="password" type="password" class="form-control" id="password" #password ngModel>
-      <span [hidden]="createNewBookForm.get('password').valid || !createNewBookForm.get('password').touched" class="text-danger">
-        Vous devez entrer un mot de passe !<br/>
-      </span>
-      <br/>
-      <button class="btn btn-block btn-success" type="submit" [disabled]="!createNewBookForm.valid">Se connecter</button>
-  </form>
-</div>
--->

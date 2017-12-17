@@ -2,7 +2,9 @@
   Page d'administration
 </h3>
 <div *ngIf="!adminStatus" class="wrapper">
-  <app-connexion-admin></app-connexion-admin>
+  <!--<app-connexion-admin></app-connexion-admin>-->
+  Veuillez vous connecter en tant qu'administrateur
+  <button class="btn btn-block btn-success" type="button" (click)="goConnection()" >Aller vers la page de connection</button>
 </div>
 
 <div *ngIf="adminStatus" class="wrapper">

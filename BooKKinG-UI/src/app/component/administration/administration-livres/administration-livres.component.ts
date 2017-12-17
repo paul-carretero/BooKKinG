@@ -1,3 +1,4 @@
+import { Globals } from './../../../globals';
 import { LivreService } from './../../../service/livre.service';
 import { Livre } from './../../../model/livre';
 import { Component, OnInit } from '@angular/core';
@@ -25,8 +26,8 @@ export class AdministrationLivresComponent implements OnInit {
     this.createNewBookForm = fb.group({
       title: ['', Validators.required],
       author: ['', Validators.required],
-      type: [''],
-      genre: [''],
+      typeSelected: [''],
+      genreSelected: [''],
       summary: [''],
       price: [0],
       stock:[0]
@@ -45,12 +46,29 @@ export class AdministrationLivresComponent implements OnInit {
     this.ajouter = true;
   }
 
+  get types(): string[]{
+    return Globals.typeLivre;
+  }
+
+  get genres():string[]{
+    console.log("type selected : " + this.createNewBookForm.value.typeSelected);
+    return Globals.genreLivres.get(this.createNewBookForm.value.typeSelected);
+  }
+
+  private displayableType(type: string): string {
+    return Globals.getDisplayableName(type);
+  }
+
+  private displayableGenre(genre: string): string {
+    return Globals.getDisplayableName(genre);
+  }
+
   private recupererDonneesForm() : Livre{
     const livre: Livre = new Livre();
     livre.title = this.createNewBookForm.value.title;
     livre.author = this.createNewBookForm.value.author;
-    livre.type = this.createNewBookForm.value.type;
-    livre.genre = this.createNewBookForm.value.genre;
+    livre.type = this.createNewBookForm.value.typeSelected;
+    livre.genre = this.createNewBookForm.value.genreSelected;
     livre.summary = this.createNewBookForm.value.summary;
     livre.price = this.createNewBookForm.value.price;
     livre.stock = this.createNewBookForm.value.stock;

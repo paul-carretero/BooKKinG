@@ -56,12 +56,15 @@ export class ConnexionAdminComponent implements OnInit {
     this.service.connection(connAdmin).subscribe(
       connected => {
         if (connected.success) {
-          //if(connected.admin){
+          // !!!! A changer quand le back sera à jour !!!
+          connected.admin = true;
+          //////////
+          if(connected.admin){
             this.connectionAdminReussie();
-         // }
-         // else{
-         //   this.echecConnectionAdmin();
-         // }
+          }
+         else{
+            this.echecConnectionAdmin();
+         }
         } else {
           this.echecConnection(connected.message); 
         }
@@ -79,7 +82,7 @@ export class ConnexionAdminComponent implements OnInit {
     console.log("connexion admin echouée");
     this.service.deconnexion();
     this.serverResponseClass = 'bg-danger';
-    this.serverResponse = "Vous devez vous connectez avec un compte administrateur !";
+    this.serverResponse = "Vous devez vous connecter avec un compte administrateur !";
   }
 
   private echecConnection(message) :void{
