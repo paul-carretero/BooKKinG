@@ -41,15 +41,13 @@ export class InformationsClientComponent implements OnInit {
     console.log('dans modifier informations');
 
     if (this.clientModifie.name === '') {
-      this.validName = true;
-      this.clientModifie.name = this.client.name;
+      this.validName = false;
     } else {
       this.validName = true;
     }
 
     if (this.clientModifie.address === '') {
-      this.validAddress = true;
-      this.clientModifie.address = this.client.address;
+      this.validAddress = false;      
     } else {
       this.validAddress = true;
     }
