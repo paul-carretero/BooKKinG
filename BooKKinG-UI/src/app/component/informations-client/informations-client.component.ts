@@ -35,7 +35,6 @@ export class InformationsClientComponent implements OnInit {
     this.modifiaction = true;
     this.clientModifie.name = this.serviceConnection.getCurrentUser().name;
     this.clientModifie.address = this.serviceConnection.getCurrentUser().address;
-    this.clientModifie.name = this.serviceConnection.getCurrentUser().name;
   }
 
   public modifier() {
@@ -48,7 +47,7 @@ export class InformationsClientComponent implements OnInit {
     }
 
     if (this.clientModifie.address === '') {
-      this.validAddress = false;
+      this.validAddress = false;      
     } else {
       this.validAddress = true;
     }
