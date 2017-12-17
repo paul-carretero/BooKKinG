@@ -39,7 +39,7 @@ export class Globals {
 
   public static readonly otherPage = new Map<string, string>(
     [
-      [Globals.HOME, '/'],
+      [Globals.HOME, '/home'],
       [Globals.LOGIN, '/identification-inscription'],
       [Globals.COMPTE, '/compte'],
       [Globals.PANIER, '/panier'],

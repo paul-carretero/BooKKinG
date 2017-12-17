@@ -136,13 +136,17 @@ export class PanierService {
 
   }
 
-  public enregistrerPanierEntier(): Observable<ResponsePanier> {
+  public enregistrerPanierEntier(): void {
     console.log('dans enregistrer panier entier');
     const enregistrementPanier = this.simplePanier(this.contenuPanier);
-    const panier = this.http.post(this.urlPanier, enregistrementPanier, { withCredentials: true })
-      .map(res => res.json());
-    return panier;
-
+    const panier = this.http.post(this.urlPanier, enregistrementPanier, { withCredentials: true }).map(res => res.json());
+    panier.subscribe(
+      res => {
+        if (!res.success) {
+          console.log(res.message);
+        }
+      }
+    );
   }
 
   public miseAJourQuantiteLivre(updatedArticle: SimpleArticle): Observable<ResponsePanier> {
