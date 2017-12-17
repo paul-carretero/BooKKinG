@@ -1,3 +1,5 @@
+import { ConnectionService } from './../../service/connection.service';
+import { AchatService } from './../../service/achat.service';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router/src/directives/router_link';
 import { Component, OnInit } from '@angular/core';
@@ -29,7 +31,8 @@ export class FiltreComponent implements OnInit {
   private maxMaxPrice = 100;
 
   constructor(private router: Router, private navigationService: NavigationService,
-    private rechercheService: RechercheService, private initService: InitService) {
+    private rechercheService: RechercheService, private initService: InitService, 
+    private serviceAchat : AchatService, private serviceConnection : ConnectionService) {
   }
 
   ngOnInit() {
@@ -53,7 +56,21 @@ export class FiltreComponent implements OnInit {
   }
 
   get isInTransaction(): boolean {
-    return Globals.transactionPage.includes(this.navigationService.getCurrentOther());
+    return Globals.transactionPage.includes(this.navigationService.getCurrentOther()) 
+    && !this.isEndTransaction;
+  }
+
+  get adresseLivraison() : string{
+    return this.serviceAchat.getCommandeCourante().shippingAddress;
+  }
+
+
+  get adressePaiement() : string{
+    return this.serviceConnection.getCurrentUser().address;
+  }
+
+  get isEndTransaction():boolean{
+    return Globals.FIN_PAIEMENT === this.navigationService.getCurrentOther();
   }
 
   get genres(): string[] {

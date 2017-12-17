@@ -48,7 +48,7 @@ export class FinPaiementComponent implements OnInit {
   }
 
   private get totalPrice(): string {
-    return this.serviceAchat.getMontantTotalCommande(this.currentCmd).toFixed(2);
+    return (this.serviceAchat.getMontantTotalCommande(this.currentCmd) + this.currentCmd.shippingCost).toFixed(2);
   }
 
   private get idCommand():number{

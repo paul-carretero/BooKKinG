@@ -49,3 +49,16 @@
         </div>
     </div>
 </ng-container>
+
+
+<ng-container *ngIf="isEndTransaction">
+    <br/>
+    <div class="row" id="table">
+        <div class="col-md-12 menu-header">
+            Adresse de paiement : {{adressePaiement}} 
+        </div>
+        <div class="col-md-12 menu-header">
+            Adresse de Livraison : {{adresseLivraison}}
+        </div>
+    </div>
+</ng-container>
