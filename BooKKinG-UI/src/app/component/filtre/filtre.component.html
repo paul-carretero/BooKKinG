@@ -1,6 +1,6 @@
 <div class="{{classTransaction}}">
     <br/>
-    <div class="row" id="table">
+    <div class="row content">
         <div class="col-md-12 menu-header">
             Prix
         </div>
@@ -17,7 +17,7 @@
         <br/>
     </div>
 
-    <div class="row" id="table">
+    <div class="row content">
 
         <div class="col-md-12 menu-header">
             Genre
@@ -38,7 +38,7 @@
 </div>
 <ng-container *ngIf="isInTransaction">
     <br/>
-    <div class="row" id="table">
+    <div class="row content">
         <div class="col-md-12 menu-header">
             Annuler la commande
         </div>
@@ -51,12 +51,25 @@
 
 <ng-container *ngIf="isEndTransaction">
     <br/>
-    <div class="row" id="table">
+    <div class="row content">
         <div class="col-md-12 menu-header">
-            Adresse de paiement : {{adressePaiement}} 
+            Adresse de Livraison
         </div>
+        <div class="col-md-12 menu-container">
+            {{adresseLivraison}}
+        </div>
+    </div>
+
+    <div class="container">
+        <br/>
+    </div>
+
+    <div class="row content">
         <div class="col-md-12 menu-header">
-            Adresse de Livraison : {{adresseLivraison}}
+            Adresse de Facturation
+        </div>
+        <div class="col-md-12 menu-container">
+            {{adressePaiement}}
         </div>
     </div>
 </ng-container>

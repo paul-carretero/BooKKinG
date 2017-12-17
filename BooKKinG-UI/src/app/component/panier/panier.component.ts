@@ -8,6 +8,7 @@ import { Globals } from '../../globals';
 import { AchatService } from '../../service/achat.service';
 import { NavigationService } from '../../service/navigation.service';
 import { TooltipDirective } from 'ng2-tooltip-directive/components';
+import { NotifService } from '../../service/notif.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ import { TooltipDirective } from 'ng2-tooltip-directive/components';
 export class PanierComponent implements OnInit {
 
   constructor(private router: Router, private service: PanierService,
-    private connectionService: ConnectionService, private achatService: AchatService, private navigationService: NavigationService) { }
+    private connectionService: ConnectionService, private achatService: AchatService,
+    private navigationService: NavigationService, private notifService: NotifService) { }
 
   ngOnInit() { }
 
@@ -72,6 +74,7 @@ export class PanierComponent implements OnInit {
    * Méthode pour vider le panier
    */
   public viderPanier() {
+    this.notifService.getSubject().next('Votre panier a été vidé.');
     this.service.viderPanier();
   }
 

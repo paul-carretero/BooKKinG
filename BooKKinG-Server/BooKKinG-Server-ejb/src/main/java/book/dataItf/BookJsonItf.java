@@ -9,4 +9,6 @@ public interface BookJsonItf extends GenericResponseJsonItf {
 
 	public BookJsonItf simplify();
 
+	public void setField(int idBook, String title, int stock);
+
 }

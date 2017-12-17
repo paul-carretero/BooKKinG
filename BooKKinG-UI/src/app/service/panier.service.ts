@@ -162,9 +162,7 @@ export class PanierService {
     if (this.connectionService.getConnectionStatus()) {
       panier.subscribe(
         reponse => {
-          if (reponse.success) {
-            this.notifService.getSubject().next('Votre panier a été vidé.');
-          } else {
+          if (!reponse.success) {
             alert(reponse.message);
           }
         }
