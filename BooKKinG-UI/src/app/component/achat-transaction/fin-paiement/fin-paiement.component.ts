@@ -55,6 +55,10 @@ export class FinPaiementComponent implements OnInit {
     return this.serviceAchat.getCommandeCourante().idCmd;
   }
 
+  private get Address(){
+    return this.serviceAchat.getCommandeCourante().shippingAddress;
+  }
+
 
   public getPrice(a: Article): string {
     return (a.quantity * a.book.price).toFixed(2);

@@ -23,4 +23,7 @@ export class AdministrationComponent implements OnInit {
     return this.connectionService.getConnectionStatus();
   }
 
+  get adminStatus(){
+    return this.connectionService.getCurrentUser();
+  }
 }

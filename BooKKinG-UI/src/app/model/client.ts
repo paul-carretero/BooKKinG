@@ -5,4 +5,5 @@ export class Client extends Reponse {
     address?: string;
     email: string;
     password: string;
+    admin : boolean = false;
 }

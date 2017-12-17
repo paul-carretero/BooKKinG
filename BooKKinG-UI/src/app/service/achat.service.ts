@@ -119,8 +119,11 @@ export class AchatService {
     reponse.subscribe(
       res => {
         if (res.success) {
+          console.log("commande enregistée :" + JSON.stringify(res));
           this.servicePanier.viderPanier();
+          this.commandeCourante = new Commande();
           this.commandeCourante = res;
+          this.commandeCourante.shippingCost = 0;
           this.notifService.getSubject().next('Votre commande #' + this.commandeCourante.idCmd + ' a bien été prise en compte!');
         } else {
           console.log(res.message);
