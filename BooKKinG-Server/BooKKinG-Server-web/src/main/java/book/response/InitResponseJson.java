@@ -27,10 +27,10 @@ public class InitResponseJson extends GenericResponseJson implements InitRespons
 	private String grenobleAddress;
 	
 	@SuppressWarnings("unused")
-	private Integer min;
+	private int min;
 	
 	@SuppressWarnings("unused")
-	private Integer max;
+	private int max;
 
 	public InitResponseJson() {
 		// TODO Auto-generated constructor stub

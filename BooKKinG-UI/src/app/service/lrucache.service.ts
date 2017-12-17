@@ -8,11 +8,11 @@ export class LRUCacheService {
 
   private static readonly MAX_CAPACITY = 4;
 
-  private keyArray: Recherche[];
+  private readonly keyArray: Recherche[];
 
-  private valueArray: ReponseRecherche[];
+  private readonly valueArray: ReponseRecherche[];
 
-  private timestamp: number[];
+  private readonly timestamp: number[];
 
   constructor() {
     this.keyArray = new Array(LRUCacheService.MAX_CAPACITY);

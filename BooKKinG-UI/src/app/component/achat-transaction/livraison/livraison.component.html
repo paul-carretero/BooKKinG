@@ -1,104 +1,86 @@
-<div class="bs-calltoaction bs-calltoaction-success">
+<div class="wrapper-cart">
+    <h3>Veuillez un moyen de livraison</h3>
 
-    <p class="bord" style="color:black;">
-        Choisir un point de retrait pour votre colis :
-    </p>
-
-    <div *ngFor="let pointLivraison of listePointLivraison;">
-        <div class="row">
-
-            <div class="col-md-7 ">
-                <ul>
-                    <li>
-                        BooKKinG {{pointLivraison.ville}}
-                    </li>
-                </ul>
+    <h4>Faite vous livrer gratuitement dans nos magasins!<span class="ship-cost">0€</span></h4>
+    <ng-container *ngFor="let shipPoint of listePointLivraison;">
+        <div class=" row ">
+            <div class="col-md-2 "></div>
+            <div class="col-md-9 ">
+                <div (click)="ChoixPointLivraison(shipPoint)" class="row choice ">
+                    <div class="col-md-1 ">
+                        <fa class="fa-big " name="map-marker"></fa>
+                    </div>
+                    <div class="col-md-10 center ">
+                        <span class="align-middle ">Retirer gratuitement votre colis dans notre magasins BooKKinG de {{shipPoint}}</span>
+                    </div>
+                    <div class=" col-md-1 ">
+                        <fa class="fa-big " name="caret-right "></fa>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-2">
-                <ul>
-                    Gratuit!
-                </ul>
+            <div class="col-md-1 "></div>
+        </div>
+    </ng-container>
+
+    <h4>Faite vous livrer à domicile <span tooltip="si les produits commandés sont marqué en stock, hors week-end et jours fériés">sous 48H!</span><span class="ship-cost">{{LivraisonStandard}}€</span></h4>
+    <div class=" row ">
+        <div class="col-md-2 "></div>
+        <div class="col-md-9 ">
+            <div (click)="ChoixAdressePersonnelle()" class="row choice ">
+                <div class="col-md-2 ">
+                    <fa class="fa-big " name="truck"></fa>
+                </div>
+                <div class="col-md-9 ">
+                    <span class="align-middle align-middle-l ">à votre adresse personnelle: <br/>{{addressClient}}</span>
+                </div>
+                <div class=" col-md-1 ">
+                    <fa class="fa-big " name="caret-right "></fa>
+                </div>
             </div>
-
-            <div class="col-md-3 cta-button">
-                <ul>
-                    <input type="button" (click)="ChoixPointLivraison(pointLivraison)" value="Choisir" class="btn btn-lg btn-block btn-success">
-                </ul>
+        </div>
+        <div class="col-md-1 "></div>
+    </div>
+    <div class=" row ">
+        <div class="col-md-2 "></div>
+        <div class="col-md-9 ">
+            <div (click)="initDisplayCustomAddr()" class="row choice ">
+                <div class="col-md-2 ">
+                    <fa class="fa-big " name="truck"></fa>
+                </div>
+                <ng-container *ngIf="!custAddrIsValid" class=" col-md-2 ">
+                    <div class="col-md-8 center ">
+                        <span class="align-middle ">Chez une autre personne:</span>
+                    </div>
+                    <div class="col-md-2 center ">
+                        <fa class="fa-big " name="pencil-square-o "></fa>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="custAddrIsValid" class=" col-md-1 ">
+                    <div class="col-md-9 center ">
+                        <span class="align-middle align-middle-l">Chez une autre personne: <br/>{{addrTextarea}}</span>
+                    </div>
+                    <div class="col-md-1 center ">
+                        <fa class="fa-big " name="caret-right "></fa>
+                    </div>
+                </ng-container>
             </div>
         </div>
+        <div class="col-md-1 "></div>
     </div>
-
-
-    <p class="bord" style="color:black;">
-        Choisir chez vous ou saisir une adresse :
-    </p>
-
-    <div class="row">
-        <div class="col-md-7 ">
-            <ul>
-                Chez vous : {{adresseClient}}
-            </ul>
-        </div>
-
-        <div class="col-md-2 ">
-            <ul>
-                {{prixAdresseClient}} €
-            </ul>
-        </div>
-
-        <div class="col-md-3 cta-button">
-            <ul>
-                <input type="button" (click)="ChoixAdressePersonnelle()" value="Choisir" class="btn btn-lg btn-block btn-success">
-            </ul>
-        </div>
-    </div>
-
-    <hr width="80%">
-    <ul>Saisir une adresse : </ul>
-
-
-    <div class="row">
-        <div class="col-md-7 ">
-            <form (ngSubmit)="saisirAdresse(form)" #form="ngForm">
-                <div>
-                    <label for="numero">Numéro :</label>
-                    <input type="text" class="form-control" name="numero" ngModel>
-
+    <ng-container *ngIf="displayCustomAddr">
+        <div class=" row new-addr-wrapper">
+            <div class="col-md-2 "></div>
+            <div class="col-md-9 ">
+                <div class="row ">
+                    <div class="col-md-2 ">
+                        <fa class="fa-big " name="arrow-right"></fa>
+                    </div>
+                    <div class="col-md-10 " tooltip="Veuillez entrer ici l'adresse de votre destinateire">
+                        <textarea placeholder="saisissez ici l'adresse de votre destinataire" (input)="updateCustomAddr($event.target.value)" ngmodel></textarea>
+                    </div>
                 </div>
-
-                <div>
-                    <label for="rue">Rue :</label>
-                    <input type="text" class="form-control" name="rue" ngModel>
-
-                </div>
-
-                <div>
-                    <label for="codePostal">Code Postal :</label>
-                    <input type="text" class="form-control" name="codePostal" ngModel>
-
-                </div>
-
-                <div>
-                    <label for="ville">Ville :</label>
-                    <input type="text" class="form-control" name="ville" ngModel>
-
-                </div>
-            </form>
+            </div>
+            <div class=" col-md-1 "></div>
         </div>
-
-        <div class="col-md-2 ">
-            <ul>
-                5 €
-            </ul>
-        </div>
-
-        <div class="col-md-3 cta-button">
-            <ul>
-                <button type="submit" class="btn btn-lg btn-block btn-success">Choisir</button>
-            </ul>
-        </div>
-
-
-    </div>
-
+    </ng-container>
 </div>

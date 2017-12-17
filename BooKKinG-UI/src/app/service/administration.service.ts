@@ -8,7 +8,7 @@ import { Reponse } from '../model/reponse';
 @Injectable()
 export class AdministrationService {
 
-  urlLivre = `http://` + Globals.host + `/BooKKinG-Server-web/Book`;
+  private readonly urlLivre = `http://` + Globals.host + `/BooKKinG-Server-web/Book`;
 
   constructor(private http: Http) { }
 

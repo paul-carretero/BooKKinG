@@ -27,7 +27,7 @@ public class BookPostJson extends AbstractJson implements BookCreateDataItf, Val
 	
 	private String summary;
 		
-	private Integer stock;
+	private int stock;
 
 	/**
 	 * Default Constructor
@@ -70,7 +70,7 @@ public class BookPostJson extends AbstractJson implements BookCreateDataItf, Val
 	}
 
 	@Override
-	public Integer getStock() {
+	public int getStock() {
 		return this.stock;
 	}
 
@@ -78,9 +78,6 @@ public class BookPostJson extends AbstractJson implements BookCreateDataItf, Val
 	public void validify() {
 		if(this.genre == null) {
 			this.genre = Genre.ANY;
-		}
-		if(this.stock == null) {
-			this.stock = 0;
 		}
 		if(this.summary == null) {
 			this.summary = "";

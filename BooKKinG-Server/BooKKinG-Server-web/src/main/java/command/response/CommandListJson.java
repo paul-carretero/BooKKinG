@@ -25,7 +25,7 @@ public class CommandListJson extends GenericResponseJson implements CommandListJ
 	}
 	
 	@Override
-	public CommandJsonItf prepareNewEntry(final String date, final Integer idCmd, final Integer shippingCost, final String shippingAddress){
+	public CommandJsonItf prepareNewEntry(final String date, final int idCmd, final int shippingCost, final String shippingAddress){
 		CommandJson res = new CommandJson(date,idCmd,shippingCost,shippingAddress);
 		this.commands.add(res);
 		return res;

@@ -5,6 +5,6 @@ import shared.GenericResponseJsonItf;
 
 public interface CartJsonResponseItf extends GenericResponseJsonItf {
 
-	public void addBook(BookEntItf aBook, Integer quantity);
+	public void addBook(BookEntItf aBook, int quantity);
 
 }

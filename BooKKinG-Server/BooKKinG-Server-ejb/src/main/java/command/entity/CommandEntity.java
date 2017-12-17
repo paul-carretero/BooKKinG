@@ -22,7 +22,7 @@ public class CommandEntity implements CommandEntItf {
 	@Id
 	@Column(name="idCmd")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer idCmd;
+	private int idCmd;
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@JoinColumn(name="idUser", nullable=false)
@@ -35,7 +35,7 @@ public class CommandEntity implements CommandEntItf {
 	private String address;
 	
 	@Column(name="livraison")
-	private Integer shipping;
+	private int shipping;
 	
 	@OneToMany(mappedBy="command", fetch=FetchType.LAZY, orphanRemoval=true, cascade=CascadeType.ALL)
 	private List<CmdDetailEntity> cmdDetails;
@@ -50,7 +50,7 @@ public class CommandEntity implements CommandEntItf {
 		this.cmdDetails = new ArrayList<>();
 	}
 
-	public CommandEntity(final String address, final Integer shipping) {
+	public CommandEntity(final String address, final int shipping) {
 		super();
 		this.cmdDetails = new ArrayList<>();
 		this.address	= address;
@@ -59,7 +59,7 @@ public class CommandEntity implements CommandEntItf {
 	}
 	
 	@Override
-	public Integer getIdCmd() {
+	public int getIdCmd() {
 		return this.idCmd;
 	}
 
@@ -86,7 +86,7 @@ public class CommandEntity implements CommandEntItf {
 	}
 	
 	@Override
-	public Integer getShippingCost() {
+	public int getShippingCost() {
 		return this.shipping;
 	}
 	

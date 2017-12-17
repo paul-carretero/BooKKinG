@@ -26,12 +26,12 @@ public class BookSearchJson extends AbstractJson implements BookSearchItf, Valid
 	/**
 	 * prix maximum
 	 */
-	private Integer maxPrice;
+	private int maxPrice;
 
 	/**
 	 * prix minimum
 	 */
-	private Integer minPrice;
+	private int minPrice;
 
 	/**
 	 * Ensemble des types de la recherche
@@ -51,7 +51,7 @@ public class BookSearchJson extends AbstractJson implements BookSearchItf, Valid
 	/**
 	 * page de la recherche (10 résultats par page, triés par title)
 	 */
-	private Integer page;
+	private int page;
 
 
 	public BookSearchJson() {
@@ -69,12 +69,12 @@ public class BookSearchJson extends AbstractJson implements BookSearchItf, Valid
 	}
 
 	@Override
-	public Integer getMaxPrice() {
+	public int getMaxPrice() {
 		return this.maxPrice;
 	}
 
 	@Override
-	public Integer getMinPrice() {
+	public int getMinPrice() {
 		return this.minPrice;
 	}
 
@@ -94,7 +94,7 @@ public class BookSearchJson extends AbstractJson implements BookSearchItf, Valid
 	}
 	
 	@Override
-	public Integer getPage() {
+	public int getPage() {
 		return this.page;
 	}
 	
@@ -114,15 +114,6 @@ public class BookSearchJson extends AbstractJson implements BookSearchItf, Valid
 		}
 		if(this.anySearch == null) {
 			this.anySearch = "";
-		}
-		if(this.maxPrice == null) {
-			this.maxPrice = 100;
-		}
-		if(this.minPrice == null) {
-			this.minPrice = 0;
-		}
-		if(this.page == null) {
-			this.page = 0;
 		}
 		if(this.page > 0) {
 			this.page--;

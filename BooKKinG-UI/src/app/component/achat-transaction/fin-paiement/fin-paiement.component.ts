@@ -4,6 +4,11 @@ import { Component, OnInit } from '@angular/core';
 import { Globals } from '../../../globals';
 import { ConnectionService } from '../../../service/connection.service';
 import { LivraisonComponent } from '../livraison/livraison.component';
+import { NavigationService } from '../../../service/navigation.service';
+import { Router } from '@angular/router';
+import { Commande } from '../../../model/commande';
+import { Article } from '../../../model/article';
+import { Livre } from '../../../model/livre';
 
 @Component({
   selector: 'app-fin-paiement',
@@ -15,20 +20,56 @@ import { LivraisonComponent } from '../livraison/livraison.component';
  */
 export class FinPaiementComponent implements OnInit {
 
-  constructor(private serviceAchat: AchatService, private serviceConnect: ConnectionService) { }
+  constructor(private router: Router, private serviceAchat: AchatService, private serviceConnect: ConnectionService,
+    private navigationService: NavigationService) { }
 
   ngOnInit() {
-    // on enregistre la commande
-    this.serviceAchat.enregistrerCommande().subscribe(
-      reponse => {
-        console.log('enregistrement de la commande ' + JSON.stringify(reponse));
-        // on supprime l'enregistrement en base de donnée
-        if (reponse.success) {
-          console.log('enregistrement de la commande réussi');
-        } else {
-          console.log(reponse.message);
-        }
-      }
-    );
+    if (!this.serviceConnect.getConnectionStatus()) {
+      this.navigationService.setCurrentOther(Globals.HOME);
+      this.router.navigate([Globals.getRoute(Globals.HOME)]);
+    }
+    this.serviceAchat.enregistrerCommande();
+  }
+
+  private isInStock(a: Article): boolean {
+    return a.book.stock > 0;
+  }
+
+  private get currentCmd(): Commande {
+    return this.serviceAchat.getCommandeCourante();
+  }
+
+  private get currentArticles(): Article[] {
+    return this.serviceAchat.recupererArticlesCommande(this.currentCmd);
+  }
+
+  private get shippingCost(): string {
+    return this.currentCmd.shippingCost.toFixed(2);
+  }
+
+  private get totalPrice(): string {
+    return this.serviceAchat.getMontantTotalCommande(this.currentCmd).toFixed(2);
+  }
+
+  private get idCommand():number{
+    return this.serviceAchat.getCommandeCourante().idCmd;
+  }
+
+
+  public getPrice(a: Article): string {
+    return (a.quantity * a.book.price).toFixed(2);
+  }
+
+
+  private detailLivre(livre: Livre) {
+    this.navigationService.setFromLivre(livre);
+    this.router.navigate([Globals.getRoute(Globals.LIVRE) + '/' + livre.idBook]);
+  }
+
+  private setCurrentOther(other: string): void {
+    if (Globals.otherNavPage.includes(other)) {
+      this.navigationService.setCurrentOther(other);
+      this.router.navigate([Globals.getRoute(other)]);
+    }
   }
 }

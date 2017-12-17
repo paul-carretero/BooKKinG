@@ -36,7 +36,7 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 	public BookBean() {}
 
 	@Override
-	public BookEntity getBook(final Integer idBook){
+	public BookEntity getBook(final int idBook){
 		return this.manager.find(BookEntity.class, idBook);
 	}
 

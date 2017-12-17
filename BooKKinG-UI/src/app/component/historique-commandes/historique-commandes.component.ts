@@ -14,8 +14,7 @@ import { SimpleArticle } from '../../model/simple-article';
   styleUrls: ['./historique-commandes.component.css']
 })
 export class HistoriqueCommandesComponent implements OnInit {
-  
-  private historique: Commande[];
+
   private articles: Article[];
   private commandeSelected = false;
   private commandeAAfficher: Commande;
@@ -23,14 +22,14 @@ export class HistoriqueCommandesComponent implements OnInit {
 
   constructor(private serviceCommande: AchatService) {
     this.commandeAAfficher = new Commande();
-    this.historique = [];
   }
 
   ngOnInit() {
     this.commandeSelected = false;
-    // communique avec le serveur
-    this.serviceCommande.recupererCommandes();
-    this.historique = this.serviceCommande.getCommandesClient(); 
+  }
+
+  private get historique(): Commande[] {
+    return this.serviceCommande.getCommandesClient();
   }
 
 
@@ -40,8 +39,10 @@ export class HistoriqueCommandesComponent implements OnInit {
     this.articles = this.serviceCommande.recupererArticlesCommande(commande);
   }
 
-  
 
-  
+
+
+
+
 }
 

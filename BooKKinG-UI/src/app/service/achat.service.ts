@@ -7,6 +7,7 @@ import { NavigationService } from './navigation.service';
 import { PanierService } from './panier.service';
 import { Article } from '../model/article';
 import { Livre } from '../model/livre';
+import { NotifService } from './notif.service';
 
 
 @Injectable()
@@ -14,17 +15,18 @@ export class AchatService {
 
   private readonly urlAchat = `http://` + Globals.host + `/BooKKinG-Server-web/Command`;
 
+  private readonly address = { address: '' };
+
   private etapePaiement: string = null;
 
   private isInTransaction = false;
-
-  private readonly address = { address: '' };
 
   private commandesClient: Commande[];
 
   private commandeCourante: Commande = null;
 
-  constructor(private http: Http, private navService: NavigationService, private servicePanier: PanierService) {
+  constructor(private http: Http, private navService: NavigationService,
+    private servicePanier: PanierService, private notifService: NotifService) {
     this.listenForNavUpdate();
     this.commandesClient = [];
     this.commandeCourante = new Commande();
@@ -39,12 +41,16 @@ export class AchatService {
   private listenForNavUpdate(): void {
     this.navService.suscribeForNavEvent().subscribe(
       navData => {
-        if (!Globals.transactionPage.includes(navData.other)) {
+        if ((!Globals.transactionPage.includes(navData.other)) && navData.other !== Globals.LOGIN) {
           this.isInTransaction = false;
           this.etapePaiement = null;
         } else {
-          this.etapePaiement = navData.other;
-          this.isInTransaction = true;
+          if (Globals.transactionPage.includes(navData.other)) {
+            this.etapePaiement = navData.other;
+          }
+        }
+        if (navData.other === Globals.FIN_PAIEMENT || navData.other === Globals.COMPTE) {
+          this.recupererCommandes();
         }
       }
     );
@@ -97,10 +103,6 @@ export class AchatService {
     return this.commandesClient;
   }
 
-  public getCommandeCourante() {
-    return this.commandeCourante;
-  }
-
   public calculMontantDesCommandes() {
     this.commandesClient.forEach(
       commande => {
@@ -111,23 +113,28 @@ export class AchatService {
 
   // public request //
 
-  public enregistrerCommande(): Observable<any> {
+  public enregistrerCommande(): void {
     console.log('dans enregistrement commande');
     const reponse = this.http.post(this.urlAchat, this.address, { withCredentials: true }).map(res => res.json());
     reponse.subscribe(
       res => {
         if (res.success) {
           this.servicePanier.viderPanier();
+          this.commandeCourante = res;
+          this.notifService.getSubject().next('Votre commande #' + this.commandeCourante.idCmd + ' a bien été prise en compte!');
         } else {
           console.log(res.message);
+          this.commandeCourante = new Commande();
         }
       }
     );
-    return reponse;
   }
 
+  public getCommandeCourante() {
+    return this.commandeCourante;
+  }
 
-  public recupererCommandes(): Observable<any> {
+  public recupererCommandes(): void {
     console.log('dans recupérer des commandes');
     const reponse = this.http.get(this.urlAchat, { withCredentials: true }).map(res => res.json());
     reponse.subscribe(
@@ -140,13 +147,13 @@ export class AchatService {
         }
       }
     );
-    return reponse;
   }
 
   // public setter //
 
   public startTransaction(): void {
     this.isInTransaction = true;
+    this.commandeCourante = new Commande();
   }
 
   public setAddress(addr: string): void {
@@ -164,7 +171,7 @@ export class AchatService {
   }
 
   public getPrixLivraison(): number {
-    if (Globals.pointLivraison.includes(this.address.address)) {
+    if (!Globals.pointLivraison.includes(this.address.address)) {
       return Globals.prixLivraison;
     }
     return 0;

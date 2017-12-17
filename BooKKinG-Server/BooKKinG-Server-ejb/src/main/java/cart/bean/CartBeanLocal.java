@@ -8,13 +8,13 @@ import cart.dataItf.CartJsonResponseItf;
 @Local
 public interface CartBeanLocal {
 
-	public void clearCart(Integer idUser);
+	public void clearCart(int idUser);
 		
-	public void setQuantity(Integer idUser, CartItemJsonItf data);
+	public void setQuantity(int idUser, CartItemJsonItf data);
 
-	public void getCart(Integer idUser, CartJsonResponseItf response);
+	public void getCart(int idUser, CartJsonResponseItf response);
 
-	public boolean checkNoEmpty(Integer idUser);
+	public boolean checkNoEmpty(int idUser);
 
-	public void synchClearCart(Integer idUser);
+	public void synchClearCart(int idUser);
 }

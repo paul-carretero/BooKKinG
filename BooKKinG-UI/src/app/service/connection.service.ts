@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Client } from '../model/client';
 import { Globals } from '../globals';
 import { PanierService } from './panier.service';
+import { NotifService } from './notif.service';
 
 /**
  * Service dédié à la connection d'un utilisateur
@@ -11,9 +12,9 @@ import { PanierService } from './panier.service';
 @Injectable()
 export class ConnectionService {
 
-  private urlConnection = `http://` + Globals.host + `/BooKKinG-Server-web/Login`;
+  private readonly urlConnection = `http://` + Globals.host + `/BooKKinG-Server-web/Login`;
 
-  private urlUser = `http://` + Globals.host + `/BooKKinG-Server-web/User`;
+  private readonly urlUser = `http://` + Globals.host + `/BooKKinG-Server-web/User`;
 
   private currentClient: Client = null;
 
@@ -25,8 +26,25 @@ export class ConnectionService {
    * Construteur pour le service de connection
    * @param http permet de faire le lien avec des pages http (des servlets)
    */
-  constructor(private http: Http) {
+  constructor(private http: Http, private notifService: NotifService) {
     this.currentClient = new Client();
+    this.isConnected = false;
+    this.initConnexion();
+  }
+
+  private initConnexion(): void {
+    const conn = this.http.get(this.urlConnection, { withCredentials: true }).map(res => res.json());
+    conn.subscribe(
+      connected => {
+        if (connected.success) {
+          this.isConnected = true;
+          this.recuperationInformationsClient();
+          this.notifService.getSubject().next('Content de vous revoir, Votre session a été restauré.');
+        } else {
+          this.isConnected = false;
+        }
+      }
+    );
   }
 
   public getConnectionStatus(): boolean {
@@ -64,14 +82,25 @@ export class ConnectionService {
     return conn;
   }
 
-  public deconnexion(): Observable<any> {
+  public deconnexion(): void {
     this.currentClient = new Client();
     this.isConnected = false;
-    return this.http.delete(this.urlConnection, { withCredentials: true }).map(res => res.json());
+    this.notifService.getSubject().next('Au revoir, et à bientôt sur BooKKinG');
+    this.http.delete(this.urlConnection, { withCredentials: true }).map(res => res.json()).subscribe(
+      res => {
+        if (res.success) {
+          this.panierService.viderPanier();
+        } else {
+          console.log(res.message);
+        }
+      }
+    );
   }
 
-  public reinitialiserMotDePasse(client: Client): Observable<any> {
-    return this.http.post(this.urlConnection, client, { withCredentials: true }).map(res => res.json());
+  public reinitialiserMotDePasse(email: string): Observable<any> {
+    const c = new Client();
+    c.email = email;
+    return this.http.post(this.urlConnection, c, { withCredentials: true }).map(res => res.json());
   }
 
   // ------------------------------------------------ Servlet  User ----------------------------------------------------------

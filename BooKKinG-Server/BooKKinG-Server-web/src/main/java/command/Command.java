@@ -57,7 +57,7 @@ public class Command extends HttpServlet {
 				response.getWriter().append(res.toString());
 			}
 			else {
-				Integer idCmd = Integer.valueOf(stringReq);
+				int idCmd = Integer.valueOf(stringReq);
 				if(this.commandBean.isCmdOfUser(HttpHelper.getIdUser(request),idCmd)) {
 					CommandJson res = new CommandJson();
 					this.commandBean.getCommand(idCmd, res);

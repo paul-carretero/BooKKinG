@@ -38,7 +38,7 @@ public class CartBean extends AbstractBean implements CartBeanLocal {
     public CartBean() {}
 
 	@Override
-	public void synchClearCart(final Integer idUser) {
+	public void synchClearCart(final int idUser) {
 		List<CartDetailEntity> toDelete = this.user.getUser(idUser).getCart();
 		
 		for(CartDetailEntity entry : toDelete) {
@@ -48,7 +48,7 @@ public class CartBean extends AbstractBean implements CartBeanLocal {
 	
 	@Override
 	@Asynchronous
-	public void clearCart(final Integer idUser) {
+	public void clearCart(final int idUser) {
 		List<CartDetailEntity> toDelete = this.user.getUser(idUser).getCart();
 		
 		for(CartDetailEntity entry : toDelete) {
@@ -57,8 +57,7 @@ public class CartBean extends AbstractBean implements CartBeanLocal {
 	}
 
 	@Override
-	@Asynchronous
-	public void setQuantity(final Integer idUser, final CartItemJsonItf data) {
+	public void setQuantity(final int idUser, final CartItemJsonItf data) {
 		CartDetailEntity toUpdate = this.manager.find(CartDetailEntity.class, new CartDetailId(idUser,data.getIdBook()));
 		if(data.getQuantity() <= 0 && toUpdate != null) {
 			this.manager.remove(toUpdate);
@@ -76,7 +75,7 @@ public class CartBean extends AbstractBean implements CartBeanLocal {
 	}
 
 	@Override
-	public void getCart(Integer idUser, CartJsonResponseItf response) {
+	public void getCart(int idUser, CartJsonResponseItf response) {
 		List<CartDetailEntity> userCart = this.user.getUser(idUser).getCart();	
 		for(CartDetailEntity entry : userCart) {
 			response.addBook(entry.getBook(), entry.getQuantity());
@@ -84,7 +83,7 @@ public class CartBean extends AbstractBean implements CartBeanLocal {
 	}
 	
 	@Override
-	public boolean checkNoEmpty(Integer idUser) {
+	public boolean checkNoEmpty(int idUser) {
 		List<CartDetailEntity> userCart = this.user.getUser(idUser).getCart();	
 		return !userCart.isEmpty();
 	}

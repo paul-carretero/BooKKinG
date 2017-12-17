@@ -9,6 +9,7 @@ import { HeaderStandardComponent } from './header-standard.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ConnectionService } from '../../../service/connection.service';
+import { NotifService } from '../../../service/notif.service';
 
 describe('HeaderStandardComponent', () => {
   let component: HeaderStandardComponent;
@@ -29,7 +30,8 @@ describe('HeaderStandardComponent', () => {
         NavigationService,
         CookieService,
         RechercheService,
-        LRUCacheService
+        LRUCacheService,
+        NotifService
       ]
     })
       .compileComponents();

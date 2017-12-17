@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Globals } from '../../../globals';
 import { AchatService } from '../../../service/achat.service';
+import { TooltipDirective } from 'ng2-tooltip-directive/components';
+import { NavigationService } from '../../../service/navigation.service';
+
 
 @Component({
   selector: 'app-livraison',
@@ -15,37 +18,66 @@ import { AchatService } from '../../../service/achat.service';
  */
 export class LivraisonComponent implements OnInit {
 
-  constructor(private router: Router, private connectionService: ConnectionService, private achatService: AchatService) { }
+  private displayCustomAddr;
 
-  ngOnInit() { }
+  private addrTextarea: string;
 
-  get LivraisonStandard(): number {
-    return Globals.prixLivraison;
+  constructor(private router: Router, private connectionService: ConnectionService,
+    private achatService: AchatService, private navigationService: NavigationService, private serviceConnect: ConnectionService) {
+    this.displayCustomAddr = false;
+  }
+
+
+  ngOnInit() {
+    if (!this.serviceConnect.getConnectionStatus() || !this.achatService.getTransactionState()) {
+      this.navigationService.setCurrentOther(Globals.HOME);
+      this.router.navigate([Globals.getRoute(Globals.HOME)]);
+    }
+  }
+
+  get LivraisonStandard(): string {
+    return Globals.prixLivraison.toFixed(2);
   }
 
   get addressClient(): string {
-    return this.connectionService.getCurrentUser().address;
+    return this.connectionService.getCurrentUser().name + ' - ' + this.connectionService.getCurrentUser().address;
   }
 
   get listePointLivraison(): string[] {
     return Globals.pointLivraison;
   }
 
-  public ChoixPointLivraison(pointLivraison: string) {
+  get custAddrIsValid(): boolean {
+    return this.addrTextarea != null && this.addrTextarea.length > 0;
+  }
+
+  private updateCustomAddr(addr: string): void {
+    this.addrTextarea = addr;
+  }
+
+  private initDisplayCustomAddr(): void {
+    if (this.custAddrIsValid) {
+      this.validateLivraison();
+    } else {
+      this.displayCustomAddr = !this.displayCustomAddr;
+      if (!this.displayCustomAddr) {
+        this.addrTextarea = '';
+      }
+    }
+  }
+
+  private validateLivraison(): void {
+    this.navigationService.setCurrentOther(Globals.PAYER);
+    this.router.navigate([Globals.getRoute(Globals.PAYER)]);
+  }
+
+  private ChoixPointLivraison(pointLivraison: string) {
     this.achatService.setAddress(pointLivraison);
-    this.router.navigate(['payer']);
+    this.validateLivraison();
   }
 
-  public ChoixAdressePersonnelle() {
-    this.achatService.setAddress(this.addressClient);
-    this.router.navigate(['payer']);
-
-  }
-
-  public saisirAdresse(form) {
-    const addresse = form.value.numero + ' ' + form.value.rue + ' - ' + form.value.codePostal + ' ' + form.value.ville;
-    this.achatService.setAddress(addresse);
-    this.router.navigate(['payer']);
-
+  private ChoixAdressePersonnelle() {
+    this.achatService.setAddress(this.connectionService.getCurrentUser().address);
+    this.validateLivraison();
   }
 }

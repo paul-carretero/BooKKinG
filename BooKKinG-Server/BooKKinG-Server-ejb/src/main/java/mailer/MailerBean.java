@@ -133,12 +133,13 @@ public class MailerBean implements MailerBeanLocal {
 		String total = String.valueOf(cmd.getTotal() + cmd.getShippingCost());
 		
 		template = template.replaceFirst(Pattern.quote("{{USER_NAME}}"), aUser.getName());
+		template = template.replaceFirst(Pattern.quote("{{INVOICE_NAME}}"), aUser.getName());
 		template = template.replaceFirst(Pattern.quote("{{SHIPPING_ADRESSE}}"), cmd.getAddress());
-		template = template.replaceFirst(Pattern.quote("{{INVOICE_ADRESSE}}"), cmd.getAddress());
+		template = template.replaceFirst(Pattern.quote("{{INVOICE_ADRESSE}}"), aUser.getAddress());
 		template = template.replaceFirst(Pattern.quote("{{COMMAND_DATE}}"), cmd.getDate());
-		template = template.replaceFirst(Pattern.quote("{{COMMAND_ID}}"), cmd.getIdCmd().toString());
+		template = template.replaceFirst(Pattern.quote("{{COMMAND_ID}}"), String.valueOf(cmd.getIdCmd()));
 		template = template.replaceFirst(Pattern.quote("{{SUB_TOTAL}}"), subtotal);
-		template = template.replaceFirst(Pattern.quote("{{SHIPPING_COST}}"), cmd.getShippingCost().toString());
+		template = template.replaceFirst(Pattern.quote("{{SHIPPING_COST}}"), String.valueOf(cmd.getShippingCost()));
 		template = template.replaceFirst(Pattern.quote("{{TOTAL_PRICE}}"), total);
 		
 		StringBuffer details = new StringBuffer();

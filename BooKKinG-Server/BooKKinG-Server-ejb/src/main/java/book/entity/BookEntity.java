@@ -21,7 +21,7 @@ public class BookEntity implements Serializable, BookEntItf {
 	@Id
 	@Column(name="idBook")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer idBook;
+	private int idBook;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="genre")
@@ -48,7 +48,7 @@ public class BookEntity implements Serializable, BookEntItf {
     private Float price;
 	
 	@Column(name="stock")
-    private Integer stock;
+    private int stock;
 	
 	@Column(name="title")
     private String title;
@@ -67,7 +67,7 @@ public class BookEntity implements Serializable, BookEntItf {
 	 * @param stock
 	 * @param title
 	 */
-	public BookEntity(Genre genre, Type type, String author, String summary, String picture, Float price, Integer stock,
+	public BookEntity(Genre genre, Type type, String author, String summary, String picture, Float price, int stock,
 			String title) {
 		super();
 		this.genre		= genre;
@@ -81,7 +81,7 @@ public class BookEntity implements Serializable, BookEntItf {
 	}
 
 	@Override
-	public Integer getIdBook() {
+	public int getIdBook() {
 		return this.idBook;
 	}
 
@@ -116,7 +116,7 @@ public class BookEntity implements Serializable, BookEntItf {
 	}
 
 	@Override
-	public Integer getStock() {
+	public int getStock() {
 		return this.stock;
 	}
    
@@ -126,7 +126,7 @@ public class BookEntity implements Serializable, BookEntItf {
 	}
 
 	@Override
-	public void removeFromStock(Integer value) {
+	public void removeFromStock(int value) {
 		this.stock -= value;
 	}
 }

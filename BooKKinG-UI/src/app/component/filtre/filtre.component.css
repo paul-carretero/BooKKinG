@@ -21,8 +21,20 @@
     font-weight: bold;
 }
 
+.btn-warning {
+    color: black;
+}
+
+.button-container {
+    padding: 1em;
+}
+
 #table {
     border: 2px solid green;
+}
+
+.nodisplay {
+    display: none;
 }
 
 body {

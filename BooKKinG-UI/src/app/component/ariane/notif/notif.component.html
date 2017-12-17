@@ -1,0 +1,8 @@
+<div *ngIf="observableEvent | async; let res" class="bg-success">
+    <ng-constainer *ngIf="res === 'SEARCH'">
+        <fa name="spinner" animation="spin"></fa>Chargement de la recherche...
+    </ng-constainer>
+    <ng-constainer *ngIf="res !== 'SEARCH'">
+        <fa name="info-circle"></fa>{{res}}
+    </ng-constainer>
+</div>

@@ -24,7 +24,7 @@ public class UserEntity implements UserEntItf {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="idUser")
-	private Integer idUser;
+	private int idUser;
 	
 	@Column(name="name")
 	private String name;
@@ -68,7 +68,7 @@ public class UserEntity implements UserEntItf {
 	}
 	
 	@Override
-	public Integer getIdUser() {
+	public int getIdUser() {
 		return this.idUser;
 	}
 
@@ -108,7 +108,7 @@ public class UserEntity implements UserEntItf {
 		return this.admin;
 	} 
 	
-	public void setIdUser(final Integer idUser) {
+	public void setIdUser(final int idUser) {
 		this.idUser = idUser;
 	}
 

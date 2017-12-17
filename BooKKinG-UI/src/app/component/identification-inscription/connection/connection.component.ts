@@ -9,6 +9,8 @@ import { NgForm, FormGroup, FormControl, Validators, FormBuilder } from '@angula
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Globals } from '../../../globals';
 import { AchatService } from '../../../service/achat.service';
+import { NotifService } from '../../../service/notif.service';
+import { NavigationService } from '../../../service/navigation.service';
 
 @Component({
   selector: 'app-connection',
@@ -25,15 +27,25 @@ export class ConnectionComponent implements OnInit {
 
   private connexionForm: FormGroup;
 
+  private resetPassword: boolean;
+
+  private resetPwdForm: FormGroup;
+
+  private serverResponseClass = 'bg-danger';
+
   /**
   * Constructeur du composant connection
   * @param routeur permet de gérer le routage
   * @param service permet d'accéder aux services du composant ConnectionService
   */
-  constructor(private routeur: Router, private service: ConnectionService, private fb: FormBuilder, private achatService: AchatService) {
+  constructor(private routeur: Router, private service: ConnectionService, private fb: FormBuilder,
+    private achatService: AchatService, private notifService: NotifService, private navService: NavigationService) {
     this.connexionForm = fb.group({
       email: ['', Validators.email],
       password: ['', Validators.required],
+    });
+    this.resetPwdForm = fb.group({
+      resemail: ['', Validators.email],
     });
     this.serverResponse = '';
   }
@@ -42,13 +54,14 @@ export class ConnectionComponent implements OnInit {
   * Méthode appelée lors de l'initialisation de la page html liée au composant
   */
   ngOnInit() {
-
+    this.resetPassword = false;
+    this.serverResponseClass = 'bg-danger';
   }
 
   /**
   * Fonction appelée lors de la demande de connexion par l'utilisateur, par le biai du formulaire de connection
   */
-  public connexion() {
+  private connexion(): void {
     const connClient = new Client();
     connClient.password = this.connexionForm.value.password;
     connClient.email = this.connexionForm.value.email;
@@ -57,14 +70,45 @@ export class ConnectionComponent implements OnInit {
     this.service.connection(connClient).subscribe(
       connected => {
         if (connected.success) {
+          this.notifService.getSubject().next('vous vous êtes connecté avec succès!');
           this.serverResponse = '';
           if (this.achatService.getTransactionState()) {
-            this.routeur.navigate(['livraison']);
+            this.navService.setCurrentOther(Globals.LIVRAISON);
+            this.routeur.navigate([Globals.getRoute(Globals.LIVRAISON)]);
+          } else {
+            this.navService.setCurrentOther(Globals.COMPTE);
+            this.routeur.navigate([Globals.getRoute(Globals.COMPTE)]);
           }
         } else {
+          this.serverResponseClass = 'bg-danger';
           this.serverResponse = connected.message;
         }
       }
     );
   }
+
+  private initResetPassword(): void {
+    this.resetPassword = true;
+    this.serverResponse = '';
+  }
+
+  private initDefaultConnection(): void {
+    this.resetPassword = false;
+  }
+
+  private resetPwd(): void {
+    const email: string = this.resetPwdForm.value.resemail;
+    this.service.reinitialiserMotDePasse(email).subscribe(
+      res => {
+        if (res.success) {
+          this.serverResponse = 'Votre nouveau mot de passe vous a été envoyer par mail';
+          this.serverResponseClass = 'bg-success';
+          this.initDefaultConnection();
+        } else {
+          this.serverResponse = res.message;
+        }
+      }
+    );
+  }
+
 }

@@ -17,9 +17,9 @@ public interface UserBeanLocal {
 	
 	public UserEntItf getUser(String email);
 	
-	public void updateUser(Integer attribute, UserJsonItf data);
+	public void updateUser(int attribute, UserJsonItf data);
 
 	public boolean resetPassword(String email);
 
-	public boolean isAdmin(Integer idUser);
+	public boolean isAdmin(int idUser);
 }

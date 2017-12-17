@@ -8,15 +8,16 @@ import { SimpleArticle } from '../model/simple-article';
 import { Item } from '../model/item';
 import { Article } from '../model/article';
 import { ConnectionService } from './connection.service';
+import { NotifService } from './notif.service';
 
 @Injectable()
 export class PanierService {
 
-  urlPanier = `http://` + Globals.host + `/BooKKinG-Server-web/Cart`;
+  private readonly urlPanier = `http://` + Globals.host + `/BooKKinG-Server-web/Cart`;
 
   private contenuPanier: Article[] = [];
 
-  constructor(private http: Http, private connectionService: ConnectionService) {
+  constructor(private http: Http, private connectionService: ConnectionService, private notifService: NotifService) {
     this.connectionService.panierServiceRegister(this);
   }
 
@@ -75,6 +76,7 @@ export class PanierService {
       this.contenuPanier[i] = { book: livre, quantity: quantity, idBook: livre.idBook };
       this.tryUpdateItemOnServer(livre.idBook, quantity);
     }
+    this.notifService.getSubject().next('Le livre ' + livre.title + ' a été ajouté à votre panier');
   }
 
   public setQuantity(idBook: number, quantity: number) {
@@ -125,9 +127,8 @@ export class PanierService {
       reponse => {
         if (reponse.success) {
           this.contenuPanier = reponse.items;
-          console.log(JSON.stringify(reponse.items));
         } else {
-          alert(reponse.message);
+          console.log(reponse.message);
         }
       }
     );
@@ -153,12 +154,13 @@ export class PanierService {
 
   public viderPanier(): Observable<ResponsePanier> {
     this.contenuPanier = [];
-    console.log('dans vider panier');
     const panier = this.http.delete(this.urlPanier, { withCredentials: true }).map(res => res.json());
     if (this.connectionService.getConnectionStatus()) {
       panier.subscribe(
         reponse => {
-          if (!reponse.success) {
+          if (reponse.success) {
+            this.notifService.getSubject().next('Votre panier a été vidé.');
+          } else {
             alert(reponse.message);
           }
         }

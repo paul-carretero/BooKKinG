@@ -60,7 +60,7 @@ public class Helper {
 		return address;
 	}
 	
-	public static Integer getShippingPrice(String address) {
+	public static int getShippingPrice(String address) {
 		if(address.equals("PARIS") || address.equals("BORDEAUX") || address.equals("GRENOBLE")) {
 			return 0;
 		}

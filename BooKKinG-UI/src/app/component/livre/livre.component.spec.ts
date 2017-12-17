@@ -11,6 +11,7 @@ import { LivreComponent } from './livre.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule } from '@angular/http';
+import { NotifService } from '../../service/notif.service';
 
 describe('LivreComponent', () => {
   let component: LivreComponent;
@@ -18,10 +19,10 @@ describe('LivreComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LivreComponent,
+      declarations: [LivreComponent,
         StockComponent
-       ],
-       imports: [ 
+      ],
+      imports: [
         RouterTestingModule,
         HttpModule
       ],
@@ -32,10 +33,11 @@ describe('LivreComponent', () => {
         NavigationService,
         CookieService,
         PanierService,
-        ConnectionService
+        ConnectionService,
+        NotifService
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
