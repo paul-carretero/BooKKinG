@@ -43,12 +43,12 @@ public class InitBean extends AbstractBean implements InitBeanLocal {
 			System.err.println("[initFail, lack of data]" + e.getMessage());
 		}
 	}
-
+	
 	@Override
 	public void getMostBuy(InitResponseJsonItf response) {
 		int mostBuyBook;
 		try {
-			mostBuyBook = (Integer) this.manager.createNativeQuery("SELECT idBook AS total FROM CmdDetail GROUP BY idBook ORDER BY total DESC LIMIT 1").getSingleResult();
+			mostBuyBook = (Integer) this.manager.createNativeQuery("SELECT idBook FROM (SELECT idBook, SUM(quantity) AS TotalQuantity FROM CmdDetail GROUP BY idBook ORDER BY TotalQuantity DESC LIMIT 1) as t").getSingleResult();
 		} catch (Exception e) {
 			System.err.println("[initFail, lack of data]" + e.getMessage());
 			return;

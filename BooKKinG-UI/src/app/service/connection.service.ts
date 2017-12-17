@@ -98,9 +98,7 @@ export class ConnectionService {
   }
 
   public reinitialiserMotDePasse(email: string): Observable<any> {
-    const c = new Client();
-    c.email = email;
-    return this.http.post(this.urlConnection, c, { withCredentials: true }).map(res => res.json());
+    return this.http.post(this.urlConnection, { email: email }, { withCredentials: true }).map(res => res.json());
   }
 
   // ------------------------------------------------ Servlet  User ----------------------------------------------------------
@@ -108,16 +106,19 @@ export class ConnectionService {
   /**
    * on retourne le client récupéré (Format JSON)
    */
-  public recuperationInformationsClient(): Observable<Client> {
+  public recuperationInformationsClient(): void {
     const conn: Observable<Client> = this.http.get(this.urlUser, { withCredentials: true }).map(res => res.json());
     // l'utilisateur est connecté
     conn.subscribe(
       client => {
-        this.currentClient = client;
-        this.panierService.synchroServer();
+        if (client.success) {
+          this.currentClient = client;
+          this.panierService.synchroServer();
+        } else {
+          console.log(client.message);
+        }
       }
     );
-    return conn;
   }
 
   public creationClient(client: Client): Observable<any> {

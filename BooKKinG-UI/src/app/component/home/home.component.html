@@ -1,3 +1,8 @@
-<p>
-  home works!
-</p>
+<div class="carousel-wrapper">
+    <ul class="nav nav-tabs nav-justified">
+        <ng-container *ngFor="let option of options; let i = index">
+            <li role="presentation" class="{{isActiveClass(i)}}"><a (click)="setCurrent(i)">{{option}}</a></li>
+        </ng-container>
+    </ul>
+    {{currentBook.title}}
+</div>
