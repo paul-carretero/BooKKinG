@@ -28,7 +28,7 @@ export class PanierComponent implements OnInit {
 
   public detailLivre(livre: Livre) {
     this.navigationService.setFromLivre(livre);
-    this.router.navigate([Globals.getRoute(Globals.LIVRE) + '/' + livre.idBook]);
+    this.router.navigate([Globals.getRoute(Globals.LIVRE), livre.idBook]);
   }
 
   get montantGlobal(): string {
@@ -79,7 +79,7 @@ export class PanierComponent implements OnInit {
     const quantiteLivre = Number(quantity);
     this.service.setQuantity(livre.idBook, quantiteLivre);
   }
-  
+
   get numberOfCartItem(): number {
     return this.service.getNumberOfItems();
   }

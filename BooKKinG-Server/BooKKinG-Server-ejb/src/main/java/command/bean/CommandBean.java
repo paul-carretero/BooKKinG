@@ -52,6 +52,7 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 		response.setDate(command.getDate());
 		response.setIdCmd(command.getIdCmd());
 		response.setShippingCost(command.getShippingCost());
+		response.setInvoiceAddress(command.getUser().getName() + " - " + command.getAddress());
 		response.setShippingAddress(command.getAddress());
 		for(CmdDetailEntity cmdDetail : command.getCmdDetails()) {
 			if(showStock) {
@@ -108,6 +109,18 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	public void getCommands(final int idUser, final CommandListJsonItf response) {
 		final UserEntItf u = this.user.getUser(idUser);
 		for(CommandEntity command : u.getCommands()) {
+			CommandJsonItf cmdJson = response.prepareNewEntry(command.getDate(),command.getIdCmd(), command.getShippingCost(), command.getAddress());
+			for(CmdDetailEntity cmdDetail : command.getCmdDetails()) {
+				cmdJson.addCmdEntry(cmdDetail.getBook(), cmdDetail.getPrice(), cmdDetail.getQuantity());
+			}
+		}
+	}
+	
+	@Override
+	public void getCommands(final String start, final String end, final CommandListJsonItf response) {
+		final List<CommandEntity> cmdList;
+		cmdList = this.manager.createQuery("FROM Command").getResultList();
+		for(CommandEntity command : cmdList) {
 			CommandJsonItf cmdJson = response.prepareNewEntry(command.getDate(),command.getIdCmd(), command.getShippingCost(), command.getAddress());
 			for(CmdDetailEntity cmdDetail : command.getCmdDetails()) {
 				cmdJson.addCmdEntry(cmdDetail.getBook(), cmdDetail.getPrice(), cmdDetail.getQuantity());

@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Livre } from '../../model/livre';
 import { Globals } from '../../globals';
 import { HeaderComponent } from '../header/header.component';
-import { RouterLink } from '@angular/router';
 import { FiltreComponent } from '../filtre/filtre.component';
 import { NavigationService } from '../../service/navigation.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ariane',
@@ -13,7 +13,7 @@ import { NavigationService } from '../../service/navigation.service';
 })
 export class ArianeComponent implements OnInit {
 
-  constructor(private navigationService: NavigationService) { }
+  constructor(private navigationService: NavigationService, private router: Router) { }
 
   ngOnInit() { }
 
@@ -35,14 +35,17 @@ export class ArianeComponent implements OnInit {
 
   private onClickType(): void {
     this.navigationService.setCurrentType(this.typeName);
+    this.router.navigate([Globals.getRoute(Globals.RECHERCHE)]);
   }
 
   private onClickGenre(): void {
     this.navigationService.setCurrentGenre(this.genreName);
+    this.router.navigate([Globals.getRoute(Globals.RECHERCHE)]);
   }
 
   private onClickHome(): void {
-    this.navigationService.setCurrentOther('HOME');
+    this.navigationService.setCurrentOther(Globals.HOME);
+    this.router.navigate([Globals.getRoute(Globals.HOME)]);
   }
 
   private getDisplayable(str: string): string {

@@ -1,5 +1,4 @@
 import { Router } from '@angular/router';
-import { RouterLink } from '@angular/router/src/directives/router_link';
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -75,6 +74,7 @@ export class FiltreComponent implements OnInit {
 
   private setCurrentGenre(newGenre: string): void {
     this.navigationService.setCurrentGenre(newGenre);
+    this.router.navigate([Globals.getRoute(Globals.RECHERCHE)]);
   }
 
   private onPriceChange(raw: string, update: boolean): void {

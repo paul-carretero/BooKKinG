@@ -30,10 +30,13 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 	private List<CartItemJson> 	items;
 	
 	@SuppressWarnings("unused")
-	private int 			shippingCost;
+	private int 				shippingCost;
 	
 	@SuppressWarnings("unused")
 	private String				shippingAddress;
+	
+	@SuppressWarnings("unused")
+	private String				invoiceAddress;
 
 	public CommandJson() {
 		super();
@@ -69,6 +72,11 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 	@Override
 	public void setShippingAddress(final String shippingAddress) {
 		this.shippingAddress = shippingAddress;
+	}
+	
+	@Override
+	public void setInvoiceAddress(final String invoiceAddress) {
+		this.invoiceAddress = invoiceAddress;
 	}
 
 	/**
