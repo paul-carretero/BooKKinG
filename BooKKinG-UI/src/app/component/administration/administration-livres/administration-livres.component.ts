@@ -13,6 +13,7 @@ export class AdministrationLivresComponent implements OnInit {
 
   private ajouter : boolean;
 
+  private modifierStock : boolean;
 
   private serverResponse: string;
 
@@ -20,8 +21,7 @@ export class AdministrationLivresComponent implements OnInit {
 
   private serverResponseClass = 'bg-danger';
 
-
-
+  
   constructor(private fb: FormBuilder, private serviceLivre: LivreService) {
     this.createNewBookForm = fb.group({
       title: ['', Validators.required],
@@ -39,11 +39,28 @@ export class AdministrationLivresComponent implements OnInit {
   ngOnInit() {
     console.log("dans admin");
     this.ajouter = false;
+    this.modifierStock = false;
   }
 
   private ajouterLivre(){
-    console.log("ajouter un livre dans la base de donnée");
     this.ajouter = true;
+  }
+
+  private modifierStockLivres(){
+    console.log("modifier le stock des livres");
+    this.modifierStock = true;
+    this.serviceLivre.récupérerAllLivres();
+  }
+
+  private setQuantity(livre : Livre, quantity: string) {
+      console.log("admin setQuantity : livre : "+livre.title +", quantity :" +quantity);
+      const quantiteLivre = Number(quantity);
+      this.serviceLivre.setQuantity(livre.idBook, quantiteLivre);
+  }
+
+
+  get allLivres(): Livre[]{
+    return this.serviceLivre.getAllLivres();
   }
 
   get types(): string[]{
@@ -72,13 +89,6 @@ export class AdministrationLivresComponent implements OnInit {
     livre.summary = this.createNewBookForm.value.summary;
     livre.price = this.createNewBookForm.value.price;
     livre.stock = this.createNewBookForm.value.stock;
-    console.log("titre livre : " + livre.title);
-    console.log("auteur livre : " + livre.author);
-    console.log("type livre : " + livre.type);
-    console.log("genre livre : " + livre.genre);
-    console.log("prix livre : " + livre.price);
-    console.log("stock livre : " + livre.stock);
-    console.log("résumé livre : " + livre.summary);
     return livre;
   }
 

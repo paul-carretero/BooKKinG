@@ -1,16 +1,11 @@
 <button class="btn btn-primary btn-sm" (click)="ajouterLivre()"> Ajouter un nouveau livre dans la base </button>
-<button class="btn btn-primary btn-sm" (click)="modifierStockLivrer()"> Modifier le stock d'un livre dans la base </button>
+<button class="btn btn-primary btn-sm" (click)="modifierStockLivres()"> Modifier le stock d'un livre dans la base </button>
 
 
 
 <div *ngIf ="ajouter" class="wrapper">
   <header>Livre à ajouter dans la base de donnée</header>
   <form (ngSubmit)="createNewBook()" [formGroup]="createNewBookForm">
-    <!-- <div class="{{serverResponseClass}}" [hidden]="serverResponse === '' || serverResponse === null">
-          <fa name="exclamation-circle "></fa>{{serverResponse}}
-      </div>
-    -->
-
       <label for="title">Titre:</label>
       <input type="text" class="form-control" formControlName="title" id="title" #title ngModel>
       <span [hidden]="createNewBookForm.get('title').valid || !createNewBookForm.get('title').touched" class="text-danger">
@@ -63,4 +58,31 @@
 
       <button class="btn btn-block btn-success" type="submit" [disabled]="!createNewBookForm.valid">Ajouter</button>
   </form>
+</div>
+
+
+
+<div *ngIf ="modifierStock" class="wrapper">
+  <header>Livres enregistrés</header>
+  <table>
+    <thead>
+      <tr>
+          <th scope="col">
+              Livre
+          </th>
+          <th scope="col">
+              Stock
+          </th>
+      </tr>
+  </thead>
+  <tbody class="table-striped">
+    <tr *ngFor=" let livre of allLivres; ">
+        <td>
+            {{livre.title}}
+        <td>
+            <input type="number"  min="0" (input)="setQuantity(livre, $event.target.value)"value ={{livre.stock}}>
+        </td>
+    </tr>
+  </tbody>
+  </table>
 </div>

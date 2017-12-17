@@ -13,6 +13,8 @@ export class LivreService {
 
   private currentLivre: Livre;
 
+  private allLivres:Livre[];
+
   constructor(private http: Http, private cache: LRUCacheService, private navigationService: NavigationService) {
     this.currentLivre = new Livre();
   }
@@ -51,6 +53,25 @@ export class LivreService {
   }
 
 
+  
+  public récupérerAllLivres(): Observable<Livre[]>{
+    const conn = this.http.get(this.urlLivre + '/ALL', { withCredentials: true }).map(res => res.json());
+    conn.subscribe(
+      reponse => {
+        if (reponse.success) {          
+          this.allLivres = reponse.books;
+        } else {
+          console.log(reponse.message);
+        }
+      }
+    );
+    return conn;
+  }
+
+  public getAllLivres() : Livre[]{
+    return this.allLivres;
+  }
+
   public ajouterNouveauLivre(livre: Livre): Observable<Livre> {
     livre.idBook = 0;
     const conn = this.http.post(this.urlLivre, livre ,{ withCredentials: true }).map(res => res.json());
@@ -67,6 +88,7 @@ export class LivreService {
   }
 
   public modifierStockLivre(livre: Livre): Observable<Livre> {
+    console.log("livre service modifier stock livre");
     const conn = this.http.post(this.urlLivre, livre ,{ withCredentials: true }).map(res => res.json());
     conn.subscribe(
       reponse => {
@@ -80,6 +102,21 @@ export class LivreService {
     return conn;
   }
 
+  public setQuantity(idBook: number, quantity: number) {
+    console.log("livre service setQuantity , idBook");
+    let i = 0;
+    let set = false;
 
-  // post
+    while (!set && i < this.allLivres.length) {
+      if (idBook === this.allLivres[i].idBook) {
+        this.allLivres[i].stock = quantity;
+        set = true;
+        this.modifierStockLivre(this.allLivres[i]);
+      }
+      i++;
+    }
+  }
+
+  
+  
 }
