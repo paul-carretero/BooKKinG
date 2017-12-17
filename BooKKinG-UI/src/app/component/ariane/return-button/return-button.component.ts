@@ -26,13 +26,15 @@ export class ReturnButtonComponent implements OnInit {
     return this.achatService.getTransactionState();
   }
 
-  public returnPrevPage() {
+  private returnPrevPage() {
     if (this.canGoBack) {
       const navPage = this.histoNav.navPagePrecedente();
-      if (navPage.livre) {
-        this.router.navigate([navPage.other + '/' + navPage.livre.idBook.toString()]);
-      } else {
-        this.router.navigate([Globals.getRoute(navPage.other)]);
+      if (navPage) {
+        if (navPage.livre) {
+          this.router.navigate([Globals.getRoute(Globals.LIVRE), navPage.livre.idBook]);
+        } else {
+          this.router.navigate([Globals.getRoute(navPage.other)]);
+        }
       }
     }
   }

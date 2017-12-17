@@ -23,7 +23,6 @@ export class InitService {
       reponse => {
         if (reponse.success) {
           this.initData = reponse;
-          console.log(JSON.stringify(reponse.mostBuyBook));
         }
       }
     );

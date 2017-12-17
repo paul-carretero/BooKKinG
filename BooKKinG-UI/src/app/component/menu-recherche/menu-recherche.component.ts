@@ -1,6 +1,6 @@
 import { RechercheService } from './../../service/recherche.service';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { Livre } from '../../model/livre';
 import { PanierService } from '../../service/panier.service';
 import { Globals } from '../../globals';
@@ -19,7 +19,8 @@ import { TooltipDirective } from 'ng2-tooltip-directive/components';
  */
 export class MenuRechercheComponent implements OnInit {
 
-  constructor(private router: Router, private service: RechercheService, private servicePanier: PanierService, private navigationService: NavigationService) { }
+  constructor(private router: Router, private service: RechercheService, private servicePanier: PanierService,
+    private navigationService: NavigationService) { }
 
   ngOnInit() { }
 
@@ -38,14 +39,14 @@ export class MenuRechercheComponent implements OnInit {
 
   private detailLivre(livre: Livre) {
     this.navigationService.setFromLivre(livre);
-    this.router.navigate([Globals.getRoute(Globals.LIVRE) + '/' + livre.idBook]);
+    this.router.navigate([Globals.getRoute(Globals.LIVRE), livre.idBook]);
   }
 
   /**
   * Méthode demandant l'ajout d'un livre au panier
   * @param livre livre à ajouter au panier
   */
-  public ajouterAuPanier(livre: Livre) {
+  private ajouterAuPanier(livre: Livre) {
     this.servicePanier.ajouterLivrePanier(livre, 1);
   }
 

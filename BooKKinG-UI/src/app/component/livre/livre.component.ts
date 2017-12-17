@@ -22,8 +22,7 @@ export class LivreComponent implements OnInit, OnDestroy {
 
   private nbLivre = 1;
 
-  constructor(private route: ActivatedRoute, private service: LivreService, private servicePanier: PanierService) {
-  }
+  constructor(private route: ActivatedRoute, private service: LivreService, private servicePanier: PanierService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {

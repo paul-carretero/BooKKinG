@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.transaction.Transactional;
 
 import cart.entity.CartDetailEntity;
+import command.dataItf.CmdGetJsonItf;
 import command.dataItf.CommandJsonItf;
 import command.dataItf.CommandListJsonItf;
 import command.dataItf.CommandReqJsonItf;
@@ -52,6 +53,7 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 		response.setDate(command.getDate());
 		response.setIdCmd(command.getIdCmd());
 		response.setShippingCost(command.getShippingCost());
+		response.setInvoiceAddress(command.getUser().getName() + " - " + command.getAddress());
 		response.setShippingAddress(command.getAddress());
 		for(CmdDetailEntity cmdDetail : command.getCmdDetails()) {
 			if(showStock) {
@@ -108,6 +110,21 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	public void getCommands(final int idUser, final CommandListJsonItf response) {
 		final UserEntItf u = this.user.getUser(idUser);
 		for(CommandEntity command : u.getCommands()) {
+			CommandJsonItf cmdJson = response.prepareNewEntry(command.getDate(),command.getIdCmd(), command.getShippingCost(), command.getAddress());
+			for(CmdDetailEntity cmdDetail : command.getCmdDetails()) {
+				cmdJson.addCmdEntry(cmdDetail.getBook(), cmdDetail.getPrice(), cmdDetail.getQuantity());
+			}
+		}
+	}
+	
+	@Override
+	public void getCommands(final CmdGetJsonItf data, final CommandListJsonItf response) {
+		 final List<CommandEntity> cmdList = this.manager.createQuery("FROM CommandEntity where date BETWEEN :start AND :end")
+				.setParameter("start", data.getStart())
+				.setParameter("end", data.getEnd())
+				.getResultList();
+		 
+		for(CommandEntity command : cmdList) {
 			CommandJsonItf cmdJson = response.prepareNewEntry(command.getDate(),command.getIdCmd(), command.getShippingCost(), command.getAddress());
 			for(CmdDetailEntity cmdDetail : command.getCmdDetails()) {
 				cmdJson.addCmdEntry(cmdDetail.getBook(), cmdDetail.getPrice(), cmdDetail.getQuantity());

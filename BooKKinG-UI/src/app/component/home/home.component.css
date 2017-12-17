@@ -1,8 +1,10 @@
 .carousel-wrapper {
     margin-top: 1em;
+    margin-bottom: 1em;
 }
 
-.nav-tabs {
+
+/*.nav-tabs {
     font-weight: bold;
 }
 
@@ -14,4 +16,143 @@
 
 .nav-tabs li:not(.active) a:hover {
     background-color: rgba(255, 255, 255, 0.7);
+}*/
+
+.book-wrapper {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 5px 20px;
+}
+
+.home-header {
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 0.5em;
+    text-align: center;
+    margin-top: 1em;
+}
+
+.home-header h1 {
+    text-decoration: underline;
+}
+
+.text-container,
+.image-container {
+    height: 27em;
+}
+
+
+/***** image-container *****/
+
+.image-container .helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.image-container .main-picture {
+    width: 100%;
+    height: auto;
+}
+
+
+/****** text-container *****/
+
+.text-container * {
+    margin: 0;
+}
+
+.text-container {
+    margin: 0;
+    border: 10px double #009999;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.text-container header {
+    min-height: 25%;
+    text-decoration: underline;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.text-container footer {
+    height: 10%;
+}
+
+.text-container section.info {
+    text-align: justify;
+    padding-left: 1em;
+    height: 15%;
+    border-bottom: 1px dotted #009999;
+    font-weight: bold;
+}
+
+.text-container footer button {
+    height: 100%;
+    width: 80%;
+    margin: auto;
+    display: block;
+}
+
+.text-container section.summary {
+    height: calc(50% - 1em);
+    text-align: justify;
+    margin-top: 1em;
+}
+
+
+/****** RIBBON *******/
+
+.ribbon {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    z-index: 1;
+    overflow: hidden;
+    width: 150px;
+    height: 150px;
+    text-align: right;
+}
+
+.ribbon span {
+    font-size: 15px;
+    font-weight: bold;
+    color: #FFF;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 40px;
+    transform: rotate(45deg);
+    width: 200px;
+    display: block;
+    background: #79A70A;
+    background: linear-gradient(#C90404 0%, #590606 100%);
+    box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+    position: absolute;
+    top: 38px;
+    right: -42px;
+}
+
+.ribbon span::before {
+    content: "";
+    position: absolute;
+    left: 0px;
+    top: 100%;
+    z-index: -1;
+    border-left: 3px solid #590606;
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #590606;
+}
+
+.ribbon span::after {
+    content: "";
+    position: absolute;
+    right: 0px;
+    top: 100%;
+    z-index: -1;
+    border-left: 3px solid transparent;
+    border-right: 3px solid #590606;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #590606;
 }

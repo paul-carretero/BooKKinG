@@ -62,6 +62,7 @@ export const appRoutes: Routes = [
   { path: 'admin', component: AdministrationComponent },
   { path: 'compte', component: CompteClientComponent },
   { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'livre/:id', component: LivreComponent }
 ];
 

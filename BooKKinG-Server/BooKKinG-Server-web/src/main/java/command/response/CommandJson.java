@@ -30,10 +30,13 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 	private List<CartItemJson> 	items;
 	
 	@SuppressWarnings("unused")
-	private int 			shippingCost;
+	private int 				shippingCost;
 	
 	@SuppressWarnings("unused")
 	private String				shippingAddress;
+	
+	@SuppressWarnings("unused")
+	private String				invoiceAddress;
 
 	public CommandJson() {
 		super();
@@ -70,6 +73,11 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 	public void setShippingAddress(final String shippingAddress) {
 		this.shippingAddress = shippingAddress;
 	}
+	
+	@Override
+	public void setInvoiceAddress(final String invoiceAddress) {
+		this.invoiceAddress = invoiceAddress;
+	}
 
 	/**
 	 * @param aBook
@@ -80,6 +88,7 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 	public void addCmdEntry(BookEntItf aBook,Float price, int quantity) {
 		BookJson b = new BookJson(aBook);
 		b.setPrice(price);
+		b.simplify();
 		this.books.add(b);
 		this.items.add(new CartItemJson(aBook.getIdBook(), quantity));
 	}
@@ -94,6 +103,7 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 		BookJson b = new BookJson(aBook);
 		b.setPrice(price);
 		b.setStock(0);
+		b.simplify();
 		if(isInStock) {
 			b.setStock(100000);
 		}

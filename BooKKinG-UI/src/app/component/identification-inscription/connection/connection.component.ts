@@ -11,6 +11,7 @@ import { Globals } from '../../../globals';
 import { AchatService } from '../../../service/achat.service';
 import { NotifService } from '../../../service/notif.service';
 import { NavigationService } from '../../../service/navigation.service';
+import { HistoriquePagesService } from '../../../service/historique-pages.service';
 
 @Component({
   selector: 'app-connection',
@@ -39,7 +40,8 @@ export class ConnectionComponent implements OnInit {
   * @param service permet d'accéder aux services du composant ConnectionService
   */
   constructor(private routeur: Router, private service: ConnectionService, private fb: FormBuilder,
-    private achatService: AchatService, private notifService: NotifService, private navService: NavigationService) {
+    private achatService: AchatService, private notifService: NotifService, private navService: NavigationService,
+    private histoNav: HistoriquePagesService) {
     this.connexionForm = fb.group({
       email: ['', Validators.email],
       password: ['', Validators.required],
@@ -58,6 +60,20 @@ export class ConnectionComponent implements OnInit {
     this.serverResponseClass = 'bg-danger';
   }
 
+  private returnPrevPage(): void {
+    if (this.histoNav.canGoBack()) {
+      const navPage = this.histoNav.navPagePrecedente();
+      if (navPage) {
+        if (navPage.livre) {
+          this.routeur.navigate([Globals.getRoute(Globals.LIVRE), navPage.livre.idBook]);
+        } else {
+          console.log(JSON.stringify(navPage));
+          this.routeur.navigate([Globals.getRoute(navPage.other)]);
+        }
+      }
+    }
+  }
+
   /**
   * Fonction appelée lors de la demande de connexion par l'utilisateur, par le biai du formulaire de connection
   */
@@ -72,12 +88,12 @@ export class ConnectionComponent implements OnInit {
         if (connected.success) {
           this.notifService.getSubject().next('vous vous êtes connecté avec succès!');
           this.serverResponse = '';
+
           if (this.achatService.getTransactionState()) {
             this.navService.setCurrentOther(Globals.LIVRAISON);
             this.routeur.navigate([Globals.getRoute(Globals.LIVRAISON)]);
           } else {
-            this.navService.setCurrentOther(Globals.COMPTE);
-            this.routeur.navigate([Globals.getRoute(Globals.COMPTE)]);
+            this.returnPrevPage();
           }
         } else {
           this.serverResponseClass = 'bg-danger';

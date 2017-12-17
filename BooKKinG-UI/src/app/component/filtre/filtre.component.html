@@ -25,14 +25,12 @@
         <div class="col-md-12 menu-container">
             <div class="list-group">
                 <ng-container *ngFor="let genre of genres;">
-                    <span (click)="setCurrentGenre(genre)">
-                    <a *ngIf="genre === currentGenre;else defaultTemplate" routerLink="/menu-recherche" class="list-group-item list-group-item-blue active">
+                    <a *ngIf="genre === currentGenre;else defaultTemplate" (click)="setCurrentGenre(genre)" class="list-group-item list-group-item-blue active">
                         {{displayableGenre(genre)}}
                     </a>
                     <ng-template #defaultTemplate>
-                        <a routerLink="/menu-recherche" class="list-group-item list-group-item-blue">{{displayableGenre(genre)}}</a>
+                        <a (click)="setCurrentGenre(genre)" class="list-group-item list-group-item-blue">{{displayableGenre(genre)}}</a>
                     </ng-template>
-        </span>
                 </ng-container>
             </div>
         </div>

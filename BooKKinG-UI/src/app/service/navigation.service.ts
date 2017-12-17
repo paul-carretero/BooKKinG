@@ -82,6 +82,7 @@ export class NavigationService {
   public setCurrentOther(newOther: string): void {
     this.reset();
     this.current.other = newOther;
+    console.log(this.current.other);
     this.defNewNavData();
   }
 
