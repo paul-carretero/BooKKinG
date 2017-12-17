@@ -119,6 +119,7 @@ export class AchatService {
     reponse.subscribe(
       res => {
         if (res.success) {
+          console.log("commande enregistée :" + JSON.stringify(res));
           this.servicePanier.viderPanier();
           this.commandeCourante = res;
           this.notifService.getSubject().next('Votre commande #' + this.commandeCourante.idCmd + ' a bien été prise en compte!');

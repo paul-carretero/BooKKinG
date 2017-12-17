@@ -1,7 +1,21 @@
 <h3>
   Page d'administration
 </h3>
+<div *ngIf="!adminStatus" class="wrapper">
+  <app-connexion-admin></app-connexion-admin>
+</div>
 
+<div *ngIf="adminStatus" class="wrapper">
+
+  <app-administration-commandes></app-administration-commandes>
+  <app-administration-livres></app-administration-livres>
+
+</div>
+
+
+
+
+<!--
 <div [hidden] = "clientConnecte">
   Vous devez vous être connecté en tant qu'administrateur !
 </div>
@@ -44,3 +58,4 @@
   
 
 </div>
+-->

@@ -43,6 +43,9 @@ import { HeaderStandardComponent } from './component/header/header-standard/head
 import { InscriptionComponent } from './component/identification-inscription/inscription/inscription.component';
 import { ConnectionComponent } from './component/identification-inscription/connection/connection.component';
 import { NotifComponent } from './component/ariane/notif/notif.component';
+import { ConnexionAdminComponent } from './component/administration/connexion-admin/connexion-admin.component';
+import { AdministrationLivresComponent } from './component/administration/administration-livres/administration-livres.component';
+import { AdministrationCommandesComponent } from './component/administration/administration-commandes/administration-commandes.component';
 
 
 
@@ -94,6 +97,9 @@ export const appRoutes: Routes = [
     ReturnButtonComponent,
     HeaderStandardComponent,
     NotifComponent,
+    ConnexionAdminComponent,
+    AdministrationLivresComponent,
+    AdministrationCommandesComponent,
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   // modules que l'application va utiliser

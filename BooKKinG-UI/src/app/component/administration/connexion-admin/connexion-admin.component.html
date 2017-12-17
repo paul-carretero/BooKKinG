@@ -1,0 +1,24 @@
+<div class="wrapper">
+  <header>Veuillez vous connecter en tant qu'administrateur</header>
+  <form (ngSubmit)="connexion()" [formGroup]="connexionForm">
+      <div class="{{serverResponseClass}}" [hidden]="serverResponse === '' || serverResponse === null">
+          <fa name="exclamation-circle "></fa>{{serverResponse}}
+      </div>
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" formControlName="email" id="email" #email ngModel>
+      <!-- Balise ne s'activant que si l'email renseigné n'est pas valide -->
+      <span [hidden]="connexionForm.get('email').valid || !connexionForm.get('email').touched" class="text-danger">
+        Vous devez entrer une adresse email valide.<br/>
+      </span>
+      <br/>
+      <label for="password">Mot de passe:</label>
+      <input formControlName="password" type="password" class="form-control" id="password" #password ngModel>
+      <!-- Balise ne s'activant que si le mot de passe renseigné n'est pas valide -->
+      <span [hidden]="connexionForm.get('password').valid || !connexionForm.get('password').touched" class="text-danger">
+        Vous devez entrer un mot de passe !<br/>
+      </span>
+      <br/>
+      <button class="btn btn-block btn-success" type="submit" [disabled]="!connexionForm.valid">Se connecter</button>
+      <button type="button" (click)="initResetPassword()" class="btn btn-link btn-block btn-sm">mot de passe oublié ?</button>
+  </form>
+</div>
