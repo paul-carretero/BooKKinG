@@ -20,11 +20,13 @@ export class AdministrationService {
   }
 
   public récupérerAllLivres(): void {
+    console.log("dans récupérer all livre");
     const conn = this.http.get(this.urlLivre + '/ALL', Globals.HTTP_OPTIONS).map(res => res.json());
     conn.subscribe(
       reponse => {
         if (reponse.success) {
           this.allLivres = reponse.books;
+          console.log("" + JSON.stringify(reponse) );
         } else {
           this.allLivres = [];
           console.log(reponse.message);

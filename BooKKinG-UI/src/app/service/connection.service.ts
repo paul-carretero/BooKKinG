@@ -20,6 +20,8 @@ export class ConnectionService {
 
   private currentClient: Client = null;
 
+  private passwordCurrentClient: string = null;
+
   private isConnected: boolean;
 
   private panierService: PanierService;
@@ -56,10 +58,19 @@ export class ConnectionService {
     return this.currentClient;
   }
 
+  public getPanierService() : PanierService{
+    return this.panierService;
+  }
+
+  public setPanierService(panierService : PanierService) : void{
+    this.panierService = panierService;
+  }
+
   public panierServiceRegister(panierService: PanierService): void {
     this.panierService = panierService;
   }
 
+  
 
   // ------------------------------------------------ Servlet  Login ---------------------------------------------------------
 
@@ -74,6 +85,7 @@ export class ConnectionService {
       connected => {
         if (connected.success) {
           this.isConnected = true;
+          this.passwordCurrentClient = client.password;
           this.recuperationInformationsClient();
         } else {
           this.isConnected = false;
@@ -113,6 +125,7 @@ export class ConnectionService {
       client => {
         if (client.success) {
           this.currentClient = client;
+          this.currentClient.password = this.passwordCurrentClient;
           this.panierService.synchroServer();
         } else {
           console.log(client.message);
