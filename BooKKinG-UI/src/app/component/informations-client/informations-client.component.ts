@@ -47,7 +47,7 @@ export class InformationsClientComponent implements OnInit {
     }
 
     if (this.clientModifie.address === '') {
-      this.validAddress = false;      
+      this.validAddress = false;
     } else {
       this.validAddress = true;
     }
@@ -77,12 +77,13 @@ export class InformationsClientComponent implements OnInit {
         this.client.password = this.clientModifie.password;
 
         // mise à jour du client dans la base de donnée
-        this.serviceConnection.modifierClient(this.client).subscribe(
+        const conn = this.serviceConnection.modifierClient(this.client).subscribe(
           reponse => {
             console.log('modification des données du client : ' + reponse.success);
             if (!reponse.success) {
               // TODO retour visuel
             }
+            conn.unsubscribe();
           }
         );
         this.modifiaction = false;

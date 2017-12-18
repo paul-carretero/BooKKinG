@@ -11,7 +11,7 @@
 <div class="carousel-wrapper">
     <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-10">
+        <div class="col-md-10" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
             <div class="row book-wrapper">
                 <div class="ribbon">
                     <span>{{currentOption}}</span>
@@ -31,7 +31,7 @@
                     </footer>
                 </div>
                 <div class="col-md-6 image-container">
-                    <span class="helper"></span><img alt="{{currentBook.title}}" class="main-picture" src="data:image/jpeg;base64,{{currentBook.picture}}" />
+                    <span class="helper"></span><img alt="{{currentBook.title}}" class="main-picture fallback" src="data:image/jpeg;base64,{{currentBook.picture}}" />
                 </div>
             </div>
         </div>

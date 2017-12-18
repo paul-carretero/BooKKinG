@@ -8,10 +8,6 @@
     color: white;
 }
 
-.clickable {
-    cursor: pointer;
-}
-
 tfoot {
     border-top: 3px solid black;
 }

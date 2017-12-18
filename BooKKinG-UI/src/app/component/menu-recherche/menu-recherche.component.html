@@ -2,8 +2,8 @@
 <div *ngFor="let livre of listeLivres;">
     <div class="bs-calltoaction bs-calltoaction-success">
         <div class="row">
-            <div class="col-md-2" (click)="detailLivre(livre)" tooltip="Voir les détails du livre">
-                <img class="vignette" alt="{{livre.title}}" src="data:image/jpeg;base64,{{livre.picture}}" />
+            <div class="col-md-2 clickable" (click)="detailLivre(livre)" tooltip="Voir les détails du livre">
+                <img class="vignette fallback" alt="{{livre.title}}" src="data:image/jpeg;base64,{{livre.picture}}" />
             </div>
             <div class="col-md-10">
                 <div class="row">
@@ -17,7 +17,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-8">
-                        <div (click)="detailLivre(livre)" tooltip="Voir les détails du livre">{{getSummarizedSummary(livre)}}</div>
+                        <div class="clickable" (click)="detailLivre(livre)" tooltip="Voir les détails du livre">{{getSummarizedSummary(livre)}}</div>
                     </div>
                     <div class="col-md-4">
                         <input type="button" (click)="ajouterAuPanier(livre)" value="Ajouter au panier" class="btn btn-block btn-success">

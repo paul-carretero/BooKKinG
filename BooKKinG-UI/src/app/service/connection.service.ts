@@ -5,6 +5,8 @@ import { Client } from '../model/client';
 import { Globals } from '../globals';
 import { PanierService } from './panier.service';
 import { NotifService } from './notif.service';
+import { Subject } from 'rxjs/Subject';
+import { Reponse } from '../model/reponse';
 
 /**
  * Service dédié à la connection d'un utilisateur
@@ -33,13 +35,12 @@ export class ConnectionService {
   }
 
   private initConnexion(): void {
-    const conn = this.http.get(this.urlConnection, { withCredentials: true }).map(res => res.json());
-    conn.subscribe(
+    this.http.get(this.urlConnection, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       connected => {
         if (connected.success) {
           this.isConnected = true;
           this.recuperationInformationsClient();
-          this.notifService.getSubject().next('Content de vous revoir, Votre session a été restauré.');
+          this.notifService.publish('Content de vous revoir, Votre session a été restauré.');
         } else {
           this.isConnected = false;
         }
@@ -67,9 +68,9 @@ export class ConnectionService {
    * Retourne le client enregistré dans la base de donnée (au format JSON)
    * @param client informations sur le client qui demande à être connecté
    */
-  public connection(client: Client): Observable<any> {
-    const conn = this.http.put(this.urlConnection, client, { withCredentials: true }).map(res => res.json());
-    conn.subscribe(
+  public connection(client: Client): Observable<Reponse> {
+    const subj = new Subject<Reponse>();
+    this.http.put(this.urlConnection, client, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       connected => {
         if (connected.success) {
           this.isConnected = true;
@@ -77,16 +78,17 @@ export class ConnectionService {
         } else {
           this.isConnected = false;
         }
+        subj.next(connected);
       }
     );
-    return conn;
+    return subj.asObservable();
   }
 
   public deconnexion(): void {
     this.currentClient = new Client();
     this.isConnected = false;
-    this.notifService.getSubject().next('Au revoir, et à bientôt sur BooKKinG');
-    this.http.delete(this.urlConnection, { withCredentials: true }).map(res => res.json()).subscribe(
+    this.notifService.publish('Au revoir, et à bientôt sur BooKKinG');
+    this.http.delete(this.urlConnection, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       res => {
         if (res.success) {
           this.panierService.viderPanier();
@@ -97,8 +99,8 @@ export class ConnectionService {
     );
   }
 
-  public reinitialiserMotDePasse(email: string): Observable<any> {
-    return this.http.post(this.urlConnection, { email: email }, { withCredentials: true }).map(res => res.json());
+  public reinitialiserMotDePasse(email: string): Observable<Reponse> {
+    return this.http.post(this.urlConnection, { email: email }, Globals.HTTP_OPTIONS).map(res => res.json());
   }
 
   // ------------------------------------------------ Servlet  User ----------------------------------------------------------
@@ -107,9 +109,7 @@ export class ConnectionService {
    * on retourne le client récupéré (Format JSON)
    */
   public recuperationInformationsClient(): void {
-    const conn: Observable<Client> = this.http.get(this.urlUser, { withCredentials: true }).map(res => res.json());
-    // l'utilisateur est connecté
-    conn.subscribe(
+    this.http.get(this.urlUser, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       client => {
         if (client.success) {
           this.currentClient = client;
@@ -121,21 +121,34 @@ export class ConnectionService {
     );
   }
 
-  public creationClient(client: Client): Observable<any> {
-    return this.http.post(this.urlUser, client, { withCredentials: true }).map(res => res.json());
+  public creationClient(client: Client): Observable<Reponse> {
+    const subj = new Subject<Reponse>();
+    this.http.post(this.urlUser, client, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
+      reponse => {
+        if (reponse.success) {
+          this.isConnected = true;
+          this.currentClient = client;
+        } else {
+          this.isConnected = false;
+        }
+        subj.next(reponse);
+      }
+    );
+    return subj.asObservable();
   }
 
-  public modifierClient(client: Client): Observable<any> {
-    const conn = this.http.put(this.urlUser, client, { withCredentials: true }).map(res => res.json());
-    conn.subscribe(
+  public modifierClient(client: Client): Observable<Reponse> {
+    const subj = new Subject<Reponse>();
+    this.http.put(this.urlUser, client, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       reponse => {
         if (reponse.success) {
           this.currentClient = client;
         } else {
           alert(reponse.message);
         }
+        subj.next(reponse);
       }
     );
-    return conn;
+    return subj.asObservable();
   }
 }

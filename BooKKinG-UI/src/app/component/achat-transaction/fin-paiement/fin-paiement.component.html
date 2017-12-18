@@ -3,13 +3,13 @@
     <table class="table table-hover table-responsive-md">
         <thead class="thead-dark">
             <tr>
-                <th colspan="5">Détail de votre Commande n° {{idCommand}}, livrée à : {{Address}} :</th>
+                <th colspan="4">Détail de votre Commande n° {{idCommand}}:</th>
             </tr>
             <tr>
                 <th scope="col">
                     Livre
                 </th>
-                <th scope="col">
+                <th class="width-stock-cmp" scope="col">
                     En Stock?
                 </th>
                 <th scope="col">
@@ -53,12 +53,12 @@
         <div class="row ">
             <div class="col-md-2 "></div>
             <div class="col-md-9 ">
-                <div (click)="setCurrentOther('HOME')" class="row choice ">
+                <div (click)="navigate('HOME')" class="row choice ">
                     <div class="col-md-4 ">
                         <fa class="fa-big " name="home "></fa>
                     </div>
                     <div class="col-md-6 center ">
-                        <span class="align-middle ">Retour à l'accueil</span>
+                        <span class="align-middle big-button">Retour à l'accueil</span>
                     </div>
                     <div class=" col-md-2 ">
                         <fa class="fa-big " name="caret-right "></fa>
@@ -70,12 +70,12 @@
         <div class="row ">
             <div class="col-md-2 "></div>
             <div class="col-md-9 ">
-                <div (click)="setCurrentOther('COMPTE')" class="row choice ">
+                <div (click)="navigate('COMPTE')" class="row choice ">
                     <div class="col-md-4 ">
                         <fa class="fa-big " name="user "></fa>
                     </div>
                     <div class="col-md-6 center ">
-                        <span class="align-middle ">Visualiser mes commandes</span>
+                        <span class="align-middle big-button">Visualiser mes commandes</span>
                     </div>
                     <div class=" col-md-2 ">
                         <fa class="fa-big " name="caret-right "></fa>

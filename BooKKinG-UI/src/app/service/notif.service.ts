@@ -14,4 +14,8 @@ export class NotifService {
     return this.event;
   }
 
+  public publish(str?: string): void {
+    this.event.next(str);
+  }
+
 }

@@ -13,8 +13,6 @@ export class LivreService {
 
   private currentLivre: Livre;
 
-  private allLivres:Livre[];
-
   constructor(private http: Http, private cache: LRUCacheService, private navigationService: NavigationService) {
     this.currentLivre = new Livre();
   }
@@ -37,9 +35,8 @@ export class LivreService {
     }
   }
 
-  public rechercherLivre(idBook: number): Observable<Livre> {
-    const conn = this.http.get(this.urlLivre + '/' + idBook + '/', { withCredentials: true }).map(res => res.json());
-    conn.subscribe(
+  public rechercherLivre(idBook: number): void {
+    this.http.get(this.urlLivre + '/' + idBook + '/', Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       reponse => {
         if (reponse.success) {
           this.currentLivre = reponse;
@@ -49,74 +46,5 @@ export class LivreService {
         }
       }
     );
-    return conn;
   }
-
-
-  
-  public récupérerAllLivres(): Observable<Livre[]>{
-    const conn = this.http.get(this.urlLivre + '/ALL', { withCredentials: true }).map(res => res.json());
-    conn.subscribe(
-      reponse => {
-        if (reponse.success) {          
-          this.allLivres = reponse.books;
-        } else {
-          console.log(reponse.message);
-        }
-      }
-    );
-    return conn;
-  }
-
-  public getAllLivres() : Livre[]{
-    return this.allLivres;
-  }
-
-  public ajouterNouveauLivre(livre: Livre): Observable<Livre> {
-    livre.idBook = 0;
-    const conn = this.http.post(this.urlLivre, livre ,{ withCredentials: true }).map(res => res.json());
-    conn.subscribe(
-      reponse => {
-        if (reponse.success) {
-          console.log("retour de ajouter nouveau livre" + JSON.stringify(reponse));
-        } else {
-          console.log("réponse serveur : " + reponse.message);
-        }
-      }
-    );
-    return conn;
-  }
-
-  public modifierStockLivre(livre: Livre): Observable<Livre> {
-    console.log("livre service modifier stock livre");
-    const conn = this.http.post(this.urlLivre, livre ,{ withCredentials: true }).map(res => res.json());
-    conn.subscribe(
-      reponse => {
-        if (reponse.success) {
-          console.log("retour de modifier stock nouveau livre" + JSON.stringify(reponse));
-        } else {
-          console.log("réponse serveur : " + reponse.message);
-        }
-      }
-    );
-    return conn;
-  }
-
-  public setQuantity(idBook: number, quantity: number) {
-    console.log("livre service setQuantity , idBook");
-    let i = 0;
-    let set = false;
-
-    while (!set && i < this.allLivres.length) {
-      if (idBook === this.allLivres[i].idBook) {
-        this.allLivres[i].stock = quantity;
-        set = true;
-        this.modifierStockLivre(this.allLivres[i]);
-      }
-      i++;
-    }
-  }
-
-  
-  
 }

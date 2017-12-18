@@ -2,7 +2,6 @@ import { Globals } from './../globals';
 import { NavigationData } from './../model/navigation-data';
 import { Injectable } from '@angular/core';
 import { NavigationService } from './navigation.service';
-import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -25,7 +24,6 @@ export class HistoriquePagesService {
         if (this.histoPages.length > HistoriquePagesService.MAX_HISTORY) {
           this.histoPages.shift();
         }
-        console.log(JSON.stringify(current));
         this.histoPages.push(this.cloneNavData(current));
         this.count++;
       }
@@ -52,9 +50,9 @@ export class HistoriquePagesService {
     let pagePrec: NavigationData = this.histoPages.pop();
     while (this.histoPages.length > 0 && (c.equals(pagePrec) || Globals.transactionPage.includes(pagePrec.other))) {
       pagePrec = this.histoPages.pop();
+      this.count--;
     }
     this.navServ.setCurrent(pagePrec);
-    this.count--;
     this.count--;
     this.count = Math.max(0, this.count);
     return pagePrec;

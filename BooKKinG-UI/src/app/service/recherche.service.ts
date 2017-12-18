@@ -36,6 +36,12 @@ export class RechercheService {
       && this.currentRecherche.page === newNavData.nPage;
   }
 
+  private isEmpty(): boolean {
+    return (this.currentRecherche.anySearch == null || this.currentRecherche.anySearch === '')
+      && (this.currentRecherche.type == null || this.currentRecherche.type === 'ANY')
+      && (this.currentRecherche.genre == null || this.currentRecherche.genre === 'ANY');
+  }
+
   private newRechercheFromNavData(navData: NavigationData): void {
     if (navData.other === Globals.RECHERCHE && navData.livre == null) {
       this.currentRecherche.anySearch = navData.search;
@@ -64,23 +70,25 @@ export class RechercheService {
     return this.http.put(this.urlLivre, recherche, { withCredentials: true }).map(res => res.json());
   }
 
-  private refresh() {
-    if (this.cache.includes(this.currentRecherche)) {
-      this.currentLivreList = this.cache.get(this.currentRecherche);
-    } else {
-      this.notifService.getSubject().next('SEARCH');
-      this.currentLivreList = new ReponseRecherche();
-      this.rechercherEnsembleLivre(this.currentRecherche).subscribe(
-        reponse => {
-          if (reponse.success) {
-            this.currentLivreList = reponse;
-            this.cache.put(this.currentRecherche, this.currentLivreList);
-            this.notifService.getSubject().next();
-          } else {
-            console.log(reponse.message);
+  private refresh(): void {
+    if (!this.isEmpty()) {
+      if (this.cache.includes(this.currentRecherche)) {
+        this.currentLivreList = this.cache.get(this.currentRecherche);
+      } else {
+        this.notifService.publish('SEARCH');
+        this.currentLivreList = new ReponseRecherche();
+        this.rechercherEnsembleLivre(this.currentRecherche).subscribe(
+          reponse => {
+            if (reponse.success) {
+              this.currentLivreList = reponse;
+              this.cache.put(this.currentRecherche, this.currentLivreList);
+              this.notifService.publish();
+            } else {
+              console.log(reponse.message);
+            }
           }
-        }
-      );
+        );
+      }
     }
   }
 

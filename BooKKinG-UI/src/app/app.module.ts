@@ -13,6 +13,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LRUCacheService } from './service/lrucache.service';
 import { InitService } from './service/init.service';
 import { NotifService } from './service/notif.service';
+import { Ng4FilesModule } from 'angular4-files-upload';
 
 import { AppComponent } from './app.component';
 import { PanierComponent } from './component/panier/panier.component';
@@ -45,6 +46,7 @@ import { ConnectionComponent } from './component/identification-inscription/conn
 import { NotifComponent } from './component/ariane/notif/notif.component';
 import { AdministrationLivresComponent } from './component/administration/administration-livres/administration-livres.component';
 import { AdministrationCommandesComponent } from './component/administration/administration-commandes/administration-commandes.component';
+import { AdministrationStockComponent } from './component/administration/administration-stock/administration-stock.component';
 
 
 
@@ -98,6 +100,7 @@ export const appRoutes: Routes = [
     NotifComponent,
     AdministrationLivresComponent,
     AdministrationCommandesComponent,
+    AdministrationStockComponent
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   // modules que l'application va utiliser
@@ -109,7 +112,8 @@ export const appRoutes: Routes = [
     HttpModule,
     AngularFontAwesomeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Ng4FilesModule,
   ],
   // fournisseur de services dans l'application
   providers: [

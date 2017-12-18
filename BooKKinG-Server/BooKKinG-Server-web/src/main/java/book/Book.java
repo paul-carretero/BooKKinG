@@ -63,7 +63,7 @@ public class Book extends HttpServlet {
 			}
 		}
 		else if(stringReq.equals("ALL")) {
-			if(HttpHelper.checkAdmin(this.userBean,request,response)) {
+			if(HttpHelper.checkAuth(request, response) && HttpHelper.checkAdmin(this.userBean,request,response)) {
 				BookListJsonItf res = new BookListJson();
 				this.bookBean.getAllBooks(res);
 				response.getWriter().append(res.toString());

@@ -67,7 +67,6 @@ export class ConnectionComponent implements OnInit {
         if (navPage.livre) {
           this.routeur.navigate([Globals.getRoute(Globals.LIVRE), navPage.livre.idBook]);
         } else {
-          console.log(JSON.stringify(navPage));
           this.routeur.navigate([Globals.getRoute(navPage.other)]);
         }
       }
@@ -83,12 +82,11 @@ export class ConnectionComponent implements OnInit {
     connClient.email = this.connexionForm.value.email;
 
     // partie fonctionnelle avec le serveur
-    this.service.connection(connClient).subscribe(
+    const conn = this.service.connection(connClient).subscribe(
       connected => {
         if (connected.success) {
-          this.notifService.getSubject().next('vous vous êtes connecté avec succès!');
+          this.notifService.publish('vous vous êtes connecté avec succès!');
           this.serverResponse = '';
-
           if (this.achatService.getTransactionState()) {
             this.navService.setCurrentOther(Globals.LIVRAISON);
             this.routeur.navigate([Globals.getRoute(Globals.LIVRAISON)]);
@@ -99,6 +97,7 @@ export class ConnectionComponent implements OnInit {
           this.serverResponseClass = 'bg-danger';
           this.serverResponse = connected.message;
         }
+        conn.unsubscribe();
       }
     );
   }

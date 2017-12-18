@@ -7,9 +7,13 @@
         <ul id="nav">
             <ng-container *ngFor="let type of typeLivres;">
                 <ng-container *ngIf="type !== 'ANY'">
-                    <li *ngIf="type === currentType;else defaultheader" (click)="setCurrentType(type)"><a class="current">{{displayableType(type)}}</a></li>
+                    <li *ngIf="type === currentType;else defaultheader" (click)="setCurrentType(type)">
+                        <a class="current">{{getDisplayable(type)}}</a>
+                    </li>
                     <ng-template #defaultheader>
-                        <li (click)="setCurrentType(type)"><a>{{displayableType(type)}}</a></li>
+                        <li (click)="setCurrentType(type)">
+                            <a>{{getDisplayable(type)}}</a>
+                        </li>
                     </ng-template>
                 </ng-container>
             </ng-container>

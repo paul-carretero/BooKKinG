@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Livre } from '../model/livre';
 import { Globals } from '../globals';
-import { ResponsePanier } from '../model/response-panier';
 import { SimpleArticle } from '../model/simple-article';
 import { Item } from '../model/item';
 import { Article } from '../model/article';
@@ -76,7 +75,7 @@ export class PanierService {
       this.contenuPanier[i] = { book: livre, quantity: quantity, idBook: livre.idBook };
       this.tryUpdateItemOnServer(livre.idBook, quantity);
     }
-    this.notifService.getSubject().next('Le livre ' + livre.title + ' a été ajouté à votre panier');
+    this.notifService.publish('Le livre ' + livre.title + ' a été ajouté à votre panier');
   }
 
   public setQuantity(idBook: number, quantity: number) {
@@ -111,19 +110,12 @@ export class PanierService {
       const articleSimple: SimpleArticle = new SimpleArticle();
       articleSimple.idBook = idBook;
       articleSimple.quantity = quantity;
-      this.miseAJourQuantiteLivre(articleSimple).subscribe(
-        reponse => {
-          if (!reponse.success) {
-            console.log(reponse);
-          }
-        }
-      );
+      this.miseAJourQuantiteLivre(articleSimple);
     }
   }
 
-  public recupererPanier(): Observable<ResponsePanier> {
-    const panier = this.http.get(this.urlPanier, { withCredentials: true }).map(res => res.json());
-    panier.subscribe(
+  public recupererPanier(): void {
+    this.http.get(this.urlPanier, { withCredentials: true }).map(res => res.json()).subscribe(
       reponse => {
         if (reponse.success) {
           this.contenuPanier = reponse.items;
@@ -132,15 +124,11 @@ export class PanierService {
         }
       }
     );
-    return panier;
-
   }
 
   public enregistrerPanierEntier(): void {
-    console.log('dans enregistrer panier entier');
     const enregistrementPanier = this.simplePanier(this.contenuPanier);
-    const panier = this.http.post(this.urlPanier, enregistrementPanier, { withCredentials: true }).map(res => res.json());
-    panier.subscribe(
+    this.http.post(this.urlPanier, enregistrementPanier, { withCredentials: true }).map(res => res.json()).subscribe(
       res => {
         if (!res.success) {
           console.log(res.message);
@@ -149,18 +137,21 @@ export class PanierService {
     );
   }
 
-  public miseAJourQuantiteLivre(updatedArticle: SimpleArticle): Observable<ResponsePanier> {
-    const panier = this.http.put(this.urlPanier, updatedArticle, { withCredentials: true })
-      .map(res => res.json());
-    return panier;
+  public miseAJourQuantiteLivre(updatedArticle: SimpleArticle): void {
+    this.http.put(this.urlPanier, updatedArticle, { withCredentials: true }).map(res => res.json()).subscribe(
+      reponse => {
+        if (!reponse.success) {
+          console.log(reponse.message);
+        }
+      }
+    );
   }
 
 
-  public viderPanier(): Observable<ResponsePanier> {
+  public viderPanier(): void {
     this.contenuPanier = [];
-    const panier = this.http.delete(this.urlPanier, { withCredentials: true }).map(res => res.json());
     if (this.connectionService.getConnectionStatus()) {
-      panier.subscribe(
+      this.http.delete(this.urlPanier, { withCredentials: true }).map(res => res.json()).subscribe(
         reponse => {
           if (!reponse.success) {
             alert(reponse.message);
@@ -168,12 +159,10 @@ export class PanierService {
         }
       );
     }
-    return panier;
   }
 
   public simplePanier(contenuPanier: Article[]): Item {
     const panier: Item = new Item();
-    console.log('dans la mise en forme du contenu du panier');
     let i = 0;
     contenuPanier.forEach(
       article => {

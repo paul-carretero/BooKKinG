@@ -16,6 +16,9 @@
         </div>
     </div>
     <footer class="footer">
+        <a *ngIf="isAdmin" class="admin-link" (click)="goToAdmin()">
+            <fa name="lock"></fa> Administration
+        </a>
         <div class="container">
             <a href="http://bookking.ovh">
                 <fa name="globe "></fa>www.bookking.ovh</a> |

@@ -1,4 +1,4 @@
-<div *ngIf="observableEvent | async; let res" class="bg-success">
+<div *ngIf="observableEvent | async; let res" class="bg-success {{override}}">
     <ng-constainer *ngIf="res === 'SEARCH'">
         <fa name="spinner" animation="spin"></fa>Chargement de la recherche...
     </ng-constainer>

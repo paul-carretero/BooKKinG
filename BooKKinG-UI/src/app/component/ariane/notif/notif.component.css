@@ -4,3 +4,12 @@
     padding: 0.5em;
     border-radius: 5px;
 }
+
+.override {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    z-index: 1000;
+    max-width: 1170px;
+    margin-left: -585px;
+}

@@ -15,11 +15,11 @@ import { AchatService } from '../../service/achat.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private achatService: AchatService) { }
+  constructor(private achatService: AchatService, private connectionService: ConnectionService) { }
 
   ngOnInit() { }
 
   get isInTransaction(): boolean {
-    return this.achatService.getTransactionState();
+    return this.achatService.getTransactionState() && this.connectionService.getConnectionStatus();
   }
 }
