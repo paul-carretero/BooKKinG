@@ -15,8 +15,8 @@ public class CmdDetailId  implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + book;
-		result = prime * result + command;
+		result = prime * result + this.book;
+		result = prime * result + this.command;
 		return result;
 	}
 	@Override
@@ -28,9 +28,9 @@ public class CmdDetailId  implements Serializable{
 		if (!(obj instanceof CmdDetailId))
 			return false;
 		CmdDetailId other = (CmdDetailId) obj;
-		if (book != other.book)
+		if (this.book != other.book)
 			return false;
-		if (command != other.command)
+		if (this.command != other.command)
 			return false;
 		return true;
 	}

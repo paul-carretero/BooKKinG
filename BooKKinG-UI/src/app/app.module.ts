@@ -13,6 +13,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LRUCacheService } from './service/lrucache.service';
 import { InitService } from './service/init.service';
 import { NotifService } from './service/notif.service';
+import { Ng4FilesModule } from 'angular4-files-upload';
 
 import { AppComponent } from './app.component';
 import { PanierComponent } from './component/panier/panier.component';
@@ -111,7 +112,8 @@ export const appRoutes: Routes = [
     HttpModule,
     AngularFontAwesomeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Ng4FilesModule
   ],
   // fournisseur de services dans l'application
   providers: [

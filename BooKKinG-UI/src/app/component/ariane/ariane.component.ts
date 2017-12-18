@@ -5,15 +5,18 @@ import { HeaderComponent } from '../header/header.component';
 import { FiltreComponent } from '../filtre/filtre.component';
 import { NavigationService } from '../../service/navigation.service';
 import { Router } from '@angular/router';
+import { AbstractComponent } from '../abstract-component';
 
 @Component({
   selector: 'app-ariane',
   templateUrl: './ariane.component.html',
   styleUrls: ['./ariane.component.css']
 })
-export class ArianeComponent implements OnInit {
+export class ArianeComponent extends AbstractComponent implements OnInit {
 
-  constructor(private navigationService: NavigationService, private router: Router) { }
+  constructor(public navigationService: NavigationService, public router: Router) {
+    super(router, navigationService);
+  }
 
   ngOnInit() { }
 
@@ -26,11 +29,11 @@ export class ArianeComponent implements OnInit {
   }
 
   get currentEnd(): string {
-    return this.navigationService.getCurrentOther();
-  }
-
-  get shoudlDisplayEnd(): boolean {
-    return true;
+    const currentEnd = this.navigationService.getCurrentOther();
+    if (currentEnd === Globals.LIVRE) {
+      return this.navigationService.getCurrentLivreTitle();
+    }
+    return currentEnd;
   }
 
   private onClickType(): void {
@@ -41,14 +44,5 @@ export class ArianeComponent implements OnInit {
   private onClickGenre(): void {
     this.navigationService.setCurrentGenre(this.genreName);
     this.router.navigate([Globals.getRoute(Globals.RECHERCHE)]);
-  }
-
-  private onClickHome(): void {
-    this.navigationService.setCurrentOther(Globals.HOME);
-    this.router.navigate([Globals.getRoute(Globals.HOME)]);
-  }
-
-  private getDisplayable(str: string): string {
-    return Globals.getDisplayableName(str);
   }
 }

@@ -89,10 +89,15 @@ export class Globals {
       ['BIOGRAPHIE', 'Biographie'],
       ['PHILOSOPHIE', 'Philosophie'],
 
-      ['LOGIN', 'Se Connecter'],
-      ['COMPTE', 'Mon Compte'],
-      ['HOME', 'Accueil'],
-      ['PANIER', 'Panier'],
+      [Globals.LOGIN, 'Se Connecter'],
+      [Globals.COMPTE, 'Mon Compte'],
+      [Globals.HOME, 'Accueil'],
+      [Globals.PANIER, 'Panier'],
+      [Globals.ADMIN, 'Administration'],
+      [Globals.PAYER, 'Paiement'],
+      [Globals.FIN_PAIEMENT, 'Confirmation de commande'],
+      [Globals.LIVRAISON, 'Choix du mode de livraison'],
+      [Globals.RECHERCHE, 'Résultats de la recherche'],
     ]
   );
 

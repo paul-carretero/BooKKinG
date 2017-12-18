@@ -3,7 +3,6 @@ import { Livre } from '../../model/livre';
 import { ActivatedRoute } from '@angular/router';
 import { LivreService } from './../../service/livre.service';
 import { PanierService } from '../../service/panier.service';
-import { NavigationService } from '../../service/navigation.service';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { TooltipDirective } from 'ng2-tooltip-directive/components';

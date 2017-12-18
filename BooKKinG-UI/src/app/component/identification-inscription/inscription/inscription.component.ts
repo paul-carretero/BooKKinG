@@ -10,20 +10,22 @@ import { NotifService } from '../../../service/notif.service';
 import { AchatService } from '../../../service/achat.service';
 import { NavigationService } from '../../../service/navigation.service';
 import { Globals } from '../../../globals';
+import { AbstractComponent } from '../../abstract-component';
 
 @Component({
   selector: 'app-inscription',
   templateUrl: './inscription.component.html',
   styleUrls: ['./inscription.component.css']
 })
-export class InscriptionComponent implements OnInit {
+export class InscriptionComponent extends AbstractComponent implements OnInit {
 
   private serverResponse: string;
 
   private inscriptionForm: FormGroup;
 
-  constructor(private routeur: Router, private service: ConnectionService, private fb: FormBuilder,
-    private achatService: AchatService, private notifService: NotifService, private navService: NavigationService) {
+  constructor(public router: Router, private service: ConnectionService, private fb: FormBuilder,
+    private achatService: AchatService, private notifService: NotifService, public navigationService: NavigationService) {
+    super(router, navigationService);
     this.inscriptionForm = fb.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
@@ -42,20 +44,20 @@ export class InscriptionComponent implements OnInit {
     connClient.email = this.inscriptionForm.value.email;
     connClient.address = this.inscriptionForm.value.address;
     connClient.password = this.inscriptionForm.value.password;
-    this.service.creationClient(connClient).subscribe(
+
+    const conn = this.service.creationClient(connClient).subscribe(
       response => {
         if (response.success) {
           this.notifService.publish('vous vous êtes enregistré avec succès!');
           if (this.achatService.getTransactionState()) {
-            this.navService.setCurrentOther(Globals.LIVRAISON);
-            this.routeur.navigate([Globals.getRoute(Globals.LIVRAISON)]);
+            this.navigate(Globals.LIVRAISON);
           } else {
-            this.navService.setCurrentOther(Globals.COMPTE);
-            this.routeur.navigate([Globals.getRoute(Globals.COMPTE)]);
+            this.navigate(Globals.COMPTE);
           }
         } else {
           this.serverResponse = response.message;
         }
+        conn.unsubscribe();
       }
     );
   }

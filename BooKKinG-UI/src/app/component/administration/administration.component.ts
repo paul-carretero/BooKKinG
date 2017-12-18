@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConnectionService } from '../../service/connection.service';
 import { NotifService } from '../../service/notif.service';
 import { Globals } from '../../globals';
+import { Ng4FilesStatus, Ng4FilesSelected } from 'angular4-files-upload';
 
 @Component({
   selector: 'app-administration',
@@ -30,6 +31,7 @@ export class AdministrationComponent implements OnInit {
       this.navigationService.setCurrentOther(Globals.LOGIN);
       this.router.navigate([Globals.getRoute(Globals.LOGIN)]);
     }*/
+    this.navigationService.setCurrentOther(Globals.ADMIN);
   }
 
   private isActiveClass(i: number): string {

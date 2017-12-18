@@ -25,12 +25,14 @@
         <div class="col-md-12 menu-container">
             <div class="list-group">
                 <ng-container *ngFor="let genre of genres;">
-                    <a *ngIf="genre === currentGenre;else defaultTemplate" (click)="setCurrentGenre(genre)" class="list-group-item list-group-item-blue active">
-                        {{displayableGenre(genre)}}
-                    </a>
-                    <ng-template #defaultTemplate>
-                        <a (click)="setCurrentGenre(genre)" class="list-group-item list-group-item-blue">{{displayableGenre(genre)}}</a>
-                    </ng-template>
+                    <ng-container *ngIf="(genre !== 'ANY') || (genre === 'ANY' && canDisplayAny)">
+                        <a *ngIf="genre === currentGenre;else defaultTemplate" (click)="setCurrentGenre(genre)" class="list-group-item list-group-item-blue active">
+                            {{getDisplayable(genre)}}
+                        </a>
+                        <ng-template #defaultTemplate>
+                            <a (click)="setCurrentGenre(genre)" class="list-group-item list-group-item-blue">{{getDisplayable(genre)}}</a>
+                        </ng-template>
+                    </ng-container>
                 </ng-container>
             </div>
         </div>
@@ -43,7 +45,7 @@
             Annuler la commande
         </div>
         <div class="col-md-12 menu-container button-container">
-            <button (click)="cancel()" class="btn btn-warning btn-block"><fa name="times"></fa>Annuler</button>
+            <button (click)="navigate('PANIER')" class="btn btn-warning btn-block"><fa name="times"></fa>Annuler</button>
         </div>
     </div>
 </ng-container>

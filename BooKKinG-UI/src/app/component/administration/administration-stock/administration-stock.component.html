@@ -12,7 +12,7 @@
     <tbody class="table-striped">
         <tr *ngFor=" let livre of allLivres; ">
             <td>
-                <a (click)="goToLivre(livre)">{{livre.title}}</a></td>
+                <a (click)="detailLivre(livre)">{{livre.title}}</a></td>
             <td>
                 <input type="number" min="0" (input)="setQuantity(livre, $event.target.value)" value={{livre.stock}}>
             </td>

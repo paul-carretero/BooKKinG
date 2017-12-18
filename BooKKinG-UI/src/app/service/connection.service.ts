@@ -5,6 +5,8 @@ import { Client } from '../model/client';
 import { Globals } from '../globals';
 import { PanierService } from './panier.service';
 import { NotifService } from './notif.service';
+import { Subject } from 'rxjs/Subject';
+import { Reponse } from '../model/reponse';
 
 /**
  * Service dédié à la connection d'un utilisateur
@@ -33,8 +35,7 @@ export class ConnectionService {
   }
 
   private initConnexion(): void {
-    const conn = this.http.get(this.urlConnection, Globals.HTTP_OPTIONS).map(res => res.json());
-    conn.subscribe(
+    this.http.get(this.urlConnection, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       connected => {
         if (connected.success) {
           this.isConnected = true;
@@ -67,9 +68,9 @@ export class ConnectionService {
    * Retourne le client enregistré dans la base de donnée (au format JSON)
    * @param client informations sur le client qui demande à être connecté
    */
-  public connection(client: Client): Observable<any> {
-    const conn = this.http.put(this.urlConnection, client, Globals.HTTP_OPTIONS).map(res => res.json());
-    conn.subscribe(
+  public connection(client: Client): Observable<Reponse> {
+    const subj = new Subject<Reponse>();
+    this.http.put(this.urlConnection, client, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       connected => {
         if (connected.success) {
           this.isConnected = true;
@@ -77,9 +78,10 @@ export class ConnectionService {
         } else {
           this.isConnected = false;
         }
+        subj.next(connected);
       }
     );
-    return conn;
+    return subj.asObservable();
   }
 
   public deconnexion(): void {
@@ -97,7 +99,7 @@ export class ConnectionService {
     );
   }
 
-  public reinitialiserMotDePasse(email: string): Observable<any> {
+  public reinitialiserMotDePasse(email: string): Observable<Reponse> {
     return this.http.post(this.urlConnection, { email: email }, Globals.HTTP_OPTIONS).map(res => res.json());
   }
 
@@ -107,9 +109,7 @@ export class ConnectionService {
    * on retourne le client récupéré (Format JSON)
    */
   public recuperationInformationsClient(): void {
-    const conn: Observable<Client> = this.http.get(this.urlUser, Globals.HTTP_OPTIONS).map(res => res.json());
-    // l'utilisateur est connecté
-    conn.subscribe(
+    this.http.get(this.urlUser, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       client => {
         if (client.success) {
           this.currentClient = client;
@@ -121,21 +121,34 @@ export class ConnectionService {
     );
   }
 
-  public creationClient(client: Client): Observable<any> {
-    return this.http.post(this.urlUser, client, Globals.HTTP_OPTIONS).map(res => res.json());
+  public creationClient(client: Client): Observable<Reponse> {
+    const subj = new Subject<Reponse>();
+    this.http.post(this.urlUser, client, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
+      reponse => {
+        if (reponse.success) {
+          this.isConnected = true;
+          this.currentClient = client;
+        } else {
+          this.isConnected = false;
+        }
+        subj.next(reponse);
+      }
+    );
+    return subj.asObservable();
   }
 
-  public modifierClient(client: Client): Observable<any> {
-    const conn = this.http.put(this.urlUser, client, Globals.HTTP_OPTIONS).map(res => res.json());
-    conn.subscribe(
+  public modifierClient(client: Client): Observable<Reponse> {
+    const subj = new Subject<Reponse>();
+    this.http.put(this.urlUser, client, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       reponse => {
         if (reponse.success) {
           this.currentClient = client;
         } else {
           alert(reponse.message);
         }
+        subj.next(reponse);
       }
     );
-    return conn;
+    return subj.asObservable();
   }
 }

@@ -12,3 +12,20 @@
 .label-like {
     font-weight: bold;
 }
+
+.drag-zone {
+    display: inline-block;
+    height: 100px;
+    line-height: 100px;
+    width: 100%;
+    background-color: gray;
+    font-size: 2em;
+    text-align: center;
+    border: 5px double black;
+}
+
+.drag-zone span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}

@@ -35,9 +35,8 @@ export class LivreService {
     }
   }
 
-  public rechercherLivre(idBook: number): Observable<Livre> {
-    const conn = this.http.get(this.urlLivre + '/' + idBook + '/', Globals.HTTP_OPTIONS).map(res => res.json());
-    conn.subscribe(
+  public rechercherLivre(idBook: number): void {
+    this.http.get(this.urlLivre + '/' + idBook + '/', Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       reponse => {
         if (reponse.success) {
           this.currentLivre = reponse;
@@ -47,6 +46,5 @@ export class LivreService {
         }
       }
     );
-    return conn;
   }
 }

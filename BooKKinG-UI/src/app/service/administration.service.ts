@@ -16,11 +16,7 @@ export class AdministrationService {
   constructor(private http: Http, private notifService: NotifService) { }
 
   public ajouterLivre(livre: Livre): Observable<Reponse> {
-    console.log('dans ajouter un livre');
-    console.log('livre à ajouter : ' + livre.title);
-    const reponse = this.http.post(this.urlLivre, livre, Globals.HTTP_OPTIONS)
-      .map(res => res.json());
-    return reponse;
+    return this.http.post(this.urlLivre, livre, Globals.HTTP_OPTIONS).map(res => res.json());
   }
 
   public récupérerAllLivres(): void {
@@ -44,10 +40,9 @@ export class AdministrationService {
     return this.allLivres;
   }
 
-  public ajouterNouveauLivre(livre: Livre): Observable<Livre> {
+  public ajouterNouveauLivre(livre: Livre): void {
     livre.idBook = 0;
-    const conn = this.http.post(this.urlLivre, livre, Globals.HTTP_OPTIONS).map(res => res.json());
-    conn.subscribe(
+    this.http.post(this.urlLivre, livre, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       reponse => {
         if (reponse.success) {
           this.notifService.publish('Livre ' + livre.title + ' ajouté avec succès!');
@@ -56,12 +51,10 @@ export class AdministrationService {
         }
       }
     );
-    return conn;
   }
 
   public setQuantity(idBook: number, quantity: number): void {
-    const conn = this.http.post(this.urlLivre, { idBook: idBook, stock: quantity }, Globals.HTTP_OPTIONS).map(res => res.json());
-    conn.subscribe(
+    this.http.post(this.urlLivre, { idBook: idBook, stock: quantity }, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       reponse => {
         if (!reponse.success) {
           console.log(reponse.message);

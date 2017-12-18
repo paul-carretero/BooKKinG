@@ -58,7 +58,7 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 		for(CmdDetailEntity cmdDetail : command.getCmdDetails()) {
 			if(showStock) {
 				// On a déjà retiré le stock pour la commande, on vérifie si on a plus que 0 en rajoutant le stock retiré...
-				boolean isInStock = (cmdDetail.getBook().getStock() + cmdDetail.getQuantity() >= 0);
+				boolean isInStock = (cmdDetail.getBook().getStock() >= 0);
 				response.addCmdEntry(cmdDetail.getBook(), cmdDetail.getPrice(), cmdDetail.getQuantity(), isInStock);
 			}
 			else {

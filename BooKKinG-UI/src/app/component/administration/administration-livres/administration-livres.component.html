@@ -86,5 +86,20 @@
             </span>
         </div>
     </div>
-    <button class="btn btn-block btn-success" type="submit" [disabled]="!createNewBookForm.valid">Ajouter</button>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label for="price">Image:</label>
+        </div>
+        <div class="col-md-9">
+            <ng4-files-drop (filesSelect)="filesSelect($event)">
+                <div class="drag-zone">
+                    <span>{{imgDragStatus}}</span>
+                </div>
+            </ng4-files-drop>
+        </div>
+    </div>
+
+
+    <button class="btn btn-block btn-success" type="submit" [disabled]="(!createNewBookForm.valid) || imgLoading">Ajouter</button>
 </form>

@@ -12,6 +12,7 @@ import { Globals } from '../../globals';
 import { NavigationService } from '../../service/navigation.service';
 import { RechercheService } from '../../service/recherche.service';
 import { InitService } from '../../service/init.service';
+import { AbstractComponent } from '../abstract-component';
 
 @Component({
   selector: 'app-filtre',
@@ -19,7 +20,7 @@ import { InitService } from '../../service/init.service';
   styleUrls: ['./filtre.component.css'],
 })
 
-export class FiltreComponent implements OnInit {
+export class FiltreComponent extends AbstractComponent implements OnInit {
 
   private minPrice = 0;
 
@@ -29,13 +30,14 @@ export class FiltreComponent implements OnInit {
 
   private maxMaxPrice = 100;
 
-  constructor(private router: Router, private navigationService: NavigationService,
+  constructor(public router: Router, public navigationService: NavigationService,
     private rechercheService: RechercheService, private initService: InitService,
     private serviceAchat: AchatService, private serviceConnection: ConnectionService) {
+    super(router, navigationService);
   }
 
   ngOnInit() {
-    this.initService.initConstantes().subscribe(
+    const conn = this.initService.initConstantes().subscribe(
       reponse => {
         if (reponse.success) {
           this.maxMaxPrice = reponse.max;
@@ -43,6 +45,7 @@ export class FiltreComponent implements OnInit {
           this.minPrice = reponse.min;
           this.minMinPrice = reponse.min;
         }
+        conn.unsubscribe();
       }
     );
   }
@@ -88,12 +91,12 @@ export class FiltreComponent implements OnInit {
     }
   }
 
-  get currentGenre(): string {
-    return this.navigationService.getCurrentGenre();
+  get canDisplayAny(): boolean {
+    return this.navigationService.getCurrentType() != null && this.navigationService.getCurrentType() !== 'ANY';
   }
 
-  private displayableGenre(genre: string): string {
-    return Globals.getDisplayableName(genre);
+  get currentGenre(): string {
+    return this.navigationService.getCurrentGenre();
   }
 
   private setCurrentGenre(newGenre: string): void {
@@ -109,10 +112,5 @@ export class FiltreComponent implements OnInit {
       this.rechercheService.setMinPrice(Number(tab[0]));
       this.rechercheService.setMaxPrice(Number(tab[1]));
     }
-  }
-
-  private cancel(): void {
-    this.navigationService.setCurrentOther(Globals.PANIER);
-    this.router.navigate([Globals.getRoute(Globals.PANIER)]);
   }
 }

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { Commande } from '../../../model/commande';
 import { Article } from '../../../model/article';
 import { Livre } from '../../../model/livre';
+import { AbstractComponent } from '../../abstract-component';
 
 @Component({
   selector: 'app-fin-paiement',
@@ -18,10 +19,12 @@ import { Livre } from '../../../model/livre';
 /**
  * Composant correspondant à la fin du processus de paiement
  */
-export class FinPaiementComponent implements OnInit {
+export class FinPaiementComponent extends AbstractComponent implements OnInit {
 
-  constructor(private router: Router, private serviceAchat: AchatService, private serviceConnect: ConnectionService,
-    private navigationService: NavigationService) { }
+  constructor(public router: Router, private serviceAchat: AchatService, private serviceConnect: ConnectionService,
+    public navigationService: NavigationService) {
+    super(router, navigationService);
+  }
 
   ngOnInit() {
     if (!this.serviceConnect.getConnectionStatus()) {
@@ -55,25 +58,11 @@ export class FinPaiementComponent implements OnInit {
     return this.serviceAchat.getCommandeCourante().idCmd;
   }
 
-  private get Address(){
+  private get Address() {
     return this.serviceAchat.getCommandeCourante().shippingAddress;
   }
 
-
   public getPrice(a: Article): string {
     return (a.quantity * a.book.price).toFixed(2);
-  }
-
-
-  private detailLivre(livre: Livre) {
-    this.navigationService.setFromLivre(livre);
-    this.router.navigate([Globals.getRoute(Globals.LIVRE), livre.idBook]);
-  }
-
-  private setCurrentOther(other: string): void {
-    if (Globals.otherNavPage.includes(other)) {
-      this.navigationService.setCurrentOther(other);
-      this.router.navigate([Globals.getRoute(other)]);
-    }
   }
 }

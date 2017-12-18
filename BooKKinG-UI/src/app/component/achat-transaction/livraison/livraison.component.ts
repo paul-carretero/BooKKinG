@@ -30,6 +30,7 @@ export class LivraisonComponent implements OnInit {
 
   ngOnInit() {
     if (!this.serviceConnect.getConnectionStatus() || !this.achatService.getTransactionState()) {
+      alert('plz...' + this.serviceConnect.getConnectionStatus());
       this.navigationService.setCurrentOther(Globals.HOME);
       this.router.navigate([Globals.getRoute(Globals.HOME)]);
     }

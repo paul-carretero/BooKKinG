@@ -114,14 +114,13 @@ export class AchatService {
   // public request //
 
   public enregistrerCommande(): void {
-    console.log('dans enregistrement commande');
-    const reponse = this.http.post(this.urlAchat, this.address, Globals.HTTP_OPTIONS).map(res => res.json());
-    reponse.subscribe(
+    this.http.post(this.urlAchat, this.address, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       res => {
         if (res.success) {
           this.servicePanier.viderPanier();
           this.commandeCourante = res;
           this.notifService.publish('Votre commande #' + this.commandeCourante.idCmd + ' a bien été prise en compte!');
+          console.log(JSON.stringify(res));
         } else {
           console.log(res.message);
           this.commandeCourante = new Commande();
@@ -130,14 +129,12 @@ export class AchatService {
     );
   }
 
-  public getCommandeCourante() {
+  public getCommandeCourante(): Commande {
     return this.commandeCourante;
   }
 
   public recupererCommandes(): void {
-    console.log('dans recupérer des commandes');
-    const reponse = this.http.get(this.urlAchat, Globals.HTTP_OPTIONS).map(res => res.json());
-    reponse.subscribe(
+    this.http.get(this.urlAchat, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       commandes => {
         if (commandes.success) {
           this.commandesClient = commandes.commands;

@@ -5,13 +5,14 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NavigationService } from '../../service/navigation.service';
 import { Router } from '@angular/router';
 import { Globals } from '../../globals';
+import { AbstractComponent } from '../abstract-component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent extends AbstractComponent implements OnInit, OnDestroy {
 
   private static readonly displayTime = 2000;
 
@@ -21,7 +22,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private interval: any;
 
-  constructor(private init: InitService, private navService: NavigationService, private router: Router) { }
+  constructor(private init: InitService, public router: Router, public navigationService: NavigationService) {
+    super(router, navigationService);
+  }
 
   ngOnInit() {
     this.interval = setInterval(this.next, HomeComponent.displayTime);
@@ -29,6 +32,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     clearInterval(this.interval);
+  }
+
+  private onMouseEnter(): void {
+    clearInterval(this.interval);
+  }
+
+  private onMouseLeave(): void {
+    this.interval = setInterval(this.next, HomeComponent.displayTime);
   }
 
   private setCurrent(n: number): void {
@@ -70,8 +81,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private goToBook(): void {
     if (this.currentBook) {
-      this.navService.setFromLivre(this.currentBook);
-      this.router.navigate([Globals.getRoute(Globals.LIVRE), this.currentBook.idBook]);
+      this.detailLivre(this.currentBook);
     }
   }
 

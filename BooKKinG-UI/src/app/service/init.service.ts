@@ -5,6 +5,8 @@ import { Globals } from '../globals';
 import { Init } from '../model/init';
 import { Livre } from '../model/livre';
 import { Promise } from 'q';
+import { Reponse } from '../model/reponse';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class InitService {
@@ -17,16 +19,17 @@ export class InitService {
     this.initData = new Init();
   }
 
-  public initConstantes(): Observable<any> {
-    const conn = this.http.get(this.urlInit, Globals.HTTP_OPTIONS).map(res => res.json());
-    conn.subscribe(
+  public initConstantes(): Observable<Init> {
+    const subj = new Subject<Init>();
+    this.http.get(this.urlInit, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       reponse => {
         if (reponse.success) {
           this.initData = reponse;
         }
+        subj.next(reponse);
       }
     );
-    return conn;
+    return subj;
   }
 
   public getMaxPrice(): number {

@@ -6,25 +6,24 @@ import { ConnectionService } from '../../../service/connection.service';
 import { PanierService } from '../../../service/panier.service';
 import { NavigationService } from '../../../service/navigation.service';
 import { RechercheService } from '../../../service/recherche.service';
+import { AbstractComponent } from '../../abstract-component';
 
 @Component({
   selector: 'app-header-standard',
   templateUrl: './header-standard.component.html',
   styleUrls: ['./header-standard.component.css']
 })
-export class HeaderStandardComponent implements OnInit {
+export class HeaderStandardComponent extends AbstractComponent implements OnInit {
 
   private resetOnChange = '';
 
-  constructor(private router: Router, private connectionService: ConnectionService,
-    private panierService: PanierService, private navigationService: NavigationService,
-    private rechercheService: RechercheService) { }
+  constructor(public router: Router, private connectionService: ConnectionService,
+    private panierService: PanierService, public navigationService: NavigationService,
+    private rechercheService: RechercheService) {
+    super(router, navigationService);
+  }
 
   ngOnInit(): void { }
-
-  private displayableType(type: string): string {
-    return Globals.getDisplayableName(type);
-  }
 
   private setCurrentType(type: string): void {
     this.resetOnChange = '';
@@ -38,8 +37,7 @@ export class HeaderStandardComponent implements OnInit {
   private setCurrentOther(other: string): void {
     this.resetOnChange = '';
     this.rechercheService.setCurrentSearch('');
-    this.navigationService.setCurrentOther(other);
-    this.router.navigate([Globals.getRoute(other)]);
+    this.navigate(other);
   }
 
   private search(str: string): void {
