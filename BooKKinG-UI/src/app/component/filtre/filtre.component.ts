@@ -73,6 +73,9 @@ export class FiltreComponent extends AbstractComponent implements OnInit {
     return this.serviceAchat.getCommandeCourante().shippingAddress;
   }
 
+  get nomPaiement(): string {
+    return this.serviceConnection.getCurrentUser().name;
+  }
 
   get adressePaiement(): string {
     return this.serviceConnection.getCurrentUser().address;

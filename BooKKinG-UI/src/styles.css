@@ -37,7 +37,11 @@ body {
     font-family: TranjanPro;
 }
 
-img:before {
+.clickable {
+    cursor: pointer;
+}
+
+.fallback:before {
     content: ' ';
     display: block;
     position: absolute;
@@ -46,6 +50,10 @@ img:before {
     height: 100%;
     width: 100%;
     background-image: url("/assets/fallback.gif");
+}
+
+.width-stock-cmp {
+    width: 175px;
 }
 
 
@@ -94,6 +102,10 @@ img:before {
 }
 
 .wrapper-cart .align-middle {
-    padding-top: 2em;
+    padding-top: 0.7em;
     display: inline-block;
+}
+
+.wrapper-cart .big-button {
+    font-size: 1.2em;
 }

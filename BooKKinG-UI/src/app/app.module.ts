@@ -113,7 +113,7 @@ export const appRoutes: Routes = [
     AngularFontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    Ng4FilesModule
+    Ng4FilesModule,
   ],
   // fournisseur de services dans l'application
   providers: [
