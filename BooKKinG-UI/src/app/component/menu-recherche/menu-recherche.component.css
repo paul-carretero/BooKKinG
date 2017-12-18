@@ -61,9 +61,8 @@
 }
 
 .bs-calltoaction.bs-calltoaction-success {
-    color: #fff;
-    background-color: #55A7B1;
-    border-color: #009999;
+    background-image: url("/assets/header.jpg");
+    border-color: rgba(0, 0, 0, 0.2);
 }
 
 .bs-calltoaction.bs-calltoaction-primary .cta-button .btn,
@@ -106,4 +105,11 @@
     text-align: center;
     margin: auto;
     font-size: xx-large;
+}
+
+#header_wrapper {
+    margin-top: -20px;
+    border-bottom: 1px solid black;
+    height: 180px;
+    background-image: url("/assets/header.jpg");
 }
