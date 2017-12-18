@@ -8,6 +8,8 @@ import { PanierService } from './panier.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule } from '@angular/http';
 import { NotifService } from './notif.service';
+import { ExceptionInfo } from '_debugger';
+import { Client } from '../model/client';
 
 describe('PanierService', () => {
   beforeEach(() => {
@@ -39,7 +41,8 @@ describe('PanierService', () => {
     const quantity = 1;
     service.ajouterLivrePanier(livre, quantity);
     const contenuPanier: Article[] = service.getContenuPanier();
-    const contenuAttendu: Article[] = [{ book: livre, quantity: quantity, idBook: livre.idBook }]
+    const contenuAttendu: Article[] = [
+      { book: livre, quantity: quantity, idBook: livre.idBook }];
     expect(contenuPanier).toEqual(contenuAttendu);
   }));
 
@@ -119,7 +122,7 @@ describe('PanierService', () => {
     }
     quantity = 1;
     service.ajouterLivrePanier(livre, quantity);
-    const nbLivre = service.getNumberOfItems();
+    let nbLivre= service.getNumberOfItems();
     const nbLivreAttendu = 3;
     expect(nbLivre).toEqual(nbLivreAttendu);
   }));
@@ -141,5 +144,89 @@ describe('PanierService', () => {
     const quantityAttendue = 5;
     expect(quantityLivre).toEqual(quantityAttendue);
   }));
+
+
+
+  it('vider panier', inject([PanierService], (service: PanierService) => {
+    const livre: Livre = {
+      title: 'titre', author: 'auteur',
+      genre: 'genre', summary: 'résumé',
+      idBook: 1, price: 5.6,
+      type: 'type', stock: 10
+    };
+    const quantity = 1;
+    service.ajouterLivrePanier(livre, quantity);
+    service.viderPanier();
+    const contenuPanier: Article[] = service.getContenuPanier();
+    const contenuAttendu: Article[] = [];
+    expect(contenuPanier).toEqual(contenuAttendu);
+  }));
+
+
+  it('recuperer panier', inject([PanierService, ConnectionService], (service: PanierService, serviceConnect : ConnectionService) => {
+    let livre: Livre = {
+      title: 'titre', author: 'auteur',
+      genre: 'genre', summary: 'résumé',
+      idBook: 1, price: 5,
+      type: 'type', stock: 10
+    }
+    let quantity = 2;
+    service.ajouterLivrePanier(livre, quantity);
+    let livre2 = {
+      title: 'titre', author: 'auteur',
+      genre: 'genre', summary: 'résumé',
+      idBook: 2, price: 3,
+      type: 'type', stock: 10
+    }
+    let quantity2 = 1;
+    service.ajouterLivrePanier(livre2, quantity2);
+    let client : Client = {
+      name:"", email:"toto@toto.com", admin:false,
+      address:"", password:"123" 
+    };
+    serviceConnect.creationClient(client).subscribe(c =>{
+      serviceConnect.connection(client).subscribe(co=>{
+        serviceConnect.deconnexion();
+        service.viderPanier();
+        serviceConnect.connection(client).subscribe(conn =>{
+          service.recupererPanier();
+          let contenuRecup = service.getContenuPanier();
+          const contenuAttendu : Article[] = [{ book: livre, quantity: quantity, idBook: livre.idBook }, { book: livre2, quantity: quantity2, idBook: livre2.idBook } ]
+          expect(contenuRecup).toEqual(contenuAttendu);
+        });  
+      });
+    });
+  }));
+
+
+
+  it('modifier quantité livre dans le panier enregistré', inject([PanierService, ConnectionService], 
+    (service: PanierService, serviceConnect: ConnectionService) => {
+    const livre: Livre = {
+      title: 'titre', author: 'auteur',
+      genre: 'genre', summary: 'résumé',
+      idBook: 1, price: 5,
+      type: 'type', stock: 10
+    }
+    let quantity = 2;
+    
+    let client : Client = {
+      name:"", email:"toto@toto.com", admin:false,
+      address:"", password:"123" 
+    };
+    serviceConnect.creationClient(client).subscribe(c =>{
+      serviceConnect.connection(client).subscribe(co=>{
+        service.ajouterLivrePanier(livre, quantity);
+        let quantity2 = 5;
+        service.setQuantity(livre.idBook, quantity2);
+         service.recupererPanier();
+        let contenuRecup = service.getContenuPanier();
+        const contenuAttendu : Article[] = [{ book: livre, quantity: quantity2, idBook: livre.idBook }];
+        expect(contenuRecup).toEqual(contenuAttendu);
+      });
+    });
+    
+  }));
+
 
 });

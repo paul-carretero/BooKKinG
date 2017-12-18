@@ -7,6 +7,7 @@ import { HttpModule } from '@angular/http';
 import { NavigationService } from '../../../service/navigation.service';
 import { CookieService } from 'ngx-cookie-service';
 import { LRUCacheService } from '../../../service/lrucache.service';
+import { NotifService } from '../../../service/notif.service';
 
 describe('PageComponent', () => {
   let component: PageComponent;
@@ -20,6 +21,7 @@ describe('PageComponent', () => {
         HttpModule
       ],
       providers: [
+        NotifService,
         RechercheService,
         NavigationService,
         CookieService,

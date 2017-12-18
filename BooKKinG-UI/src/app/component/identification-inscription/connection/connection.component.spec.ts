@@ -11,6 +11,8 @@ import { NavigationService } from '../../../service/navigation.service';
 import { CookieService } from 'ngx-cookie-service';
 import { PanierService } from '../../../service/panier.service';
 import { NotifService } from '../../../service/notif.service';
+import { HistoriquePagesService } from '../../../service/historique-pages.service';
+
 
 describe('ConnectionComponent', () => {
   let component: ConnectionComponent;
@@ -27,6 +29,7 @@ describe('ConnectionComponent', () => {
       ],
       providers: [
         ConnectionService,
+        HistoriquePagesService,
         AchatService,
         NavigationService,
         CookieService,

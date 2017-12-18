@@ -1,3 +1,5 @@
+import { Globals } from './../globals';
+import { NotifService } from './notif.service';
 import { LRUCacheService } from './lrucache.service';
 import { CookieService } from 'ngx-cookie-service';
 import { NavigationService } from './navigation.service';
@@ -14,7 +16,8 @@ describe('RechercheService', () => {
         RechercheService, 
         NavigationService,
         CookieService,
-        LRUCacheService
+        LRUCacheService,
+        NotifService
       ],
       imports: [ 
         RouterTestingModule,
@@ -26,4 +29,13 @@ describe('RechercheService', () => {
   it('should be created', inject([RechercheService], (service: RechercheService) => {
     expect(service).toBeTruthy();
   }));
+
+  it('current page', inject([RechercheService], (service: RechercheService) => {
+    let pageCourante = 2;
+    service.setCurrentPage(2);
+    let pageCouranteRecuperee = service.getCurrentPage();
+    expect(pageCouranteRecuperee).toEqual(pageCourante);
+  }));
+
+
 });

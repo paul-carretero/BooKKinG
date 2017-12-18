@@ -1,3 +1,4 @@
+import { NotifService } from './notif.service';
 import { TestBed, inject } from '@angular/core/testing';
 
 import { AdministrationService } from './administration.service';
@@ -7,11 +8,14 @@ import { HttpModule } from '@angular/http';
 describe('AdministrationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AdministrationService],
+      providers: [
+        AdministrationService,
+        NotifService
+      ],
       imports: [
         RouterTestingModule,
         HttpModule
-      ],
+      ]
     });
   });
 
