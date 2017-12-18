@@ -11,7 +11,7 @@ body {
 }
 
 .main {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.45);
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 21px);

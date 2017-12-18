@@ -62,7 +62,7 @@
 
 .bs-calltoaction.bs-calltoaction-success {
     color: #fff;
-    background-color: #009999;
+    background-color: #00adad;
     border-color: #009999;
 }
 
@@ -94,9 +94,18 @@
 }
 
 .type {
-    text-decoration:underline;
+    text-decoration: underline;
 }
 
 .genre {
-    text-decoration:underline;
+    text-decoration: underline;
+}
+
+.prixLivre {
+    color: #d80101;
+    text-align: center;
+    margin: auto;
+    font-size: xx-large;
+    font-weight: bold;
+    text-shadow: 1px 2px 1px #00d1d1;
 }
