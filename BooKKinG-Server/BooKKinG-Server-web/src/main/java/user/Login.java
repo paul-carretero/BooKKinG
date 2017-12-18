@@ -27,7 +27,7 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 3080122707245766248L;
 	
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/UserBean!user.bean.UserBeanLocal")
-	private UserBeanLocal userBean;
+	protected UserBeanLocal userBean;
        
 	/**
 	 * Default constructor
