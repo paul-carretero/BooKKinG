@@ -26,11 +26,11 @@ export class AdministrationComponent implements OnInit {
     private router: Router, private notifService: NotifService, private navigationService: NavigationService) { }
 
   ngOnInit() {
-    /*if ((!this.connectionService.getConnectionStatus()) || (!this.connectionService.getCurrentUser().admin)) {
+    if ((!this.connectionService.getConnectionStatus()) || (!this.connectionService.getCurrentUser().admin)) {
       this.notifService.getSubject().next('Erreur : Vous n\' êtes pas administrateur');
       this.navigationService.setCurrentOther(Globals.LOGIN);
       this.router.navigate([Globals.getRoute(Globals.LOGIN)]);
-    }*/
+    }
     this.navigationService.setCurrentOther(Globals.ADMIN);
   }
 
