@@ -1,45 +1,41 @@
-<br/>
-<div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-2">
-        <img alt="Embedded Image" class="main-picture fallback" src="data:image/jpeg;base64,{{livre.picture}}" />
-    </div>
-    <div class="col-md-5">
-        <h2 class="book-title">{{livre.title}}</h2>
-        <div>
-            <ul>
-                <li>De: <strong>{{livre.author}}</strong></li>
-                <li>Type: <strong>{{getDisplayable(livre.type)}}</strong></li>
-                <li>Genre: <strong>{{getDisplayable(livre.genre)}}</strong></li>
-            </ul>
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-3 image-wrapper">
+            <img alt="Embedded Image" class="main-picture fallback" src="data:image/jpeg;base64,{{livre.picture}}" />
         </div>
-        <div></div>
-    </div>
-    <div class="col-md-3 boite">
-        <div class="price-display">{{getTotalPrice()}} €</div>
-        <div *ngIf="nbLivre > livre.stock" class="quantity" tooltip="Veuillez noter que nous ne disposons présentement pas du stock demandé, un délai sera nécessaire" placement="top">
-            <label for="quantite">Quantité: </label>
-            <input id="quantite" type="number" (input)="setNbLivre($event.target.value)" value="{{nbLivre}}" min="1" />
+        <div class="col-md-6">
+            <h2 class="book-title">{{livre.title}}</h2>
+            <div>
+                <ul>
+                    <li>De: <strong>{{livre.author}}</strong></li>
+                    <li>Type: <strong>{{getDisplayable(livre.type)}}</strong></li>
+                    <li>Genre: <strong>{{getDisplayable(livre.genre)}}</strong></li>
+                </ul>
+            </div>
+            <div></div>
         </div>
-        <div *ngIf="nbLivre <= livre.stock" class="quantity">
-            <label for="quantite">Quantité: </label>
-            <input id="quantite" type="number" (input)="setNbLivre($event.target.value)" value="{{nbLivre}}" min="1" />
+        <div class="col-md-3 boite">
+            <div class="price-display">{{getTotalPrice()}} €</div>
+            <div *ngIf="nbLivre > livre.stock" class="quantity" tooltip="Veuillez noter que nous ne disposons présentement pas du stock demandé, un délai sera nécessaire" placement="top">
+                <label for="quantite">Quantité: </label>
+                <input id="quantite" type="number" (input)="setNbLivre($event.target.value)" value="{{nbLivre}}" min="1" />
+            </div>
+            <div *ngIf="nbLivre <= livre.stock" class="quantity">
+                <label for="quantite">Quantité: </label>
+                <input id="quantite" type="number" (input)="setNbLivre($event.target.value)" value="{{nbLivre}}" min="1" />
+            </div>
+            <div class="clear"><br/></div>
+            <app-stock [stock]="livre.stock"></app-stock>
+            <input type="button" (click)="ajouterAuPanier(livre)" value="Ajouter au panier" class="btn btn-block btn-success add-to-cart">
         </div>
-        <div class="clear"><br/></div>
-        <app-stock [stock]="livre.stock"></app-stock>
-        <input type="button" (click)="ajouterAuPanier(livre)" value="Ajouter au panier" class="btn btn-block btn-success add-to-cart">
     </div>
-    <div class="col-md-1"></div>
+    <br/>
+    <div class="row">
+        <div class="col-md-12 boite">
+            <h2>Description</h2>
+            <p class="summary">
+                {{livre.summary}}
+            </p>
+        </div>
+    </div>
 </div>
-<br/>
-<div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-10 boite">
-        <h2>Description</h2>
-        <p class="summary">
-            {{livre.summary}}
-        </p>
-    </div>
-    <div class="col-md-1"></div>
-</div>
-<br/>

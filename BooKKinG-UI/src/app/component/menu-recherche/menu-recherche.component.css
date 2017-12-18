@@ -2,75 +2,14 @@
     position: relative;
     width: auto;
     padding: 15px 25px;
-    border: 1px solid black;
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
 }
 
-.bs-calltoaction>.row {
-    display: table;
-    width: calc(100% + 30px);
-}
-
-.bs-calltoaction>.row>[class^="col-"],
-.bs-calltoaction>.row>[class*=" col-"] {
-    float: none;
-    display: table-cell;
-    vertical-align: middle;
-}
-
-.cta-contents {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.cta-title {
-    margin: 0 auto 15px;
-    padding: 0;
-}
-
-.cta-desc {
-    padding: 0;
-}
-
-.cta-desc p:last-child {
-    margin-bottom: 0;
-}
-
-.cta-button {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-@media (max-width: 991px) {
-    .bs-calltoaction>.row {
-        display: block;
-        width: auto;
-    }
-    .bs-calltoaction>.row>[class^="col-"],
-    .bs-calltoaction>.row>[class*=" col-"] {
-        float: none;
-        display: block;
-        vertical-align: middle;
-        position: relative;
-    }
-    .cta-contents {
-        text-align: center;
-    }
-}
-
 .bs-calltoaction.bs-calltoaction-success {
     background-image: url("/assets/header.jpg");
-    border-color: rgba(0, 0, 0, 0.2);
-}
-
-.bs-calltoaction.bs-calltoaction-primary .cta-button .btn,
-.bs-calltoaction.bs-calltoaction-info .cta-button .btn,
-.bs-calltoaction.bs-calltoaction-success .cta-button .btn,
-.bs-calltoaction.bs-calltoaction-warning .cta-button .btn,
-.bs-calltoaction.bs-calltoaction-danger .cta-button .btn {
-    border-color: #fff;
+    border: 1px double rgba(0, 0, 0, 0.2);
 }
 
 .vignette {
@@ -78,24 +17,7 @@
     width: 100%;
 }
 
-.not-really-a-button {
-    margin-bottom: 1em;
-}
-
-.not-really-a-button:hover {
-    background-color: #d9534f;
-    border-color: #d43f3a;
-    cursor: default;
-}
-
-.not-really-a-button:active {
-    box-shadow: none;
-}
-
-.type {
-    text-decoration: underline;
-}
-
+.type,
 .genre {
     text-decoration: underline;
 }
@@ -105,11 +27,4 @@
     text-align: center;
     margin: auto;
     font-size: xx-large;
-}
-
-#header_wrapper {
-    margin-top: -20px;
-    border-bottom: 1px solid black;
-    height: 180px;
-    background-image: url("/assets/header.jpg");
 }
