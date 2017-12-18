@@ -3,7 +3,6 @@ import { Livre } from '../../model/livre';
 import { ActivatedRoute } from '@angular/router';
 import { LivreService } from './../../service/livre.service';
 import { PanierService } from '../../service/panier.service';
-import { NavigationService } from '../../service/navigation.service';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { TooltipDirective } from 'ng2-tooltip-directive/components';
@@ -22,8 +21,7 @@ export class LivreComponent implements OnInit, OnDestroy {
 
   private nbLivre = 1;
 
-  constructor(private route: ActivatedRoute, private service: LivreService, private servicePanier: PanierService) {
-  }
+  constructor(private route: ActivatedRoute, private service: LivreService, private servicePanier: PanierService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {

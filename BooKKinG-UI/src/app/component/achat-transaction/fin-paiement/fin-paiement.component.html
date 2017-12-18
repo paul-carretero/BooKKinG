@@ -3,16 +3,13 @@
     <table class="table table-hover table-responsive-md">
         <thead class="thead-dark">
             <tr>
-                <th colspan="5">Détail de votre Commande n° {{idCommand}} :</th>
+                <th colspan="4">Détail de votre Commande n° {{idCommand}}:</th>
             </tr>
             <tr>
-                <th class="td-image" scope="col">
-
-                </th>
                 <th scope="col">
                     Livre
                 </th>
-                <th scope="col">
+                <th class="width-stock-cmp" scope="col">
                     En Stock?
                 </th>
                 <th scope="col">
@@ -25,9 +22,6 @@
         </thead>
         <tbody class="table-striped">
             <tr *ngFor=" let article of currentArticles; ">
-                <td class="td-image clickable" (click)="detailLivre(article.book) ">
-
-                </td>
                 <td class="clickable" (click)="detailLivre(article.book)">
                     {{article.book.title}} <br/> {{article.book.type}} de {{article.book.author}}
                 </td>
@@ -43,14 +37,14 @@
             </tr>
         </tbody>
         <tfoot>
-            <tr>
-                <td colspan=3></td>
-                <td>Frais de Livraison</td>
+            <tr class="liv-line">
+                <td></td>
+                <td colspan=2>Frais de Livraison</td>
                 <td>{{shippingCost}} €</td>
             </tr>
-            <tr>
-                <td colspan=3></td>
-                <td>Total</td>
+            <tr class="tot-line">
+                <td></td>
+                <td colspan=2>Total</td>
                 <td>{{totalPrice}} €</td>
             </tr>
         </tfoot>
@@ -59,12 +53,12 @@
         <div class="row ">
             <div class="col-md-2 "></div>
             <div class="col-md-9 ">
-                <div (click)="setCurrentOther('HOME')" class="row choice ">
+                <div (click)="navigate('HOME')" class="row choice ">
                     <div class="col-md-4 ">
                         <fa class="fa-big " name="home "></fa>
                     </div>
                     <div class="col-md-6 center ">
-                        <span class="align-middle ">Retour à l'accueil</span>
+                        <span class="align-middle big-button">Retour à l'accueil</span>
                     </div>
                     <div class=" col-md-2 ">
                         <fa class="fa-big " name="caret-right "></fa>
@@ -76,12 +70,12 @@
         <div class="row ">
             <div class="col-md-2 "></div>
             <div class="col-md-9 ">
-                <div (click)="setCurrentOther('COMPTE')" class="row choice ">
+                <div (click)="navigate('COMPTE')" class="row choice ">
                     <div class="col-md-4 ">
                         <fa class="fa-big " name="user "></fa>
                     </div>
                     <div class="col-md-6 center ">
-                        <span class="align-middle ">Visualiser mes commandes</span>
+                        <span class="align-middle big-button">Visualiser mes commandes</span>
                     </div>
                     <div class=" col-md-2 ">
                         <fa class="fa-big " name="caret-right "></fa>

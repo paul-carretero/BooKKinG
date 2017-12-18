@@ -1,27 +1,27 @@
 <app-page></app-page>
 <div *ngFor="let livre of listeLivres;">
-    <div class="bs-calltoaction bs-calltoaction-success" >
+    <div class="bs-calltoaction bs-calltoaction-success">
         <div class="row">
-            <div class="col-md-2" (click) = "detailLivre(livre)" tooltip="Voir les détails du livre">
-                <img class="vignette" alt="{{livre.title}}" src="data:image/png;base64,{{livre.picture}}" />
+            <div class="col-md-2 clickable" (click)="detailLivre(livre)" tooltip="Voir les détails du livre">
+                <img class="vignette fallback" alt="{{livre.title}}" src="data:image/jpeg;base64,{{livre.picture}}" />
             </div>
             <div class="col-md-10">
                 <div class="row">
                     <div class="col-md-8">
-                        <span class="titre" > <strong>{{livre.title}}</strong></span>
+                        <span class="titre"> <strong class="book-title" >{{livre.title}}</strong></span>
                         <div><span class="type">{{getDisplayable(livre.type)}} </span> - <span class="genre"> {{getDisplayable(livre.genre)}}</span></div>
                     </div>
                     <div class="col-md-4">
                         <span class="btn btn-block btn-danger not-really-a-button">{{livre.price.toFixed(2)}} €</span>
                     </div>
                 </div>
-                <div class="row" >
+                <div class="row">
                     <div class="col-md-8">
-                        <div (click) = "detailLivre(livre)" tooltip="Voir les détails du livre">{{getSummarizedSummary(livre)}}</div>
+                        <div class="clickable" (click)="detailLivre(livre)" tooltip="Voir les détails du livre">{{getSummarizedSummary(livre)}}</div>
                     </div>
                     <div class="col-md-4">
                         <input type="button" (click)="ajouterAuPanier(livre)" value="Ajouter au panier" class="btn btn-block btn-success">
-                        <input type="button" routerLink="/livre/{{livre.idBook}}" value="Voir les Détails" class="btn btn-block btn-success">
+                        <input type="button" (click)="detailLivre(livre)" value="Voir les Détails" class="btn btn-block btn-success">
                     </div>
                 </div>
             </div>

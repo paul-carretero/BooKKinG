@@ -1,0 +1,31 @@
+.row {
+    margin: auto;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-bottom: 1px solid white;
+    width: 95%;
+}
+
+.label-like {
+    font-weight: bold;
+}
+
+.drag-zone {
+    display: inline-block;
+    height: 100px;
+    line-height: 100px;
+    width: 100%;
+    background-color: gray;
+    font-size: 2em;
+    text-align: center;
+    border: 5px double black;
+}
+
+.drag-zone span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}

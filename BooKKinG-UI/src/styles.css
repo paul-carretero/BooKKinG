@@ -1,3 +1,8 @@
+@font-face {
+    font-family: TranjanPro;
+    src: url(assets/TrajanPro.ttf);
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -26,6 +31,29 @@ body {
     height: 30px;
     background-color: rgba(255, 255, 255, 0.3);
     border-top: 1px solid black;
+}
+
+.book-title {
+    font-family: TranjanPro;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.fallback:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: 0;
+    min-height: 100px;
+    height: 100%;
+    width: 100%;
+    background-image: url("/assets/fallback.gif");
+}
+
+.width-stock-cmp {
+    width: 175px;
 }
 
 
@@ -74,6 +102,10 @@ body {
 }
 
 .wrapper-cart .align-middle {
-    padding-top: 2em;
+    padding-top: 0.7em;
     display: inline-block;
+}
+
+.wrapper-cart .big-button {
+    font-size: 1.2em;
 }

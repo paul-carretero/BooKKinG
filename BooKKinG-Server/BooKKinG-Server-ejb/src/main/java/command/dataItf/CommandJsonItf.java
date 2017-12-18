@@ -17,4 +17,6 @@ public interface CommandJsonItf extends GenericResponseJsonItf {
 
 	public void setShippingAddress(String shippingAddress);
 
+	public void setInvoiceAddress(String invoiceAddress);
+
 }

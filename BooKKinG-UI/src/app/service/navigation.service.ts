@@ -95,6 +95,7 @@ export class NavigationService {
     this.current.type = newLivre.type;
     this.current.genre = newLivre.genre;
     this.current.other = Globals.LIVRE;
+    this.current.livre = newLivre;
     this.defNewNavData();
   }
 

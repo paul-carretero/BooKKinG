@@ -78,4 +78,18 @@ public class BookJson extends GenericResponseJson implements BookJsonItf {
 	public void setStock(final int i) {
 		this.stock = i;
 	}
+	
+	@Override
+	public BookJson simplify() {
+		this.summary = "";
+		this.picture = "";
+		return this;
+	}
+
+	@Override
+	public void setField(int idBook, String title, int stock) {
+		this.idBook	= idBook;
+		this.title 	= title;
+		this.stock 	= stock;
+	}
 }

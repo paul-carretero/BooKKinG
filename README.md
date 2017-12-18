@@ -10,6 +10,7 @@ Installation des dépendances
 > - `npm install ngx-cookie --save`
 > - `npm install ngx-cookie-service --save`
 > - `npm i ng2-tooltip-directive`
+> - `npm i --save angular4-files-upload`
 
 BooKKinG-Server
 ==============
@@ -60,6 +61,15 @@ Liste des Json acceptés par l'API en entrée (client -> server):
 > > - `idBook` id du livre du panier
 > > - `quantity` quantité du livre ayant l'id spécifié dans le panier
 > > - `isInStock` true si l'article est en stock, faux sinon.
+
+-------
+> **CommandGetJson:**<a id="CommandGetJson"></a>
+> Précise des dates entre lesquelle recherche des commandes
+> 
+> - **Exemple:** `{"start":"2017-12-01","end":"2017-12-30"}`
+> - **Paramètres** :
+> > - `start` date (incluse) à partir de laquelle rechercher
+> > - `end` date (incluse) à partir de laquelle arréter la recherche
 
 -------
 > **CartJson:** <a id="CartJson"></a>
@@ -181,7 +191,10 @@ Liste des Json retourné par l'API en sortie (server -> client):
 > > - `date` date de la commande
 > > - `idCmd` id de la commande
 > > - `books` tableau de [BookJson](#BookJson)
-> > - `item` tableau de [CartItemJson](#CartItemJson)
+> > - `items` tableau de [CartItemJson](#CartItemJson)
+> > - `shippingCost` cout de livraison
+> > - `shippingAddress` addresse de livraison
+> > - `invoiceAddress` nom + addresse de facturation
 > > - `success` true
 > > - `message` unused
 
@@ -345,5 +358,13 @@ Liste des Json retourné par l'API en sortie (server -> client):
 > 
 > - **paramètre** : [CommandReqJson](#CommandReqJson)
 > - **retourne** : [GenericResponseJson](#GenericResponseJson)
+
+---------
+
+> **PUT:**
+> En tant qu'administrateur, permet de récupérer la liste des commandes entre les dates spécifiés
+> 
+> - **paramètre** : [CommandGetJson](#CommandGetJson)
+> - **retourne** : [CommandListJson](#CommandListJson)
 
 ---------

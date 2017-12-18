@@ -1,8 +1,40 @@
+<header class="home-header">
+    <h1>
+        Bienvenu sur BooKKinG!
+    </h1>
+    <p>
+        Regarder nos offre de livre ci-dessous ou explorez les catégories de notre site!
+    </p>
+</header>
+
+
 <div class="carousel-wrapper">
-    <ul class="nav nav-tabs nav-justified">
-        <ng-container *ngFor="let option of options; let i = index">
-            <li role="presentation" class="{{isActiveClass(i)}}"><a (click)="setCurrent(i)">{{option}}</a></li>
-        </ng-container>
-    </ul>
-    {{currentBook.title}}
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+            <div class="row book-wrapper">
+                <div class="ribbon">
+                    <span>{{currentOption}}</span>
+                </div>
+                <div class="col-md-6 text-container box">
+                    <header class="book-title">
+                        {{currentBook.title}}
+                    </header>
+                    <section class="info">
+                        <fa name="info"></fa>{{currentBook.type}} ({{currentBook.genre}}) de {{currentBook.author}}
+                    </section>
+                    <section class="summary">
+                        {{getSummarizedSummary()}}
+                    </section>
+                    <footer>
+                        <button (click)="goToBook()" type="button" class="btn btn-success">Voir cette offre!</button>
+                    </footer>
+                </div>
+                <div class="col-md-6 image-container">
+                    <span class="helper"></span><img alt="{{currentBook.title}}" class="main-picture fallback" src="data:image/jpeg;base64,{{currentBook.picture}}" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
 </div>

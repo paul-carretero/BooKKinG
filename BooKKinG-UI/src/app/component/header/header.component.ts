@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuRechercheComponent } from '../menu-recherche/menu-recherche.component';
 import { Globals } from '../../globals';
-import { RouterLink, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ConnectionService } from '../../service/connection.service';
 import { PanierService } from '../../service/panier.service';
 import { NavigationService } from '../../service/navigation.service';
@@ -15,11 +15,11 @@ import { AchatService } from '../../service/achat.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private achatService: AchatService) { }
+  constructor(private achatService: AchatService, private connectionService: ConnectionService) { }
 
   ngOnInit() { }
 
   get isInTransaction(): boolean {
-    return this.achatService.getTransactionState();
+    return this.achatService.getTransactionState() && this.connectionService.getConnectionStatus();
   }
 }

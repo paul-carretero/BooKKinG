@@ -1,0 +1,49 @@
+<header>Commandes Clients</header>
+<form (ngSubmit)="rechercherCommandes()" [formGroup]="datesForm">
+  De: <input type="date" name="dStart"  formControlName="dStart" id="dStart" #dStart ngModel>
+  À:  <input type="date" name="dEnd"  formControlName="dEnd" id="dEnd" #dEnd ngModel>
+  <button type="submit">Rechercher</button>
+</form> 
+
+
+
+<table>
+  <thead>
+    <tr>
+        <th scope="col">
+            Numréro commande 
+        </th>
+        <th scope="col">
+            Date
+        </th>
+        <th scope="col">
+          Nombre livres
+        </th>
+        <th scope="col">
+         Prix Livraison
+        </th>
+        <th scope="col">
+          Montant Total
+        </th>
+    </tr>
+</thead>
+<tbody class="table-striped">
+  <tr *ngFor=" let commande of allCommandes; ">
+    <td>
+        {{commande.idCmd}}
+    </td>
+    <td>
+        {{commande.date}}
+    </td>
+    <td>
+        {{nombreLivre(commande)}}
+    </td>
+    <td>
+        {{commande.shippingCost}}
+    </td>
+    <td>
+        {{montantTotal(commande)}}
+    </td>
+  </tr>
+</tbody>
+</table>

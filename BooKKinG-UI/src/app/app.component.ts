@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Globals } from './globals';
 import { RouterModule } from '@angular/router/src/router_module';
 import { Router } from '@angular/router';
-import { NavigationService } from './service/navigation.service';
+import { ConnectionService } from './service/connection.service';
 
 @Component({
   selector: 'app-root',
@@ -10,16 +10,17 @@ import { NavigationService } from './service/navigation.service';
   styleUrls: ['./app.component.css'],
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   private readonly title = 'BooKKinG';
 
-  constructor(private router: Router, private navService: NavigationService) { }
+  constructor(private connService: ConnectionService, private router: Router) { }
 
-  ngOnInit(): void {
-    if (this.router.url === '/') {
-      this.navService.setCurrentOther(Globals.HOME);
-      this.router.navigate([Globals.getRoute(Globals.HOME)]);
-    }
+  get isAdmin(): boolean {
+    return this.connService.getCurrentUser().admin;
+  }
+
+  private goToAdmin(): void {
+    this.router.navigate([Globals.getRoute(Globals.ADMIN)]);
   }
 }

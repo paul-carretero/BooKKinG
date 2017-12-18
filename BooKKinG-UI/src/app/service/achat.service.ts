@@ -23,6 +23,8 @@ export class AchatService {
 
   private commandesClient: Commande[];
 
+  private allCommandes: Commande[];
+
   private commandeCourante: Commande = null;
 
   constructor(private http: Http, private navService: NavigationService,
@@ -103,6 +105,29 @@ export class AchatService {
     return this.commandesClient;
   }
 
+  public getAllCommandes(): Commande[]{
+    return this.allCommandes;
+  }
+
+  public récupérerAllCommandes(dStart:string, dEnd:string){
+    console.log('dans récupérer all commandes');
+    //let dateSet = {start:"2017-12-01",end:"2017-12-30"}
+    let dateSet = {start:dStart,end:dEnd}
+    const reponse = this.http.put(this.urlAchat, dateSet ,{ withCredentials: true }).map(res => res.json());
+    reponse.subscribe(
+      res => {
+        if (res.success) {
+          console.log("commandes récupérées :" + JSON.stringify(res));
+          this.allCommandes = res.commands;
+        } else {
+          console.log(res.message);
+        }
+      }
+    );
+
+
+  }
+
   public calculMontantDesCommandes() {
     this.commandesClient.forEach(
       commande => {
@@ -114,14 +139,13 @@ export class AchatService {
   // public request //
 
   public enregistrerCommande(): void {
-    console.log('dans enregistrement commande');
-    const reponse = this.http.post(this.urlAchat, this.address, { withCredentials: true }).map(res => res.json());
-    reponse.subscribe(
+    this.http.post(this.urlAchat, this.address, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       res => {
         if (res.success) {
           this.servicePanier.viderPanier();
           this.commandeCourante = res;
-          this.notifService.getSubject().next('Votre commande #' + this.commandeCourante.idCmd + ' a bien été prise en compte!');
+          this.notifService.publish('Votre commande #' + this.commandeCourante.idCmd + ' a bien été prise en compte!');
+          console.log(JSON.stringify(res));
         } else {
           console.log(res.message);
           this.commandeCourante = new Commande();
@@ -130,14 +154,12 @@ export class AchatService {
     );
   }
 
-  public getCommandeCourante() {
+  public getCommandeCourante(): Commande {
     return this.commandeCourante;
   }
 
   public recupererCommandes(): void {
-    console.log('dans recupérer des commandes');
-    const reponse = this.http.get(this.urlAchat, { withCredentials: true }).map(res => res.json());
-    reponse.subscribe(
+    this.http.get(this.urlAchat, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       commandes => {
         if (commandes.success) {
           this.commandesClient = commandes.commands;

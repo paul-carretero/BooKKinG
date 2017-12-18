@@ -1,11 +1,12 @@
 import { RechercheService } from './../../service/recherche.service';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { Livre } from '../../model/livre';
 import { PanierService } from '../../service/panier.service';
 import { Globals } from '../../globals';
 import { NavigationService } from '../../service/navigation.service';
 import { TooltipDirective } from 'ng2-tooltip-directive/components';
+import { AbstractComponent } from '../abstract-component';
 
 
 @Component({
@@ -17,9 +18,12 @@ import { TooltipDirective } from 'ng2-tooltip-directive/components';
 /**
  * Composant concernant la recherche par menus (de type)
  */
-export class MenuRechercheComponent implements OnInit {
+export class MenuRechercheComponent extends AbstractComponent implements OnInit {
 
-  constructor(private router: Router, private service: RechercheService, private servicePanier: PanierService, private navigationService: NavigationService) { }
+  constructor(public router: Router, private service: RechercheService, private servicePanier: PanierService,
+    public navigationService: NavigationService) {
+    super(router, navigationService);
+  }
 
   ngOnInit() { }
 
@@ -31,21 +35,11 @@ export class MenuRechercheComponent implements OnInit {
     return livre.summary.substring(0, 168) + points;
   }
 
-  private getDisplayable(str: string): string {
-    return Globals.getDisplayableName(str);
-  }
-
-
-  private detailLivre(livre: Livre) {
-    this.navigationService.setFromLivre(livre);
-    this.router.navigate([Globals.getRoute(Globals.LIVRE) + '/' + livre.idBook]);
-  }
-
   /**
   * Méthode demandant l'ajout d'un livre au panier
   * @param livre livre à ajouter au panier
   */
-  public ajouterAuPanier(livre: Livre) {
+  private ajouterAuPanier(livre: Livre) {
     this.servicePanier.ajouterLivrePanier(livre, 1);
   }
 

@@ -16,16 +16,21 @@ public class UserJsonResponse extends GenericResponseJson implements UserJsonRes
 	
 	private String address;
 	
+	@SuppressWarnings("unused")
+	private boolean admin;
+	
 	/**
 	 * @param name
 	 * @param email
 	 * @param address
+	 * @param b 
 	 */
-	public UserJsonResponse(String name, String email, String address) {
+	public UserJsonResponse(String name, String email, String address, boolean b) {
 		super();
-		this.name = name;
-		this.email = email;
+		this.name	= name;
+		this.email	= email;
 		this.address = address;
+		this.admin 	= b;
 	}
 
 	@Override

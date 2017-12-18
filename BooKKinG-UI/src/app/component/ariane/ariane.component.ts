@@ -2,18 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { Livre } from '../../model/livre';
 import { Globals } from '../../globals';
 import { HeaderComponent } from '../header/header.component';
-import { RouterLink } from '@angular/router';
 import { FiltreComponent } from '../filtre/filtre.component';
 import { NavigationService } from '../../service/navigation.service';
+import { Router } from '@angular/router';
+import { AbstractComponent } from '../abstract-component';
 
 @Component({
   selector: 'app-ariane',
   templateUrl: './ariane.component.html',
   styleUrls: ['./ariane.component.css']
 })
-export class ArianeComponent implements OnInit {
+export class ArianeComponent extends AbstractComponent implements OnInit {
 
-  constructor(private navigationService: NavigationService) { }
+  constructor(public navigationService: NavigationService, public router: Router) {
+    super(router, navigationService);
+  }
 
   ngOnInit() { }
 
@@ -26,26 +29,20 @@ export class ArianeComponent implements OnInit {
   }
 
   get currentEnd(): string {
-    return this.navigationService.getCurrentOther();
-  }
-
-  get shoudlDisplayEnd(): boolean {
-    return true;
+    const currentEnd = this.navigationService.getCurrentOther();
+    if (currentEnd === Globals.LIVRE) {
+      return this.navigationService.getCurrentLivreTitle();
+    }
+    return currentEnd;
   }
 
   private onClickType(): void {
     this.navigationService.setCurrentType(this.typeName);
+    this.router.navigate([Globals.getRoute(Globals.RECHERCHE)]);
   }
 
   private onClickGenre(): void {
     this.navigationService.setCurrentGenre(this.genreName);
-  }
-
-  private onClickHome(): void {
-    this.navigationService.setCurrentOther('HOME');
-  }
-
-  private getDisplayable(str: string): string {
-    return Globals.getDisplayableName(str);
+    this.router.navigate([Globals.getRoute(Globals.RECHERCHE)]);
   }
 }

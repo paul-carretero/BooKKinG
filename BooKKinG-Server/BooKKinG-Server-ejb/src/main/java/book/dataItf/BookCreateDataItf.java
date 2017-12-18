@@ -5,20 +5,22 @@ import shared.Type;
 
 public interface BookCreateDataItf {
 
-	Genre getGenre();
+	public Genre getGenre();
 
-	Type getType();
+	public Type getType();
 
-	String getAuthor();
+	public String getAuthor();
 
-	Float getPrice();
+	public float getPrice();
 
-	String getTitle();
+	public String getTitle();
 
-	String getPicture();
+	public String getPicture();
 
-	String getSummary();
+	public String getSummary();
 
-	int getStock();
+	public int getStock();
+
+	public int getIdBook();
 
 }

@@ -8,11 +8,15 @@
     color: white;
 }
 
-.clickable {
-    cursor: pointer;
-}
-
 tfoot {
     border-top: 3px solid black;
+}
+
+.tot-line {
     font-size: 150%;
+}
+
+.tot-line,
+.liv-line {
+    text-align: right;
 }

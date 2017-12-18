@@ -13,7 +13,7 @@
                     <th scope="col">
                         Livre
                     </th>
-                    <th scope="col">
+                    <th class="width-stock-cmp" scope="col">
                         En Stock?
                     </th>
                     <th scope="col">
@@ -27,7 +27,7 @@
             <tbody class="table-striped">
                 <tr *ngFor=" let article of contenuPanier; ">
                     <td class="td-image clickable" (click)="detailLivre(article.book) " tooltip="Voir les détails du livre">
-
+                        <img alt="#" class="sm-vignette" src="data:image/jpeg;base64,{{article.book.picture}}" />
                     </td>
                     <td class="clickable" (click)="detailLivre(article.book)" tooltip="Voir les détails du livre">
                         {{article.book.title}} <br/> {{article.book.type}} de {{article.book.author}}
@@ -47,7 +47,7 @@
             <tfoot>
                 <tr>
                     <td colspan=3></td>
-                    <td>Total</td>
+                    <td>Total:</td>
                     <td>{{montantGlobal}} €</td>
                 </tr>
             </tfoot>
@@ -61,7 +61,7 @@
                             <fa class="fa-big " name="check "></fa>
                         </div>
                         <div class="col-md-6 center ">
-                            <span class="align-middle ">Passer ma Commande</span>
+                            <span class="align-middle big-button">Passer ma Commande</span>
                         </div>
                         <div class=" col-md-2 ">
                             <fa class="fa-big " name="caret-right "></fa>
@@ -76,7 +76,7 @@
         <div class="empty-cart">
             Votre panier est vide. <br/>Ne perdez pas une seconde et découvrez notre catalogue en cliquant sur le bouton « Commencer vos achats ».
             <br/><br/>
-            <button class="btn btn-secondary btn-block" (click)="setCurrentHome()">Commencer vos achats</button>
+            <button class="btn btn-secondary btn-block" (click)="navigate('HOME')">Commencer vos achats</button>
         </div>
     </ng-container>
 </div>

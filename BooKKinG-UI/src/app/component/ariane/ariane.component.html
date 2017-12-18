@@ -1,21 +1,17 @@
 <div class="ariane-wrapper">
     <app-return-button></app-return-button>
-    <a (click)="onClickHome()" routerLink="/">
+    <a (click)="navigate('HOME')">
         <fa name="home "></fa>
     </a>
     <ng-container *ngIf="typeName != null && typeName !== 'ANY' ">
-        <span (click)="onClickType()">
-            <fa name="caret-right ">
-            </fa><a routerLink="/menu-recherche">{{getDisplayable(typeName)}}</a>
-        </span>
+        <fa name="caret-right ">
+        </fa><a (click)="onClickType()">{{getDisplayable(typeName)}}</a>
     </ng-container>
     <ng-container *ngIf="genreName != null && genreName !== 'ANY'">
-        <span (click)="onClickGenre()">
-            <fa name="caret-right ">
-            </fa><a routerLink="/menu-recherche">{{getDisplayable(genreName)}}</a>
-        </span>
+        <fa name="caret-right ">
+        </fa><a (click)="onClickGenre()">{{getDisplayable(genreName)}}</a>
     </ng-container>
-    <ng-container *ngIf="shoudlDisplayEnd">
+    <ng-container *ngIf="currentEnd">
         <fa name="caret-right "></fa>{{getDisplayable(currentEnd)}}
     </ng-container>
 </div>

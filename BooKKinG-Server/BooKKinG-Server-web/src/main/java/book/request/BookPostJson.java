@@ -28,6 +28,8 @@ public class BookPostJson extends AbstractJson implements BookCreateDataItf, Val
 	private String summary;
 		
 	private int stock;
+	
+	private int idBook;
 
 	/**
 	 * Default Constructor
@@ -50,7 +52,7 @@ public class BookPostJson extends AbstractJson implements BookCreateDataItf, Val
 	}
 
 	@Override
-	public Float getPrice() {
+	public float getPrice() {
 		return this.price;
 	}
 
@@ -72,6 +74,11 @@ public class BookPostJson extends AbstractJson implements BookCreateDataItf, Val
 	@Override
 	public int getStock() {
 		return this.stock;
+	}
+	
+	@Override
+	public int getIdBook() {
+		return this.idBook;
 	}
 
 	@Override
@@ -98,5 +105,4 @@ public class BookPostJson extends AbstractJson implements BookCreateDataItf, Val
 			this.author = "";
 		}
 	}
-
 }
