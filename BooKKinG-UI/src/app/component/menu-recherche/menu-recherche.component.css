@@ -62,7 +62,7 @@
 
 .bs-calltoaction.bs-calltoaction-success {
     color: #fff;
-    background-color: #00adad;
+    background-color: #55A7B1;
     border-color: #009999;
 }
 
@@ -106,6 +106,4 @@
     text-align: center;
     margin: auto;
     font-size: xx-large;
-    font-weight: bold;
-    text-shadow: 1px 2px 1px #00d1d1;
 }
