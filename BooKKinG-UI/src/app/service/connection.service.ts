@@ -56,10 +56,15 @@ export class ConnectionService {
     return this.currentClient;
   }
 
+  public getPanierService() : PanierService{
+    return this.panierService;
+  }
+
   public panierServiceRegister(panierService: PanierService): void {
     this.panierService = panierService;
   }
 
+  
 
   // ------------------------------------------------ Servlet  Login ---------------------------------------------------------
 
