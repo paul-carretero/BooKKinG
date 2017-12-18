@@ -14,6 +14,7 @@ import { NavigationService } from '../../service/navigation.service';
 import { CookieService } from 'ngx-cookie-service';
 import { PanierService } from '../../service/panier.service';
 import { NotifService } from '../../service/notif.service';
+import { HistoriquePagesService } from '../../service/historique-pages.service';
 
 describe('IdentificationInscriptionComponent', () => {
   let component: IdentificationInscriptionComponent;
@@ -29,9 +30,10 @@ describe('IdentificationInscriptionComponent', () => {
       imports: [
         RouterTestingModule,
         HttpModule,
-        ReactiveFormsModule
+        ReactiveFormsModule        
       ],
       providers: [
+        HistoriquePagesService,
         ConnectionService,
         AchatService,
         NavigationService,
