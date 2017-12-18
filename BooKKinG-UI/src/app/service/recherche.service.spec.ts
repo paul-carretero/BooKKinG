@@ -30,6 +30,7 @@ describe('RechercheService', () => {
     expect(service).toBeTruthy();
   }));
 
+  
   it('current page', inject([RechercheService], (service: RechercheService) => {
     let pageCourante = 2;
     service.setCurrentPage(2);
