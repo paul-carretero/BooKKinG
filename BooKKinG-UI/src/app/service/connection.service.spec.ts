@@ -43,8 +43,8 @@ describe('ConnectionService', () => {
     });
          
   }));
-/*
-  it('should get client ', inject([ConnectionService], (service : ConnectionService) =>
+
+  it('should get client ', inject([ConnectionService, PanierService], (serviceConnection : ConnectionService, servicePanier : PanierService) =>
   {
     let client : Client = {
       name : 'testUser',
@@ -53,14 +53,15 @@ describe('ConnectionService', () => {
       password: 'testpassword',
       admin : false
     };
-    service.creationClient(client).subscribe(c =>{
-      service.connection(client).subscribe( co => {        
-        expect(service.getCurrentUser()).toEqual(client);
+    serviceConnection.creationClient(client).subscribe(c =>{
+      serviceConnection.connection(client).subscribe( co => {        
+        expect(serviceConnection.getCurrentUser()).toEqual(client);
       });
     });
   }));
 
-  it('should be disonnected', inject([ConnectionService], (service : ConnectionService) =>
+  it('should be disonnected',inject([ConnectionService, PanierService, NotifService], 
+    (serviceConnection : ConnectionService, servicePanier : PanierService, serviceNotification : NotifService) =>
   {
     let client : Client = {
       name : 'testUser',
@@ -69,15 +70,15 @@ describe('ConnectionService', () => {
       password: 'testpassword',
       admin : false
     };
-    service.creationClient(client).subscribe(c =>{
-      service.connection(client).subscribe(co =>{
-        service.deconnexion();
-        expect(service.getConnectionStatus()).toEqual(false);
+    serviceConnection.creationClient(client).subscribe(c =>{
+      serviceConnection.connection(client).subscribe(co =>{
+        serviceConnection.deconnexion();
+        expect(serviceConnection.getConnectionStatus()).toEqual(false);
       });
     });
     
   }));
-
+/*
 
   it('should modify client', inject([ConnectionService], (service : ConnectionService) =>
   {
