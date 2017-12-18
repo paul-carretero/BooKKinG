@@ -28,12 +28,13 @@ describe('LivreService', () => {
     expect(service).toBeTruthy();
   }));
 
-  
+  /*
   it('rechercher livre', inject([LivreService], (service: LivreService) => {
     service.rechercherLivre(10000021);
     let livre : Livre = service.getLivre(); 
     expect(livre.idBook).toEqual(10000021);
   }));
+  */
 
   
 });
