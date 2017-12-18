@@ -23,6 +23,8 @@ export class AchatService {
 
   private commandesClient: Commande[];
 
+  private allCommandes: Commande[];
+
   private commandeCourante: Commande = null;
 
   constructor(private http: Http, private navService: NavigationService,
@@ -101,6 +103,29 @@ export class AchatService {
 
   public getCommandesClient() {
     return this.commandesClient;
+  }
+
+  public getAllCommandes(): Commande[]{
+    return this.allCommandes;
+  }
+
+  public récupérerAllCommandes(dStart:string, dEnd:string){
+    console.log('dans récupérer all commandes');
+    //let dateSet = {start:"2017-12-01",end:"2017-12-30"}
+    let dateSet = {start:dStart,end:dEnd}
+    const reponse = this.http.put(this.urlAchat, dateSet ,{ withCredentials: true }).map(res => res.json());
+    reponse.subscribe(
+      res => {
+        if (res.success) {
+          console.log("commandes récupérées :" + JSON.stringify(res));
+          this.allCommandes = res.commands;
+        } else {
+          console.log(res.message);
+        }
+      }
+    );
+
+
   }
 
   public calculMontantDesCommandes() {
