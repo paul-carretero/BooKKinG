@@ -1,3 +1,9 @@
+import { LRUCacheService } from './../../service/lrucache.service';
+import { NavigationService } from './../../service/navigation.service';
+import { Ng4FilesModule } from 'angular4-files-upload';
+import { AdministrationCommandesComponent } from './administration-commandes/administration-commandes.component';
+import { AdministrationStockComponent } from './administration-stock/administration-stock.component';
+import { AdministrationLivresComponent } from './administration-livres/administration-livres.component';
 import { HttpModule } from '@angular/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -17,8 +23,6 @@ import { RechercheService } from '../../service/recherche.service';
 import { AchatService } from '../../service/achat.service';
 import { CookieService } from 'ngx-cookie-service';
 import { LivreService } from '../../service/livre.service';
-import { NavigationService } from '../../service/navigation.service';
-import { LRUCacheService } from '../../service/lrucache.service';
 import { NotifService } from '../../service/notif.service';
 
 describe('AdministrationComponent', () => {
@@ -27,16 +31,25 @@ describe('AdministrationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AdministrationComponent
+      declarations: [
+        AdministrationComponent, 
+        AdministrationLivresComponent,
+        AdministrationStockComponent,
+        AdministrationCommandesComponent
       ],
       imports: [
         RouterTestingModule,
-        HttpModule
+        HttpModule,
+        ReactiveFormsModule,
+        Ng4FilesModule
       ],
       providers: [
         ConnectionService,
         AdministrationService,
-        NotifService
+        NotifService,
+        NavigationService,
+        CookieService,
+        LRUCacheService
       ],
     })
       .compileComponents();
