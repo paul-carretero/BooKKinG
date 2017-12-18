@@ -40,7 +40,7 @@ describe('PanierService', () => {
     };
     const quantity = 1;
     let client : Client = {
-      name:"", email:"toto@toto.com", admin:false,
+      name:"", email:"toto1@toto.com", admin:false,
       address:"", password:"123" 
     };
     serviceConnect.creationClient(client).subscribe(c =>{
@@ -64,7 +64,7 @@ describe('PanierService', () => {
     }
     const quantity = 1;
     let client : Client = {
-      name:"", email:"toto@toto.com", admin:false,
+      name:"", email:"toto2@toto.com", admin:false,
       address:"", password:"123" 
     };
     serviceConnect.creationClient(client).subscribe(c =>{
@@ -94,7 +94,7 @@ describe('PanierService', () => {
     }
     quantity = 1;
     let client : Client = {
-      name:"", email:"toto@toto.com", admin:false,
+      name:"", email:"toto3@toto.com", admin:false,
       address:"", password:"123" 
     };
     serviceConnect.creationClient(client).subscribe(c =>{
@@ -124,7 +124,7 @@ describe('PanierService', () => {
     }
     quantity = 1;
     let client : Client = {
-      name:"", email:"toto@toto.com", admin:false,
+      name:"", email:"toto4@toto.com", admin:false,
       address:"", password:"123" 
     };
     serviceConnect.creationClient(client).subscribe(c =>{
@@ -154,7 +154,7 @@ describe('PanierService', () => {
     }
     quantity = 1;
     let client : Client = {
-      name:"", email:"toto@toto.com", admin:false,
+      name:"", email:"toto5@toto.com", admin:false,
       address:"", password:"123" 
     };
     serviceConnect.creationClient(client).subscribe(c =>{
@@ -178,7 +178,7 @@ describe('PanierService', () => {
     }
     let quantity = 2;
     let client : Client = {
-      name:"", email:"toto@toto.com", admin:false,
+      name:"", email:"toto6@toto.com", admin:false,
       address:"", password:"123" 
     };
     serviceConnect.creationClient(client).subscribe(c =>{
@@ -205,7 +205,7 @@ describe('PanierService', () => {
     };
     const quantity = 1;
     let client : Client = {
-      name:"", email:"toto@toto.com", admin:false,
+      name:"", email:"toto7@toto.com", admin:false,
       address:"", password:"123" 
     };
     serviceConnect.creationClient(client).subscribe(c =>{
@@ -238,7 +238,7 @@ describe('PanierService', () => {
     let quantity2 = 1;
     service.ajouterLivrePanier(livre2, quantity2);
     let client : Client = {
-      name:"", email:"toto@toto.com", admin:false,
+      name:"", email:"toto8@toto.com", admin:false,
       address:"", password:"123" 
     };
     serviceConnect.creationClient(client).subscribe(c =>{
@@ -268,7 +268,7 @@ describe('PanierService', () => {
     let quantity = 2;
     
     let client : Client = {
-      name:"", email:"toto@toto.com", admin:false,
+      name:"", email:"toto9@toto.com", admin:false,
       address:"", password:"123" 
     };
     serviceConnect.creationClient(client).subscribe(c =>{

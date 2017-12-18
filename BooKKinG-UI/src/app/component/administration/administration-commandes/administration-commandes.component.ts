@@ -42,4 +42,11 @@ export class AdministrationCommandesComponent implements OnInit {
     let dEnd = this.datesForm.value.dEnd;
     this.serviceAchat.récupérerAllCommandes(dStart, dEnd);
   }
+
+  private afficherDate(date : string): string{
+    let d = new Date(date);
+    return d.toLocaleDateString();
+  }
+
+  
 }
