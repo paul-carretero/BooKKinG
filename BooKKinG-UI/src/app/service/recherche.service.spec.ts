@@ -1,3 +1,4 @@
+import { NotifService } from './notif.service';
 import { LRUCacheService } from './lrucache.service';
 import { CookieService } from 'ngx-cookie-service';
 import { NavigationService } from './navigation.service';
@@ -14,7 +15,8 @@ describe('RechercheService', () => {
         RechercheService, 
         NavigationService,
         CookieService,
-        LRUCacheService
+        LRUCacheService,
+        NotifService
       ],
       imports: [ 
         RouterTestingModule,
