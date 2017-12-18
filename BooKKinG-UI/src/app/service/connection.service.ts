@@ -144,7 +144,7 @@ export class ConnectionService {
         if (reponse.success) {
           this.currentClient = client;
         } else {
-          alert(reponse.message);
+          alert(reponse.message); // ici le bug
         }
         subj.next(reponse);
       }
