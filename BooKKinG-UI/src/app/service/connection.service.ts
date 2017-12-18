@@ -60,6 +60,10 @@ export class ConnectionService {
     return this.panierService;
   }
 
+  public setPanierService(panierService : PanierService) : void{
+    this.panierService = panierService;
+  }
+
   public panierServiceRegister(panierService: PanierService): void {
     this.panierService = panierService;
   }
