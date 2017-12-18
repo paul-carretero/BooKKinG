@@ -10,6 +10,7 @@ Installation des dépendances
 > - `npm install ngx-cookie --save`
 > - `npm install ngx-cookie-service --save`
 > - `npm i ng2-tooltip-directive`
+> - `npm i --save angular4-files-upload`
 
 BooKKinG-Server
 ==============
