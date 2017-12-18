@@ -41,7 +41,8 @@ describe('PanierService', () => {
     const quantity = 1;
     service.ajouterLivrePanier(livre, quantity);
     const contenuPanier: Article[] = service.getContenuPanier();
-    const contenuAttendu: Article[] = [{ book: livre, quantity: quantity, idBook: livre.idBook }]
+    const contenuAttendu: Article[] = [
+      { book: livre, quantity: quantity, idBook: livre.idBook }];
     expect(contenuPanier).toEqual(contenuAttendu);
   }));
 
@@ -145,6 +146,23 @@ describe('PanierService', () => {
   }));
 
 
+
+  it('vider panier', inject([PanierService], (service: PanierService) => {
+    const livre: Livre = {
+      title: 'titre', author: 'auteur',
+      genre: 'genre', summary: 'résumé',
+      idBook: 1, price: 5.6,
+      type: 'type', stock: 10
+    };
+    const quantity = 1;
+    service.ajouterLivrePanier(livre, quantity);
+    service.viderPanier();
+    const contenuPanier: Article[] = service.getContenuPanier();
+    const contenuAttendu: Article[] = [];
+    expect(contenuPanier).toEqual(contenuAttendu);
+  }));
+
+
   it('recuperer panier', inject([PanierService, ConnectionService], (service: PanierService, serviceConnect : ConnectionService) => {
     let livre: Livre = {
       title: 'titre', author: 'auteur',
@@ -166,10 +184,8 @@ describe('PanierService', () => {
       name:"", email:"toto@toto.com", admin:false,
       address:"", password:"123" 
     };
-    let isConnected = false;
     serviceConnect.creationClient(client).subscribe(c =>{
       serviceConnect.connection(client).subscribe(co=>{
-        service.enregistrerPanierEntier();
         serviceConnect.deconnexion();
         service.viderPanier();
         serviceConnect.connection(client).subscribe(conn =>{
@@ -180,6 +196,36 @@ describe('PanierService', () => {
         });  
       });
     });
+  }));
+
+
+
+  it('modifier quantité livre dans le panier enregistré', inject([PanierService, ConnectionService], 
+    (service: PanierService, serviceConnect: ConnectionService) => {
+    const livre: Livre = {
+      title: 'titre', author: 'auteur',
+      genre: 'genre', summary: 'résumé',
+      idBook: 1, price: 5,
+      type: 'type', stock: 10
+    }
+    let quantity = 2;
+    
+    let client : Client = {
+      name:"", email:"toto@toto.com", admin:false,
+      address:"", password:"123" 
+    };
+    serviceConnect.creationClient(client).subscribe(c =>{
+      serviceConnect.connection(client).subscribe(co=>{
+        service.ajouterLivrePanier(livre, quantity);
+        let quantity2 = 5;
+        service.setQuantity(livre.idBook, quantity2);
+         service.recupererPanier();
+        let contenuRecup = service.getContenuPanier();
+        const contenuAttendu : Article[] = [{ book: livre, quantity: quantity2, idBook: livre.idBook }];
+        expect(contenuRecup).toEqual(contenuAttendu);
+      });
+    });
+    
   }));
 
 
