@@ -86,4 +86,8 @@ public class UserJson extends AbstractJson implements UserJsonItf, Validifyable{
 				&& (this.password.length() >= MIN_PWD_LENGTH) 
 				&& (HttpHelper.isEmailValid(this.email));
 	}
+	
+	public boolean checkContentForUpdate() {
+		return this.password.length() == 0 || this.password.length() >= MIN_PWD_LENGTH;
+	}
 }

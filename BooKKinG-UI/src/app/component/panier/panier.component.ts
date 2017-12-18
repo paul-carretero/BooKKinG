@@ -68,9 +68,9 @@ export class PanierComponent extends AbstractComponent implements OnInit {
   }
 
   public setQuantity(livre: Livre, quantity: string) {
-    if(quantity != null && quantity !== '' ){
+    if (quantity != null && quantity !== '') {
       const quantiteLivre = Number(quantity);
-      if(quantiteLivre !== 0){
+      if (quantiteLivre !== 0) {
         this.service.setQuantity(livre.idBook, quantiteLivre);
       }
     }

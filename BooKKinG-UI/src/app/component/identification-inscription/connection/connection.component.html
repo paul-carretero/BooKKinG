@@ -15,10 +15,10 @@
         </span>
         <br/>
         <label for="password">Mot de passe*:</label>
-        <input formControlName="password" type="password" class="form-control" id="password" #password ngModel>
+        <input formControlName="password" type="password" minlength="6" class="form-control" id="password" #password ngModel>
         <!-- Balise ne s'activant que si le mot de passe renseigné n'est pas valide -->
         <span [hidden]="connexionForm.get('password').valid || !connexionForm.get('password').touched" class="text-danger">
-          Vous devez entrer un mot de passe !<br/>
+          Vous devez entrer un mot de passe (de plus de 6 caractères) !<br/>
         </span>
         <br/>
         <button class="btn btn-block btn-success" type="submit" [disabled]="!connexionForm.valid">Se connecter</button>

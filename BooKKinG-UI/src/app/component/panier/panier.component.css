@@ -38,3 +38,11 @@ tfoot {
     height: 3em;
     width: auto;
 }
+
+.quant-td {
+    min-width: 120px;
+}
+
+.prix-td {
+    min-width: 8em;
+}

@@ -1,69 +1,72 @@
-<div>
-
-    <form (ngSubmit)="modifier()">
-
+<div class="row">
+    <div class="col-md-6">
         <div class="panel panel-dark">
             <div class="panel-heading">
-                Identifiants
+                <fa name="info-circle"></fa> Vos Informations
             </div>
             <div class="panel-body">
-                <div class="row">
-                    <div>
-                        <label>Email :</label>
-                        <br/>
-                        <span class="marge">{{client.email}}</span>
-                    </div>
-                    <div class=" form-group">
-                        <label>Nom :</label>
-                        <input type="text" class="form-control" placeholder="{{client.name}}" name="name" [(ngModel)]="clientModifie.name">
-                        <span [hidden]="validName" class="text-danger">Vous devez entrer un Nom !</span>
-                    </div>
-
+                <div class="bg-danger" [hidden]="serverResponseModifier === '' || serverResponseModifier == null">
+                    <fa name="exclamation-circle "></fa>{{serverResponseModifier}}
                 </div>
+                <div class="bg-success" [hidden]="serverResponseModifierSuccess === '' || serverResponseModifierSuccess == null">
+                    <fa name="info-circle "></fa>{{serverResponseModifierSuccess}}
+                </div>
+                <form (ngSubmit)="modifier()" [formGroup]="modifierForm">
+                    <label for="email">Email :</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <fa name="check"></fa>
+                        </div>
+                        <input type="text" class="form-control" readonly value="{{clientModifie.email}}" tooltip="vous ne pouvez pas modifier l'Email associé à ce compte">
+                    </div>
+                    <br/>
+                    <label for="name">Nom:</label>
+                    <input name="name" type="text" class="form-control" formControlName="name" id="name" [(ngModel)]="clientModifie.name" #name required />
+                    <span [hidden]="modifierForm.get('name').valid || !modifierForm.get('name').touched" class="text-danger">
+                    Vous devez entrer votre nom.
+                    <br/>
+                    </span>
+                    <br/>
+                    <label for="address">Adresse:</label>
+                    <textarea name="address" type="text" class="form-control" id="address" formControlName="address" [(ngModel)]="clientModifie.address" #address required ></textarea>
+                    <span [hidden]="modifierForm.get('address').valid || !modifierForm.get('address').touched" class="text-danger">
+                    Vous devez entrer votre adresse.
+                    <br/>
+                    </span>
+                    <br/>
+                    <button class="btn btn-block btn-success" type="submit" [disabled]="!modifierForm.valid">Mettre à jour vos informations</button>
+                </form>
             </div>
         </div>
-
-
-
-
-        <div class="panel panel-dark">
-            <div class="panel-heading">
-                Coordonnées
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-dark ">
+            <div class="panel-heading ">
+                <fa name="lock"></fa> Changer de mot de passe
             </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="form-group">
-                        <label for="address">Adresse :</label>
-                        <input type="text" class="form-control" placeholder="{{client.address}}" name="address" [(ngModel)]="clientModifie.address">
-                        <span [hidden]="validAddress" class="text-danger">Vous devez entrer une adresse !</span>
-                    </div>
+            <div class="panel-body ">
+                <div class="bg-danger" [hidden]="serverResponsePassword === '' || serverResponsePassword == null">
+                    <fa name="exclamation-circle "></fa>{{serverResponsePassword}}
                 </div>
+                <div class="bg-success" [hidden]="serverResponsePasswordSuccess === '' || serverResponsePasswordSuccess == null">
+                    <fa name="info-circle "></fa>{{serverResponsePasswordSuccess}}
+                </div>
+                <form (ngSubmit)="modifierPassword()" [formGroup]="passwordForm">
+                    <label for="new_password">Nouveau Mot de passe:</label>
+                    <input name="password" type="password" value="" class="form-control" minlength="6" id="new_password" formControlName="password" #password />
+                    <span [hidden]="passwordForm.get('password').valid || !passwordForm.get('password').touched" class="text-danger" validateEqual="password">
+          Vous devez entrer un mot de passe (de plus de 6 caractères) !<br/>
+        </span>
+                    <br/>
+                    <label for="confirmPassword">Nouveau Mot de passe (confirmation):</label>
+                    <input name="confirmPassword" type="password" value="" class="form-control" formControlName="confirmPassword" id="confirmPassword" #confirmPassword />
+                    <span [hidden]="(passwordForm.get('confirmPassword').valid && (confirmPassword.value === password.value)) || !passwordForm.get('confirmPassword').touched" class="text-danger">
+          Les deux mot de passe ne correspondent pas !<br/>
+        </span>
+                    <br/>
+                    <button class="btn btn-block btn-success" type="submit" [disabled]="!passwordForm.valid || (confirmPassword.value !== password.value)">Mettre à jour votre mot de passe</button>
+                </form>
             </div>
         </div>
-
-        <div class="panel panel-dark">
-            <div class="panel-heading">
-                Changer de mot de passe
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="form-group">
-                        <label for="password">Nouveau Mot de passe:</label>
-                        <input type="password" class="form-control" name="password" [(ngModel)]="clientModifie.password" autocomplete="off">
-                        <span [hidden]="validPassword" class="text-danger">Vous devez entrer un mot de passe !</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="passwordConfirm">Confirmation Mot de passe:</label>
-                        <input type="password" class="form-control" name="passwordConfirm" [(ngModel)]="newPassword" autocomplete="off">
-                        <span [hidden]="validPasswordConfirm" class="text-danger">Vous devez entrer un mot de passe de confirmation !</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <button class="btn btn-lg btn-primary" type="modifierInformation();submit">Modifier</button>
-    </form>
-    <br/>
-
-
+    </div>
 </div>

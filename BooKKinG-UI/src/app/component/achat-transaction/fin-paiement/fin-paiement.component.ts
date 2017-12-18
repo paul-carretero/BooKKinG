@@ -30,8 +30,9 @@ export class FinPaiementComponent extends AbstractComponent implements OnInit {
     if (!this.serviceConnect.getConnectionStatus()) {
       this.navigationService.setCurrentOther(Globals.HOME);
       this.router.navigate([Globals.getRoute(Globals.HOME)]);
+    } else {
+      this.serviceAchat.enregistrerCommande();
     }
-    this.serviceAchat.enregistrerCommande();
   }
 
   private isInStock(a: Article): boolean {

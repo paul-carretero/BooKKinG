@@ -80,9 +80,15 @@ public class UserBean extends AbstractBean implements UserBeanLocal {
 	@Asynchronous
 	public void updateUser(final int idUser, final UserJsonItf data) {
 		UserEntItf u = getUser(idUser);
-		u.setAddress(data.getAddress());
-		u.setName(data.getName());
-		u.setPassword(data.getPassword());
+		if(data.getAddress().length() > 0) {
+			u.setAddress(data.getAddress());
+		}
+		if(data.getName().length() > 0) {
+			u.setName(data.getName());
+		}
+		if(data.getPassword().length() > 0) {
+			u.setPassword(data.getPassword());
+		}
 	}
 
 	private static String randomPassword() {

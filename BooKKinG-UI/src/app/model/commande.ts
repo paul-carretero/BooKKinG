@@ -10,4 +10,5 @@ export class Commande extends Reponse {
     total = 0; // montant total de la commande
     shippingCost = 0; // montant de la livraison
     shippingAddress = ''; // adresse de livraison
+    invoiceAddress = '';
 }

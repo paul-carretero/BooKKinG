@@ -43,16 +43,6 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 		this.books 		= new LinkedList<>();
 		this.items 		= new LinkedList<>();
 	}
-
-	public CommandJson(final String date, final int idCmd, final int shippingCost, final String shippingAddress) {
-		super();
-		this.date				= date;
-		this.idCmd				= idCmd;
-		this.shippingAddress	= shippingAddress;
-		this.shippingCost		= shippingCost;
-		this.books 				= new LinkedList<>();
-		this.items 				= new LinkedList<>();
-	}
 	
 	@Override
 	public void setDate(final String date) {

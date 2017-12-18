@@ -1,103 +1,44 @@
 import { ConnectionService } from './../../service/connection.service';
 import { Component, OnInit } from '@angular/core';
 import { Client } from '../../model/client';
-import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NavigationService } from '../../service/navigation.service';
+import { AbstractComponent } from '../abstract-component';
+import { Globals } from '../../globals';
+import { AchatService } from '../../service/achat.service';
 
 @Component({
   selector: 'app-compte-client',
   templateUrl: './compte-client.component.html',
   styleUrls: ['./compte-client.component.css']
 })
-export class CompteClientComponent implements OnInit {
-  /*
-    private client: Client;
-    private clientModifie: Client;
-    private newPassword: string;
-    private modifiaction = false;
-    private validName = true;
-    private validAddress = true;
-    private validPassword = true;
-    private validPasswordConfirm = true;
-  */
+export class CompteClientComponent extends AbstractComponent implements OnInit {
 
-  constructor() { }
+  private readonly options = ['Mes Informations', 'Mes Commandes'];
 
-  /*
-    constructor(private serviceConnection: ConnectionService) {
-      this.client = new Client();
-      this.clientModifie = new Client();
-    }
-  */
+  private current = 0;
 
-  ngOnInit() { }
+  constructor(public router: Router, private connectionService: ConnectionService,
+    public navigationService: NavigationService, private serviceCommande: AchatService) {
+    super(router, navigationService);
+  }
 
-  /*
   ngOnInit() {
-    console.log('dans compte client');
-    this.client = this.serviceConnection.getCurrentUser();
-    this.validName = true;
-    this.validAddress = true;
-    this.validPassword = true;
+    if ((!this.connectionService.getConnectionStatus())) {
+      this.navigate(Globals.HOME);
+    } else {
+      this.serviceCommande.recupererCommandes();
+    }
   }
 
-  public modifierInformations() {
-    this.modifiaction = true;
-    this.clientModifie.name = this.serviceConnection.getCurrentUser().name;
-    this.clientModifie.address = this.serviceConnection.getCurrentUser().address;
-    this.clientModifie.name = this.serviceConnection.getCurrentUser().name;
+  private isActiveClass(i: number): string {
+    if (this.current === i) {
+      return 'active';
+    }
+    return '';
   }
 
-  public modifier() {
-    console.log('dans modifier informations');
-
-    if (this.clientModifie.name === '') {
-      this.validName = false;
-    } else {
-      this.validName = true;
-    }
-
-    if (this.clientModifie.address === '') {
-      this.validAddress = false;
-    } else {
-      this.validAddress = true;
-    }
-
-    if (this.clientModifie.password === '') {
-      this.validPassword = false;
-    } else {
-      this.validPassword = true;
-    }
-
-
-    if (this.newPassword === '') {
-      this.validPasswordConfirm = false;
-    } else {
-      this.validPasswordConfirm = true;
-    }
-
-    // si l'email et le password sont valid, alors on peut procéder à la demande de connections
-    if (this.validName && this.validAddress && this.validPassword && this.validPasswordConfirm) {
-      if (this.clientModifie.password !== this.newPassword) {
-        alert('Les mots de passe sont différents !!');
-      } else {
-
-        // récupération du contenu du formulaire
-        this.client.name = this.clientModifie.name;
-        this.client.address = this.clientModifie.address;
-        this.client.password = this.clientModifie.password;
-
-        // mise à jour du client dans la base de donnée
-        this.serviceConnection.modifierClient(this.client).subscribe(
-          reponse => {
-            console.log('modification des données du client : ' + reponse.success);
-            if (!reponse.success) {
-              // TODO retour visuel
-            }
-          }
-        );
-        this.modifiaction = false;
-      }
-    }
+  private setCurrent(i: number) {
+    this.current = i;
   }
-  */
 }

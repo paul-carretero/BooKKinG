@@ -1,9 +1,62 @@
-.table thead {
+.panel-heading {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.panel-body {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 0;
+}
+
+tbody tr {
+    cursor: pointer;
+}
+
+tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+tbody tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+table.table tbody tr:hover,
+table.table tbody tr.active:hover {
+    background: white!important;
+}
+
+.border {
+    border-right: 1px dotted black;
+}
+
+.boxed {
+    padding: 1em;
+}
+
+.table thead,
+.table tfoot {
     background-color: rgba(0, 0, 0, 0.4);
     color: white;
 }
 
-.clickable{
-    cursor: pointer;
-    color: blue;
+tfoot {
+    border-top: 3px solid black;
+}
+
+.tot-line {
+    font-size: 120%;
+}
+
+.empty-cart {
+    width: 50%;
+    margin-left: 25%;
+    text-align: center;
 }

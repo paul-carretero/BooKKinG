@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Client } from '../../model/client';
 import { ConnectionService } from '../../service/connection.service';
 import { Console } from '@angular/core/src/console';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-informations-client',
@@ -10,93 +11,83 @@ import { Console } from '@angular/core/src/console';
 })
 export class InformationsClientComponent implements OnInit {
 
-  private client: Client;
-  private clientModifie: Client;
-  private newPassword: string;
-  private modifiaction = false;
-  private validName = true;
-  private validAddress = true;
-  private validPassword = true;
-  private validPasswordConfirm = true;
+  private serverResponseModifier: string;
 
-  constructor(private serviceConnection: ConnectionService) {
-    this.client = new Client();
+  private serverResponsePassword: string;
+
+  private serverResponseModifierSuccess: string;
+
+  private serverResponsePasswordSuccess: string;
+
+  private modifierForm: FormGroup;
+
+  private passwordForm: FormGroup;
+
+  private clientModifie: Client;
+
+  constructor(private serviceConnection: ConnectionService, private fb: FormBuilder) {
     this.clientModifie = new Client();
+    this.serverResponseModifier = '';
+    this.serverResponsePassword = '';
+    this.serverResponseModifierSuccess = '';
+    this.serverResponsePasswordSuccess = '';
+
+    this.modifierForm = fb.group({
+      name: ['', Validators.required],
+      address: ['', Validators.required],
+    });
+
+    this.passwordForm = fb.group({
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+    });
   }
 
   ngOnInit() {
-    console.log('dans compte client');
-    this.client = this.serviceConnection.getCurrentUser();
-    this.validName = true;
-    this.validAddress = true;
-    this.validPassword = true;
-  }
-
-  public modifierInformations() {
-    this.modifiaction = true;
-    this.clientModifie.name = this.serviceConnection.getCurrentUser().name;
-    this.clientModifie.address = this.serviceConnection.getCurrentUser().address;
-  }
-
-  public modifier() {
-    console.log('dans modifier informations');
-/*
-    if (this.clientModifie.name == null) {
-      this.validName = false;
+    if (this.serviceConnection.getCurrentUser().email != null) {
+      this.clientModifie = Client.clone(this.serviceConnection.getCurrentUser());
     } else {
-      this.validName = true;
-    }
-
-    if (this.clientModifie.address == null) {
-      this.validAddress = false;
-    } else {
-      this.validAddress = true;
-    }
-
-    if (this.clientModifie.password == null) {
-      this.validPassword = false;
-    } else {
-      this.validPassword = true;
-    }
-
-
-    if (this.newPassword == null) {
-      this.validPasswordConfirm = false;
-    } else {
-      this.validPasswordConfirm = true;
-    }
-*/
-    // si l'email et le password sont valid, alors on peut procéder à la demande de connections
-    if (this.validName && this.validAddress && this.validPassword && this.validPasswordConfirm) {
-      if (this.clientModifie.password !== this.newPassword) {
-        alert('Les mots de passe sont différents !!');
-      } else {
-
-        // récupération du contenu du formulaire
-        console.log(this.client);
-        if (this.clientModifie.name != null) {
-          this.client.name = this.clientModifie.name;
-        }
-        if (this.clientModifie.address != null) {
-          this.client.address = this.clientModifie.address;
-        }
-        if (this.clientModifie.password != null) {
-          this.client.password = this.clientModifie.password;
-        }
-
-        // mise à jour du client dans la base de donnée
-        const conn = this.serviceConnection.modifierClient(this.client).subscribe(
-          reponse => {
-            console.log('modification des données du client : ' + reponse.success);
-            if (!reponse.success) {
-              alert('La modification a bien été prise en compte');
-            }
-            conn.unsubscribe();
+      const conn = this.serviceConnection.getCurrentUserSub().asObservable();
+      conn.subscribe(
+        client => {
+          if (client.email != null) {
+            this.clientModifie = Client.clone(client);
           }
-        );
-        this.modifiaction = false;
-      }
+        }
+      );
     }
+  }
+
+  private modifier() {
+    const conn = this.serviceConnection.modifierClient(this.clientModifie).subscribe(
+      reponse => {
+        if (reponse.success) {
+          this.serverResponseModifierSuccess = 'Informations mises à jour';
+          this.serverResponseModifier = '';
+        } else {
+          this.serverResponseModifierSuccess = '';
+          this.serverResponseModifier = reponse.message;
+        }
+        conn.unsubscribe();
+      }
+    );
+  }
+
+  private modifierPassword() {
+    const c = new Client();
+    c.password = this.passwordForm.value.password;
+    const conn = this.serviceConnection.modifierClient(c).subscribe(
+      reponse => {
+        if (reponse.success) {
+          this.serverResponsePasswordSuccess = 'Mot de passe mis à jour';
+          this.serverResponsePassword = '';
+        } else {
+          this.serverResponsePasswordSuccess = '';
+          this.serverResponsePassword = reponse.message;
+        }
+        conn.unsubscribe();
+      }
+    );
   }
 
 }

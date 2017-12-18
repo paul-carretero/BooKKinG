@@ -6,6 +6,7 @@ import { Globals } from '../globals';
 import { PanierService } from './panier.service';
 import { NotifService } from './notif.service';
 import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Reponse } from '../model/reponse';
 
 /**
@@ -18,22 +19,20 @@ export class ConnectionService {
 
   private readonly urlUser = `http://` + Globals.host + `/BooKKinG-Server-web/User`;
 
-  private currentClient: Client = null;
-
-  private passwordCurrentClient: string = null;
-
   private isConnected: boolean;
 
   private panierService: PanierService;
+
+  private clientSubj: BehaviorSubject<Client>;
 
   /**
    * Construteur pour le service de connection
    * @param http permet de faire le lien avec des pages http (des servlets)
    */
   constructor(private http: Http, private notifService: NotifService) {
-    this.currentClient = new Client();
     this.isConnected = false;
     this.initConnexion();
+    this.clientSubj = new BehaviorSubject<Client>(new Client());
   }
 
   private initConnexion(): void {
@@ -50,19 +49,29 @@ export class ConnectionService {
     );
   }
 
+  private tryUpdateClient(tempClient: Client): void {
+    if (tempClient.address && tempClient.address.length > 0
+      && tempClient.name && tempClient.name.length > 0
+      && tempClient.email && tempClient.email.length > 0) {
+      this.clientSubj.next(Client.clone(tempClient));
+    }
+  }
+
+  // ------------------------------------------------ Public Itf ---------------------------------------------------------
+
   public getConnectionStatus(): boolean {
     return this.isConnected;
   }
 
   public getCurrentUser(): Client {
-    return this.currentClient;
+    return this.clientSubj.getValue();
   }
 
-  public getPanierService() : PanierService{
-    return this.panierService;
+  public getCurrentUserSub(): BehaviorSubject<Client> {
+    return this.clientSubj;
   }
 
-  public setPanierService(panierService : PanierService) : void{
+  public setPanierService(panierService: PanierService): void {
     this.panierService = panierService;
   }
 
@@ -70,7 +79,7 @@ export class ConnectionService {
     this.panierService = panierService;
   }
 
-  
+
 
   // ------------------------------------------------ Servlet  Login ---------------------------------------------------------
 
@@ -85,7 +94,6 @@ export class ConnectionService {
       connected => {
         if (connected.success) {
           this.isConnected = true;
-          this.passwordCurrentClient = client.password;
           this.recuperationInformationsClient();
         } else {
           this.isConnected = false;
@@ -97,7 +105,7 @@ export class ConnectionService {
   }
 
   public deconnexion(): void {
-    this.currentClient = new Client();
+    this.clientSubj.next(new Client());
     this.isConnected = false;
     this.notifService.publish('Au revoir, et à bientôt sur BooKKinG');
     this.http.delete(this.urlConnection, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
@@ -124,9 +132,8 @@ export class ConnectionService {
     this.http.get(this.urlUser, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       client => {
         if (client.success) {
-          this.currentClient = client;
-          this.currentClient.password = this.passwordCurrentClient;
           this.panierService.synchroServer();
+          this.clientSubj.next(client);
         } else {
           console.log(client.message);
         }
@@ -140,7 +147,7 @@ export class ConnectionService {
       reponse => {
         if (reponse.success) {
           this.isConnected = true;
-          this.currentClient = client;
+          this.clientSubj.next(reponse);
         } else {
           this.isConnected = false;
         }
@@ -155,9 +162,7 @@ export class ConnectionService {
     this.http.put(this.urlUser, client, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       reponse => {
         if (reponse.success) {
-          this.currentClient = client;
-        } else {
-          alert(reponse.message); // ici le bug
+          this.tryUpdateClient(client);
         }
         subj.next(reponse);
       }

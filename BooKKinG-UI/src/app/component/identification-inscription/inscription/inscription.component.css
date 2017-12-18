@@ -16,7 +16,6 @@ header {
 }
 
 .bg-danger {
-    background-color: #d9534f !important;
     padding: 0.5em 1em;
     color: white;
     margin-bottom: 0.5em;

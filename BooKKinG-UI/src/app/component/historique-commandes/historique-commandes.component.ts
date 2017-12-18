@@ -4,6 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { Livre } from '../../model/livre';
 import { AchatService } from '../../service/achat.service';
 import { SimpleArticle } from '../../model/simple-article';
+import { AbstractComponent } from '../abstract-component';
+import { Router } from '@angular/router';
+import { NavigationService } from '../../service/navigation.service';
 
 
 
@@ -13,14 +16,15 @@ import { SimpleArticle } from '../../model/simple-article';
   templateUrl: './historique-commandes.component.html',
   styleUrls: ['./historique-commandes.component.css']
 })
-export class HistoriqueCommandesComponent implements OnInit {
+export class HistoriqueCommandesComponent extends AbstractComponent implements OnInit {
 
   private articles: Article[];
   private commandeSelected = false;
   private commandeAAfficher: Commande;
 
 
-  constructor(private serviceCommande: AchatService) {
+  constructor(private serviceCommande: AchatService, public router: Router, public navigationService: NavigationService) {
+    super(router, navigationService);
     this.commandeAAfficher = new Commande();
   }
 
@@ -32,17 +36,17 @@ export class HistoriqueCommandesComponent implements OnInit {
     return this.serviceCommande.getCommandesClient();
   }
 
+  private get prix(): string {
+    return this.commandeAAfficher.total.toFixed(2);
+  }
+
+  private getPrix(article: Article): string {
+    return (article.quantity * article.book.price).toFixed(2);
+  }
 
   public afficherDetailsCommande(commande: Commande) {
     this.commandeSelected = true;
     this.commandeAAfficher = commande;
     this.articles = this.serviceCommande.recupererArticlesCommande(commande);
   }
-
-
-
-
-
-
 }
-

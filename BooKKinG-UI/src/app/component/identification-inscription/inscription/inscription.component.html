@@ -1,12 +1,12 @@
 <div class="wrapper">
     <header>Créez votre compte</header>
     <form (ngSubmit)="inscription()" [formGroup]="inscriptionForm">
-        <div class="bg-danger" [hidden]="serverResponse === '' || serverResponse === null">
+        <div class="bg-danger" [hidden]="serverResponse === '' || serverResponse == null">
             <fa name="exclamation-circle "></fa>{{serverResponse}}
         </div>
 
         <label for="name">Nom*:</label>
-        <input name="name" type="text" class="form-control" formControlName="name" id="name" #name required>
+        <input name="name" type="text" class="form-control" formControlName="name" id="name" #name required />
         <span [hidden]="inscriptionForm.get('name').valid || !inscriptionForm.get('name').touched" class="text-danger">
           Vous devez entrer votre nom.<br/>
         </span>
@@ -14,7 +14,7 @@
         <br/>
 
         <label for="address">Adresse*:</label>
-        <input name="address" type="text" class="form-control" id="address" formControlName="address" #address>
+        <input name="address" type="text" class="form-control" id="address" formControlName="address" #address required />
         <span [hidden]="inscriptionForm.get('address').valid || !inscriptionForm.get('address').touched" class="text-danger">
           Vous devez entrer votre adresse.<br/>
         </span>
@@ -22,7 +22,7 @@
         <br/>
 
         <label for="new_email">Email*:</label>
-        <input name="email" type="email" class="form-control" formControlName="email" id="new_email" required #email>
+        <input name="email" type="email" class="form-control" formControlName="email" id="new_email" required #email />
         <span [hidden]="inscriptionForm.get('email').valid || !inscriptionForm.get('email').touched" class="text-danger">
           Vous devez entrer une adresse email valide.<br/>
         </span>
@@ -30,15 +30,15 @@
         <br/>
 
         <label for="new_password">Mot de passe*:</label>
-        <input name="password" type="password" class="form-control" minlength="5" id="new_password" formControlName="password" #password>
+        <input name="password" type="password" class="form-control" minlength="6" id="new_password" formControlName="password" #password />
         <span [hidden]="inscriptionForm.get('password').valid || !inscriptionForm.get('password').touched" class="text-danger" validateEqual="password">
-          Vous devez entrer un mot de passe !<br/>
+          Vous devez entrer un mot de passe (de plus de 6 caractères) !<br/>
         </span>
 
         <br/>
 
         <label for="confirmPassword">Mot de passe (confirmation)*:</label>
-        <input name="confirmPassword" type="password" class="form-control" formControlName="confirmPassword" id="confirmPassword" #confirmPassword>
+        <input name="confirmPassword" type="password" class="form-control" formControlName="confirmPassword" id="confirmPassword" #confirmPassword />
         <span [hidden]="(inscriptionForm.get('confirmPassword').valid && (confirmPassword.value === password.value)) || !inscriptionForm.get('confirmPassword').touched" class="text-danger" validateEqual="password">
           Les deux mot de passe ne correspondent pas !<br/>
         </span>

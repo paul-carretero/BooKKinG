@@ -51,7 +51,7 @@ export class AchatService {
             this.etapePaiement = navData.other;
           }
         }
-        if (navData.other === Globals.FIN_PAIEMENT || navData.other === Globals.COMPTE) {
+        if (navData.other === Globals.FIN_PAIEMENT) {
           this.recupererCommandes();
         }
       }
@@ -88,7 +88,7 @@ export class AchatService {
   }
 
 
-  public getMontantTotalCommande(commande: Commande) {
+  public getMontantTotalCommande(commande: Commande): number {
     let articlesCommande: Article[];
     articlesCommande = this.recupererArticlesCommande(commande);
     let total = 0;
@@ -101,23 +101,20 @@ export class AchatService {
 
   }
 
-  public getCommandesClient() {
+  public getCommandesClient(): Commande[] {
     return this.commandesClient;
   }
 
-  public getAllCommandes(): Commande[]{
+  public getAllCommandes(): Commande[] {
     return this.allCommandes;
   }
 
-  public récupérerAllCommandes(dStart:string, dEnd:string){
-    console.log('dans récupérer all commandes');
-    //let dateSet = {start:"2017-12-01",end:"2017-12-30"}
-    let dateSet = {start:dStart,end:dEnd}
-    const reponse = this.http.put(this.urlAchat, dateSet ,{ withCredentials: true }).map(res => res.json());
+  public récupérerAllCommandes(dStart: string, dEnd: string): void {
+    const dateSet = { start: dStart, end: dEnd };
+    const reponse = this.http.put(this.urlAchat, dateSet, Globals.HTTP_OPTIONS).map(res => res.json());
     reponse.subscribe(
       res => {
         if (res.success) {
-          console.log("commandes récupérées :" + JSON.stringify(res));
           this.allCommandes = res.commands;
         } else {
           console.log(res.message);
@@ -128,7 +125,7 @@ export class AchatService {
 
   }
 
-  public calculMontantDesCommandes() {
+  public calculMontantDesCommandes(): void {
     this.commandesClient.forEach(
       commande => {
         commande.total = this.getMontantTotalCommande(commande) + commande.shippingCost;
@@ -145,7 +142,6 @@ export class AchatService {
           this.servicePanier.viderPanier();
           this.commandeCourante = res;
           this.notifService.publish('Votre commande #' + this.commandeCourante.idCmd + ' a bien été prise en compte!');
-          console.log(JSON.stringify(res));
         } else {
           console.log(res.message);
           this.commandeCourante = new Commande();

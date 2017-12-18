@@ -1,64 +1,116 @@
+<div class="wrapper">
+    <div class="row" [hidden]="historique.length > 0">
+        <div class="empty-cart">
+            Vous n'avez pas encore passé de commandes. <br/>Ne perdez pas une seconde et découvrez notre catalogue en cliquant sur le bouton « Commencer vos achats ».
+            <br/><br/>
+            <button class="btn btn-secondary btn-block" (click)="navigate('HOME')">Commencer vos achats</button>
+        </div>
+    </div>
+    <div class="row" [hidden]="historique.length === 0">
+        <div class="col-md-12">
+            <div class="panel panel-dark">
+                <div class="panel-heading">
+                    <fa name="shopping-cart"></fa> Vos Commandes passées
+                </div>
+                <div class="panel-body">
+                    <table class="table table-responsive-md">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    Numéro
+                                </th>
+                                <th scope="col">
+                                    Date
+                                </th>
+                                <th scope="col">
+                                    Montant
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let commande of historique;" (click)="afficherDetailsCommande(commande)" [ngClass]="{'active': commandeAAfficher == commande}">
+                                <td>
+                                    #{{commande.idCmd}}
+                                </td>
+                                <td>
+                                    {{commande.date}}
+                                </td>
+                                <td>
+                                    {{getDisplayPrice(commande.total)}}€
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
-
-<div [hidden]="!commandeSelected">
-    <div class="wrapper-cart">
-        <h3>
-            Détails de la commande  {{commandeAAfficher.idCmd}}
-        </h3>
-        <div>
-            Commande effectuée le {{commandeAAfficher.date}}
+    <div class="row" [hidden]="!commandeSelected">
+        <div class="col-md-12">
+            <div class="panel panel-dark">
+                <div class="panel-heading">
+                    <fa name="info"></fa> Détails de la commande #{{commandeAAfficher.idCmd}}
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5 border boxed">
+                            <strong>Adresse Livraison:</strong> {{commandeAAfficher.shippingAddress}}
+                        </div>
+                        <div class="col-md-5 boxed">
+                            <strong>Adresse Facturation:</strong> {{commandeAAfficher.invoiceAddress}}
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                    <table class="table table-responsive-md">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    Livre
+                                </th>
+                                <th scope="col">
+                                    Quantité
+                                </th>
+                                <th scope="col">
+                                    Prix
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let article of articles;" (click)="detailLivre(article.book)">
+                                <td>
+                                    {{article.book.title}}
+                                </td>
+                                <td>
+                                    {{article.quantity}}
+                                </td>
+                                <td>
+                                    {{getPrix(article)}}€
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="text-right" colspan="2">
+                                    Livraison:
+                                </td>
+                                <td>
+                                    {{getDisplayPrice(commandeAAfficher.shippingCost)}}€
+                                </td>
+                            </tr>
+                            <tr class="tot-line">
+                                <td class="text-right text-right" colspan="2">
+                                    Total:
+                                </td>
+                                <td>
+                                    {{getDisplayPrice(commandeAAfficher.total)}}€
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div>
-            Livrée à : {{commandeAAfficher.shippingAddress}} pour {{commandeAAfficher.shippingCost}} €
-        </div>
-        <div>
-            Total {{commandeAAfficher.total}} €
-        </div>
-        <ul>
-            <li *ngFor="let article of articles;">
-                {{article.book.title}}, Quantité : {{article.quantity}} <br/> Prix à l'unité :  {{article.book.price}} €
-            </li>
-        </ul>
     </div>
 </div>
-
-
-<div class="wrapper-cart">
-    <table class="table table-hover table-responsive-md">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">
-                    Commande id
-                </th>                    
-                <th scope="col">
-                    date
-                </th>
-                <th scope="col">
-                    Prix
-                </th>
-                <th>
-
-                </th>
-            </tr>
-        </thead>
-        <tbody class="table-striped">
-            <tr *ngFor=" let commande of historique;">
-                <td>
-                    {{commande.idCmd}} 
-                </td>
-                <td>
-                    {{commande.date}}
-                </td>
-                <td>
-                    {{commande.total}}
-                </td> 
-                <td>
-                    <span class="clickable" (click)="afficherDetailsCommande(commande)" [ngClass]="{'active': selectedItem == commande}" >
-                        <u>Détails</u>
-                    </span>
-                </td>                 
-            </tr>
-        </tbody>            
-    </table>
-</div>
-

@@ -24,4 +24,8 @@ export abstract class AbstractComponent {
     public getDisplayable(str: string): string {
         return Globals.getDisplayableName(str);
     }
+
+    public getDisplayPrice(n: number): string {
+        return n.toFixed(2);
+    }
 }

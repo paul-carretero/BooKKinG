@@ -5,5 +5,15 @@ export class Client extends Reponse {
     address?: string;
     email: string;
     password: string;
-    admin : boolean = false;
+    admin = false;
+
+    public static clone(orig: Client): Client {
+        const c = new Client();
+        c.name = orig.name;
+        c.address = orig.address;
+        c.email = orig.email;
+        c.password = orig.password;
+        c.admin = orig.admin;
+        return c;
+    }
 }

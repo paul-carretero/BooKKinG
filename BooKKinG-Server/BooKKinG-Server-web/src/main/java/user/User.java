@@ -89,12 +89,12 @@ public class User extends HttpServlet {
 		if(HttpHelper.checkAuth(request, response)) {
 			UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 			if(HttpHelper.checkAndValidData(data, response)) {
-				if(data.checkContent()) {
+				if(data.checkContentForUpdate()) {
 					this.userBean.updateUser(HttpHelper.getIdUser(request),data);
 					response.getWriter().append(new GenericResponseJson(true).toString());
 				}
 				else {
-					response.getWriter().append(new GenericResponseJson(false,"donnees invalides pour une creation").toString());
+					response.getWriter().append(new GenericResponseJson(false,"donnees invalides pour une mise à jour").toString());
 				}
 			}
 		}

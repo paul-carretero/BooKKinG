@@ -1,8 +1,16 @@
-.panel-heading{
+.panel-heading {
     color: #fff;
-    background-color:rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
-.panel-body{
+.panel-body {
     background-color: rgba(0, 0, 0, 0.2);
+}
+
+.bg-danger,
+.bg-success {
+    padding: 0.5em 1em;
+    color: white;
+    margin-bottom: 0.5em;
+    border-radius: 3px;
 }
