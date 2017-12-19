@@ -19,6 +19,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import shared.HttpHelper;
+
 
 public class UserTest extends Mockito {
 	
@@ -40,8 +42,9 @@ public class UserTest extends Mockito {
         when (this.response.getWriter()).thenReturn(this.writer);
 	}
 
+	
 	@Test
-	public void TestSuccessaddUser() throws Exception {
+	public void TestSuccessAddUser() throws Exception {
 		String str = "{\"name\":\"Paul Carretero\",\"email\":\"toto@toto.ovh\",\"password\":\"123456\",\"address\":\"47 rue marius charles 38420 Domene\"}";
 		this.stringReader = new StringReader(str);
 		this.reader = new BufferedReader(this.stringReader);
@@ -49,13 +52,12 @@ public class UserTest extends Mockito {
 		
 		new MockedUser().doPost(this.request, this.response);
 		this.writer.flush();
-		assertTrue(this.stringWriter.toString().contains("{\"success\":true"));
-		  
-		
+		assertTrue(this.stringWriter.toString().contains("{\"success\":true")); 
 	}
 
+	
 	@Test
-	public void TestErroraddUser() throws Exception {
+	public void TestErrorAddUser() throws Exception {
 		String str = "{\"name\":\"Paul Carretero\",\"email\":\"paul@carretero.ovh\",\"password\":\"123456\",\"address\":\"47 rue marius charles 38420 Domene\"}";
 		this.stringReader = new StringReader(str);
 		this.reader = new BufferedReader(this.stringReader);
@@ -64,9 +66,61 @@ public class UserTest extends Mockito {
 		new MockedUser().doPost(this.request, this.response);
 		this.writer.flush();
 		assertTrue(this.stringWriter.toString().contains("{\"success\":false"));
-		  
-		
 	}
 
+	
+	@Test
+	public void TestSuccessUpDateUser() throws Exception {
+		String str = "{\"name\":\"Paul \",\"email\":\"paul@carretero.ovh\",\"password\":\"azerty\",\"address\":\"47 rue marius charles 38420 Domene\"}";
+		this.stringReader = new StringReader(str);
+		this.reader = new BufferedReader(this.stringReader);
+		when (this.request.getReader()).thenReturn(this.reader);		
+		when(session.getAttribute("idUser")).thenReturn(42);
+		
+		new MockedUser().doPut(this.request, this.response);
+		this.writer.flush();
+		assertTrue(this.stringWriter.toString().contains("{\"success\":true")); 
+	}
+	
+	@Test
+	public void TestErrorUpDateUser() throws Exception {
+		String str = "{\"name\":\"Paul \",\"email\":\"paul@carretero.ovh\",\"password\":\"azerty\",\"address\":\"47 rue marius charles 38420 Domene\"}";
+		this.stringReader = new StringReader(str);
+		this.reader = new BufferedReader(this.stringReader);
+		when (this.request.getReader()).thenReturn(this.reader);		
+		when(session.getAttribute("idUser")).thenReturn(null);
+		
+		new MockedUser().doPut(this.request, this.response);
+		this.writer.flush();
+		assertTrue(this.stringWriter.toString().contains("{\"success\":false")); 
+	}
+
+	
+	@Test
+	public void TestSuccessGetUser() throws Exception {
+		String str = "{\"name\":\"Paul \",\"email\":\"paul@carretero.ovh\",\"password\":\"azerty\",\"address\":\"47 rue marius charles 38420 Domene\"}";
+		this.stringReader = new StringReader(str);
+		this.reader = new BufferedReader(this.stringReader);
+		when (this.request.getReader()).thenReturn(this.reader);		
+		when(session.getAttribute("idUser")).thenReturn(42);
+		
+		new MockedUser().doGet(this.request, this.response);
+		this.writer.flush();
+		assertTrue(this.stringWriter.toString().contains("success\":true")); 
+	}
+	
+	@Test
+	public void TestErrorGetUser() throws Exception {
+		String str = "{\"name\":\"Paul \",\"email\":\"paul@carretero.ovh\",\"password\":\"azerty\",\"address\":\"47 rue marius charles 38420 Domene\"}";
+		this.stringReader = new StringReader(str);
+		this.reader = new BufferedReader(this.stringReader);
+		when (this.request.getReader()).thenReturn(this.reader);		
+		when(session.getAttribute("idUser")).thenReturn(null);
+		
+		new MockedUser().doGet(this.request, this.response);
+		this.writer.flush();
+		assertTrue(this.stringWriter.toString().contains("success\":false")); 
+	}
+	
 	
 }

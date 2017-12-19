@@ -31,7 +31,7 @@ public class User extends HttpServlet {
 	private static final long serialVersionUID = -9212380023846124020L;
 
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/UserBean!user.bean.UserBeanLocal")
-	private UserBeanLocal userBean;
+	protected UserBeanLocal userBean;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
