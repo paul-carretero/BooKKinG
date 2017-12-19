@@ -66,3 +66,12 @@ h2 {
     font-weight: 550;
     color: black;
 }
+
+.btn {
+    background-color: #008080;
+    border-color: #bdc3c7;
+}
+.btn:hover{
+    background-color: #005858;   
+    border-color: #bdc3c7;
+}

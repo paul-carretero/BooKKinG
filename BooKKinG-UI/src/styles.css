@@ -30,6 +30,10 @@ body {
     background-color: #28a745 !important;
 }
 
+.bg-load{
+    background-color: #008080 !important;
+}
+
 .footer {
     text-align: center;
     color: black;

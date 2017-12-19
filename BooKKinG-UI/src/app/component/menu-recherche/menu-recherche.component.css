@@ -28,3 +28,23 @@
     margin: auto;
     font-size: xx-large;
 }
+
+.btn {
+    background-color: #008080;
+    border-color: #bdc3c7;
+}
+.btn:hover{
+    background-color: #005858;   
+    border-color: #bdc3c7;
+}
+/*
+.btn {
+    background-color: #1abc9c;
+    border-color: #bdc3c7;
+}
+.btn:focus{
+    background-color: #16a085;   
+    border-color: #bdc3c7;
+}
+
+*/

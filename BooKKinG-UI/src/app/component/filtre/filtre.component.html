@@ -26,7 +26,7 @@
             <div class="list-group">
                 <ng-container *ngFor="let genre of genres;">
                     <ng-container *ngIf="(genre !== 'ANY') || (genre === 'ANY' && canDisplayAny)">
-                        <a *ngIf="genre === currentGenre;else defaultTemplate" (click)="setCurrentGenre(genre)" class="list-group-item list-group-item-blue active">
+                        <a *ngIf="genre === currentGenre;else defaultTemplate" (click)="setCurrentGenre(genre)" class="btn btn-primary list-group-item list-group-item-blue active">
                             {{getDisplayable(genre)}}
                         </a>
                         <ng-template #defaultTemplate>

@@ -29,7 +29,12 @@
         </ng-container>
         <ng-container *ngIf="identity != null ">
             <button (click)="setCurrentOther('COMPTE')" class="btn btn-block btn-success btn-sm"><fa name="user "></fa> &nbsp;&nbsp; {{identity}}</button>
-            <button (click)="setCurrentOther('HOME'); deconnexion()" class="btn btn-block btn-link btn-sm">Se déconnecter</button>
+            <div align="center">
+                <span (click)="setCurrentOther('HOME'); deconnexion()" id="deconnexion" class="clickable">
+                        <u>Se déconnecter</u>
+                </span>
+            </div>
+                
         </ng-container>
     </div>
 </div>
