@@ -52,11 +52,15 @@ export class PanierComponent extends AbstractComponent implements OnInit {
    */
   public payer(): void {
     this.achatService.startTransaction();
-    if (this.connectionService.getConnectionStatus()) {
-      this.navigate(Globals.LIVRAISON);
-    } else {
-      this.navigate(Globals.LOGIN);
-    }
+    this.connectionService.isConnectedServeur().subscribe(
+      connected =>{
+        if(connected.success){
+          this.navigate(Globals.LIVRAISON);
+        } else {
+          this.navigate(Globals.LOGIN);
+        }
+      }
+    );
   }
 
   /**
