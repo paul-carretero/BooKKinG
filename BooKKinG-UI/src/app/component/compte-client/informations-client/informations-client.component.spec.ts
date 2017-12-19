@@ -1,11 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InformationsClientComponent } from './informations-client.component';
-import { FormsModule } from '@angular/forms';
-import { ConnectionService } from '../../service/connection.service';
+import { FormsModule, ControlContainer, ReactiveFormsModule } from '@angular/forms';
+import { ConnectionService } from '../../../service/connection.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule } from '@angular/http';
-import { NotifService } from '../../service/notif.service';
+import { NotifService } from '../../../service/notif.service';
+import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('InformationsClientComponent', () => {
   let component: InformationsClientComponent;
@@ -18,11 +19,15 @@ describe('InformationsClientComponent', () => {
       imports: [
         RouterTestingModule,
         HttpModule,
-        FormsModule
+        FormsModule,
+        RouterTestingModule,
+        ReactiveFormsModule,
       ],
+      schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         ConnectionService,
         NotifService,
+        ControlContainer
       ]
     })
       .compileComponents();

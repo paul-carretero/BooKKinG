@@ -15,7 +15,7 @@
                     <label for="email">Email :</label>
                     <div class="input-group">
                         <div class="input-group-addon">
-                            <fa name="check"></fa>
+                            <fa name="lock"></fa>
                         </div>
                         <input type="text" class="form-control" readonly value="{{clientModifie.email}}" tooltip="vous ne pouvez pas modifier l'Email associé à ce compte">
                     </div>
@@ -28,7 +28,7 @@
                     </span>
                     <br/>
                     <label for="address">Adresse:</label>
-                    <textarea name="address" type="text" class="form-control" id="address" formControlName="address" [(ngModel)]="clientModifie.address" #address required ></textarea>
+                    <textarea name="address" type="text" class="form-control" id="address" formControlName="address" [(ngModel)]="clientModifie.address" #address required></textarea>
                     <span [hidden]="modifierForm.get('address').valid || !modifierForm.get('address').touched" class="text-danger">
                     Vous devez entrer votre adresse.
                     <br/>
@@ -42,7 +42,7 @@
     <div class="col-md-6">
         <div class="panel panel-dark ">
             <div class="panel-heading ">
-                <fa name="lock"></fa> Changer de mot de passe
+                <fa name="key"></fa> Changer de mot de passe
             </div>
             <div class="panel-body ">
                 <div class="bg-danger" [hidden]="serverResponsePassword === '' || serverResponsePassword == null">

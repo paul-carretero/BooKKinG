@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Client } from '../../model/client';
-import { ConnectionService } from '../../service/connection.service';
+import { Client } from '../../../model/client';
+import { ConnectionService } from '../../../service/connection.service';
 import { Console } from '@angular/core/src/console';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 

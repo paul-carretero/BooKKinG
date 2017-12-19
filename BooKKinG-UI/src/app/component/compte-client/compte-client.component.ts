@@ -1,6 +1,5 @@
 import { ConnectionService } from './../../service/connection.service';
 import { Component, OnInit } from '@angular/core';
-import { Client } from '../../model/client';
 import { Router } from '@angular/router';
 import { NavigationService } from '../../service/navigation.service';
 import { AbstractComponent } from '../abstract-component';

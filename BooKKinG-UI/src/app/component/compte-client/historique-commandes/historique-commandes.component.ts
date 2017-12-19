@@ -1,15 +1,12 @@
-import { Article } from './../../model/article';
-import { Commande } from './../../model/commande';
+import { Article } from './../../../model/article';
+import { Commande } from './../../../model/commande';
 import { Component, OnInit } from '@angular/core';
-import { Livre } from '../../model/livre';
-import { AchatService } from '../../service/achat.service';
-import { SimpleArticle } from '../../model/simple-article';
-import { AbstractComponent } from '../abstract-component';
+import { Livre } from '../../../model/livre';
+import { AchatService } from '../../../service/achat.service';
+import { SimpleArticle } from '../../../model/simple-article';
+import { AbstractComponent } from '../../abstract-component';
 import { Router } from '@angular/router';
-import { NavigationService } from '../../service/navigation.service';
-
-
-
+import { NavigationService } from '../../../service/navigation.service';
 
 @Component({
   selector: 'app-historique-commandes',
@@ -38,10 +35,6 @@ export class HistoriqueCommandesComponent extends AbstractComponent implements O
 
   private get prix(): string {
     return this.commandeAAfficher.total.toFixed(2);
-  }
-
-  private getPrix(article: Article): string {
-    return (article.quantity * article.book.price).toFixed(2);
   }
 
   public afficherDetailsCommande(commande: Commande) {

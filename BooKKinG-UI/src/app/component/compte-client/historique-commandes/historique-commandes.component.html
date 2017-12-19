@@ -86,7 +86,7 @@
                                     {{article.quantity}}
                                 </td>
                                 <td>
-                                    {{getPrix(article)}}€
+                                    {{getDisplayPrice(article.quantity * article.book.price)}}€
                                 </td>
                             </tr>
                         </tbody>
