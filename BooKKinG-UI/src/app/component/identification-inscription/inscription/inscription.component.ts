@@ -49,6 +49,7 @@ export class InscriptionComponent extends AbstractComponent implements OnInit {
       response => {
         if (response.success) {
           this.notifService.publish('vous vous êtes enregistré avec succès!');
+          this.service.recuperationInformationsClient();
           if (this.achatService.getTransactionState()) {
             this.navigate(Globals.LIVRAISON);
           } else {

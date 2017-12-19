@@ -169,4 +169,17 @@ export class ConnectionService {
     );
     return subj.asObservable();
   }
+
+  public isConnectedServeur() : Observable<Reponse> {
+    const subj = new Subject<Reponse>();
+    this.http.get(this.urlConnection, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
+      reponse => {
+        if (reponse.success) {
+          this.isConnected = true;
+        }
+        subj.next(reponse);
+      }
+    );
+    return subj.asObservable();
+  }
 }
