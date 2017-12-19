@@ -13,7 +13,7 @@ import { NotifService } from './notif.service';
 @Injectable()
 export class AchatService {
 
-  private readonly urlAchat = `http://` + Globals.host + `/BooKKinG-Server-web/Command`;
+  private readonly urlAchat = Globals.host + `/Command`;
 
   private readonly address = { address: '' };
 

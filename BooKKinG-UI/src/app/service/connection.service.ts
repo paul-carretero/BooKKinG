@@ -15,9 +15,9 @@ import { Reponse } from '../model/reponse';
 @Injectable()
 export class ConnectionService {
 
-  private readonly urlConnection = `http://` + Globals.host + `/BooKKinG-Server-web/Login`;
+  private readonly urlConnection = Globals.host + `/Login`;
 
-  private readonly urlUser = `http://` + Globals.host + `/BooKKinG-Server-web/User`;
+  private readonly urlUser = Globals.host + `/User`;
 
   private isConnected: boolean;
 

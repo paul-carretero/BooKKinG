@@ -12,7 +12,7 @@ import { NotifService } from './notif.service';
 @Injectable()
 export class PanierService {
 
-  private readonly urlPanier = `http://` + Globals.host + `/BooKKinG-Server-web/Cart`;
+  private readonly urlPanier = Globals.host + `/Cart`;
 
   private contenuPanier: Article[] = [];
 

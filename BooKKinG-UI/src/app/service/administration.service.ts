@@ -9,7 +9,7 @@ import { NotifService } from './notif.service';
 @Injectable()
 export class AdministrationService {
 
-  private readonly urlLivre = `http://` + Globals.host + `/BooKKinG-Server-web/Book`;
+  private readonly urlLivre = Globals.host + `/Book`;
 
   private allLivres: Livre[];
 

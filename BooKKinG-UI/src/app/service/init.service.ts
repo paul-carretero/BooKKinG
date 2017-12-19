@@ -11,7 +11,7 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class InitService {
 
-  private readonly urlInit = `http://` + Globals.host + `/BooKKinG-Server-web/Init`;
+  private readonly urlInit = Globals.host + `/Init`;
 
   private initData: Init;
 

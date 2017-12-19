@@ -13,7 +13,7 @@ import { NotifService } from './notif.service';
 @Injectable()
 export class RechercheService {
 
-  private readonly urlLivre = `http://` + Globals.host + `/BooKKinG-Server-web/Book`;
+  private readonly urlLivre = Globals.host + `/Book`;
 
   private currentLivreList: ReponseRecherche;
 

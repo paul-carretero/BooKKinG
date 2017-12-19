@@ -10,9 +10,9 @@ export class Globals {
 
   public static readonly prixLivraison = 5;
 
-  // public static readonly host: string = '127.0.0.1:8080';
+  // public static readonly host: string = '127.0.0.1:8080/BooKKinG-Server-web';
 
-  public static readonly host: String = 'bookking.ovh';
+  public static readonly host: String = '';
 
   public static readonly headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8' });
 

@@ -9,7 +9,7 @@ import { NavigationService } from './navigation.service';
 @Injectable()
 export class LivreService {
 
-  private readonly urlLivre = `http://` + Globals.host + `/BooKKinG-Server-web/Book`;
+  private readonly urlLivre = Globals.host + `/Book`;
 
   private currentLivre: Livre;
 
