@@ -141,61 +141,26 @@
                         <skip>true</skip>
                     </configuration>
                 </plugin>
+                
+                 <!--
+			   		test sonar coverage
+			   		to download server go to https://www.sonarqube.org/downloads/
+			   		change maven config file conf/setting.xml (to find path try mvn -X )
+					follow tutorial : https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Maven
+					don't forget to change "myserver" by "localhost"
+			   -->
+
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>3.2</version>
+				</plugin>
+		
              </plugins>               
         </pluginManagement>
     </build>
     
-   <!--
-   		test sonar coverage
-   -->
-    <profiles>
-		<profile>
-		  <id>sonar-coverage</id>
-		  <activation>
-		    <activeByDefault>true</activeByDefault>
-		  </activation>
-		  <build>
-		    <pluginManagement>
-		      <plugins>
-		        <plugin>
-		          <groupId>org.jacoco</groupId>
-		          <artifactId>jacoco-maven-plugin</artifactId>
-		          <version>0.7.8</version>
-		        </plugin>
-		      </plugins>
-		    </pluginManagement>
-		    <plugins>
-		      <plugin>
-		        <groupId>org.jacoco</groupId>
-		        <artifactId>jacoco-maven-plugin</artifactId>
-		        <configuration>
-		          <append>true</append>
-		        </configuration>
-		        <executions>
-		          <execution>
-		            <id>agent-for-ut</id>
-		            <goals>
-		              <goal>prepare-agent</goal>
-		            </goals>
-		          </execution>
-		          <execution>
-		            <id>agent-for-it</id>
-		            <goals>
-		              <goal>prepare-agent-integration</goal>
-		            </goals>
-		          </execution>
-		          <execution>
-		            <id>jacoco-site</id>
-		            <phase>verify</phase>
-		            <goals>
-		              <goal>report</goal>
-		            </goals>
-		          </execution>
-		        </executions>
-		      </plugin>
-		    </plugins>
-		  </build>
-		</profile>
-	</profiles>
+  
+   
 
 </project>
