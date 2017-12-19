@@ -14,25 +14,22 @@ public class MockedUserBean implements UserBeanLocal {
 	@Override
 	public boolean createUser(UserJsonItf user) {
 		// TODO Auto-generated method stub
-		return false;
+		return !(user.getEmail().equals("paul@carretero.ovh"));
 	}
 
 	@Override
 	public boolean tryLogin(UserJsonItf user) {
-		// TODO Auto-generated method stub
-		return false;
+		return (user.getPassword().equals("123456"));
 	}
 
 	@Override
 	public UserEntity getUser(int idUser) {
-		// TODO Auto-generated method stub
-		return null;
+		return new UserEntity("paul carretero", "", "paul@carretero.ovh", "123456" );
 	}
 
 	@Override
 	public UserEntItf getUser(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		return new UserEntity("paul carretero", "", "paul@carretero.ovh", "123456");
 	}
 
 	@Override
