@@ -36,6 +36,32 @@ public class LoginTest  extends Mockito {
 	}
 
 	@Test
+    public void testSuccessConnect() throws Exception {
+		String str = "{\"email\":\"paul@carretero.ovh\",\"password\":\"123456\"}";
+		this.stringReader = new StringReader(str);
+		this.reader = new BufferedReader(this.stringReader);
+		when (this.request.getReader()).thenReturn(this.reader);		
+		
+		new MockedLogin().doPut(this.request, this.response);
+        this.writer.flush();
+        assertTrue(this.stringWriter.toString().contains("{\"success\":true"));
+    }
+	
+	
+	@Test
+    public void testErrorConnect() throws Exception {
+		String str = "{\"email\":\"paul@carretero.ovh\",\"password\":\"azerty\"}";
+		this.stringReader = new StringReader(str);
+		this.reader = new BufferedReader(this.stringReader);
+		when (this.request.getReader()).thenReturn(this.reader);		
+		
+		new MockedLogin().doPut(this.request, this.response);
+        this.writer.flush();
+        assertTrue(this.stringWriter.toString().contains("{\"success\":false"));
+    }
+	
+	
+	@Test
     public void testNotConnected() throws Exception {
 		when (this.session.getAttribute("idUser")).thenReturn(null);
         new Login().doGet(this.request, this.response);
@@ -44,6 +70,19 @@ public class LoginTest  extends Mockito {
         assertTrue(this.stringWriter.toString().contains("{\"success\":false,\"message\":\"\""));
     }
 	
+	
+	@Test
+    public void testConnected() throws Exception {
+		when (this.session.getAttribute("idUser")).thenReturn(42);
+
+		new MockedLogin().doGet(this.request, this.response);
+        verify(this.session, atLeast(1)).getAttribute("idUser");
+        this.writer.flush();
+        assertTrue(this.stringWriter.toString().contains("{\"success\":true"));
+    }
+	
+	
+	
 	@Test
     public void testErrorResetPwd() throws Exception {
 		String str = "";
@@ -51,7 +90,6 @@ public class LoginTest  extends Mockito {
 		this.reader = new BufferedReader(this.stringReader);
 		
         new MockedLogin().doPost(this.request, this.response);
-        // verify(this.session, atLeast(1)).getAttribute("idUser");
         this.writer.flush();
         assertTrue(this.stringWriter.toString().contains("{\"success\":false"));
     }
@@ -64,9 +102,7 @@ public class LoginTest  extends Mockito {
 		when (this.request.getReader()).thenReturn(this.reader);
 		
         new MockedLogin().doPost(this.request, this.response);
-        // verify(this.session, atLeast(1)).getAttribute("idUser");
         this.writer.flush();
-        System.out.println(this.stringWriter.toString());
         assertTrue(this.stringWriter.toString().contains("{\"success\":true"));
     }
 
