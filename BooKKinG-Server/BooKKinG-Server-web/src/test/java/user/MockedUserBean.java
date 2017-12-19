@@ -14,12 +14,11 @@ public class MockedUserBean implements UserBeanLocal {
 	@Override
 	public boolean createUser(UserJsonItf user) {
 		// TODO Auto-generated method stub
-		return false;
+		return !(user.getEmail().equals("paul@carretero.ovh"));
 	}
 
 	@Override
 	public boolean tryLogin(UserJsonItf user) {
-		// TODO Auto-generated method stub
 		return (user.getPassword().equals("123456"));
 	}
 
