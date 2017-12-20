@@ -103,7 +103,7 @@ public class MailerBean implements MailerBeanLocal {
 		properties.setProperty("mail.user", SMTP_AUTH_USER);
 		properties.setProperty("mail.smtp.auth", "true");
 		final Authenticator auth = new SMTPAuthenticator();
-		final Session session = Session.getDefaultInstance(properties, auth);
+		final Session session = Session.getInstance(properties, auth);
 		try {
 			final MimeMessage mail = new MimeMessage(session);
 			mail.setFrom(new InternetAddress(SMTP_AUTH_USER));
