@@ -35,6 +35,11 @@ export class ConnectionService {
     this.clientSubj = new BehaviorSubject<Client>(new Client());
   }
 
+  /**
+  * Initialiser la connexion
+  * @param : rien
+  * @return: rien
+  */
   private initConnexion(): void {
     this.http.get(this.urlConnection, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       connected => {
@@ -58,7 +63,12 @@ export class ConnectionService {
   }
 
   // ------------------------------------------------ Public Itf ---------------------------------------------------------
-
+  
+  /**
+  * Récupérer l'état de la connexion
+  * @param : rien
+  * @return: boolean 
+  */
   public getConnectionStatus(): boolean {
     return this.isConnected;
   }
@@ -104,6 +114,10 @@ export class ConnectionService {
     return subj.asObservable();
   }
 
+  /**
+   * Fonction permettant de faire la déconnexion.
+   * @param : rien
+   */
   public deconnexion(): void {
     this.clientSubj.next(new Client());
     this.isConnected = false;
@@ -119,6 +133,10 @@ export class ConnectionService {
     );
   }
 
+   /**
+   * Fonction permettant de réinitialiser le mot de passe du client.
+   * @param email: adresse de mel du client qui est de type string
+   */
   public reinitialiserMotDePasse(email: string): Observable<Reponse> {
     return this.http.post(this.urlConnection, { email: email }, Globals.HTTP_OPTIONS).map(res => res.json());
   }
@@ -126,8 +144,9 @@ export class ConnectionService {
   // ------------------------------------------------ Servlet  User ----------------------------------------------------------
 
   /**
-   * on retourne le client récupéré (Format JSON)
-   */
+   * Fonction permettant de récupérer les informations du client.
+   * @param :rien
+  */
   public recuperationInformationsClient(): void {
     this.http.get(this.urlUser, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       client => {
@@ -141,6 +160,11 @@ export class ConnectionService {
     );
   }
 
+  /**
+   * Fonction permettant de créer un client.
+   * Retourne le client enregistré dans la base de donnée (au format JSON)
+   * @param client informations sur le client à créer
+  */
   public creationClient(client: Client): Observable<Reponse> {
     const subj = new Subject<Reponse>();
     this.http.post(this.urlUser, client, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
@@ -157,6 +181,11 @@ export class ConnectionService {
     return subj.asObservable();
   }
 
+  /**
+   * Fonction permettant de créer un client.
+   * Retourne le client enregistré dans la base de donnée (au format JSON)
+   * @param client informations sur le client qui demande à être créé
+  */
   public modifierClient(client: Client): Observable<Reponse> {
     const subj = new Subject<Reponse>();
     this.http.put(this.urlUser, client, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
