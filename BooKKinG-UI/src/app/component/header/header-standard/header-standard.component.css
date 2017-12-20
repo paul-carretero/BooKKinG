@@ -98,15 +98,10 @@ ul#nav ul li:hover>a {
     letter-spacing: 2px;
 }
 
-.btn {
-    background-color: #008080;
-    border-color: #bdc3c7;
-}
-.btn:hover{
-    background-color: #005858;   
-    border-color: #bdc3c7;
+#deconnexion{
+    color : #337ab7;
 }
 
-#deconnexion{
-    color : blue;
+#deconnexion:hover{
+    color : #245985;
 }
