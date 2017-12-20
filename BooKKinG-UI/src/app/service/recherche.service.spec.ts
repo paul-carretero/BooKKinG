@@ -29,14 +29,4 @@ describe('RechercheService', () => {
   it('should be created', inject([RechercheService], (service: RechercheService) => {
     expect(service).toBeTruthy();
   }));
-
- /* 
-  it('current page', inject([RechercheService], (service: RechercheService) => {
-    let pageCourante = 2;
-    service.setCurrentPage(2);
-    let pageCouranteRecuperee = service.getCurrentPage();
-    expect(pageCouranteRecuperee).toEqual(pageCourante);
-  }));
-*/
-
 });
