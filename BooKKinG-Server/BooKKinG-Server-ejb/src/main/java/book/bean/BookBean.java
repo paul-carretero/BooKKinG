@@ -32,6 +32,13 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 	private static final int PAGE_SIZE = 5;
 
 	/**
+	 * definition des constantes pour les regex
+	 */
+	private static final String REGEX_CONST =  "( regexp(" ; 
+	
+	private static final String REGEX_VALUE_ONE =  "') = 1 )" ;
+	
+	/**
 	 * Default constructor. 
 	 */
 	public BookBean() {}
@@ -84,11 +91,11 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 	 */
 	public static String generateRegexpSubQuery(final String regExp, final String entityName) {
 		StringBuilder res = new StringBuilder();
-		res.append("( regexp("+entityName+".title, '"+regExp+"') = 1 )");
+		res.append(REGEX_CONST + entityName+".title, '"+regExp + REGEX_VALUE_ONE);
 		res.append(" OR ");
-		res.append("( regexp("+entityName+".author, '"+regExp+"') = 1 )");
+		res.append(REGEX_CONST + entityName+".author, '"+regExp + REGEX_VALUE_ONE);
 		res.append(" OR ");
-		res.append("( regexp("+entityName+".summary, '"+regExp+"') = 1 )");
+		res.append(REGEX_CONST + entityName+".summary, '"+regExp + REGEX_VALUE_ONE);
 		return res.toString();
 	}
 

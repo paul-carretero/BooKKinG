@@ -11,7 +11,7 @@ public class CartDetailId implements Serializable{
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = -6908277166100646567L;
-	
+
 	/**
 	 * id utilisateur
 	 */
