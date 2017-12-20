@@ -6,6 +6,10 @@ import shared.Genre;
 import shared.Type;
 import shared.Validifyable;
 
+/**
+ * représentation des donnée d'un livre pour une mise à jour
+ * Note: dans la version actuelle de l'application seul le stock peut être mis à joru
+ */
 public class BookPostJson extends AbstractJson implements BookCreateDataItf, Validifyable {
 
 	/**
@@ -13,22 +17,49 @@ public class BookPostJson extends AbstractJson implements BookCreateDataItf, Val
 	 */
 	private static final long serialVersionUID = 8995433888753949684L;
 	
+	/**
+	 * genre du livre
+	 */
 	private Genre genre;
 	
+	/**
+	 * type du livre
+	 */
 	private Type type;
 	
+	/**
+	 * auteur du livre
+	 */
 	private String author;
 	
-	private Float price;
+	/**
+	 * prix du livre
+	 */
+	private float price;
 	
+	/**
+	 * titre du livre
+	 */
 	private String title;
 	
+	/**
+	 * image en base64 du livre
+	 */
 	private String picture;
 	
+	/**
+	 * résumé du livre
+	 */
 	private String summary;
 		
+	/**
+	 * stock du livre
+	 */
 	private int stock;
 	
+	/**
+	 * du livre à mettre à jour ou 0 si création
+	 */
 	private int idBook;
 
 	/**
@@ -94,9 +125,6 @@ public class BookPostJson extends AbstractJson implements BookCreateDataItf, Val
 		}
 		if(this.title == null) {
 			this.title = "";
-		}
-		if(this.price == null) {
-			this.price = 0f;
 		}
 		if(this.type == null) {
 			this.type = Type.ANY;

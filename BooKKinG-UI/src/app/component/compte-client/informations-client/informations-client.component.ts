@@ -11,19 +11,19 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class InformationsClientComponent implements OnInit {
 
-  private serverResponseModifier: string;
+  public serverResponseModifier: string;
 
-  private serverResponsePassword: string;
+  public serverResponsePassword: string;
 
-  private serverResponseModifierSuccess: string;
+  public serverResponseModifierSuccess: string;
 
-  private serverResponsePasswordSuccess: string;
+  public serverResponsePasswordSuccess: string;
 
-  private modifierForm: FormGroup;
+  public modifierForm: FormGroup;
 
-  private passwordForm: FormGroup;
+  public passwordForm: FormGroup;
 
-  private clientModifie: Client;
+  public clientModifie: Client;
 
   constructor(private serviceConnection: ConnectionService, private fb: FormBuilder) {
     this.clientModifie = new Client();
@@ -58,7 +58,7 @@ export class InformationsClientComponent implements OnInit {
     }
   }
 
-  private modifier() {
+  public modifier() {
     const conn = this.serviceConnection.modifierClient(this.clientModifie).subscribe(
       reponse => {
         if (reponse.success) {
@@ -73,7 +73,7 @@ export class InformationsClientComponent implements OnInit {
     );
   }
 
-  private modifierPassword() {
+  public modifierPassword() {
     const c = new Client();
     c.password = this.passwordForm.value.password;
     const conn = this.serviceConnection.modifierClient(c).subscribe(

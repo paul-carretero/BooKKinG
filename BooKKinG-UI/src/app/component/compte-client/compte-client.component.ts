@@ -13,9 +13,9 @@ import { AchatService } from '../../service/achat.service';
 })
 export class CompteClientComponent extends AbstractComponent implements OnInit {
 
-  private readonly options = ['Mes Informations', 'Mes Commandes'];
+  public readonly options = ['Mes Informations', 'Mes Commandes'];
 
-  private current = 0;
+  public current = 0;
 
   constructor(public router: Router, private connectionService: ConnectionService,
     public navigationService: NavigationService, private serviceCommande: AchatService) {

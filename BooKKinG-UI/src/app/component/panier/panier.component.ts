@@ -31,7 +31,7 @@ export class PanierComponent extends AbstractComponent implements OnInit {
   ngOnInit() { }
 
   get montantGlobal(): string {
-    return this.service.getTotalPrice().toFixed(2);
+    return this.getDisplayPrice(this.service.getTotalPrice());
   }
 
   get contenuPanier(): Article[] {
@@ -39,7 +39,7 @@ export class PanierComponent extends AbstractComponent implements OnInit {
   }
 
   public getPrice(a: Article): string {
-    return (a.quantity * a.book.price).toFixed(2);
+    return this.getDisplayPrice(a.quantity * a.book.price);
   }
 
   public supprimer(idBook: number) {
@@ -53,8 +53,8 @@ export class PanierComponent extends AbstractComponent implements OnInit {
   public payer(): void {
     this.achatService.startTransaction();
     this.connectionService.isConnectedServeur().subscribe(
-      connected =>{
-        if(connected.success){
+      connected => {
+        if (connected.success) {
           this.navigate(Globals.LIVRAISON);
         } else {
           this.navigate(Globals.LOGIN);

@@ -7,6 +7,9 @@ import command.dataItf.CommandJsonItf;
 import command.dataItf.CommandListJsonItf;
 import shared.GenericResponseJson;
 
+/**
+ * représente une liste de commandes utilisateur
+ */
 public class CommandListJson extends GenericResponseJson implements CommandListJsonItf {
 
 	/**
@@ -14,6 +17,9 @@ public class CommandListJson extends GenericResponseJson implements CommandListJ
 	 */
 	private static final long serialVersionUID = -1001378718668543497L;
 	
+	/**
+	 * liste de représentation des commandes d'un utilisateur
+	 */
 	private List<CommandJson> commands;
 
 	/**

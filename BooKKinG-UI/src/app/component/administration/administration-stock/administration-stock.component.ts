@@ -26,11 +26,7 @@ export class AdministrationStockComponent extends AbstractComponent implements O
     return this.service.getAllLivres();
   }
 
-  private modifierStockLivres() {
-    this.service.récupérerAllLivres();
-  }
-
-  private setQuantity(livre: Livre, quantity: string) {
+  public setQuantity(livre: Livre, quantity: string) {
     const quantiteLivre = Number(quantity);
     this.service.setQuantity(livre.idBook, quantiteLivre);
   }

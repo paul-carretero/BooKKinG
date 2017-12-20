@@ -1,0 +1,27 @@
+.table thead {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+}
+
+.table {
+    border: 1px solid white;
+}
+
+.table-sm tbody td {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.table-sm tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.table-sm tbody a {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.table-sm tbody a:hover {
+    text-decoration: underline;
+}

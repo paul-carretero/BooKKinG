@@ -51,6 +51,10 @@ public class MailerBean implements MailerBeanLocal {
 	 * port smtp
 	 */
 	private static final String SMTP_HOST_PORT = "587";
+	
+	/**
+	 * fin de ligne html
+	 */
 	private static final String END_LINE = "\r\n\r\n";
 
 	/**
@@ -159,8 +163,8 @@ public class MailerBean implements MailerBeanLocal {
 	@Override
 	public void sendConfirmationCommand(final UserEntItf aUser, final CommandEntItf cmd) {
 		String template = getTemplate("invoice");
-		String subtotal = String.valueOf(cmd.getTotal());
-		String total = String.valueOf(cmd.getTotal() + cmd.getShippingCost());
+		final String subtotal = String.valueOf(cmd.getTotal());
+		final String total 	= String.format("%.2f", (cmd.getTotal() + cmd.getShippingCost()));
 		
 		template = template.replaceFirst(Pattern.quote("{{USER_NAME}}"), aUser.getName());
 		template = template.replaceFirst(Pattern.quote("{{INVOICE_NAME}}"), aUser.getName());
@@ -169,7 +173,7 @@ public class MailerBean implements MailerBeanLocal {
 		template = template.replaceFirst(Pattern.quote("{{COMMAND_DATE}}"), cmd.getDate());
 		template = template.replaceFirst(Pattern.quote("{{COMMAND_ID}}"), String.valueOf(cmd.getIdCmd()));
 		template = template.replaceFirst(Pattern.quote("{{SUB_TOTAL}}"), subtotal);
-		template = template.replaceFirst(Pattern.quote("{{SHIPPING_COST}}"), String.valueOf(cmd.getShippingCost()));
+		template = template.replaceFirst(Pattern.quote("{{SHIPPING_COST}}"), String.valueOf(cmd.getShippingCost())+",00");
 		template = template.replaceFirst(Pattern.quote("{{TOTAL_PRICE}}"), total);
 		
 		StringBuffer details = new StringBuffer();

@@ -39,19 +39,19 @@ export class FinPaiementComponent extends AbstractComponent implements OnInit {
     return a.book.stock > 0;
   }
 
-  private get currentCmd(): Commande {
+  get currentCmd(): Commande {
     return this.serviceAchat.getCommandeCourante();
   }
 
-  private get currentArticles(): Article[] {
+  get currentArticles(): Article[] {
     return this.serviceAchat.recupererArticlesCommande(this.currentCmd);
   }
 
-  private get shippingCost(): string {
+  get shippingCost(): string {
     return this.currentCmd.shippingCost.toFixed(2);
   }
 
-  private get totalPrice(): string {
+  get totalPrice(): string {
     return (this.serviceAchat.getMontantTotalCommande(this.currentCmd) + this.currentCmd.shippingCost).toFixed(2);
   }
 
@@ -60,7 +60,7 @@ export class FinPaiementComponent extends AbstractComponent implements OnInit {
   * @param :rien
   * @return: un ID de commande de type number
   */
-  private get idCommand(): number {
+  get idCommand(): number {
     return this.serviceAchat.getCommandeCourante().idCmd;
   }
 
@@ -69,7 +69,7 @@ export class FinPaiementComponent extends AbstractComponent implements OnInit {
   * @param :rien
   * @return: un ID de commande de type number
   */
-  private get Address() {
+  get Address() {
     return this.serviceAchat.getCommandeCourante().shippingAddress;
   }
 

@@ -12,7 +12,7 @@ import { Subject } from 'rxjs/Subject';
 export class StockComponent implements OnInit {
 
   @Input()
-  private stock: number;
+  public stock: number;
 
   constructor() { }
 

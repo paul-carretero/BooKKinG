@@ -17,20 +17,18 @@ import user.request.UserJson;
 
 /**
  * Servlet implementation class Login
- * test only
+ * permet de traiter les demande de connexion et déconnexion
  */
 public class Login extends HttpServlet {
-	
-	
-	private static final String UTF_CONST = "text/plain;charset=UTF-8";
-	
-	private static final String ID_USER = "idUser";
 	
 	/**
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 3080122707245766248L;
 	
+	/**
+	 * bean user permettant de récupérer les informations de connexion d'un utilisateur
+	 */
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/UserBean!user.bean.UserBeanLocal")
 	protected UserBeanLocal userBean;
        
@@ -47,9 +45,9 @@ public class Login extends HttpServlet {
 	 */
 	@Override
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType(UTF_CONST);
+		response.setContentType(HttpHelper.HTTP_HEADERS);
 		HttpSession session = request.getSession();
-		session.removeAttribute(ID_USER);
+		session.removeAttribute(HttpHelper.ID_USER);
 		response.getWriter().append(new GenericResponseJson(true).toString());
 	}
 	
@@ -59,21 +57,21 @@ public class Login extends HttpServlet {
 	 */
 	@Override
 	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType(UTF_CONST);
+		response.setContentType(HttpHelper.HTTP_HEADERS);
 		HttpSession session = request.getSession();
 		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 		if(HttpHelper.checkAndValidData(data, response)) {
 			if(this.userBean.tryLogin(data)) {
-				session.setAttribute( ID_USER, this.userBean.getUser(data.getEmail()).getIdUser());
+				session.setAttribute( HttpHelper.ID_USER, this.userBean.getUser(data.getEmail()).getIdUser());
 				response.getWriter().append(new GenericResponseJson(true).toString());
 			}
 			else {
-				session.removeAttribute(ID_USER);
+				session.removeAttribute(HttpHelper.ID_USER);
 				response.getWriter().append(new GenericResponseJson(false,"email ou mot de passe invalide").toString());
 			}
 		}
 		else {
-			session.removeAttribute(ID_USER);
+			session.removeAttribute(HttpHelper.ID_USER);
 		}
 	}
 	
@@ -83,9 +81,9 @@ public class Login extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType(UTF_CONST);
+		response.setContentType(HttpHelper.HTTP_HEADERS);
 		HttpSession session = request.getSession();
-		if(session.getAttribute(ID_USER) != null) {
+		if(session.getAttribute(HttpHelper.ID_USER) != null) {
 			response.getWriter().append(new GenericResponseJson(true).toString());
 		}
 		else {
@@ -99,7 +97,7 @@ public class Login extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType(UTF_CONST);
+		response.setContentType(HttpHelper.HTTP_HEADERS);
 		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 		if(HttpHelper.checkAndValidData(data, response)) {
 			if(data.checkEmail()) {

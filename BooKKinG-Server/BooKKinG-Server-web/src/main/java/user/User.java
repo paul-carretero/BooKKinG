@@ -20,19 +20,16 @@ import user.response.UserJsonResponse;
 /**
  * Servlet implementation class User
  */
-public class User extends HttpServlet {
-
-	private static final String UTF_CONST = "text/plain;charset=UTF-8";
-	
-	
-	@SuppressWarnings("unused")
-	private static final String NAME = "User";
+public class User extends HttpServlet {	
 
 	/**
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = -9212380023846124020L;
 
+	/**
+	 * bean user permettant d'effectuer les opération de création, récupération et mise à jour des utilisateurs
+	 */
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/UserBean!user.bean.UserBeanLocal")
 	protected UserBeanLocal userBean;
 
@@ -49,7 +46,7 @@ public class User extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType(UTF_CONST);
+		response.setContentType(HttpHelper.HTTP_HEADERS);
 		if(HttpHelper.checkAuth(request, response)) {
 			UserEntItf uItf = this.userBean.getUser(HttpHelper.getIdUser(request));
 			UserJsonResponse res = new UserJsonResponse(uItf.getName(), uItf.getEmail(), uItf.getAddress(), uItf.isAdmin());
@@ -63,13 +60,13 @@ public class User extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType(UTF_CONST);
+		response.setContentType(HttpHelper.HTTP_HEADERS);
 		HttpSession session = request.getSession();
 		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 		if(HttpHelper.checkAndValidData(data, response)) {
 			if(data.checkContent()) {
 				if(this.userBean.createUser(data)) {
-					session.setAttribute( "idUser", this.userBean.getUser(data.getEmail()).getIdUser());
+					session.setAttribute(HttpHelper.ID_USER, this.userBean.getUser(data.getEmail()).getIdUser());
 					response.getWriter().append(new GenericResponseJson(true).toString());
 				}
 				else {
@@ -88,7 +85,7 @@ public class User extends HttpServlet {
 	 */
 	@Override
 	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType(UTF_CONST);
+		response.setContentType(HttpHelper.HTTP_HEADERS);
 		if(HttpHelper.checkAuth(request, response)) {
 			UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 			if(HttpHelper.checkAndValidData(data, response)) {

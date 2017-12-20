@@ -5,7 +5,6 @@ import shared.AbstractJson;
 import shared.Validifyable;
 
 /**
- * @author Paul Carretero
  * représente les données lors de la validation d'une commande
  */
 public class CommandReqJson extends AbstractJson implements CommandReqJsonItf, Validifyable {
@@ -15,12 +14,17 @@ public class CommandReqJson extends AbstractJson implements CommandReqJsonItf, V
 	 */
 	private static final long serialVersionUID = 4735873589496854747L;
 	
+	/**
+	 * l'address de livraison de cette commande
+	 */
 	private String address;
 	
 	/**
 	 * Default constructor
 	 */
-	public CommandReqJson() {}
+	public CommandReqJson() {
+		super();
+	}
 
 	@Override
 	public String getAddress() {

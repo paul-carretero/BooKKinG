@@ -36,6 +36,9 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 	 */
 	private static final String REGEX_CONST =  "( regexp(" ; 
 	
+	/**
+	 * constante regexp (srsly...)
+	 */
 	private static final String REGEX_VALUE_ONE =  "') = 1 )" ;
 	
 	/**

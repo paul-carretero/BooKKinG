@@ -1,5 +1,7 @@
 package init;
 
+import java.util.Locale;
+
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -32,7 +34,9 @@ public class InitBean extends AbstractBean implements InitBeanLocal {
     /**
      * Default constructor. 
      */
-    public InitBean() {}
+    public InitBean() {
+    	Locale.setDefault(Locale.FRANCE);
+    }
 
 	@Override
 	public void getRandom(InitResponseJsonItf response) {

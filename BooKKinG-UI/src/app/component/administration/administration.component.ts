@@ -18,9 +18,9 @@ import { Ng4FilesStatus, Ng4FilesSelected } from 'angular4-files-upload';
  */
 export class AdministrationComponent implements OnInit {
 
-  private readonly options = ['Ajouter un livre', 'Mettre à jour le stock', 'Visualiser commandes clients'];
+  public readonly options = ['Ajouter un livre', 'Mettre à jour le stock', 'Visualiser commandes clients'];
 
-  private current = 0;
+  public current = 0;
 
   constructor(private service: AdministrationService, private connectionService: ConnectionService,
     private router: Router, private notifService: NotifService, private navigationService: NavigationService) { }
@@ -34,14 +34,14 @@ export class AdministrationComponent implements OnInit {
     this.navigationService.setCurrentOther(Globals.ADMIN);
   }
 
-  private isActiveClass(i: number): string {
+  public isActiveClass(i: number): string {
     if (this.current === i) {
       return 'active';
     }
     return '';
   }
 
-  private setCurrent(i: number) {
+  public setCurrent(i: number) {
     this.current = i;
   }
 }

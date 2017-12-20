@@ -13,7 +13,7 @@ import { ConnectionService } from '../../../service/connection.service';
 })
 export class PayerComponent implements OnInit {
 
-  private readonly payementsOption = ['credit-card', 'paypal', 'exchange'];
+  public readonly payementsOption = ['credit-card', 'paypal', 'exchange'];
 
   constructor(private router: Router, private panierService: PanierService, private serviceConnect: ConnectionService,
     private achatService: AchatService, private navigationService: NavigationService) { }

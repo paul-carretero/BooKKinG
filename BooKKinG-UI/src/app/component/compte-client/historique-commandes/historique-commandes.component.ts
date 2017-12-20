@@ -15,9 +15,9 @@ import { NavigationService } from '../../../service/navigation.service';
 })
 export class HistoriqueCommandesComponent extends AbstractComponent implements OnInit {
 
-  private articles: Article[];
-  private commandeSelected = false;
-  private commandeAAfficher: Commande;
+  public articles: Article[];
+  public commandeSelected = false;
+  public commandeAAfficher: Commande;
 
 
   constructor(private serviceCommande: AchatService, public router: Router, public navigationService: NavigationService) {
@@ -29,12 +29,8 @@ export class HistoriqueCommandesComponent extends AbstractComponent implements O
     this.commandeSelected = false;
   }
 
-  private get historique(): Commande[] {
+  get historique(): Commande[] {
     return this.serviceCommande.getCommandesClient();
-  }
-
-  private get prix(): string {
-    return this.commandeAAfficher.total.toFixed(2);
   }
 
   public afficherDetailsCommande(commande: Commande) {

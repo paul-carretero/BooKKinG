@@ -15,7 +15,8 @@ import { AbstractComponent } from '../../abstract-component';
 })
 export class HeaderStandardComponent extends AbstractComponent implements OnInit {
 
-  private resetOnChange = '';
+  public resetOnChange = '';
+
   /**
   * Constructeur du composant header-standard
   * @param connectionService permet d'accéder aux services du composant ConnectionService
@@ -32,7 +33,7 @@ export class HeaderStandardComponent extends AbstractComponent implements OnInit
 
   ngOnInit(): void { }
 
-  private setCurrentType(type: string): void {
+  public setCurrentType(type: string): void {
     this.resetOnChange = '';
     this.rechercheService.setCurrentSearch('');
     if (Globals.typeLivre.includes(type)) {
@@ -41,13 +42,13 @@ export class HeaderStandardComponent extends AbstractComponent implements OnInit
     this.router.navigate([Globals.getRoute(Globals.RECHERCHE)]);
   }
 
-  private setCurrentOther(other: string): void {
+  public setCurrentOther(other: string): void {
     this.resetOnChange = '';
     this.rechercheService.setCurrentSearch('');
     this.navigate(other);
   }
 
-  private search(str: string): void {
+  public search(str: string): void {
     this.resetOnChange = str;
     if (str.length > 2) {
       this.navigationService.setCurrentType('ANY');
@@ -62,7 +63,7 @@ export class HeaderStandardComponent extends AbstractComponent implements OnInit
    * Delegate methodes
    */
 
-  private deconnexion(): void {
+  public deconnexion(): void {
     this.connectionService.deconnexion();
   }
 
@@ -73,7 +74,7 @@ export class HeaderStandardComponent extends AbstractComponent implements OnInit
       return null;
     }
   }
-  
+
   get numberOfCartItem(): number {
     return this.panierService.getNumberOfItems();
   }

@@ -4,6 +4,10 @@ import book.dataItf.BookJsonItf;
 import init.InitResponseJsonItf;
 import shared.GenericResponseJson;
 
+/**
+ * fourni des constantes sur les livres du site
+ */
+@SuppressWarnings("unused")
 public class InitResponseJson extends GenericResponseJson implements InitResponseJsonItf{
 
 	/**
@@ -11,29 +15,51 @@ public class InitResponseJson extends GenericResponseJson implements InitRespons
 	 */
 	private static final long serialVersionUID = -2810277503844727785L;
 	
+	/**
+	 * livre le plus acheté
+	 */
 	private BookJson mostBuyBook;
 	
+	/**
+	 * un livre aléatoire
+	 */
 	private BookJson randomBook;
 	
+	/**
+	 * livre le plus récent
+	 */
 	private BookJson newestBook;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * adresse du magasin de paris
+	 */
 	private String parisAddress;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * adresse de bordeaux
+	 */
 	private String BordeauxAddress;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * adresse de grenoble
+	 */
 	private String grenobleAddress;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * prix du livre le moins cher
+	 */
 	private int min;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * prix du livre le plus cher
+	 */
 	private int max;
 
+	/**
+	 * default constructor
+	 */
 	public InitResponseJson() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	@Override

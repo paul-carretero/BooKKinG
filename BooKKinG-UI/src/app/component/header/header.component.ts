@@ -14,6 +14,7 @@ import { AchatService } from '../../service/achat.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+
   /**
   * Constructeur du composant header
   * @param connectionService permet d'accéder aux services du composant ConnectionService

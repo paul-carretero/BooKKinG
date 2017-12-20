@@ -22,7 +22,7 @@ export class ReturnButtonComponent implements OnInit {
     return this.histoNav.canGoBack();
   }
 
-  private get shouldHide(): boolean {
+  get shouldHide(): boolean {
     return this.achatService.getTransactionState();
   }
 

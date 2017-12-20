@@ -2,6 +2,7 @@ import { AchatService } from './../../../service/achat.service';
 import { Component, OnInit } from '@angular/core';
 import { Commande } from '../../../model/commande';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Article } from '../../../model/article';
 
 @Component({
   selector: 'app-administration-commandes',
@@ -10,43 +11,42 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class AdministrationCommandesComponent implements OnInit {
 
-  private datesForm : FormGroup;
+  public datesForm: FormGroup;
 
-  constructor(private serviceAchat : AchatService, private fb: FormBuilder) { 
+  public currentCmd: Commande;
+
+  public articles: Article[] = [];
+
+  constructor(private serviceAchat: AchatService, private fb: FormBuilder) {
     this.datesForm = fb.group({
-      dStart: [''],dEnd:['']
+      dStart: [''], dEnd: ['']
     });
-
-
   }
 
   ngOnInit() {
-    this.serviceAchat.récupérerAllCommandes("", "");
+    this.serviceAchat.récupérerAllCommandes('', '');
   }
 
-
-  get allCommandes() : Commande[]{
+  get allCommandes(): Commande[] {
     return this.serviceAchat.getAllCommandes();
   }
 
-  private nombreLivre(commande : Commande) : number{
-    return commande.books.length;
-  }
-
-  private montantTotal(commande):number{
+  public montantTotal(commande): number {
     return this.serviceAchat.getMontantTotalCommande(commande);
   }
 
-  private rechercherCommandes(){
-    let dStart = this.datesForm.value.dStart;
-    let dEnd = this.datesForm.value.dEnd;
+  public rechercherCommandes() {
+    const dStart = this.datesForm.value.dStart;
+    const dEnd = this.datesForm.value.dEnd;
     this.serviceAchat.récupérerAllCommandes(dStart, dEnd);
   }
 
-  private afficherDate(date : string): string{
-    let d = new Date(date);
-    return d.toLocaleDateString();
+  public setCurrentCommande(c: Commande) {
+    this.currentCmd = c;
+    this.articles = this.serviceAchat.recupererArticlesCommande(this.currentCmd);
   }
 
-  
+  public getDisplayPrice(n: number): string {
+    return n.toFixed(2);
+  }
 }

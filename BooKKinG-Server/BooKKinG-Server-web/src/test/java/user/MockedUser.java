@@ -1,5 +1,6 @@
 package user;
 
+@SuppressWarnings("javadoc")
 public class MockedUser extends User{
 
 	/**

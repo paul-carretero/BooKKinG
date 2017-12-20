@@ -1,9 +1,8 @@
 <div class="row">
-    <div (click)="setCurrentOther('HOME')" class="col-md-1 home-link">
+    <div (click)="setCurrentOther('HOME')" class="col-md-2 home-link">
         <img id="logo_img" src="assets/logo.gif" alt="logo_site" />
-        <span>BooKKinG</span>
     </div>
-    <nav class="col-md-8" id="menu_wrapper">
+    <nav class="col-md-7" id="menu_wrapper">
         <ul id="nav">
             <ng-container *ngFor="let type of typeLivres;">
                 <ng-container *ngIf="type !== 'ANY'">
@@ -21,20 +20,22 @@
     </nav>
     <div class="col-md-3 block-login">
         <button (click)="setCurrentOther('PANIER')" class="btn btn-block btn-success btn-sm">
-                <fa name="shopping-cart "></fa> &nbsp;&nbsp; {{numberOfCartItem}}
-                livre<ng-container *ngIf="numberOfCartItem > 1" >s</ng-container> ({{totalPriceOfCart.toFixed(2)}} €)
-            </button>
+      <fa name="shopping-cart "></fa> &nbsp;&nbsp; {{numberOfCartItem}} livre
+      <ng-container *ngIf="numberOfCartItem > 1">s</ng-container> ({{getDisplayPrice(totalPriceOfCart)}} €)
+    </button>
         <ng-container *ngIf="identity == null ">
-            <button (click)="setCurrentOther('LOGIN')" class="btn btn-block btn-success btn-sm"><fa name="user "></fa> &nbsp;&nbsp; Login - Enregistrement</button>
+            <button (click)="setCurrentOther('LOGIN')" class="btn btn-block btn-success btn-sm">
+        <fa name="user "></fa> &nbsp;&nbsp; Login - Enregistrement</button>
         </ng-container>
         <ng-container *ngIf="identity != null ">
-            <button (click)="setCurrentOther('COMPTE')" class="btn btn-block btn-success btn-sm"><fa name="user "></fa> &nbsp;&nbsp; {{identity}}</button>
+            <button (click)="setCurrentOther('COMPTE')" class="btn btn-block btn-success btn-sm">
+        <fa name="user "></fa> &nbsp;&nbsp; {{identity}}</button>
             <div align="center">
                 <span (click)="setCurrentOther('HOME'); deconnexion()" id="deconnexion" class="clickable">
-                        <u>Se déconnecter</u>
-                </span>
+          <u>Se déconnecter</u>
+        </span>
             </div>
-                
+
         </ng-container>
     </div>
 </div>
@@ -45,7 +46,9 @@
     <div class="col-md-6 ">
         <form id="search_wrapper ">
             <div class="input-group">
-                <span class="input-group-addon" id="search-addon"><fa name="search "></fa></span>
+                <span class="input-group-addon" id="search-addon">
+          <fa name="search "></fa>
+        </span>
                 <input type="search" value="{{resetOnChange}}" (input)="search($event.target.value)" class="form-control" placeholder="Rechercher un livre, un autheur..." aria-describedby="search-addon" />
             </div>
         </form>

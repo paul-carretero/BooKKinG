@@ -6,6 +6,10 @@ import shared.GenericResponseJson;
 import shared.Genre;
 import shared.Type;
 
+/**
+ * représnte les données d'un livre retourné à l'utilisateur
+ */
+@SuppressWarnings("unused")
 public class BookJson extends GenericResponseJson implements BookJsonItf {
 
 	/**
@@ -13,38 +17,63 @@ public class BookJson extends GenericResponseJson implements BookJsonItf {
 	 */
 	private static final long serialVersionUID = -1558650586696499087L;
 
-	@SuppressWarnings("unused")
+	/**
+	 * genre du livre
+	 */
 	private Genre genre;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * type du livre
+	 */
 	private Type type;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * auteur du livre
+	 */
 	private String author;
 	
-	@SuppressWarnings("unused")
-	private Float price;
+	/**
+	 * prix du livre
+	 */
+	private float price;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * titre du livre
+	 */
 	private String title;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * image en base64 du livre
+	 */
 	private String picture;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * résumé du livre
+	 */
 	private String summary;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * id du livre
+	 */
 	private int idBook;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * stock du livre
+	 */
 	private int stock;
 	
 	
+	/**
+	 * default constructor
+	 */
 	public BookJson() {
 		super();
 	}
 
+	/**
+	 * construit une réprésentation d'un livre pour un utilisateur à partir d'une entité JPA
+	 * @param bookEnt une entité(interface publique) représentant les données d'un livre
+	 */
 	public BookJson(final BookEntItf bookEnt) {
 		super();
 		this.genre		= bookEnt.getGenre();
@@ -71,10 +100,18 @@ public class BookJson extends GenericResponseJson implements BookJsonItf {
 		this.stock 		= bookEnt.getStock();
 	}
 
+	/**
+	 * défini le prix de ce livre
+	 * @param price un prix
+	 */
 	public void setPrice(Float price) {
 		this.price = price;
 	}
 
+	/**
+	 * met à jour le stock de ce livre
+	 * @param i le stock du livre
+	 */
 	public void setStock(final int i) {
 		this.stock = i;
 	}

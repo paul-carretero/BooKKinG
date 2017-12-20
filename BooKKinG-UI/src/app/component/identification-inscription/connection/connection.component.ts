@@ -24,15 +24,15 @@ import { HistoriquePagesService } from '../../../service/historique-pages.servic
  */
 export class ConnectionComponent implements OnInit {
 
-  private serverResponse: string;
+  public serverResponse: string;
 
-  private connexionForm: FormGroup;
+  public connexionForm: FormGroup;
 
-  private resetPassword: boolean;
+  public resetPassword: boolean;
 
-  private resetPwdForm: FormGroup;
+  public resetPwdForm: FormGroup;
 
-  private serverResponseClass = 'bg-danger';
+  public serverResponseClass = 'bg-danger';
 
   /**
   * Constructeur du composant connection

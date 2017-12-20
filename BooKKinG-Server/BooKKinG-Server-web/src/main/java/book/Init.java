@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import book.response.InitResponseJson;
 import init.InitBeanLocal;
+import shared.HttpHelper;
 
 /**
  * Servlet implementation class Init
@@ -21,6 +22,9 @@ public class Init extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 854905681146711274L;
 	
+	/**
+	 * bean pour charger les données d'initialisation
+	 */
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/InitBean!init.InitBeanLocal")
 	private InitBeanLocal initBean;
 
@@ -36,7 +40,7 @@ public class Init extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/plain;charset=UTF-8");
+		response.setContentType(HttpHelper.HTTP_HEADERS);
 		InitResponseJson res = new InitResponseJson();
 		this.initBean.getRange(res);
 		this.initBean.getMostBuy(res);

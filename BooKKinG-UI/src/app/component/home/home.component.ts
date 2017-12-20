@@ -45,7 +45,7 @@ export class HomeComponent extends AbstractComponent implements OnInit, OnDestro
   * @param :rien
   * @return: rien
   */
-  private onMouseEnter(): void {
+  public onMouseEnter(): void {
     clearInterval(this.interval);
   }
   /**
@@ -53,15 +53,15 @@ export class HomeComponent extends AbstractComponent implements OnInit, OnDestro
   * @param :rien
   * @return: rien
   */
-  private onMouseLeave(): void {
+  public onMouseLeave(): void {
     this.interval = setInterval(this.next, HomeComponent.displayTime);
   }
 
-  private setCurrent(n: number): void {
+  public setCurrent(n: number): void {
     HomeComponent.current = n;
   }
- 
-  private isActiveClass(n: number): string {
+
+  public isActiveClass(n: number): string {
     if (HomeComponent.current === n) {
       return 'active';
     }
@@ -102,22 +102,23 @@ export class HomeComponent extends AbstractComponent implements OnInit, OnDestro
     }
   }
   /**
-  * Aller voir le détail du livre (l'offre affiché à l'accueil du site) 
+  * Aller voir le détail du livre (l'offre affiché à l'accueil du site)
   * @param :rien
   * @return: rien
   */
-  private goToBook(): void {
+  public goToBook(): void {
     if (this.currentBook) {
       this.detailLivre(this.currentBook);
     }
   }
   /**
-  * Récupérer le résumé du livre 
+  * Récupérer le résumé du livre
   * @param :rien
-  * @return: retourne une chaine vide si le livre n'a pas de de texte de résumé, sinon retourne le texte du résumé (si la taille du texte > 250 caractères, 
+  * @return: retourne une chaine vide si le livre n'a pas de de texte de résumé,
+  * sinon retourne le texte du résumé (si la taille du texte > 250 caractères,
   * le textex va concaténer avec les trois petits points )
   */
-  private getSummarizedSummary(): string {
+  public getSummarizedSummary(): string {
     if (!this.currentBook.summary) {
       return '';
     }

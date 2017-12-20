@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+@SuppressWarnings("javadoc")
 public class LoginTest  extends Mockito {
 	
 	private StringWriter stringWriter;

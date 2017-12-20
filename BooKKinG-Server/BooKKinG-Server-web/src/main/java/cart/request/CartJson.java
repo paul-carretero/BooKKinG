@@ -5,6 +5,9 @@ import cart.dataItf.CartJsonItf;
 import shared.AbstractJson;
 import shared.Validifyable;
 
+/**
+ * représente le contenu d'un panier utilisateur émis par le client
+ */
 public class CartJson extends AbstractJson implements CartJsonItf, Validifyable {
 	
 	/**
@@ -12,14 +15,16 @@ public class CartJson extends AbstractJson implements CartJsonItf, Validifyable 
 	 */
 	private static final long serialVersionUID = -5439224468396563278L;
 	
+	/**
+	 * entrée du panier (livre et quantité)
+	 */
 	private CartItemJson[] items;
 
+	/**
+	 * default constructor
+	 */
 	public CartJson() {
 		super();
-	}
-	
-	public CartJson(CartItemJson[] items) {
-		this.items = items;
 	}
 
 	@Override

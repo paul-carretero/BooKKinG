@@ -5,8 +5,14 @@ import shared.HttpHelper;
 import shared.Validifyable;
 import user.dataItf.UserJsonItf;
 
+/**
+ * représente les données utilisateur fourni par les client pour les création ou mise à jour
+ */
 public class UserJson extends AbstractJson implements UserJsonItf, Validifyable{
 	
+	/**
+	 * taille minimum des mots de passe
+	 */
 	private static final int MIN_PWD_LENGTH = 6;
 
 	/**
@@ -14,14 +20,29 @@ public class UserJson extends AbstractJson implements UserJsonItf, Validifyable{
 	 */
 	private static final long serialVersionUID = -8982345743408596911L;
 	
+	/**
+	 * nom de l'utilisateur
+	 */
 	private String name;
 	
+	/**
+	 * email de l'utilsateur
+	 */
 	private String email;
 	
+	/**
+	 * mot de passe de l'utilisateur en clair
+	 */
 	private String password;
 	
+	/**
+	 * addresse de l'utilisateur
+	 */
 	private String address;
 	
+	/**
+	 * default constructor
+	 */
 	public UserJson() {
 		super();
 	}
@@ -76,10 +97,16 @@ public class UserJson extends AbstractJson implements UserJsonItf, Validifyable{
 		}
 	}
 
+	/**
+	 * @return vrai si l'email renseigné est valide, faux sinon
+	 */
 	public boolean checkEmail() {
 		return HttpHelper.isEmailValid(this.email);
 	}
 	
+	/**
+	 * @return vrai si les données fourni sont valide pour une création, faux sinon
+	 */
 	public boolean checkContent() {
 		return (this.name.length() > 0) 
 				&& (this.address.length() > 0) 
@@ -87,6 +114,9 @@ public class UserJson extends AbstractJson implements UserJsonItf, Validifyable{
 				&& (HttpHelper.isEmailValid(this.email));
 	}
 	
+	/**
+	 * @return vrai si le mot de passe existe et respecte les critères
+	 */
 	public boolean checkContentForUpdate() {
 		return this.password.length() == 0 || this.password.length() >= MIN_PWD_LENGTH;
 	}

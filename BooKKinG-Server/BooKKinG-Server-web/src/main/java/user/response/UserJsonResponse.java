@@ -3,6 +3,10 @@ package user.response;
 import shared.GenericResponseJson;
 import user.dataItf.UserJsonResponseItf;
 
+/**
+ * représente les données d'un utilisateur retourné par le serveur
+ */
+@SuppressWarnings("unused")
 public class UserJsonResponse extends GenericResponseJson implements UserJsonResponseItf {
 
 	/**
@@ -10,27 +14,39 @@ public class UserJsonResponse extends GenericResponseJson implements UserJsonRes
 	 */
 	private static final long serialVersionUID = -3230317911884211035L;
 
+	/**
+	 * le nom de l'utilisateur
+	 */
 	private String name;
 	
+	/**
+	 * l'email de l'utilisateur
+	 */
 	private String email;
 	
+	/**
+	 * addresse de l'utilisateur
+	 */
 	private String address;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * vrai si l'utilisateur est administrateur, faux sinon
+	 */
 	private boolean admin;
 	
 	/**
-	 * @param name
-	 * @param email
-	 * @param address
-	 * @param b 
+	 * constructeur par défault
+	 * @param name nom de l'utilisateur
+	 * @param email email de l'utilisateur
+	 * @param address addresse de l'utilisateur
+	 * @param admin vrai si l'utilisateur est administrateur, faux sinon
 	 */
-	public UserJsonResponse(String name, String email, String address, boolean b) {
+	public UserJsonResponse(String name, String email, String address, boolean admin) {
 		super();
-		this.name	= name;
-		this.email	= email;
+		this.name	 = name;
+		this.email	 = email;
 		this.address = address;
-		this.admin 	= b;
+		this.admin 	 = admin;
 	}
 
 	@Override

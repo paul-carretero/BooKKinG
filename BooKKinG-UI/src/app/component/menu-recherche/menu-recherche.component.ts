@@ -27,7 +27,7 @@ export class MenuRechercheComponent extends AbstractComponent implements OnInit 
 
   ngOnInit() { }
 
-  private getSummarizedSummary(livre: Livre): string {
+  public getSummarizedSummary(livre: Livre): string {
     let points = '';
     if (livre.summary.length > 168) {
       points = '...';
@@ -39,7 +39,7 @@ export class MenuRechercheComponent extends AbstractComponent implements OnInit 
   * Méthode demandant l'ajout d'un livre au panier
   * @param livre livre à ajouter au panier
   */
-  private ajouterAuPanier(livre: Livre) {
+  public ajouterAuPanier(livre: Livre) {
     this.servicePanier.ajouterLivrePanier(livre, 1);
   }
 

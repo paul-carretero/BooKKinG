@@ -17,11 +17,11 @@ export class NotifComponent implements OnInit, OnDestroy {
 
   private static getSubject: Subject<string>;
 
-  private observableEvent: Subject<string>;
+  public observableEvent: Subject<string>;
 
   private timeout: any;
 
-  private override = '';
+  public override = '';
 
   @HostListener('window:scroll', ['$event'])
   track(event) {
@@ -54,9 +54,5 @@ export class NotifComponent implements OnInit, OnDestroy {
 
   private hide(): void {
     NotifComponent.getSubject.next();
-  }
-
-  private inview(event: any) {
-    console.log('????');
   }
 }

@@ -15,11 +15,11 @@ import { Globals } from '../../globals';
 })
 export class LivreComponent implements OnInit, OnDestroy {
 
-  private idLivre: number;
+  public idLivre: number;
 
   private sub: Subscription;
 
-  private nbLivre = 1;
+  public nbLivre = 1;
 
   constructor(private route: ActivatedRoute, private service: LivreService, private servicePanier: PanierService) { }
 
@@ -37,11 +37,11 @@ export class LivreComponent implements OnInit, OnDestroy {
     return this.service.getLivre();
   }
 
-  private getTotalPrice(): string {
+  public getTotalPrice(): string {
     return (this.livre.price * this.nbLivre).toFixed(2);
   }
 
-  private getDisplayable(str: string): string {
+  public getDisplayable(str: string): string {
     return Globals.getDisplayableName(str);
   }
 
@@ -49,11 +49,11 @@ export class LivreComponent implements OnInit, OnDestroy {
     * Méthode demandant l'ajout d'un livre au panier
     * @param livre livre à ajouter au panier
     */
-  private ajouterAuPanier(livre: Livre) {
+  public ajouterAuPanier(livre: Livre) {
     this.servicePanier.ajouterLivrePanier(livre, this.nbLivre);
   }
 
-  private setNbLivre(nb: string) {
+  public setNbLivre(nb: string) {
     this.nbLivre = Number(nb);
     if (this.nbLivre < 1) {
       this.nbLivre = 1;

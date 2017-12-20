@@ -17,6 +17,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 
+@SuppressWarnings("javadoc")
 public class UserTest extends Mockito {
 	
 	private StringWriter stringWriter;
@@ -70,7 +71,7 @@ public class UserTest extends Mockito {
 		this.stringReader = new StringReader(str);
 		this.reader = new BufferedReader(this.stringReader);
 		when (this.request.getReader()).thenReturn(this.reader);		
-		when(session.getAttribute("idUser")).thenReturn(42);
+		when(this.session.getAttribute("idUser")).thenReturn(42);
 		
 		new MockedUser().doPut(this.request, this.response);
 		this.writer.flush();
@@ -83,7 +84,7 @@ public class UserTest extends Mockito {
 		this.stringReader = new StringReader(str);
 		this.reader = new BufferedReader(this.stringReader);
 		when (this.request.getReader()).thenReturn(this.reader);		
-		when(session.getAttribute("idUser")).thenReturn(null);
+		when(this.session.getAttribute("idUser")).thenReturn(null);
 		
 		new MockedUser().doPut(this.request, this.response);
 		this.writer.flush();
@@ -97,7 +98,7 @@ public class UserTest extends Mockito {
 		this.stringReader = new StringReader(str);
 		this.reader = new BufferedReader(this.stringReader);
 		when (this.request.getReader()).thenReturn(this.reader);		
-		when(session.getAttribute("idUser")).thenReturn(42);
+		when(this.session.getAttribute("idUser")).thenReturn(42);
 		
 		new MockedUser().doGet(this.request, this.response);
 		this.writer.flush();
@@ -110,7 +111,7 @@ public class UserTest extends Mockito {
 		this.stringReader = new StringReader(str);
 		this.reader = new BufferedReader(this.stringReader);
 		when (this.request.getReader()).thenReturn(this.reader);		
-		when(session.getAttribute("idUser")).thenReturn(null);
+		when(this.session.getAttribute("idUser")).thenReturn(null);
 		
 		new MockedUser().doGet(this.request, this.response);
 		this.writer.flush();

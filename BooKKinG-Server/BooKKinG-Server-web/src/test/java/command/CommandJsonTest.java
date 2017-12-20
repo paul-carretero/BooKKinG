@@ -11,6 +11,7 @@ import shared.Genre;
 import shared.Type;
 
 
+@SuppressWarnings("javadoc")
 public class CommandJsonTest {
 	
 	private CommandJson commandJson;
@@ -31,7 +32,7 @@ public class CommandJsonTest {
 	
 	@Test
 	public void TestSetShippingCost() throws Exception {
-		this.commandJson.setShippingCost(5);;
+		this.commandJson.setShippingCost(5);
 		assertTrue(this.commandJson.toString().contains("\"shippingCost\":5")); 
 	}
 	

@@ -22,13 +22,13 @@ import { AbstractComponent } from '../abstract-component';
 
 export class FiltreComponent extends AbstractComponent implements OnInit {
 
-  private minPrice = 0;
+  public minPrice = 0;
 
-  private maxPrice = 100;
+  public maxPrice = 100;
 
-  private minMinPrice = 0;
+  public minMinPrice = 0;
 
-  private maxMaxPrice = 100;
+  public maxMaxPrice = 100;
 
   constructor(public router: Router, public navigationService: NavigationService,
     private rechercheService: RechercheService, private initService: InitService,
@@ -128,12 +128,12 @@ export class FiltreComponent extends AbstractComponent implements OnInit {
     return this.navigationService.getCurrentGenre();
   }
 
-  private setCurrentGenre(newGenre: string): void {
+  public setCurrentGenre(newGenre: string): void {
     this.navigationService.setCurrentGenre(newGenre);
     this.router.navigate([Globals.getRoute(Globals.RECHERCHE)]);
   }
 
-  private onPriceChange(raw: string, update: boolean): void {
+  public onPriceChange(raw: string, update: boolean): void {
     const tab = raw.split(',');
     this.minPrice = Number(tab[0]);
     this.maxPrice = Number(tab[1]);

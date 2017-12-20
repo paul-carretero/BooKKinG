@@ -9,6 +9,11 @@ import cart.request.CartItemJson;
 import command.dataItf.CommandJsonItf;
 import shared.GenericResponseJson;
 
+/**
+ * représente les données d'une commande passé par un utilisateur
+ * Les livre stocké dans cette représentation ne possède pas d'image ou de résumé (inutilisé)
+ */
+@SuppressWarnings("unused")
 public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 
 	/**
@@ -19,25 +24,41 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 	/**
 	 * Date de la commande
 	 */
-	@SuppressWarnings("unused")
 	private String 				date;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * id de la commande
+	 */
 	private Integer				idCmd;
 
+	/**
+	 * liste des livre de cette commande
+	 */
 	private List<BookJson>		books;
 
+	/**
+	 * liste des entrée livre et quantité de cette commande
+	 */
 	private List<CartItemJson> 	items;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * cout de livraison
+	 */
 	private int 				shippingCost;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * addrese de livraison
+	 */
 	private String				shippingAddress;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * addresse client de facturation
+	 */
 	private String				invoiceAddress;
 
+	/**
+	 * default constructor
+	 */
 	public CommandJson() {
 		super();
 		this.books 		= new LinkedList<>();
@@ -69,11 +90,6 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 		this.invoiceAddress = invoiceAddress;
 	}
 
-	/**
-	 * @param aBook
-	 * @param price
-	 * @param quantity
-	 */
 	@Override
 	public void addCmdEntry(BookEntItf aBook,Float price, int quantity) {
 		BookJson b = new BookJson(aBook);
@@ -83,11 +99,6 @@ public class CommandJson extends GenericResponseJson implements CommandJsonItf {
 		this.items.add(new CartItemJson(aBook.getIdBook(), quantity));
 	}
 	
-	/**
-	 * @param aBook
-	 * @param price
-	 * @param quantity
-	 */
 	@Override
 	public void addCmdEntry(BookEntItf aBook,Float price, int quantity, boolean isInStock) {
 		BookJson b = new BookJson(aBook);

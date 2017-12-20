@@ -14,23 +14,23 @@ export class PageComponent implements OnInit {
   ngOnInit() {
   }
 
-  private get displayedLivre(): number {
+  get displayedLivre(): number {
     return this.service.getLastLivreList().length;
   }
 
-  private get totalDisplayableLivre(): number {
+  get totalDisplayableLivre(): number {
     return this.service.getAvailableResults();
   }
 
-  private get minLivre(): number {
+  get minLivre(): number {
     return Globals.pageSize * (this.currentPage - 1) + 1;
   }
 
-  private get maxLivre(): number {
+  get maxLivre(): number {
     return this.minLivre + this.displayedLivre - 1;
   }
 
-  private get availablePage(): number[] {
+  get availablePage(): number[] {
     const res = new Array(this.service.getAvailablePages());
     let i = 0;
     while (i < res.length) {
@@ -40,21 +40,21 @@ export class PageComponent implements OnInit {
     return res;
   }
 
-  private get currentPage(): number {
+  get currentPage(): number {
     return this.service.getCurrentPage();
   }
 
-  private setPage(iPage: number): void {
+  public setPage(iPage: number): void {
     this.service.setCurrentPage(iPage);
   }
 
-  private nextPage(): void {
+  public nextPage(): void {
     if (this.currentPage < this.service.getAvailablePages()) {
       this.service.setCurrentPage(this.currentPage + 1);
     }
   }
 
-  private prevPage(): void {
+  public prevPage(): void {
     if (this.currentPage > 1) {
       this.service.setCurrentPage(this.currentPage - 1);
     }

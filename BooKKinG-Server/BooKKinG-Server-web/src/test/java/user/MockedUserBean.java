@@ -5,15 +5,15 @@ import user.dataItf.UserJsonItf;
 import user.entity.UserEntItf;
 import user.entity.UserEntity;
 
+@SuppressWarnings("javadoc")
 public class MockedUserBean implements UserBeanLocal {
 
 	public MockedUserBean() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	@Override
 	public boolean createUser(UserJsonItf user) {
-		// TODO Auto-generated method stub
 		return !(user.getEmail().equals("paul@carretero.ovh"));
 	}
 
@@ -34,7 +34,7 @@ public class MockedUserBean implements UserBeanLocal {
 
 	@Override
 	public void updateUser(int attribute, UserJsonItf data) {
-		// TODO Auto-generated method stub
+		// unimplemented
 
 	}
 

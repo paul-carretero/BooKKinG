@@ -13,6 +13,7 @@ import javax.inject.Inject;
 
 import book.bean.BookBeanLocal;
 
+@SuppressWarnings("javadoc")
 @RunWith(Arquillian.class)
 public class BookTest {
 	

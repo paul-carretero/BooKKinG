@@ -8,7 +8,7 @@
 
 #logo_img {
     width: auto;
-    height: 60px!important;
+    height: 100px!important;
     margin-top: 25px;
 }
 
@@ -98,10 +98,10 @@ ul#nav ul li:hover>a {
     letter-spacing: 2px;
 }
 
-#deconnexion{
-    color : #337ab7;
+#deconnexion {
+    color: #337ab7;
 }
 
-#deconnexion:hover{
-    color : #245985;
+#deconnexion:hover {
+    color: #245985;
 }

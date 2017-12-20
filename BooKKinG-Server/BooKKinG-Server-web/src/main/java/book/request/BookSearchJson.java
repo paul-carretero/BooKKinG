@@ -6,6 +6,9 @@ import shared.Genre;
 import shared.Type;
 import shared.Validifyable;
 
+/**
+ * représente la saisie utilisateur pour une recherche de livres
+ */
 public class BookSearchJson extends AbstractJson implements BookSearchItf, Validifyable {
 
 	/**
@@ -54,6 +57,9 @@ public class BookSearchJson extends AbstractJson implements BookSearchItf, Valid
 	private int page;
 
 
+	/**
+	 * default constructor
+	 */
 	public BookSearchJson() {
 		super();
 	}

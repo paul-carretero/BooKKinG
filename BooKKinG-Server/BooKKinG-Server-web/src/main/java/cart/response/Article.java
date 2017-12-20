@@ -2,18 +2,30 @@ package cart.response;
 
 import book.response.BookJson;
 
+/**
+ * représente un article du panier d'un utilisateur
+ */
 public class Article {
 	
+	/**
+	 * représentation du livre de cette entrée du panier
+	 */
 	private final BookJson book;
 	
+	/**
+	 * quantité de ce livre dans le panier
+	 */
 	private final int quantity;
 	
+	/**
+	 * id du livre du panier
+	 */
 	private final int idBook;
 
 	/**
-	 * @param book
-	 * @param quantity
-	 * @param idBook
+	 * @param book livre du panier
+	 * @param quantity quantité de celivre
+	 * @param idBook id de ce livre
 	 */
 	public Article(BookJson book, int quantity, int idBook) {
 		super();

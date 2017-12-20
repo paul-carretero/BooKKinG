@@ -19,9 +19,9 @@ import { AbstractComponent } from '../../abstract-component';
 })
 export class InscriptionComponent extends AbstractComponent implements OnInit {
 
-  private serverResponse: string;
+  public serverResponse: string;
 
-  private inscriptionForm: FormGroup;
+  public inscriptionForm: FormGroup;
 
   constructor(public router: Router, private service: ConnectionService, private fb: FormBuilder,
     private achatService: AchatService, private notifService: NotifService, public navigationService: NavigationService) {

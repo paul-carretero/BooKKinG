@@ -18,9 +18,9 @@ import { NavigationService } from '../../../service/navigation.service';
  */
 export class LivraisonComponent implements OnInit {
 
-  private displayCustomAddr;
+  public displayCustomAddr;
 
-  private addrTextarea: string;
+  public addrTextarea: string;
 
   constructor(private router: Router, private connectionService: ConnectionService,
     private achatService: AchatService, private navigationService: NavigationService, private serviceConnect: ConnectionService) {
@@ -35,7 +35,7 @@ export class LivraisonComponent implements OnInit {
     }
   }
 
-  
+
   get LivraisonStandard(): string {
     return Globals.prixLivraison.toFixed(2);
   }
@@ -57,11 +57,11 @@ export class LivraisonComponent implements OnInit {
     return this.addrTextarea != null && this.addrTextarea.length > 0;
   }
 
-  private updateCustomAddr(addr: string): void {
+  public updateCustomAddr(addr: string): void {
     this.addrTextarea = addr;
   }
 
-  private initDisplayCustomAddr(): void {
+  public initDisplayCustomAddr(): void {
     if (this.custAddrIsValid) {
       this.validateLivraison();
     } else {
@@ -72,17 +72,17 @@ export class LivraisonComponent implements OnInit {
     }
   }
 
-  private validateLivraison(): void {
+  public validateLivraison(): void {
     this.navigationService.setCurrentOther(Globals.PAYER);
     this.router.navigate([Globals.getRoute(Globals.PAYER)]);
   }
 
-  private ChoixPointLivraison(pointLivraison: string) {
+  public ChoixPointLivraison(pointLivraison: string): void {
     this.achatService.setAddress(pointLivraison);
     this.validateLivraison();
   }
 
-  private ChoixAdressePersonnelle() {
+  public ChoixAdressePersonnelle(): void {
     this.achatService.setAddress(this.connectionService.getCurrentUser().address);
     this.validateLivraison();
   }

@@ -22,13 +22,14 @@ import shared.HttpHelper;
  */
 public class Cart extends HttpServlet {
 	
-	private static final String UTF_CONST = "text/plain;charset=UTF-8"; 
-
 	/**
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 2680655063588941058L;
 
+	/**
+	 * bean pour les gestion des opération sur les panier utilisateur
+	 */
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/CartBean!cart.bean.CartBeanLocal")
 	private CartBeanLocal cartBean;
 
@@ -45,7 +46,7 @@ public class Cart extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType(UTF_CONST);
+		response.setContentType(HttpHelper.HTTP_HEADERS);
 		if(HttpHelper.checkAuth(request, response)) {
 			CartJsonResponse res = new CartJsonResponse();
 			this.cartBean.getCart(HttpHelper.getIdUser(request), res);
@@ -59,7 +60,7 @@ public class Cart extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType(UTF_CONST);
+		response.setContentType(HttpHelper.HTTP_HEADERS);
 		if(HttpHelper.checkAuth(request, response)) {
 			CartJson data = (CartJson) AbstractJson.fromJson(request, CartJson.class);
 			if(HttpHelper.checkAndValidData(data, response)) {
@@ -78,7 +79,7 @@ public class Cart extends HttpServlet {
 	 */
 	@Override
 	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType(UTF_CONST);
+		response.setContentType(HttpHelper.HTTP_HEADERS);
 		if(HttpHelper.checkAuth(request, response)) {
 			CartItemJson data = (CartItemJson) AbstractJson.fromJson(request, CartItemJson.class);
 			if(HttpHelper.checkAndValidData(data, response)) {
@@ -94,7 +95,7 @@ public class Cart extends HttpServlet {
 	 */
 	@Override
 	protected void doDelete(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType(UTF_CONST);
+		response.setContentType(HttpHelper.HTTP_HEADERS);
 		if(HttpHelper.checkAuth(request, response)) {
 			this.cartBean.clearCart(HttpHelper.getIdUser(request));
 			response.getWriter().append(new GenericResponseJson(true).toString());

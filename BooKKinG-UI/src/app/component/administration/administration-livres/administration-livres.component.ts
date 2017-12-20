@@ -13,19 +13,19 @@ import { Ng4FilesSelected, Ng4FilesStatus, Ng4FilesService, Ng4FilesConfig } fro
 })
 export class AdministrationLivresComponent implements OnInit {
 
-  private serverResponse: string;
+  public serverResponse: string;
 
-  private createNewBookForm: FormGroup;
+  public createNewBookForm: FormGroup;
 
-  private currentgenre = 'ANY';
+  public currentgenre = 'ANY';
 
-  private currentType = 'ANY';
+  public currentType = 'ANY';
 
-  private base64img: string;
+  public base64img: string;
 
-  private imgLoading = false;
+  public imgLoading = false;
 
-  private imgDragStatus = 'Drag And Drop Here!';
+  public imgDragStatus = 'Drag And Drop Here!';
 
   private imgConf: Ng4FilesConfig = {
     acceptExtensions: ['jpg', 'jpeg'],
@@ -79,7 +79,7 @@ export class AdministrationLivresComponent implements OnInit {
     return '';
   }
 
-  private getDisplayable(str: string): string {
+  public getDisplayable(str: string): string {
     return Globals.getDisplayableName(str);
   }
 
@@ -96,12 +96,12 @@ export class AdministrationLivresComponent implements OnInit {
     return livre;
   }
 
-  private createNewBook() {
+  public createNewBook() {
     const livre: Livre = this.recupererDonneesForm();
     this.service.ajouterNouveauLivre(livre);
   }
 
-  private filesSelect(selectedFiles: Ng4FilesSelected): void {
+  public filesSelect(selectedFiles: Ng4FilesSelected): void {
     if (selectedFiles.status !== Ng4FilesStatus.STATUS_SUCCESS) {
       switch (selectedFiles.status) {
         case Ng4FilesStatus.STATUS_MAX_FILE_SIZE_EXCEED:

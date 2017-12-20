@@ -1,49 +1,75 @@
-<header>Commandes Clients</header>
 <form (ngSubmit)="rechercherCommandes()" [formGroup]="datesForm">
-  De: <input type="date" name="dStart"  formControlName="dStart" id="dStart" #dStart ngModel>
-  À:  <input type="date" name="dEnd"  formControlName="dEnd" id="dEnd" #dEnd ngModel>
-  <button type="submit">Rechercher</button>
-</form> 
-
-
-
-<table>
-  <thead>
-    <tr>
-        <th scope="col">
-            Numréro commande 
-        </th>
-        <th scope="col">
-            Date
-        </th>
-        <th scope="col">
-          Nombre livres
-        </th>
-        <th scope="col">
-         Prix Livraison
-        </th>
-        <th scope="col">
-          Montant Total
-        </th>
-    </tr>
-</thead>
-<tbody class="table-striped">
-  <tr *ngFor=" let commande of allCommandes; ">
-    <td>
-        {{commande.idCmd}}
-    </td>
-    <td>
-        {{afficherDate(commande.date)}}
-    </td>
-    <td>
-        {{nombreLivre(commande)}}
-    </td>
-    <td>
-        {{commande.shippingCost}}
-    </td>
-    <td>
-        {{montantTotal(commande)}}
-    </td>
-  </tr>
-</tbody>
+    De: <input type="date" name="dStart" formControlName="dStart" id="dStart" #dStart ngModel> À: <input type="date" name="dEnd" formControlName="dEnd" id="dEnd" #dEnd ngModel>
+    <button type="submit">Rechercher</button>
+</form>
+<br/>
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th scope="col">
+                Numréro
+            </th>
+            <th scope="col">
+                Date
+            </th>
+            <th scope="col">
+                Adresse Livraison
+            </th>
+            <th scope="col">
+                Adresse Facturation
+            </th>
+            <th scope="col">
+                Montant
+            </th>
+        </tr>
+    </thead>
+    <tbody class="table-striped">
+        <ng-container *ngFor="let commande of allCommandes; ">
+            <tr (click)="setCurrentCommande(commande)" class="clickable" [ngClass]="{'active': currentCmd == commande}">
+                <td>
+                    {{commande.idCmd}}
+                </td>
+                <td>
+                    {{commande.date}}
+                </td>
+                <td>
+                    {{commande.shippingAddress}}
+                </td>
+                <td>
+                    {{commande.invoiceAddress}}
+                </td>
+                <td>
+                    {{getDisplayPrice(montantTotal(commande))}}€
+                </td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>
+<br/>
+<table class="table table-sm" *ngIf="currentCmd != null">
+    <thead>
+        <tr>
+            <td colspan="2">
+                Livres de la commande #{{currentCmd.idCmd}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Titre
+            </th>
+            <th>
+                Quantité
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor=" let article of articles; ">
+            <td>
+                {{article.book.title}}
+            </td>
+            <td>
+                {{article.quantity}}
+            </td>
+        </tr>
+    </tbody>
 </table>

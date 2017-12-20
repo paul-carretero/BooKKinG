@@ -5,6 +5,10 @@ import java.net.UnknownHostException;
 
 import shared.GenericResponseJsonItf;
 
+/**
+ * réponse serveur générique
+ */
+@SuppressWarnings("unused")
 public class GenericResponseJson extends AbstractJson implements GenericResponseJsonItf {
 
 
@@ -13,15 +17,24 @@ public class GenericResponseJson extends AbstractJson implements GenericResponse
 	 */
 	private static final long serialVersionUID = -127681048178592031L;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * vrai si la requête utilisateur à réussi, faux sinon
+	 */
 	private boolean success;
 
-	@SuppressWarnings("unused")
+	/**
+	 * message en cas d'echec de la requête utilisateur
+	 */
 	private String message;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * nom du serveur ayant traité cette requête
+	 */
 	private String serveurUrl = "undefined";
 
+	/**
+	 * default constructor en cas de succès
+	 */
 	public GenericResponseJson() {
 		super();
 		this.success = true;
@@ -32,7 +45,7 @@ public class GenericResponseJson extends AbstractJson implements GenericResponse
 	}
 	
 	/**
-	 * @param success
+	 * @param success vrai si la requête à reussi, faux sinon
 	 */
 	public GenericResponseJson(boolean success) {
 		super();
@@ -44,8 +57,8 @@ public class GenericResponseJson extends AbstractJson implements GenericResponse
 	}
 
 	/**
-	 * @param success
-	 * @param message
+	 * @param success success vrai si la requête à reussi, faux sinon
+	 * @param message message détaillant le résultat
 	 */
 	public GenericResponseJson(boolean success, String message) {
 		super();
