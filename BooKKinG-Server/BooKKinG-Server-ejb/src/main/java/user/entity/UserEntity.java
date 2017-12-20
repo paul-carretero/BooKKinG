@@ -21,29 +21,53 @@ public class UserEntity implements UserEntItf {
 	 */
 	private static final long serialVersionUID = 8048316863241179933L;
 
+	/**
+	 * l'id d'un utilisateur
+	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="idUser")
 	private int idUser;
 	
+	/**
+	 * le nom d'un utilisateur
+	 */
 	@Column(name="name")
 	private String name;
 	
+	/**
+	 * addresse du client
+	 */
 	@Column(name="address")
 	private String address;
 	
+	/**
+	 * email du client
+	 */
 	@Column(name="email")
 	private String email;
 
+	/**
+	 * mot de passe de l'utilisateur
+	 */
 	@Column(name="password")
 	private String password;
 	
+	/**
+	 * détail du panier de l'utilisateur
+	 */
 	@OneToMany(mappedBy="user", fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<CartDetailEntity> cart;
 	
+	/**
+	 * commandes d'un utilisateur
+	 */
 	@OneToMany(mappedBy="user", fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<CommandEntity> commands;
 	
+	/**
+	 * true si l'utilisateur est un admin
+	 */
 	@Column(name="admin")
 	private boolean admin;
 	
@@ -107,21 +131,15 @@ public class UserEntity implements UserEntItf {
 	public boolean isAdmin() {
 		return this.admin;
 	} 
-	
-	public void setIdUser(final int idUser) {
-		this.idUser = idUser;
-	}
 
+	@Override
 	public void setName(final String name) {
 		this.name = name;
 	}
 
+	@Override
 	public void setAddress(final String address) {
 		this.address = address;
-	}
-
-	public void setEmail(final String email) {
-		this.email = email;
 	}
 
 	@Override

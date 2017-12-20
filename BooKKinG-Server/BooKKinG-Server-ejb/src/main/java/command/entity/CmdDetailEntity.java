@@ -20,22 +20,37 @@ public class CmdDetailEntity implements Serializable, CmdDetailEntItf {
 	 */
 	private static final long serialVersionUID = 4664536675074750961L;
 
+	/**
+	 * command associé à cette entrée de commande
+	 */
 	@Id
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@JoinColumn(name="idCmd", nullable=false)
 	private CommandEntity command;
 
+	/**
+	 * livre associé à cette commande
+	 */
 	@Id
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@JoinColumn(name="idBook", nullable=false)
 	private BookEntity book;
 	
+	/**
+	 * quantité de livre dans cette entrée de commande
+	 */
 	@Column(name="quantity")
 	private int quantity;
 	
+	/**
+	 * prix d'une entrée de la commande (uniaire) au moment de la commandes
+	 */
 	@Column(name="price")
-	private Float price;
+	private float price;
 
+	/**
+	 * default constructor
+	 */
 	public CmdDetailEntity() {
 		super();
 	}
@@ -70,24 +85,8 @@ public class CmdDetailEntity implements Serializable, CmdDetailEntItf {
 	}
 
 	@Override
-	public Float getPrice() {
+	public float getPrice() {
 		return this.price;
-	}
-
-	public void setCommand(CommandEntity command) {
-		this.command = command;
-	}
-
-	public void setBook(BookEntity book) {
-		this.book = book;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public void setPrice(Float price) {
-		this.price = price;
 	}
 	
 	@Override

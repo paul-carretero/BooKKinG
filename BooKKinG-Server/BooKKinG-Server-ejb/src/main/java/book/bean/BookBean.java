@@ -20,6 +20,7 @@ import shared.AbstractBean;
 
 /**
  * Session Bean implementation class BookBean
+ * Gère les opérations sur les livres
  */
 @Stateless
 @LocalBean
@@ -40,7 +41,11 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 		return this.manager.find(BookEntity.class, idBook);
 	}
 
-	private String getSearchRegexp(final String userSearchWords) {
+	/**
+	 * @param userSearchWords une chaine utilisateur
+	 * @return une expression régulière pour la recherche dans la base des livres
+	 */
+	private static String getSearchRegexp(final String userSearchWords) {
 		// nettoyage de la chaine
 		String searchWords = userSearchWords.trim();
 		if(searchWords.isEmpty()) {
@@ -72,7 +77,12 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 		return res.substring(0,res.length()-1);
 	}
 
-	public String generateRegexpSubQuery(final String regExp, final String entityName) {
+	/**
+	 * @param regExp une expression régulière de recherche des livres
+	 * @param entityName nom de l'entité boook à laquelle associer la regexp
+	 * @return une condition hibernate pour la recherche de livres
+	 */
+	public static String generateRegexpSubQuery(final String regExp, final String entityName) {
 		StringBuilder res = new StringBuilder();
 		res.append("( regexp("+entityName+".title, '"+regExp+"') = 1 )");
 		res.append(" OR ");
@@ -117,6 +127,10 @@ public class BookBean extends AbstractBean implements BookBeanLocal {
 		}
 	}
 	
+	/**
+	 * met à jour le stock d'un livre
+	 * @param data données représentant un livre
+	 */
 	private void updateBook(BookCreateDataItf data) {
 		BookEntity b = getBook(data.getIdBook());
 		if(b != null) {

@@ -25,14 +25,31 @@ import user.entity.UserEntItf;
 
 /**
  * Session Bean implementation class Mailer
+ * fourni des fonctionalités de mail
+ * les envois de mail se font de manière asynchrone
  */
 @Stateless
 @LocalBean
 public class MailerBean implements MailerBeanLocal {
 
+	/**
+	 * true si l'on envoie des mail, faux sinon
+	 */
 	private static final boolean ACTUALLY_SEND_MAIL = true;
+	
+	/**
+	 * host smtp pour l'envoie de mail
+	 */
 	private static final String SMTP_HOST_NAME = "SSL0.OVH.NET";
+	
+	/**
+	 * user smtp
+	 */
 	private static final String SMTP_AUTH_USER = "contact@bookking.ovh";
+	
+	/**
+	 * port smtp
+	 */
 	private static final String SMTP_HOST_PORT = "587";
 
 	/**
@@ -40,7 +57,13 @@ public class MailerBean implements MailerBeanLocal {
 	 */
 	public MailerBean() {}
 
+	/**
+	 * authentification pour l'envoi de mail ovh
+	 */
 	private class SMTPAuthenticator extends Authenticator {
+		/**
+		 * default constructor
+		 */
 		public SMTPAuthenticator() {
 			super();
 		}
@@ -62,16 +85,22 @@ public class MailerBean implements MailerBeanLocal {
 		return String.valueOf(jcvd)+"?";
 	}
 
+	/**
+	 * @param toEmail adresse mail de destination
+	 * @param subject sujet du mail
+	 * @param textMessage corp du mail
+	 * @param useHTML vrai si le mail est au format html
+	 */
 	private void actualSender(final String toEmail, final String subject, final String textMessage, final boolean useHTML) {
-		Properties properties = System.getProperties();
+		final Properties properties = System.getProperties();
 		properties.setProperty("mail.smtp.host", SMTP_HOST_NAME);
 		properties.setProperty("mail.smtp.port", SMTP_HOST_PORT);
 		properties.setProperty("mail.user", SMTP_AUTH_USER);
 		properties.setProperty("mail.smtp.auth", "true");
-		Authenticator auth = new SMTPAuthenticator();
-		Session session = Session.getDefaultInstance(properties, auth);
+		final Authenticator auth = new SMTPAuthenticator();
+		final Session session = Session.getDefaultInstance(properties, auth);
 		try {
-			MimeMessage mail = new MimeMessage(session);
+			final MimeMessage mail = new MimeMessage(session);
 			mail.setFrom(new InternetAddress(SMTP_AUTH_USER));
 			mail.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 			mail.setSubject(subject);
@@ -92,7 +121,7 @@ public class MailerBean implements MailerBeanLocal {
 	@Asynchronous
 	@Override
 	public void sendWelcomeEmail(final UserEntItf aUser) {
-		StringBuffer actualMessage = new StringBuffer();
+		final StringBuffer actualMessage = new StringBuffer();
 		actualMessage.append("Bonjour ");
 		actualMessage.append(aUser.getName());
 		actualMessage.append("\r\n\r\n");
@@ -152,7 +181,11 @@ public class MailerBean implements MailerBeanLocal {
 		actualSender(aUser.getEmail(), "BooKKinG : Confirmation de votre commande", template, true);
 	}
 	
-	private String getTemplate(String name) {
+	/**
+	 * @param name le nom d'un template
+	 * @return un template html pour l'envoie d'un mail
+	 */
+	private static String getTemplate(String name) {
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(MailerBean.class.getResourceAsStream(name + ".html"), "UTF-8"));
 			return reader.lines().collect(Collectors.joining());

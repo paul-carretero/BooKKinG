@@ -6,18 +6,21 @@ import javax.ejb.Stateless;
 
 import book.bean.BookBeanLocal;
 import book.dataItf.BookJsonItf;
-import book.dataItf.InitResponseJsonItf;
 import book.entity.BookEntity;
 import shared.AbstractBean;
 import shared.Helper;
 
 /**
  * Session Bean implementation class Init
+ * fourni des constantes
  */
 @Stateless
 @LocalBean
 public class InitBean extends AbstractBean implements InitBeanLocal {
 	
+	/**
+	 * book bean permettant d'effectuer des opérations sur les livres
+	 */
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/BookBean!book.bean.BookBean")
 	private BookBeanLocal book;
 

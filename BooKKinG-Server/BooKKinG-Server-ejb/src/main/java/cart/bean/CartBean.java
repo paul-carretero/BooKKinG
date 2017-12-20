@@ -29,6 +29,9 @@ public class CartBean extends AbstractBean implements CartBeanLocal {
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/UserBean!user.bean.UserBeanLocal")
 	private UserBeanLocal user;
 	
+	/**
+	 * bean book pour la gestion des opérations métier sur les livres
+	 */
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/BookBean!book.bean.BookBean")
 	private BookBeanLocal book;
 	
