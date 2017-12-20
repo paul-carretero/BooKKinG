@@ -55,10 +55,20 @@ export class FinPaiementComponent extends AbstractComponent implements OnInit {
     return (this.serviceAchat.getMontantTotalCommande(this.currentCmd) + this.currentCmd.shippingCost).toFixed(2);
   }
 
+  /**
+  * Récupérer ID de commande
+  * @param :rien
+  * @return: un ID de commande de type number
+  */
   private get idCommand(): number {
     return this.serviceAchat.getCommandeCourante().idCmd;
   }
 
+  /**
+  * Récupérer adresse
+  * @param :rien
+  * @return: un ID de commande de type number
+  */
   private get Address() {
     return this.serviceAchat.getCommandeCourante().shippingAddress;
   }

@@ -97,19 +97,27 @@ export class RechercheService {
   /**
    * redéfini le prix maximum de la recherche et lance la recherche
    * @param val le nouveau prix maximum
-   */
+  */
   public setMaxPrice(val: number): void {
     this.currentRecherche.page = 1;
     this.currentRecherche.maxPrice = val;
     this.refresh();
   }
 
+  /**
+   * redéfini le prix minimum de la recherche et lance la recherche
+   * @param val le nouveau prix maximum
+  */
   public setMinPrice(val: number): void {
     this.currentRecherche.page = 1;
     this.currentRecherche.minPrice = val;
     this.refresh();
   }
 
+  /**
+   * redéfini la recherche courrante et lance la recherche si la taille du mot recherché > 2
+   * @param newSearch la nouvelle recherche
+  */
   public setCurrentSearch(newSearch: string): void {
     this.currentRecherche.page = 1;
     this.currentRecherche.anySearch = newSearch;
@@ -118,12 +126,21 @@ export class RechercheService {
     }
   }
 
+  /**
+   * redéfini la page courrante 
+   * @param iPage le numéro de la page
+  */
   public setCurrentPage(iPage: number): void {
     this.currentRecherche.page = iPage;
     this.refresh();
     this.navService.setCurrentPage(iPage);
   }
 
+  /**
+   * récupérer la page disponible
+   * @param :rien
+   * @return : retourne le numéro de la page de type number
+  */
   public getAvailablePages(): number {
     return this.currentLivreList.pagesAvailable;
   }
@@ -132,10 +149,20 @@ export class RechercheService {
     return this.currentLivreList.resultsAvailable;
   }
 
+  /**
+   * récupérer la liste des livres 
+   * @param :rien
+   * @return : liste de livres (un tableau de type Livre)
+  */
   public getLastLivreList(): Livre[] {
     return this.currentLivreList.books;
   }
 
+  /**
+   * récupérer la page courrante
+   * @param :rien
+   * @return : le numéro de la page 
+  */
   public getCurrentPage(): number {
     return this.currentRecherche.page || 1;
   }

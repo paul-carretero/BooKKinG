@@ -64,6 +64,12 @@ export class FiltreComponent extends AbstractComponent implements OnInit {
     return 'nodisplay';
   }
 
+
+  /**
+  * Fonction permet de savoir si on est bien dans l'état de transaction
+  * @param :rien
+  * @return: boolean
+  */
   get isInTransaction(): boolean {
     return Globals.transactionPage.includes(this.navigationService.getCurrentOther())
       && !this.isEndTransaction;

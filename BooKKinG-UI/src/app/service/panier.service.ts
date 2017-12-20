@@ -20,6 +20,11 @@ export class PanierService {
     this.connectionService.panierServiceRegister(this);
   }
 
+  /**
+   * Fonction permettant de récupérer le nombre des articles.
+   * @param : rien
+   * @return : le nombre des articles de type number
+   */
   public getNumberOfItems(): number {
     let res = 0;
     for (const item of this.contenuPanier) {
@@ -28,6 +33,11 @@ export class PanierService {
     return res;
   }
 
+   /**
+   * Fonction permettant de récupérer le nombre des articles.
+   * @param : rien
+   * @return : le nombre des articles de type number
+   */
   public getTotalPrice(): number {
     let res = 0;
     for (const item of this.contenuPanier) {
@@ -36,6 +46,11 @@ export class PanierService {
     return res;
   }
 
+  /**
+   * Fonction permettant de récupérer le contenu du panier.
+   * @param : rien
+   * @return : tableau des articles de type Article dans le panier
+   */
   public getContenuPanier(): Article[] {
     return this.contenuPanier;
   }
@@ -53,6 +68,7 @@ export class PanierService {
   /**
    * Méthode permettant d'ajouter un livre au panier
    * @param livre livre à ajouter au panier
+   * @param quantity le nombre du livre à ajouter
   */
   public ajouterLivrePanier(livre: Livre, quantity: number) {
     let i = 0;
@@ -78,6 +94,11 @@ export class PanierService {
     this.notifService.publish('Le livre ' + livre.title + ' a été ajouté à votre panier');
   }
 
+  /**
+   * Méthode permettant de redéfinir le nombre du livre au panier
+   * @param idBook ID du livre à modifier au panier
+   * @param quantity le nombre du livre à modifier
+  */
   public setQuantity(idBook: number, quantity: number) {
     let i = 0;
     let set = false;
@@ -114,6 +135,11 @@ export class PanierService {
     }
   }
 
+  /**
+   * Fonction permettant de récupérer le panier.
+   * Retourne le panier enregistré dans la base de donnée (au format JSON)
+   * @param :rien 
+  */
   public recupererPanier(): void {
     this.http.get(this.urlPanier, { withCredentials: true }).map(res => res.json()).subscribe(
       reponse => {
@@ -126,6 +152,10 @@ export class PanierService {
     );
   }
 
+  /**
+   * Fonction permettant de sauvegarder le panier dans la base de donnée (au format JSON).
+   * @param :rien 
+  */
   public enregistrerPanierEntier(): void {
     const enregistrementPanier = this.simplePanier(this.contenuPanier);
     this.http.post(this.urlPanier, enregistrementPanier, { withCredentials: true }).map(res => res.json()).subscribe(
@@ -137,6 +167,12 @@ export class PanierService {
     );
   }
 
+
+  /**
+   * Fonction permettant de modifier la quantité du livre dans la base de donnée (au format JSON).
+   * @param updatedArticle : article à modifier de type SimpleArticle
+   * @return : rien
+  */
   public miseAJourQuantiteLivre(updatedArticle: SimpleArticle): void {
     this.http.put(this.urlPanier, updatedArticle, { withCredentials: true }).map(res => res.json()).subscribe(
       reponse => {
@@ -147,7 +183,10 @@ export class PanierService {
     );
   }
 
-
+   /**
+   * Fonction permettant de vider le panier dans la base de donnée (au format JSON).
+   * @param :rien 
+  */
   public viderPanier(): void {
     this.contenuPanier = [];
     if (this.connectionService.getConnectionStatus()) {
@@ -160,7 +199,12 @@ export class PanierService {
       );
     }
   }
-
+  
+ /**
+   * Fonction permettant de créer le panier. 
+   * @param contenuPanier: les articles qui se trouvent au panier (un tableau de type Article)
+   * @return : un panier de type Item
+  */
   public simplePanier(contenuPanier: Article[]): Item {
     const panier: Item = new Item();
     let i = 0;

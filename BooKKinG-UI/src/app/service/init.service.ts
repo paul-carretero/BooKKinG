@@ -41,14 +41,29 @@ export class InitService {
     return this.initData.max;
   }
 
+  /**
+   * Fonction permettant de récupérer le prix minimal
+   * @param : rien 
+   * @return : le prix minimal de type number
+   */
   public getMinPrice(): number {
     return this.initData.min;
   }
 
+  /**
+   * Fonction permettant de récupérer le livre le plus acheté
+   * @param : rien 
+   * @return : le livre le plus acheté de type Livre
+   */
   public getMostBuyBook(): Livre {
     return this.initData.mostBuyBook;
   }
 
+  /**
+   * Fonction permettant de récupérer le livre le plus nouveau
+   * @param : rien 
+   * @return : le livre le plus nouveau de type Livre
+  */
   public getNewestBook(): Livre {
     return this.initData.newestBook;
   }

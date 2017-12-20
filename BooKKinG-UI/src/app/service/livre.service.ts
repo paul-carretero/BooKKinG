@@ -21,6 +21,11 @@ export class LivreService {
     return this.currentLivre;
   }
 
+   /**
+   * Fonction permettant de mettre à jour ID du livre 
+   * @param idBook : l'ID du livre de type number
+   * @return : rien
+  */
   public updateLivreId(idBook: number): void {
     if (idBook !== this.currentLivre.idBook) {
       const cacheLivre = this.cache.getLivre(idBook);
@@ -35,6 +40,11 @@ export class LivreService {
     }
   }
 
+  /**
+   * Fonction permettant de rechercher un livre
+   * Retourne le livre enregistré dans la base de donnée (au format JSON)
+   * @param idBook: ID du livre de type number
+   */
   public rechercherLivre(idBook: number): void {
     this.http.get(this.urlLivre + '/' + idBook + '/', Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       reponse => {

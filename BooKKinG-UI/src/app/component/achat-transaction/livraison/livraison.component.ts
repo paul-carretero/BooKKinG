@@ -35,10 +35,16 @@ export class LivraisonComponent implements OnInit {
     }
   }
 
+  
   get LivraisonStandard(): string {
     return Globals.prixLivraison.toFixed(2);
   }
 
+  /**
+  * Récupérer l'adresse du client
+  * @param :rien
+  * @return: adresse du client de type string
+  */
   get addressClient(): string {
     return this.connectionService.getCurrentUser().name + ' - ' + this.connectionService.getCurrentUser().address;
   }
