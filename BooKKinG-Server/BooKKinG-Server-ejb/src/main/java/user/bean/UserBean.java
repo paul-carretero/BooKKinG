@@ -22,9 +22,15 @@ import user.entity.UserEntity;
 @LocalBean
 public class UserBean extends AbstractBean implements UserBeanLocal {
 
+	/**
+	 * un bean pour l'envoi de mail
+	 */
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/MailerBean!mailer.MailerBeanLocal")
 	private MailerBeanLocal mailer;
 	
+	/**
+	 * un générateur aléatoire pour des mot de passe sécurisé
+	 */
 	private static final SecureRandom random = new SecureRandom();
 
 	/**
@@ -34,7 +40,7 @@ public class UserBean extends AbstractBean implements UserBeanLocal {
 
 	@Override
 	public UserEntItf getUser(final String email){
-		List<UserEntity> users = this.manager.createQuery(
+		final List<UserEntity> users = this.manager.createQuery(
 				" FROM UserEntity u WHERE u.email=:email")
 				.setParameter("email", email)
 				.setMaxResults(1)
@@ -52,7 +58,7 @@ public class UserBean extends AbstractBean implements UserBeanLocal {
 
 	@Override
 	public boolean tryLogin(final UserJsonItf data) {
-		UserEntItf userToCheck = getUser(data.getEmail());
+		final UserEntItf userToCheck = getUser(data.getEmail());
 		if(userToCheck != null) {
 			String hashedPwd = Helper.getEncodedPwd(data.getPassword(), data.getEmail());
 			return userToCheck.getPassword().equals(hashedPwd);
@@ -65,7 +71,7 @@ public class UserBean extends AbstractBean implements UserBeanLocal {
 		if(getUser(user.getEmail()) != null) {
 			return false;
 		}
-		UserEntity newUser = new UserEntity(
+		final UserEntity newUser = new UserEntity(
 				user.getName(),
 				user.getAddress(),
 				user.getEmail(),
@@ -79,7 +85,7 @@ public class UserBean extends AbstractBean implements UserBeanLocal {
 	@Override
 	@Asynchronous
 	public void updateUser(final int idUser, final UserJsonItf data) {
-		UserEntItf u = getUser(idUser);
+		final UserEntItf u = getUser(idUser);
 		if(data.getAddress().length() > 0) {
 			u.setAddress(data.getAddress());
 		}
@@ -91,9 +97,12 @@ public class UserBean extends AbstractBean implements UserBeanLocal {
 		}
 	}
 
+	/**
+	 * @return une chaine de caractère aléatorie de taille 8
+	 */
 	private static String randomPassword() {
 		final int pwdSize = 8;
-		char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+		final char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 		StringBuilder pwd = new StringBuilder();
 		for (int i = 0; i < pwdSize; i++) {
 			char c = chars[random.nextInt(chars.length)];
@@ -104,9 +113,9 @@ public class UserBean extends AbstractBean implements UserBeanLocal {
 
 	@Override
 	public boolean resetPassword(final String email) {
-		UserEntItf u = getUser(email);
+		final UserEntItf u = getUser(email);
 		if(u != null) {
-			String newPwd = randomPassword();
+			final String newPwd = randomPassword();
 			u.setPassword(newPwd);
 			this.mailer.sendResetPassword(u,newPwd);
 			return true;

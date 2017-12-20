@@ -19,24 +19,42 @@ import user.entity.UserEntity;
 
 public class CommandEntity implements CommandEntItf {
 
+	/**
+	 * id unique de la commande
+	 */
 	@Id
 	@Column(name="idCmd")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idCmd;
 	
+	/**
+	 * client associé à cette commande
+	 */
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@JoinColumn(name="idUser", nullable=false)
 	private UserEntity user;
 	
+	/**
+	 * date de la commande
+	 */
 	@Column(name="date")
 	private Date date;
 	
+	/**
+	 * addresse de livraison de la commande
+	 */
 	@Column(name="address")
 	private String address;
 	
+	/**
+	 * cout de livraison
+	 */
 	@Column(name="livraison")
 	private int shipping;
 	
+	/**
+	 * entrées de la commande
+	 */
 	@OneToMany(mappedBy="command", fetch=FetchType.LAZY, orphanRemoval=true, cascade=CascadeType.ALL)
 	private List<CmdDetailEntity> cmdDetails;
 	
@@ -45,17 +63,26 @@ public class CommandEntity implements CommandEntItf {
 	 */
 	private static final long serialVersionUID = 1461999638388752244L;
 
+	/**
+	 * default constructor
+	 */
 	public CommandEntity() {
 		super();
 		this.cmdDetails = new ArrayList<>();
 	}
 
-	public CommandEntity(final String address, final int shipping) {
+	/**
+	 * @param user le client de la commande
+	 * @param address adresse de livraison de la commande
+	 * @param shipping cout de livraison de la commande (à la date de la commande)
+	 */
+	public CommandEntity(final UserEntity user, final String address, final int shipping) {
 		super();
 		this.cmdDetails = new ArrayList<>();
 		this.address	= address;
 		this.date 		= new Date(System.currentTimeMillis());
 		this.shipping 	= shipping;
+		this.user 		= user;
 	}
 	
 	@Override
@@ -99,10 +126,9 @@ public class CommandEntity implements CommandEntItf {
 		return res;
 	}
 
-	public void setUser(UserEntity user) {
-		this.user = user;
-	}
-
+	/**
+	 * @param cmdDetail une nouvelle entrée pour la commande
+	 */
 	public void addEntry(CmdDetailEntity cmdDetail) {
 		this.cmdDetails.add(cmdDetail);
 	}

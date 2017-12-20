@@ -14,6 +14,7 @@ import shared.AbstractBean;
 
 /**
  * Session Bean implementation class InitBean
+ * initialise la base de données
  */
 @Singleton
 @LocalBean
@@ -25,6 +26,9 @@ public class StartUpBean extends AbstractBean {
      */
     public StartUpBean() {}
     
+    /**
+     * initialise ma base de donnée avec le fichier import.sql
+     */
     @PostConstruct
     private void initDB() {
 		try {

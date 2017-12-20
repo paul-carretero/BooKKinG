@@ -10,7 +10,7 @@ import user.entity.UserEntity;
 
 /**
  * Entity implementation class for Entity: CartDetail
- *
+ * représente une entrée d'un panier d'un utilisateur
  */
 @Entity @IdClass(CartDetailId.class)
 @Table(name="CartDetail")
@@ -22,19 +22,31 @@ public class CartDetailEntity implements Serializable, CartDetailEntItf {
 	 */
 	private static final long serialVersionUID = 3660254030963323536L;
 
+	/**
+	 * un utilisateur associé à cette entrée de panier
+	 */
 	@Id
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@JoinColumn(name="idUser", nullable=false)
 	private UserEntity user;
 
+	/**
+	 * un livre associé à cette entrée panier
+	 */
 	@Id
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@JoinColumn(name="idBook", nullable=false)
 	private BookEntity book;
 
+	/**
+	 * la quantité de livre pour cette entrée panier
+	 */
 	@Column(name="quantity", nullable=false)
 	private int quantity;
 
+	/**
+	 * default constructor
+	 */
 	public CartDetailEntity() {
 		super();
 	}
@@ -66,14 +78,9 @@ public class CartDetailEntity implements Serializable, CartDetailEntItf {
 		return this.quantity;
 	}
 
-	public void setUser(UserEntity user) {
-		this.user = user;
-	}
-
-	public void setBook(BookEntity book) {
-		this.book = book;
-	}
-
+	/**
+	 * @param amount une nouvelle quantité pour cette entrée panier
+	 */
 	public void setQuantity(int amount) {
 		this.quantity = amount;
 	}

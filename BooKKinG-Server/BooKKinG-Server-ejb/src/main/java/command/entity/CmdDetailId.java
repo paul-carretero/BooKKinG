@@ -2,13 +2,24 @@ package command.entity;
 
 import java.io.Serializable;
 
+/**
+ * classe permettant l'utilisation de clé primaire composé pour les détails des commandes
+ */
 public class CmdDetailId  implements Serializable{
 
 	/**
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 3156866025388250150L;
+	
+	/**
+	 * id de la commande
+	 */
 	public int command;
+	
+	/**
+	 * id du livre
+	 */
 	public int book;
 	
 	@Override
