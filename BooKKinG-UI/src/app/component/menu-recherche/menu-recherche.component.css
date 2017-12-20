@@ -28,12 +28,3 @@
     margin: auto;
     font-size: xx-large;
 }
-
-.btn {
-    background-color: #008080;
-    border-color: #bdc3c7;
-}
-.btn:hover{
-    background-color: #005858;   
-    border-color: #bdc3c7;
-}
