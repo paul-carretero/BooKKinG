@@ -16,7 +16,14 @@ import { AbstractComponent } from '../../abstract-component';
 export class HeaderStandardComponent extends AbstractComponent implements OnInit {
 
   private resetOnChange = '';
-
+  /**
+  * Constructeur du composant header-standard
+  * @param connectionService permet d'accéder aux services du composant ConnectionService
+  * @param rechercheService permet d'accéder aux services du composant RechercheService
+  * @param navigationService permet d'accéder aux services du composant NavigationService
+  * @param panierService permet d'accéder aux services du composant NavigationService
+  * @param routeur permet de gérer le routage
+  */
   constructor(public router: Router, private connectionService: ConnectionService,
     private panierService: PanierService, public navigationService: NavigationService,
     private rechercheService: RechercheService) {
@@ -66,7 +73,7 @@ export class HeaderStandardComponent extends AbstractComponent implements OnInit
       return null;
     }
   }
-
+  
   get numberOfCartItem(): number {
     return this.panierService.getNumberOfItems();
   }
@@ -74,7 +81,11 @@ export class HeaderStandardComponent extends AbstractComponent implements OnInit
   get totalPriceOfCart(): number {
     return this.panierService.getTotalPrice();
   }
-
+  /**
+  * Récupérer les types du livre
+  * @param :rien
+  * @return: tableau de chaine de charactères
+  */
   get typeLivres(): string[] {
     return Globals.typeLivre;
   }

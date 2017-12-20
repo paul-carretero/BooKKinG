@@ -69,14 +69,29 @@ export class FiltreComponent extends AbstractComponent implements OnInit {
       && !this.isEndTransaction;
   }
 
+  /**
+  * Récupérer l'adresse de l'utilisateur
+  * @param :rien
+  * @return: une chaine de charactères
+  */
   get adresseLivraison(): string {
     return this.serviceAchat.getCommandeCourante().shippingAddress;
   }
 
+  /**
+  * Récupérer le nom de l'utilisateur
+  * @param :rien
+  * @return: une chaine de charactères
+  */
   get nomPaiement(): string {
     return this.serviceConnection.getCurrentUser().name;
   }
 
+  /**
+  * Récupérer l'adresse de l'utilisateur
+  * @param :rien
+  * @return: une chaine de charactères
+  */
   get adressePaiement(): string {
     return this.serviceConnection.getCurrentUser().address;
   }
@@ -85,6 +100,11 @@ export class FiltreComponent extends AbstractComponent implements OnInit {
     return Globals.FIN_PAIEMENT === this.navigationService.getCurrentOther();
   }
 
+  /**
+  * Récupérer les genres du livres
+  * @param :rien
+  * @return: un tableau de chaine de charactères
+  */
   get genres(): string[] {
     const currentType = this.navigationService.getCurrentType();
     if (Globals.typeLivre.includes(currentType)) {

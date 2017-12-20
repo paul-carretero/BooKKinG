@@ -32,6 +32,11 @@ export class InitService {
     return subj;
   }
 
+ /**
+   * Fonction permettant de récupérer le prix maximal
+   * @param : rien 
+   * @return : le prix maximale de type number
+   */
   public getMaxPrice(): number {
     return this.initData.max;
   }

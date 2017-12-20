@@ -73,6 +73,12 @@ export class AchatService {
     return articles;
   }
 
+  /**
+  * Récupérer la quantité de livre
+  * @param commande : une commande
+  * @param idBook : numéro du livre
+  * @return: number
+  */
   public getQuantity(commande: Commande, idBook: number): number {
     let quantity: number;
     let i = 0;
@@ -86,8 +92,12 @@ export class AchatService {
     }
     return quantity;
   }
-
-
+  
+  /**
+  * Récupérer le montant total de commande
+  * @param commande : une commande
+  * @return: number
+  */
   public getMontantTotalCommande(commande: Commande): number {
     let articlesCommande: Article[];
     articlesCommande = this.recupererArticlesCommande(commande);
@@ -101,10 +111,20 @@ export class AchatService {
 
   }
 
+  /**
+  * Récupérer les commandes du client 
+  * @param : rien
+  * @return: tableau de commandes
+  */
   public getCommandesClient(): Commande[] {
     return this.commandesClient;
   }
 
+  /**
+  * Récupérer toutes les commandes
+  * @param : rien
+  * @return: tableau de commandes
+  */
   public getAllCommandes(): Commande[] {
     return this.allCommandes;
   }
@@ -174,20 +194,40 @@ export class AchatService {
     this.commandeCourante = new Commande();
   }
 
+  /**
+  * Modifier l'adresse 
+  * @param : une chaine de charactères
+  * @return: rien
+  */
   public setAddress(addr: string): void {
     this.address.address = addr;
   }
 
   // public getter //
 
+  /**
+  * Récupérer l'étape de paiement 
+  * @param : rien
+  * @return: une chaine de chacractères
+  */
   public getEtapePaiement(): string {
     return this.etapePaiement;
   }
 
+  /**
+  * Retourner l'état de transaction 
+  * @param : rien
+  * @return: vrai si c'est bien dans la transaction
+  */
   public getTransactionState(): boolean {
     return this.isInTransaction;
   }
 
+  /**
+  * Récupérer le prix de livraison
+  * @param : rien
+  * @return: number
+  */
   public getPrixLivraison(): number {
     if (!Globals.pointLivraison.includes(this.address.address)) {
       return Globals.prixLivraison;

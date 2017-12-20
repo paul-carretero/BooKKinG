@@ -40,11 +40,21 @@ export class HistoriquePagesService {
     res.type = o.type;
     return res;
   }
-
+  
+  /**
+   * Fonction permettant de savoir si on peut revenir à la page précédente 
+   * @param : rien 
+   * @return : vrai si le compteur et la taille des pages historiques sont tous > 0
+   */
   public canGoBack(): boolean {
     return this.count > 0 && this.histoPages.length > 0;
   }
 
+   /**
+   * Fonction permettant de revenir à la page précédente 
+   * @param : rien 
+   * @return : la page précédente de type NavigationData
+   */
   public navPagePrecedente(): NavigationData {
     const c = this.cloneNavData(this.navServ.getCurrentNavData());
     let pagePrec: NavigationData = this.histoPages.pop();
