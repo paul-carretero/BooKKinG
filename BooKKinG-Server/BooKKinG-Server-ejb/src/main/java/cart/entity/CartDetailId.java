@@ -2,13 +2,24 @@ package cart.entity;
 
 import java.io.Serializable;
 
+/**
+ * class permetant l'utilisateur d'une clé primaire composé pour l'entité cartdetail
+ */
 public class CartDetailId implements Serializable{
 	
 	/**
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = -6908277166100646567L;
+
+	/**
+	 * id utilisateur
+	 */
 	public int user;
+	
+	/**
+	 * id livre
+	 */
 	public int book;
 	
 	/**
@@ -21,6 +32,9 @@ public class CartDetailId implements Serializable{
 		this.book = book;
 	}
 	
+	/**
+	 * default constructor
+	 */
 	public CartDetailId() {
 		super();
 	}

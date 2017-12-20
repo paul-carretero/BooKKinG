@@ -19,6 +19,11 @@ export class AdministrationService {
     return this.http.post(this.urlLivre, livre, Globals.HTTP_OPTIONS).map(res => res.json());
   }
 
+  /**
+  * Appeler au service de back-end par la méthode get pour récupérer des livres
+  * @param : rien
+  * @return: rien
+  */
   public récupérerAllLivres(): void {
     const conn = this.http.get(this.urlLivre + '/ALL', Globals.HTTP_OPTIONS).map(res => res.json());
     conn.subscribe(
@@ -27,12 +32,16 @@ export class AdministrationService {
           this.allLivres = reponse.books;
         } else {
           this.allLivres = [];
-          console.log(reponse.message);
         }
       }
     );
   }
 
+  /**
+  * Récupérer des livres
+  * @param : rien
+  * @return: tableau de de livres
+  */
   public getAllLivres(): Livre[] {
     if (this.allLivres == null) {
       this.récupérerAllLivres();
@@ -40,6 +49,11 @@ export class AdministrationService {
     return this.allLivres;
   }
 
+  /**
+  * Appeler au service de back-end par la méthode get pour récupérer des livres
+  * @param livre: un livre
+  * @return: rien
+  */
   public ajouterNouveauLivre(livre: Livre): void {
     livre.idBook = 0;
     this.http.post(this.urlLivre, livre, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
@@ -53,6 +67,12 @@ export class AdministrationService {
     );
   }
 
+  /**
+  * Modifier la quantité du livre 
+  * @param idBook: id du livre de type number
+  * @param quantity: la quantité du livre de type number
+  * @return: rien
+  */
   public setQuantity(idBook: number, quantity: number): void {
     this.http.post(this.urlLivre, { idBook: idBook, stock: quantity }, Globals.HTTP_OPTIONS).map(res => res.json()).subscribe(
       reponse => {

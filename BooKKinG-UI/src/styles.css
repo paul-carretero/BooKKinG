@@ -31,6 +31,7 @@ body {
 }
 
 .bg-load{
+    color: white;
     background-color: #008080 !important;
 }
 
@@ -119,4 +120,15 @@ body {
 
 .wrapper-cart .big-button {
     font-size: 1.2em;
+}
+
+.btn {
+    color: white;
+    background-color: #008080 !important;
+    border-color: #bdc3c7 !important;
+}
+.btn:hover{
+    color: white;
+    background-color: #005858 !important;   
+    border-color: #bdc3c7 !important;
 }

@@ -1,5 +1,9 @@
 package shared;
 
+/**
+ * genre des livres
+ */
+@SuppressWarnings("javadoc")
 public enum Genre {
 	DRAMATIQUE,
 	SF,

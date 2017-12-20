@@ -15,8 +15,8 @@ public abstract class AbstractJson implements Serializable {
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID 	= -8060220138682345016L;
-	protected final static GsonBuilder	builder	= new GsonBuilder();
-	protected final static Gson 		gson 	= builder.create();
+	protected static final GsonBuilder	builder	= new GsonBuilder();
+	protected static final Gson 		gson 	= builder.create();
 
 	public AbstractJson() {}
 

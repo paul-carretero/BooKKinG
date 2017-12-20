@@ -22,7 +22,9 @@
         </span>
         <br/>
         <button class="btn btn-block btn-success" type="submit" [disabled]="!connexionForm.valid">Se connecter</button>
-        <button type="button" (click)="initResetPassword()" class="btn btn-link btn-block btn-sm">mot de passe oublié ?</button>
+        <div align="center">
+            <span type="text" (click)="initResetPassword()" class="clickable hyperlink">mot de passe oublié ?</span>
+        </div>        
     </form>
 </div>
 
@@ -40,6 +42,8 @@
         </span>
         <br/>
         <button class="btn btn-block btn-success" type="submit" [disabled]="!resetPwdForm.valid">Renvoyer un mot de passe</button>
-        <button type="button" (click)="initDefaultConnection()" class="btn btn-link btn-block btn-sm">Retour vers connexion</button>
+        <div align="center">
+            <span type="text" (click)="initDefaultConnection()" class="clickable hyperlink" >Retour vers connexion</span>
+        </div>          
     </form>
 </div>

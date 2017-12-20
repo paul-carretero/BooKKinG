@@ -148,12 +148,3 @@
     border-bottom: 3px solid transparent;
     border-top: 3px solid #590606;
 }
-
-.btn {
-    background-color: #008080;
-    border-color: #bdc3c7;
-}
-.btn:hover{
-    background-color: #005858;   
-    border-color: #bdc3c7;
-}

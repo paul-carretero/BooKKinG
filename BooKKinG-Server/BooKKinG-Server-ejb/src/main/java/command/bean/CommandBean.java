@@ -29,9 +29,15 @@ import user.entity.UserEntity;
 @LocalBean
 public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	
+	/**
+	 * un bean utilisateur pour les opérations métier sur l'utilisateur de la commande
+	 */
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/UserBean!user.bean.UserBeanLocal")
 	private UserBeanLocal user;
 
+	/**
+	 * un bean mailer pour envoyer des mails de confirmation
+	 */
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/MailerBean!mailer.MailerBeanLocal")
 	private MailerBeanLocal mailer;
 
@@ -40,11 +46,16 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 	 */
 	public CommandBean() {}
 	
+	/**
+	 * @param idCmd id de la commande
+	 * @return l'entité associé à la commande ayant l'id spécifié
+	 */
 	private CommandEntity getCommand(final int idCmd) {
 		return this.manager.find(CommandEntity.class, idCmd);
 	}
 	
 	/**
+	 * permet de stocker dans la "reponse" le contenu d'une commande
 	 * @param command
 	 * @param response
 	 * @param showStock
@@ -74,9 +85,8 @@ public class CommandBean extends AbstractBean implements CommandBeanLocal {
 		final List<CartDetailEntity> currentCart = u.getCart();
 		final int shippingPrice = Helper.getShippingPrice(data.getAddress());
 		final String shippingAddress = Helper.getAddress(data.getAddress());
-		final CommandEntity cmd = new CommandEntity(shippingAddress,shippingPrice);
+		final CommandEntity cmd = new CommandEntity(u,shippingAddress,shippingPrice);
 		
-		cmd.setUser(u);
 		this.manager.persist(cmd);
 		for(CartDetailEntity cartEntry : currentCart) {
 			CmdDetailEntity cmdDetail = new CmdDetailEntity(

@@ -1,7 +1,7 @@
 package book.response;
 
 import book.dataItf.BookJsonItf;
-import book.dataItf.InitResponseJsonItf;
+import init.InitResponseJsonItf;
 import shared.GenericResponseJson;
 
 public class InitResponseJson extends GenericResponseJson implements InitResponseJsonItf{

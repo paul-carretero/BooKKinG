@@ -15,25 +15,42 @@ import shared.Type;
 
 public class BookEntity implements Serializable, BookEntItf {
 
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 3747149389810633609L;
 	
-	private static final long serialVersionUID = 1L;
-	
+	/**
+	 * id du livre
+	 */
 	@Id
 	@Column(name="idBook")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idBook;
 	
+	/**
+	 * genre du livre
+	 */
 	@Enumerated(EnumType.STRING)
 	@Column(name="genre")
     private Genre genre;
 	
+	/**
+	 * type du livre
+	 */
 	@Enumerated(EnumType.STRING)
 	@Column(name="booktype")
     private Type type;
 	
+	/**
+	 * auteur du livre
+	 */
 	@Column(name="author")
     private String author;
 	
+	/**
+	 * résumé du livre
+	 */
 	@Column(name="summary", length=2048)
     private String summary;
 	
@@ -44,15 +61,27 @@ public class BookEntity implements Serializable, BookEntItf {
 	@Column(name="picture", length=8388608)
     private String picture;
 	
+	/**
+	 * le prix du livre
+	 */
 	@Column(name="price")
-    private Float price;
+    private float price;
 	
+	/**
+	 * le stock du livre
+	 */
 	@Column(name="stock")
     private int stock;
 	
+	/**
+	 * le titre du livre
+	 */
 	@Column(name="title")
     private String title;
 
+	/**
+	 * default constructor
+	 */
 	public BookEntity() {
 		super();
 	}
@@ -111,7 +140,7 @@ public class BookEntity implements Serializable, BookEntItf {
 	}
 
 	@Override
-	public Float getPrice() {
+	public float getPrice() {
 		return this.price;
 	}
 
@@ -130,6 +159,10 @@ public class BookEntity implements Serializable, BookEntItf {
 		this.stock -= value;
 	}
 
+	/**
+	 * met à jour le stock du livre
+	 * @param s un nouveau stock
+	 */
 	public void setStock(final int s) {
 		this.stock = s;
 	}

@@ -22,6 +22,13 @@ export class HomeComponent extends AbstractComponent implements OnInit, OnDestro
 
   private interval: any;
 
+  /**
+  * Constructeur du composant home
+  * @param routeur permet de gérer le routage
+  * @param service permet d'accéder aux services du composant NavigationService
+  * @param init permet d'accéder aux services du composant InitService
+  */
+
   constructor(private init: InitService, public router: Router, public navigationService: NavigationService) {
     super(router, navigationService);
   }
@@ -33,11 +40,19 @@ export class HomeComponent extends AbstractComponent implements OnInit, OnDestro
   ngOnDestroy() {
     clearInterval(this.interval);
   }
-
+  /**
+  * Entrer le souris dans la zone d'affichage d'un offre de livre à l'accueil
+  * @param :rien
+  * @return: rien
+  */
   private onMouseEnter(): void {
     clearInterval(this.interval);
   }
-
+  /**
+  * Le souris quitte la zone d'affichage d'un offre de livre à l'accueil
+  * @param :rien
+  * @return: rien
+  */
   private onMouseLeave(): void {
     this.interval = setInterval(this.next, HomeComponent.displayTime);
   }
@@ -45,14 +60,18 @@ export class HomeComponent extends AbstractComponent implements OnInit, OnDestro
   private setCurrent(n: number): void {
     HomeComponent.current = n;
   }
-
+ 
   private isActiveClass(n: number): string {
     if (HomeComponent.current === n) {
       return 'active';
     }
     return '';
   }
-
+  /**
+  * Incrémenter l'indice 'current' ou le remet à 0 (pour basculer les offres du livres qui sont affichés à l'accueil)
+  * @param :rien
+  * @return: rien
+  */
   private next(): void {
     if (HomeComponent.current < (HomeComponent.options.length - 1)) {
       HomeComponent.current++;
@@ -64,7 +83,11 @@ export class HomeComponent extends AbstractComponent implements OnInit, OnDestro
   get currentOption(): string {
     return HomeComponent.options[HomeComponent.current];
   }
-
+  /**
+  * Récupérer le livre souhaité qui est affiché à l'accueil (soit le livre le plus acheté, soit le plus nouveau) 
+  * @param :rien
+  * @return: un livre
+  */
   get currentBook(): Livre {
     switch (HomeComponent.current) {
       case 0: {
@@ -78,13 +101,22 @@ export class HomeComponent extends AbstractComponent implements OnInit, OnDestro
       }
     }
   }
-
+  /**
+  * Aller voir le détail du livre (l'offre affiché à l'accueil du site) 
+  * @param :rien
+  * @return: rien
+  */
   private goToBook(): void {
     if (this.currentBook) {
       this.detailLivre(this.currentBook);
     }
   }
-
+  /**
+  * Récupérer le résumé du livre 
+  * @param :rien
+  * @return: retourne une chaine vide si le livre n'a pas de de texte de résumé, sinon retourne le texte du résumé (si la taille du texte > 250 caractères, 
+  * le textex va concaténer avec les trois petits points )
+  */
   private getSummarizedSummary(): string {
     if (!this.currentBook.summary) {
       return '';
