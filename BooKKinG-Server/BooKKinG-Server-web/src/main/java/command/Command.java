@@ -26,6 +26,8 @@ public class Command extends HttpServlet {
 
 	private static final String NAME = "Command";
 
+	private static final String UTF_CONST = "text/plain;charset=UTF-8"; 
+	
 	/**
 	 * serialVersionUID
 	 */
@@ -53,7 +55,7 @@ public class Command extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/plain;charset=UTF-8");
+		response.setContentType(UTF_CONST);
 		if(HttpHelper.checkAuth(request, response)) {
 			String stringReq = HttpHelper.extractDataFromGet(NAME, request.getRequestURI());
 			if(stringReq.length() == 0) {
@@ -81,7 +83,7 @@ public class Command extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/plain;charset=UTF-8");
+		response.setContentType(UTF_CONST);
 		if(HttpHelper.checkAuth(request, response)) {
 			CommandReqJson data = (CommandReqJson) AbstractJson.fromJson(request, CommandReqJson.class);
 			if(HttpHelper.checkAndValidData(data, response)) {
@@ -97,8 +99,9 @@ public class Command extends HttpServlet {
 		}
 	}
 	
+	@Override
 	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/plain;charset=UTF-8");
+		response.setContentType(UTF_CONST);
 		if(HttpHelper.checkAuth(request, response)) {
 			CommandGetJson data = (CommandGetJson) AbstractJson.fromJson(request, CommandGetJson.class);
 			if(HttpHelper.checkAdmin(this.userBean,request,response)) {

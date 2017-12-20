@@ -8,8 +8,8 @@ public class CartDetailId implements Serializable{
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = -6908277166100646567L;
-	public int user;
-	public int book;
+	private int user;
+	private int book;
 	
 	/**
 	 * @param user

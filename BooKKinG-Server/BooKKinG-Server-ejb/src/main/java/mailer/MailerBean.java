@@ -34,6 +34,7 @@ public class MailerBean implements MailerBeanLocal {
 	private static final String SMTP_HOST_NAME = "SSL0.OVH.NET";
 	private static final String SMTP_AUTH_USER = "contact@bookking.ovh";
 	private static final String SMTP_HOST_PORT = "587";
+	private static final String END_LINE = "\r\n\r\n";
 
 	/**
 	 * Default constructor. 
@@ -95,14 +96,14 @@ public class MailerBean implements MailerBeanLocal {
 		StringBuffer actualMessage = new StringBuffer();
 		actualMessage.append("Bonjour ");
 		actualMessage.append(aUser.getName());
-		actualMessage.append("\r\n\r\n");
+		actualMessage.append(END_LINE);
 		actualMessage.append("Merci pour votre inscription sur BooKKinG et bienvenu!");
-		actualMessage.append("\r\n\r\n");
+		actualMessage.append(END_LINE);
 		actualMessage.append("Voici un rappel de vos coordonnées:\r\n");
 		actualMessage.append(aUser.getAddress());
-		actualMessage.append("\r\n\r\n");
+		actualMessage.append(END_LINE);
 		actualMessage.append("N'hésitez pas à nous contacter pour toutes autres questions");
-		actualMessage.append("\r\n\r\n");
+		actualMessage.append(END_LINE);
 		actualMessage.append("L'équipe BooKKinG");
 		actualSender(aUser.getEmail(), "BooKKinG : création de votre compte client", actualMessage.toString(), false);
 	}
@@ -113,14 +114,14 @@ public class MailerBean implements MailerBeanLocal {
 		StringBuffer actualMessage = new StringBuffer();
 		actualMessage.append("Bonjour ");
 		actualMessage.append(aUser.getName());
-		actualMessage.append("\r\n\r\n");
+		actualMessage.append(END_LINE);
 		actualMessage.append("Nous avons bien pris en compte votre demande de nouveau mot de passe");
 		actualMessage.append("\r\n");
 		actualMessage.append("Voici votre nouveau mot de passe: ");
 		actualMessage.append(newPwd);
-		actualMessage.append("\r\n\r\n");
+		actualMessage.append(END_LINE);
 		actualMessage.append("N'hésitez pas à nous contacter pour toutes autres questions");
-		actualMessage.append("\r\n\r\n");
+		actualMessage.append(END_LINE);
 		actualMessage.append("L'équipe BooKKinG");
 		actualSender(aUser.getEmail(), "BooKKinG : votre nouveau mot de passe", actualMessage.toString(), false);
 	}

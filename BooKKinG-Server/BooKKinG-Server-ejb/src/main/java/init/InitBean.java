@@ -18,6 +18,8 @@ import shared.Helper;
 @LocalBean
 public class InitBean extends AbstractBean implements InitBeanLocal {
 	
+	private static final String ERR_MESSAGE = "[initFail, lack of data]";
+	
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/BookBean!book.bean.BookBean")
 	private BookBeanLocal book;
 
@@ -40,7 +42,7 @@ public class InitBean extends AbstractBean implements InitBeanLocal {
 			BookJsonItf aBook = response.prepareNewBookNewest();
 			aBook.setField(randomBook);
 		} catch (Exception e) {
-			System.err.println("[initFail, lack of data]" + e.getMessage());
+			System.err.println(ERR_MESSAGE + e.getMessage());
 		}
 	}
 	
@@ -50,7 +52,7 @@ public class InitBean extends AbstractBean implements InitBeanLocal {
 		try {
 			mostBuyBook = (Integer) this.manager.createNativeQuery("SELECT idBook FROM (SELECT idBook, SUM(quantity) AS TotalQuantity FROM CmdDetail GROUP BY idBook ORDER BY TotalQuantity DESC LIMIT 1) as t").getSingleResult();
 		} catch (Exception e) {
-			System.err.println("[initFail, lack of data]" + e.getMessage());
+			System.err.println(ERR_MESSAGE + e.getMessage());
 			return;
 		}
 		BookJsonItf res = response.prepareNewBookMostBuy();
@@ -66,7 +68,7 @@ public class InitBean extends AbstractBean implements InitBeanLocal {
 			min = Math.max(0, min);
 			max = Math.round(((Float) this.manager.createNativeQuery("SELECT MAX(price) FROM Book").getSingleResult())+1);
 		} catch (Exception e) {
-			System.err.println("[initFail, lack of data]" + e.getMessage());
+			System.err.println(ERR_MESSAGE + e.getMessage());
 		}
 		response.setRange(min, max);
 	}

@@ -22,6 +22,9 @@ import user.response.UserJsonResponse;
  */
 public class User extends HttpServlet {
 
+	private static final String UTF_CONST = "text/plain;charset=UTF-8";
+	
+	
 	@SuppressWarnings("unused")
 	private static final String NAME = "User";
 
@@ -46,7 +49,7 @@ public class User extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/plain;charset=UTF-8");
+		response.setContentType(UTF_CONST);
 		if(HttpHelper.checkAuth(request, response)) {
 			UserEntItf uItf = this.userBean.getUser(HttpHelper.getIdUser(request));
 			UserJsonResponse res = new UserJsonResponse(uItf.getName(), uItf.getEmail(), uItf.getAddress(), uItf.isAdmin());
@@ -60,7 +63,7 @@ public class User extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/plain;charset=UTF-8");
+		response.setContentType(UTF_CONST);
 		HttpSession session = request.getSession();
 		UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 		if(HttpHelper.checkAndValidData(data, response)) {
@@ -85,7 +88,7 @@ public class User extends HttpServlet {
 	 */
 	@Override
 	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/plain;charset=UTF-8");
+		response.setContentType(UTF_CONST);
 		if(HttpHelper.checkAuth(request, response)) {
 			UserJson data = (UserJson) AbstractJson.fromJson(request, UserJson.class);
 			if(HttpHelper.checkAndValidData(data, response)) {

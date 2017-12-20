@@ -31,6 +31,8 @@ public class Book extends HttpServlet {
 	private static final long serialVersionUID = 6506725183529575051L;
 
 	private static final String NAME = "Book";
+	
+	private static final String UTF_CONST = "text/plain;charset=UTF-8";
 
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/BookBean!book.bean.BookBeanLocal")
 	private BookBeanLocal bookBean;
@@ -51,7 +53,7 @@ public class Book extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/plain;charset=UTF-8");
+		response.setContentType(UTF_CONST);
 		String stringReq = HttpHelper.extractDataFromGet(NAME, request.getRequestURI());
 		if(stringReq.matches("^\\d+$")) {
 			BookEntItf requestedBook = this.bookBean.getBook(Integer.valueOf(stringReq));
@@ -80,7 +82,7 @@ public class Book extends HttpServlet {
 	 */
 	@Override
 	protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/plain;charset=UTF-8");
+		response.setContentType(UTF_CONST);
 		BookSearchJson data = (BookSearchJson) AbstractJson.fromJson(request, BookSearchJson.class);
 		if(HttpHelper.checkAndValidData(data, response)) {
 			BookListJsonItf res = new BookListJson();
@@ -95,14 +97,14 @@ public class Book extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/plain;charset=UTF-8");
+		response.setContentType(UTF_CONST);
 		if(HttpHelper.checkAuth(request, response)) {
 			BookPostJson data = (BookPostJson) AbstractJson.fromJson(request, BookPostJson.class);
-			if(HttpHelper.checkAndValidData(data, response)) {
-				if(HttpHelper.checkAdmin(this.userBean,request,response)) {
-					this.bookBean.addBooks(data);
-					response.getWriter().append(new GenericResponseJson(true).toString());
-				}
+			if((HttpHelper.checkAndValidData(data, response))
+					&& (HttpHelper.checkAdmin(this.userBean,request,response)))
+			{								
+				this.bookBean.addBooks(data);
+				response.getWriter().append(new GenericResponseJson(true).toString());				
 			}
 		}
 	}

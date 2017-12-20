@@ -8,8 +8,8 @@ public class CmdDetailId  implements Serializable{
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 3156866025388250150L;
-	public int command;
-	public int book;
+	private int command;
+	private int book;
 	
 	@Override
 	public int hashCode() {
