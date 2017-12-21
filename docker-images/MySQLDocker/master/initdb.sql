@@ -1,7 +1,0 @@
-use mysql;
-CREATE USER 'user'@'%' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON *.* TO 'user'@'%';
-GRANT REPLICATION SLAVE ON *.* TO 'synchUser'@'%' IDENTIFIED BY 'synchUser';
-FLUSH PRIVILEGES;
-SHOW MASTER STATUS;
-SHOW VARIABLES LIKE 'server_id';
