@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RechercheService } from '../../../service/recherche.service';
 import { Globals } from '../../../globals';
+import { NavigationService } from '../../../service/navigation.service';
 
 @Component({
   selector: 'app-page',
@@ -9,7 +10,7 @@ import { Globals } from '../../../globals';
 })
 export class PageComponent implements OnInit {
 
-  constructor(private service: RechercheService) { }
+  constructor(private service: RechercheService, private navigationService: NavigationService) { }
 
   ngOnInit() {
   }
@@ -45,18 +46,18 @@ export class PageComponent implements OnInit {
   }
 
   public setPage(iPage: number): void {
-    this.service.setCurrentPage(iPage);
+    this.navigationService.setCurrentPage(iPage);
   }
 
   public nextPage(): void {
     if (this.currentPage < this.service.getAvailablePages()) {
-      this.service.setCurrentPage(this.currentPage + 1);
+      this.navigationService.setCurrentPage(this.currentPage + 1);
     }
   }
 
   public prevPage(): void {
     if (this.currentPage > 1) {
-      this.service.setCurrentPage(this.currentPage - 1);
+      this.navigationService.setCurrentPage(this.currentPage - 1);
     }
   }
 

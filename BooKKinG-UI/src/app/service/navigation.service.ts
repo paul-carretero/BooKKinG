@@ -25,7 +25,6 @@ export class NavigationService {
 
   /**
    * Fonction permettant de récupérer la Navgation courrante
-   * @param :rien 
    * @return : retourne la Navgation courrante de type NavigationData
   */
   public getCurrentNavData(): NavigationData {
@@ -84,7 +83,6 @@ export class NavigationService {
 
   /**
    * Fonction permettant de récupérer la page courrante
-   * @param :rien 
    * @return : retourne le numéro de la page courrante de type number
   */
   public getCurrentPage(): number {
@@ -93,7 +91,7 @@ export class NavigationService {
 
   /**
    * Fonction permettant de redéfinir la type courrant
-   * @param newType :  nouveau type à redéfinir (string) 
+   * @param newType :  nouveau type à redéfinir (string)
    * @return : rien
   */
   public setCurrentType(newType: string): void {
@@ -105,7 +103,7 @@ export class NavigationService {
 
   /**
    * Fonction permettant de redéfinir la genre courrant
-   * @param newGenre :  nouveau genre à redéfinir (string) 
+   * @param newGenre :  nouveau genre à redéfinir (string)
    * @return : rien
   */
   public setCurrentGenre(newGenre: string): void {
@@ -123,7 +121,7 @@ export class NavigationService {
 
   /**
    * Fonction permettant de redéfinir la navagation courrante
-   * @param newCurrent :  nouvelle navagation à redéfinir (NavigationData) 
+   * @param newCurrent :  nouvelle navagation à redéfinir (NavigationData)
    * @return : rien
   */
   public setCurrent(newCurrent: NavigationData) {
@@ -131,11 +129,10 @@ export class NavigationService {
     this.defNewNavData();
   }
 
-   /**
-   * Fonction permettant de redéfinir les détails de la Navigation (type, genre, livre, other)
-   * @param newLivre :  nouveau livre à redéfinir (Livre) 
-   * @return : rien
-  */
+  /**
+  * Fonction permettant de redéfinir les détails de la Navigation (type, genre, livre, other)
+  * @param newLivre :  nouveau livre à redéfinir (Livre)
+ */
   public setFromLivre(newLivre: Livre): void {
     this.reset();
     this.current.type = newLivre.type;
@@ -147,11 +144,26 @@ export class NavigationService {
 
   /**
    * Fonction permettant de redéfinir la page courrante
-   * @param iPage :  numéro de la page à redéfinir (number) 
-   * @return : rien
+   * @param iPage :  numéro de la page à redéfinir (number)
   */
   public setCurrentPage(iPage: number) {
     this.current.nPage = iPage;
     this.defNewNavData();
+  }
+
+  /**
+ * redéfini la recherche courrante et lance la recherche si la taille du mot recherché > 2
+ * @param newSearch la nouvelle recherche
+*/
+  public setCurrentSearch(newSearch: string): void {
+    if (newSearch.length > 2) {
+      this.reset();
+      this.current.type = 'ANY';
+      this.current.genre = 'ANY';
+      this.current.other = Globals.RECHERCHE;
+      this.current.nPage = 1;
+      this.current.search = newSearch;
+      this.defNewNavData();
+    }
   }
 }

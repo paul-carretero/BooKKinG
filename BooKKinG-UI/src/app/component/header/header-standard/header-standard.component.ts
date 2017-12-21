@@ -35,7 +35,6 @@ export class HeaderStandardComponent extends AbstractComponent implements OnInit
 
   public setCurrentType(type: string): void {
     this.resetOnChange = '';
-    this.rechercheService.setCurrentSearch('');
     if (Globals.typeLivre.includes(type)) {
       this.navigationService.setCurrentType(type);
     }
@@ -44,18 +43,16 @@ export class HeaderStandardComponent extends AbstractComponent implements OnInit
 
   public setCurrentOther(other: string): void {
     this.resetOnChange = '';
-    this.rechercheService.setCurrentSearch('');
     this.navigate(other);
   }
 
   public search(str: string): void {
     this.resetOnChange = str;
     if (str.length > 2) {
-      this.navigationService.setCurrentType('ANY');
+      this.navigationService.setCurrentSearch(str);
       this.router.navigate([Globals.getRoute(Globals.RECHERCHE)]);
-      this.rechercheService.setCurrentSearch(str);
     } else {
-      this.rechercheService.setCurrentSearch('');
+      this.navigationService.setCurrentSearch('');
     }
   }
 

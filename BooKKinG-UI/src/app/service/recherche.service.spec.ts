@@ -13,13 +13,13 @@ describe('RechercheService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        RechercheService, 
+        RechercheService,
         NavigationService,
         CookieService,
         LRUCacheService,
         NotifService
       ],
-      imports: [ 
+      imports: [
         RouterTestingModule,
         HttpModule
       ]

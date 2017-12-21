@@ -98,9 +98,9 @@ public class CmdDetailEntity implements Serializable, CmdDetailEntItf {
 		res.append("<table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">");
 		res.append("<tr>");
 		res.append("<td class=\"mobile-hide-img\">");
-		res.append("<a href=\"\"><img width=\"110\" height=\"92\" src=\"data:image/jpeg;base64, ");
-		res.append(this.book.getPicture());
-		res.append("\" alt=\"item2\"></a>");
+		//res.append("<a href=\"\"><img width=\"110\" height=\"92\" src=\"data:image/jpeg;base64, ");
+		//res.append(this.book.getPicture());
+		//res.append("\" alt=\"item2\"></a>");
 		res.append("</td>");
 		res.append("<td class=\"product\">");
 		res.append("<span style=\"color: #4d4d4d; font-weight: bold;\">");

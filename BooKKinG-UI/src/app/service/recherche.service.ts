@@ -9,6 +9,7 @@ import { NavigationService } from './navigation.service';
 import { NavigationData } from '../model/navigation-data';
 import { LRUCacheService } from './lrucache.service';
 import { NotifService } from './notif.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
 export class RechercheService {
@@ -18,6 +19,8 @@ export class RechercheService {
   private currentLivreList: ReponseRecherche;
 
   private currentRecherche: Recherche;
+
+  private searchSub: Subscription;
 
   constructor(private http: Http, private navService: NavigationService,
     private cache: LRUCacheService, private notifService: NotifService) {
@@ -72,12 +75,15 @@ export class RechercheService {
 
   private refresh(): void {
     if (!this.isEmpty()) {
+      if (this.searchSub != null) {
+        this.searchSub.unsubscribe();
+      }
       if (this.cache.includes(this.currentRecherche)) {
         this.currentLivreList = this.cache.get(this.currentRecherche);
       } else {
         this.notifService.publish('SEARCH');
         this.currentLivreList = new ReponseRecherche();
-        this.rechercherEnsembleLivre(this.currentRecherche).subscribe(
+        this.searchSub = this.rechercherEnsembleLivre(this.currentRecherche).subscribe(
           reponse => {
             if (reponse.success) {
               this.currentLivreList = reponse;
@@ -115,25 +121,12 @@ export class RechercheService {
   }
 
   /**
-   * redéfini la recherche courrante et lance la recherche si la taille du mot recherché > 2
-   * @param newSearch la nouvelle recherche
-  */
-  public setCurrentSearch(newSearch: string): void {
-    this.currentRecherche.page = 1;
-    this.currentRecherche.anySearch = newSearch;
-    if (this.currentRecherche.anySearch.length > 2) {
-      this.refresh();
-    }
-  }
-
-  /**
-   * redéfini la page courrante 
+   * redéfini la page courrante
    * @param iPage le numéro de la page
   */
   public setCurrentPage(iPage: number): void {
     this.currentRecherche.page = iPage;
     this.refresh();
-    this.navService.setCurrentPage(iPage);
   }
 
   /**
@@ -150,7 +143,7 @@ export class RechercheService {
   }
 
   /**
-   * récupérer la liste des livres 
+   * récupérer la liste des livres
    * @param :rien
    * @return : liste de livres (un tableau de type Livre)
   */
@@ -161,7 +154,7 @@ export class RechercheService {
   /**
    * récupérer la page courrante
    * @param :rien
-   * @return : le numéro de la page 
+   * @return : le numéro de la page
   */
   public getCurrentPage(): number {
     return this.currentRecherche.page || 1;

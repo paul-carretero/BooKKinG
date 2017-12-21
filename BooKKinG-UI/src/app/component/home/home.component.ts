@@ -84,7 +84,7 @@ export class HomeComponent extends AbstractComponent implements OnInit, OnDestro
     return HomeComponent.options[HomeComponent.current];
   }
   /**
-  * Récupérer le livre souhaité qui est affiché à l'accueil (soit le livre le plus acheté, soit le plus nouveau) 
+  * Récupérer le livre souhaité qui est affiché à l'accueil (soit le livre le plus acheté, soit le plus nouveau)
   * @param :rien
   * @return: un livre
   */

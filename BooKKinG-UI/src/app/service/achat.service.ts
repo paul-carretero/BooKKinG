@@ -92,7 +92,7 @@ export class AchatService {
     }
     return quantity;
   }
-  
+
   /**
   * Récupérer le montant total de commande
   * @param commande : une commande
@@ -112,7 +112,7 @@ export class AchatService {
   }
 
   /**
-  * Récupérer les commandes du client 
+  * Récupérer les commandes du client
   * @param : rien
   * @return: tableau de commandes
   */
@@ -195,7 +195,7 @@ export class AchatService {
   }
 
   /**
-  * Modifier l'adresse 
+  * Modifier l'adresse
   * @param : une chaine de charactères
   * @return: rien
   */
@@ -206,7 +206,7 @@ export class AchatService {
   // public getter //
 
   /**
-  * Récupérer l'étape de paiement 
+  * Récupérer l'étape de paiement
   * @param : rien
   * @return: une chaine de chacractères
   */
@@ -215,7 +215,7 @@ export class AchatService {
   }
 
   /**
-  * Retourner l'état de transaction 
+  * Retourner l'état de transaction
   * @param : rien
   * @return: vrai si c'est bien dans la transaction
   */
