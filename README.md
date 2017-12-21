@@ -4,13 +4,16 @@ Installation des dépendances
 -----------------------------
 > - `npm install jquery --save`
 > - `npm install --save-dev @types/jquery`
-> - `ng build`
 > - `npm install --save bootstrap`
 > - `npm install font-awesome --save`
 > - `npm install ngx-cookie --save`
 > - `npm install ngx-cookie-service --save`
 > - `npm i ng2-tooltip-directive`
 > - `npm i --save angular4-files-upload`
+
+Compilation
+-----------------------------
+> - `ng build --prod`
 
 BooKKinG-Server
 ==============
@@ -27,12 +30,12 @@ API Back-End
 
 > **Servlets Disponible:**
 
-> - `http://bookking.ovh/BooKKinG-Server-web/Login` operation sur les connexion utilisateurs
-> - `http://bookking.ovh/BooKKinG-Server-web/User` operation sur les comptes utilisateurs
-> - `http://bookking.ovh/BooKKinG-Server-web/Book` requête sur un ou des livres proposé à la vente
-> - `http://bookking.ovh/BooKKinG-Server-web/Cart` operation (et synchro) sur le contenu du panier utilisateur
-> - `http://bookking.ovh/BooKKinG-Server-web/Command` operation et récupération des commandes utilisateur
-> - `http://bookking.ovh/BooKKinG-Server-web/Init` récupère un package avec des informations d'initialisation
+> - `http://bookking.ovh/Login` operation sur les connexion utilisateurs
+> - `http://bookking.ovh/User` operation sur les comptes utilisateurs
+> - `http://bookking.ovh/Book` requête sur un ou des livres proposé à la vente
+> - `http://bookking.ovh/Cart` operation (et synchro) sur le contenu du panier utilisateur
+> - `http://bookking.ovh/Command` operation et récupération des commandes utilisateur
+> - `http://bookking.ovh/Init` récupère un package avec des informations d'initialisation
 
 ----------
 
@@ -230,7 +233,7 @@ Liste des Json retourné par l'API en sortie (server -> client):
 #### /Init
 
 > **GET:**
-> Information sur l’authentification de l'utilisateur
+> Informations semi-static sur les livres et l'application
 > 
 > - **paramètre** : -
 > - **retourne** : [InitResponseJson](#InitResponseJson)
@@ -293,7 +296,7 @@ Liste des Json retourné par l'API en sortie (server -> client):
 > **GET:**
 > Permet de récupérer les données d'un livre par son id
 > 
-> - **paramètre** : url : `<HOST>/BooKKinG-Server-web/Book/<idBook>/`
+> - **paramètre** : url : `/Book/<idBook>/`
 > - **retourne** : [BookJson](#BookJson) correspondant à l'id du livre spécifiée
 
 ---------
@@ -348,7 +351,7 @@ Liste des Json retourné par l'API en sortie (server -> client):
 > **GET:**
 > Permet de récupérer les données d'une commande d'un utilisateur connecté
 > 
-> - **paramètre** : url : `<HOST>/BooKKinG-Server-web/Command/<idCmd>/`
+> - **paramètre** : url : `/Command/<idCmd>/`
 > - **retourne** : [CommandJson](#CommandJson)
 
 ---------
