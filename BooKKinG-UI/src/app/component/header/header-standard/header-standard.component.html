@@ -20,9 +20,7 @@
     </nav>
     <div class="col-md-3 block-login">
         <button (click)="setCurrentOther('PANIER')" class="btn btn-block btn-success btn-sm">
-      <fa name="shopping-cart "></fa> &nbsp;&nbsp; {{numberOfCartItem}} livre
-      <ng-container *ngIf="numberOfCartItem > 1">s</ng-container>
-      ({{getDisplayPrice(totalPriceOfCart)}} €)
+      <fa name="shopping-cart "></fa> &nbsp;&nbsp; {{numberOfCartItem}} livre<ng-container *ngIf="numberOfCartItem > 1">s</ng-container> ({{getDisplayPrice(totalPriceOfCart)}} €)
     </button>
         <ng-container *ngIf="identity == null ">
             <button (click)="setCurrentOther('LOGIN')" class="btn btn-block btn-success btn-sm">

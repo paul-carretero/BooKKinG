@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import book.bean.BookBeanLocal;
+import book.bean.BookBeanROLocal;
 import book.dataItf.BookListJsonItf;
 import book.entity.BookEntItf;
 import book.request.BookPostJson;
@@ -40,6 +41,12 @@ public class Book extends HttpServlet {
 	 */
 	@EJB(lookup="java:app/BooKKinG-Server-ejb/BookBean!book.bean.BookBeanLocal")
 	private BookBeanLocal bookBean;
+	
+	/**
+	 * Bean pour les recherche (read only) sur les livres
+	 */
+	@EJB(lookup="java:app/BooKKinG-Server-ejb/BookBeanRO!book.bean.BookBeanROLocal")
+	private BookBeanROLocal bookBeanRO;
 	
 	/**
 	 * bean pour les vérification droit admin
@@ -93,7 +100,7 @@ public class Book extends HttpServlet {
 		BookSearchJson data = (BookSearchJson) AbstractJson.fromJson(request, BookSearchJson.class);
 		if(HttpHelper.checkAndValidData(data, response)) {
 			BookListJsonItf res = new BookListJson();
-			this.bookBean.getBooks(data, res);
+			this.bookBeanRO.getBooks(data, res);
 			response.getWriter().append(res.toString());
 		}
 	}

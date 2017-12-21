@@ -4,7 +4,6 @@ import javax.ejb.Local;
 
 import book.dataItf.BookListJsonItf;
 import book.dataItf.BookCreateDataItf;
-import book.dataItf.BookSearchItf;
 import book.entity.BookEntity;
 
 /**
@@ -19,13 +18,6 @@ public interface BookBeanLocal {
 	 * @return l'entité associé à ce livre
 	 */
 	public BookEntity getBook(int idBook);
-
-	/**
-	 * effectue une recherche sur l'ensemble des entités livre
-	 * @param searchData données de la recherche
-	 * @param response contient une liste de livre, sera rempli par le bean en fonction des résultats
-	 */
-	public void getBooks(BookSearchItf searchData,BookListJsonItf response);
 
 	/**
 	 * créé un livre dans la base de donnée de manière asynchrone et persistante

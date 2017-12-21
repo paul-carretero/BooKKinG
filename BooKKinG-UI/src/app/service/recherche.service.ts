@@ -47,13 +47,15 @@ export class RechercheService {
 
   private newRechercheFromNavData(navData: NavigationData): void {
     if (navData.other === Globals.RECHERCHE && navData.livre == null) {
+      this.currentRecherche.page = Number(navData.nPage.toFixed(0)); // force reference update
+      if (this.currentRecherche.page == null
+        || this.currentRecherche.type !== navData.type
+        || this.currentRecherche.genre !== navData.genre) {
+        this.currentRecherche.page = 1;
+      }
       this.currentRecherche.anySearch = navData.search;
       this.currentRecherche.type = navData.type;
       this.currentRecherche.genre = navData.genre;
-      this.currentRecherche.page = Number(navData.nPage.toFixed(0)); // force reference update
-      if (this.currentRecherche.page == null) {
-        this.currentRecherche.page = 1;
-      }
       this.refresh();
     }
   }

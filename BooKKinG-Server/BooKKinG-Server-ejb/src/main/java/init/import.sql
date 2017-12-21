@@ -1,5 +1,8 @@
 /* users */
 
+DELETE FROM `user`;
+DELETE FROM `Book`;
+
 INSERT INTO `user`(idUser, address, admin, email, name, password) VALUES(1000001,'47 rue marius Charles 38420 Domene', true, 'paul@carretero.ovh', 'Paul Carretero', 'dcdcdd2d9862aeff9354b57eba5ac2fc2bc557f1cad8ee9d041f0df45134726' )
 
 /* romans*/
